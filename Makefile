@@ -9,6 +9,6 @@ remote-fasse staging-fasse prod-fasse:  ENV := env no_proxy=.harvard.edu http_pr
 
 build-demo:
 	docker pull $(OS_IMAGE)
-	docker run --rm -it -v $(WORKING_DIR):/usr/local/app -w /usr/local/app $(OS_IMAGE) /bin/bash
+	docker run --rm -v $(WORKING_DIR):/usr/local/app -w /usr/local/app $(OS_IMAGE) ./build.sh
 
 test:
