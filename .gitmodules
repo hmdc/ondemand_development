@@ -1,0 +1,3 @@
+[submodule "ondemand"]
+	path = ondemand
+	url = https://github.com/hmdc/ondemand.git
