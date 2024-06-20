@@ -1,0 +1,24 @@
+name: build-demo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ${{ github.sha }}
+        uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+
+      - name: Build
+        working-directory: .
+        run: make build-demo
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ood-demo-artifact
+          retention-days: 1
+          path: ./target/ood-demo.tar.gz
