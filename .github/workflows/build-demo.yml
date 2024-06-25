@@ -12,9 +12,9 @@ jobs:
         with:
           submodules: 'true'
 
-      - name: Build
+      - name: Build and Release
         working-directory: .
-        run: make build-demo
+        run: make release-demo
 
       - name: Upload release artifact
         uses: actions/upload-artifact@v4

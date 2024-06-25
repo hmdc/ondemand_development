@@ -1,0 +1,43 @@
+FROM ood_puppet:5.0.1
+
+COPY ./config/local/puppet/manifests /etc/puppetlabs/code/environments/production/manifests
+COPY ./config/local/puppet/data /etc/puppetlabs/code/environments/production/data
+COPY ./config/local/puppet/files /etc/puppetlabs/code/environments/production/files
+
+RUN dnf install -y epel-release
+# install all the dependencies
+RUN dnf update -y && \
+    dnf install -y dnf-utils && \
+    dnf config-manager --set-enabled powertools && \
+    dnf install -y \
+        passwd \
+        file \
+        lsof \
+        sudo \
+        gcc \
+        gcc-c++ \
+        git \
+        patch \
+        lua-posix \
+        rsync \
+        rclone \
+        sshpass \
+        httpd
+        
+RUN dnf clean all && rm -rf /var/cache/dnf/*
+
+RUN groupadd -g $OOD_GID ood || : && \
+    useradd -u $OOD_UID --create-home --gid $OOD_GID ood && \
+    mkdir -p /home/ood/ondemand/data && \
+    mkdir -p /home/ood/.ssh && \
+    chmod 0700 /home/ood/.ssh && \
+    ssh-keygen -t rsa -N '' -f /home/ood/.ssh/id_rsa && \
+    chown -R ${OOD_UID}:${OOD_GID} /home/ood && \
+    echo -n "ood" | passwd --stdin ood
+RUN /usr/bin/htdbm -bc /etc/httpd/.htpasswd.dbm ood ood
+
+COPY ./docker/puppet.conf /etc/puppetlabs/puppet/puppet.conf
+RUN /opt/puppetlabs/bin/puppet module install osc-openondemand --version 5.0.1
+
+RUN systemctl enable puppetserver
+
