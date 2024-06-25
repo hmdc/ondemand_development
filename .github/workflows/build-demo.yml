@@ -14,7 +14,7 @@ jobs:
           path: src
 
       - name: Build and Release
-        working-directory: .
+        working-directory: src
         run: make release-demo
 
       - name: Checkout OOD
