@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../javascript/dashboard.js"],
+  "sourcesContent": ["'use strict';\n\njQuery(function(){\n  $(\"a[target=_blank]\").on(\"click\", function(event) {\n    // open url using javascript, instead of following directly\n    event.preventDefault();\n\n    if(window.open($(this).attr(\"href\")) == null){\n      // link was not opened in new window, so display error msg to user\n      const html = $(\"#js-alert-danger-template\").html();\n      const msg = \"This link is configured to open in a new window, but it doesn't seem to have opened. \" +\n            \"Please disable your popup blocker for this page and try again.\";\n\n      // replace message in alert and add to main div of layout\n      $(\"div[role=main]\").prepend(html.split(\"ALERT_MSG\").join(msg));\n    }\n  });\n});\n"],
+  "mappings": ";AAEA,OAAO,WAAU;AACf,IAAE,kBAAkB,EAAE,GAAG,SAAS,SAAS,OAAO;AAEhD,UAAM,eAAe;AAErB,QAAG,OAAO,KAAK,EAAE,IAAI,EAAE,KAAK,MAAM,CAAC,KAAK,MAAK;AAE3C,YAAM,OAAO,EAAE,2BAA2B,EAAE,KAAK;AACjD,YAAM,MAAM;AAIZ,QAAE,gBAAgB,EAAE,QAAQ,KAAK,MAAM,WAAW,EAAE,KAAK,GAAG,CAAC;AAAA,IAC/D;AAAA,EACF,CAAC;AACH,CAAC;",
+  "names": []
+}

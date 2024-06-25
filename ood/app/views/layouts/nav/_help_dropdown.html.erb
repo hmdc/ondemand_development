@@ -1,0 +1,24 @@
+<li class="nav-item dropdown" role="none">
+  <a href="#" title="<%= t('dashboard.nav_help_title') %>" class="nav-link dropdown-toggle"
+    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+    role="menuitem">
+    <i class="fas fa-question-circle" aria-hidden="true"></i><span class="d-sm-none d-md-none d-lg-inline"> <%= t('dashboard.nav_help_title') %></span><span class="caret"></span>
+  </a>
+
+  <ul class="dropdown-menu <%= local_assigns.fetch(:menu_alignment, 'dropdown-menu-end') %>" role="menu">
+    <%= nav_link(t('dashboard.nav_help_support'), "question-circle", support_url, new_tab: true) %>
+    <%= nav_link(t('dashboard.nav_help_docs'), "info-circle", docs_url, new_tab: true) %>
+    <%= nav_link(t('dashboard.nav_help_change_password'), "key", passwd_url, new_tab: true) %>
+    <%= nav_link(t('dashboard.nav_help_two_factor'), "mobile-alt", configure_2fa_url, new_tab: true) %>
+    <% if help_custom_url %>
+      <%= nav_link(t('dashboard.nav_help_custom'), "question-circle", help_custom_url, new_tab: true) %>
+    <% end %>
+    <% unless @user_configuration.support_ticket.empty? %>
+      <%= nav_link(t('dashboard.nav_help_support_ticket'), "medkit", support_path, new_tab: false) %>
+    <% end %>
+
+    <% if help_links %>
+      <%= render partial: 'layouts/nav/group_items', locals: help_links.to_h %>
+    <% end %>
+  </ul>
+</li>

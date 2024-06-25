@@ -1,0 +1,5 @@
+<div id="<%= "id_#{session.id}" %>" class="card session-panel mb-4"
+  data-id="<%= session.id%>" data-hash="<%= session.to_hash %>" >
+  <%= render_card_partial('card_header', session) %>
+  <%= render_card_partial('card_body', session) %>
+</div>
