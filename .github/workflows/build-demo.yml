@@ -11,14 +11,29 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: 'true'
+          path: src
 
       - name: Build and Release
         working-directory: .
         run: make release-demo
 
-      - name: Upload release artifact
-        uses: actions/upload-artifact@v4
+      - name: Checkout OOD
+        uses: actions/checkout@v4
         with:
-          name: ood-demo-artifact
-          retention-days: 1
-          path: ./target/ood-demo.tar.gz
+          repository: hmdc/ondemand
+          ref: ood_staging_demo
+          path: target
+
+      - name: Copy OOD demo build
+        run: |
+          rm -rf target/ood
+          cp -R src/ondemand/apps/dashboard target/ood
+
+      - name: Commit new build
+          run: |
+            cd target
+            git config user.name "github-iqss[bot]"
+            git config user.email "github-iqss[bot]@users.noreply.github.com"
+            git add .
+            git commit -m "OOD main built"
+            git push
