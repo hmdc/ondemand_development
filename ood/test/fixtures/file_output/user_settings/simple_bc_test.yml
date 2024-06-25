@@ -1,8 +1,0 @@
----
-batch_connect_templates:
-  sys/bc_paraview:
-    test template:
-      cluster: quick
-      bc_num_hours: '5'
-      bc_account: abc123
-      bc_vnc_resolution: 500x600

@@ -1,2 +1,0 @@
-<% erb_md_test = "Ohio Supercomputer Center"%>
-# <%= "Welcome to the #{erb_md_test}!" %>

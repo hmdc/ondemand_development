@@ -1,5 +1,0 @@
-cluster: "owens"
-attributes:
-  version: 'the version'
-  account: 'the one with all the $'
-  node_type: 'the biggest one'
