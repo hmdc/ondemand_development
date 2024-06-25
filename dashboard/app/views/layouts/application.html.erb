@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="<%= Configuration.locale %>">
+<head>
+  <title><%= content_for?(:title) ? yield(:title) : "Dashboard - #{@user_configuration.dashboard_title}" %></title>
+  <%= favicon %>
+
+  <%= javascript_include_tag 'application', nonce: true %>
+  <% custom_javascript_paths.each do |custom_file_config| %>
+    <script src="<%= custom_file_config[:src] %>" type="<%= custom_file_config[:type] %>" nonce="<%= content_security_policy_nonce %>"></script>
+  <% end %>
+  <%= stylesheet_link_tag 'application', nonce: content_security_policy_nonce, media: 'all', rel: 'preload stylesheet', as: 'style', type: 'text/css' %>
+  <%= render partial: '/layouts/nav/styles', locals: { bg_color: @user_configuration.brand_bg_color, link_active_color:  @user_configuration.brand_link_active_bg_color } %>
+  <% custom_css_paths.each do |path| %>
+    <link rel="stylesheet" media="all" href="<%= path %>" nonce="<%= content_security_policy_nonce %>" />
+  <% end %>
+
+  <%= render partial: 'layouts/google_analytics' %>
+
+  <%= yield :head %>
+
+  <%= csrf_meta_tags %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="profile" content="<%= @user_configuration.profile %>">
+
+  <%= render partial: 'layouts/config' %>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-md shadow-sm navbar-color navbar-<%= @user_configuration.navbar_type %>">
+      <ul class="navbar-nav w-100 align-items-center" role="menubar">
+        <%= render partial: 'layouts/nav/logo' %>
+      
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar">
+          <% if @nav_bar.empty? %>
+            <%= render partial: 'layouts/nav/featured_apps' %>
+            <%= render partial: 'layouts/nav/group', collection: @nav_groups %>
+            <%= render partial: 'layouts/nav/sessions', nav_groups: @nav_groups if Configuration.app_development_enabled? || @nav_groups.any?(&:has_batch_connect_apps?) %>
+            <%= render partial: 'layouts/nav/all_apps' if @user_configuration.show_all_apps_link %>
+          <% else %>
+            <%= render partial: 'layouts/nav/custom_navigation', locals: { navigation: @nav_bar }%>
+          <% end %>
+
+          <!-- add some space between nav_bar and help_menu -->
+          <div class="ms-auto"></div>
+
+          <% if @help_bar.empty? %>
+            <%= render partial: 'layouts/nav/develop_dropdown' %>
+            <%= render partial: 'layouts/nav/help_dropdown' %>
+            <%= render partial: 'layouts/nav/user' %>
+            <%= render partial: 'layouts/nav/log_out' %>
+          <% else %>
+            <%= render partial: 'layouts/nav/custom_navigation', locals: { navigation: @help_bar, menu_alignment: 'dropdown-menu-end' }%>
+          <% end %>
+        </div>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="<%= local_assigns[:layout_container_class] || 'container-md' %> content mt-4" role="main">
+
+    <% @announcements.select(&:valid?).each do |announcement| %>
+      <div class="alert alert-<%= announcement.type %> announcement" role="alert">
+        <%= raw OodAppkit.markdown.render(announcement.msg) %>
+      </div>
+    <% end %>
+
+    <%= render "layouts/browser_warning" %>
+
+    <%= render partial: "shared/insufficient_quota", locals: { quotas: @my_quotas } if @my_quotas && @my_quotas.any? %>
+    <%= render partial: "shared/insufficient_balance", locals: { balances: @my_balances } if @my_balances && @my_balances.any? %>
+    <%= render partial: "shared/bad_cluster_config" if invalid_clusters.any? %>
+
+    <div id="js-alert-danger-template" class="d-none" aria-hidden="true">
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert">
+          <span class="sr-only">Close</span>
+        </button>
+        ALERT_MSG
+      </div>
+    </div>
+
+    <% if alert %>
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert">
+          <span class="sr-only">Close</span>
+        </button>
+        <%= alert %>
+      </div>
+    <% end %>
+
+    <% if notice %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert">
+          <span class="sr-only">Close</span>
+        </button>
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <%= yield %>
+
+  </div><!-- /.container -->
+
+  <%= render "layouts/footer" %>
+</body>
+</html>
