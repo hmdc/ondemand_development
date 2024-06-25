@@ -30,10 +30,10 @@ jobs:
           cp -R src/ondemand/apps/dashboard target/ood
 
       - name: Commit new build
-          run: |
-            cd target
-            git config user.name "github-iqss[bot]"
-            git config user.email "github-iqss[bot]@users.noreply.github.com"
-            git add .
-            git commit -m "OOD main built"
-            git push
+        run: |
+          cd target
+          git config user.name "github-iqss[bot]"
+          git config user.email "github-iqss[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "OOD main built"
+          git push
