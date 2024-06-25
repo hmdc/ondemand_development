@@ -1,0 +1,31 @@
+support_ticket_basic:
+  email:
+    to: "support@support.system.com"
+
+support_ticket:
+  description: |
+    <strong>My Description Text</strong><br />
+    This is a description text for the frontend with HTML support
+
+  #ui_template: "rt_service_template"
+  attributes:
+    email:
+      required: true
+    subject:
+      value: "OnDemand Problem: "
+  rt_api:
+    server: "http://rt:34000"
+    user: "root"
+    pass: "password"
+    queues:
+      - "General"
+  email_bak:
+    email_template_: "custom_template"
+    from_: "config@example.com"
+    to: "support@support.system.com"
+    delivery_method_back: "smtp"
+    delivery_settings:
+      address: "host.docker.internal"
+      port: "25"
+      open_timeout: 30
+      read_timeout: 30

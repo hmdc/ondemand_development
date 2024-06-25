@@ -1,0 +1,49 @@
+project_size_timeout: 10
+project_size_enabled: false
+host_based_profiles: false
+disable_dashboard_logo: false
+pinned_apps_group_by:
+show_all_apps_link: false
+jobs_app_alpha: true
+bc_dynamic_js: true
+bc_saved_settings: true
+cancel_session_enabled: true
+
+navbar_type: dark
+
+default_profile: fasrc
+
+help_menu:
+  - group: "Docs"
+  - title: "Documentation"
+    icon: "fas://book"
+    page: "docs"
+  - group: "Interface"
+  - title: "RESET"
+    profile: ""
+    icon: "fas://user"
+  - title: "FASRC"
+    profile: "fasrc"
+    icon: "/public/fasrc_logo.jpg"
+  - title: "SID"
+    profile: "sid"
+    icon: "/public/sid_logo.png"
+
+profile_links:
+  - group: "Profiles"
+  - title: "Default"
+    profile: ""
+    icon: fas://user
+  - title: "Team 1"
+    profile: "team1"
+  - title: "Team 2"
+    profile: "team2"
+  - title: "NEW 3"
+    profile: "team3"
+
+
+dashboard_layout:
+  rows:
+    - columns:
+        - width: 12
+          widgets:

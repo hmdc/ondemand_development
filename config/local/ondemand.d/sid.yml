@@ -1,7 +1,4 @@
-group_based_profiles: false
 profiles:
-  ood:
-
   sid:
     show_all_apps_link: false
     announcement_path: "/etc/ood/config/announcement.sid.d/"
@@ -18,8 +15,10 @@ profiles:
     custom_css_files: ["sid.css"]
 
     pinned_apps_group_by:
-    pinned_apps: ["*/ql_*"]
-    
+    pinned_apps:
+      - "sys/RStudio"
+      - "sys/rdesktop"
+
     nav_bar:
       - "files"
       - "jobs"
@@ -29,14 +28,7 @@ profiles:
             icon: "fas://terminal"
             url: "/pun/sys/shell/ssh/slurmctld"
             new_tab: true
-      - title: "Interactive Apps"
-        apps:
-          - "sys/RemoteDesktop/main"
-          - "sys/Jupyter/main"
-          - "sys/Matlab/main"
-          - "sys/RStudioServer/main"
-          - "sys/Stata/main"
-          - "sys/SAS/main"
+      - "interactive apps"
       - "sessions"
 
     help_bar:
@@ -62,11 +54,8 @@ profiles:
         - columns:
             - width: 12
               widgets:
-                - "sid/welcome_message"
                 - "sessions"
-                - "sid/pinned_apps"
-                - "sid/quick_links"
-                - "sid/docs"
+                - "pinned_apps"
 
     custom_pages:
       docs:
