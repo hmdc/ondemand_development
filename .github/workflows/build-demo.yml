@@ -20,7 +20,7 @@ jobs:
       - name: Checkout OOD
         uses: actions/checkout@v4
         with:
-          repository: hmdc/ondemand
+          repository: hmdc/ondemand_development
           ref: ood_staging_demo
           path: target
 
