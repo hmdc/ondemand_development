@@ -69,8 +69,9 @@ This addition will be merged with existing values for the `openondemand::install
 All the configuration related to the demo installation is stored locally under [config/demo](config/demo) and copied into the build with the GitHub action.
 
 ## Making changes to OnDemand
-cd ondemand
-git fetch
+git submodule update --remote ondemand
+git add ondemand
+git commit -m "Updated ondemand codebase"
 
 
 
