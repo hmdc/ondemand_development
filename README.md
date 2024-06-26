@@ -68,6 +68,11 @@ This addition will be merged with existing values for the `openondemand::install
 ### Configuration
 All the configuration related to the demo installation is stored locally under [config/demo](config/demo) and copied into the build with the GitHub action.
 
+## Making changes to OnDemand
+cd ondemand
+git fetch
+
+
 
 ## Docker Images
 File: docker/Dockerfile.systemd
