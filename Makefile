@@ -1,6 +1,6 @@
 # default run ood locally
 all:: start_ood
-.PHONY: start_ood stop_ood clean build-latest-ood build_demo start_ood_installer install_ood commit_ood build_ood docker-puppet ssh
+.PHONY: start_ood stop_ood clean build-latest-ood build_system_demo build_user_demo start_ood_installer install_ood commit_ood build_ood docker-puppet ssh
 
 OS_IMAGE := rockylinux/rockylinux:8
 WORKING_DIR := $(shell pwd)
@@ -31,7 +31,7 @@ build_latest_ood:
 	#docker run --rm -v $(WORKING_DIR):/usr/local/app -w /usr/local/app $(SID_OOD_IMAGE) ./ood_build.sh
 	# BUILD OOD WITH ROCKY8 IMAGE
 	docker run --rm -v $(WORKING_DIR):/usr/local/app -w /usr/local/app $(OS_IMAGE) ./rocky8_build.sh
-build_demo: build_latest_ood
+build_system_demo: build_latest_ood
     # COPY DEMO CONFIGURATION
 	cp -R src/config/demo/. src/ondemand/apps/dashboard
 
