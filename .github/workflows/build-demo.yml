@@ -27,7 +27,7 @@ jobs:
       - name: Copy OOD demo build
         run: |
           rm -rf target/*
-          cp -R ./config/demo/. ./ondemand/apps/dashboard
+          cp -R src/config/demo/. src/ondemand/apps/dashboard
           cp -R src/ondemand/apps/dashboard/. target
 
       - name: Commit new build
