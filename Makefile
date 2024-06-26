@@ -1,6 +1,6 @@
-# default build target
-all:: build-latest-ood
-.PHONY: up down build-latest-ood ood_installer build_ood docker-puppet ssh
+# default run ood locally
+all:: start_ood
+.PHONY: start_ood stop_ood clean build-latest-ood build_demo start_ood_installer install_ood commit_ood build_ood docker-puppet ssh
 
 OS_IMAGE := rockylinux/rockylinux:8
 WORKING_DIR := $(shell pwd)
@@ -14,17 +14,26 @@ SID_SLURM_IMAGE := hmdc/sid-slurm:v3-slurm-21-08-6-1
 
 ENV := env SID_SLURM_IMAGE=$(SID_SLURM_IMAGE) SID_OOD_IMAGE=$(SID_OOD_IMAGE) OOD_UID=$(OOD_UID) OOD_GID=$(OOD_GID)
 
-up: down
-	$(ENV) docker-compose up --build
+start_ood: stop_ood
+	$(ENV) docker-compose up --build || :
 
-down:
+stop_ood:
 	$(ENV) docker-compose down -v || :
+
+clean:
+	rm -rf ./ondemand/apps/dashboard/data
+	rm -rf ./ondemand/apps/dashboard/node_modules
+	rm -rf ./ondemand/apps/dashboard/vendor/bundle
+	rm -rf ./ondemand/apps/dashboard/.env
 
 build_latest_ood:
 	# BUILD OOD WITH SID OOD IMAGE
 	#docker run --rm -v $(WORKING_DIR):/usr/local/app -w /usr/local/app $(SID_OOD_IMAGE) ./ood_build.sh
 	# BUILD OOD WITH ROCKY8 IMAGE
 	docker run --rm -v $(WORKING_DIR):/usr/local/app -w /usr/local/app $(OS_IMAGE) ./rocky8_build.sh
+build_demo: build_latest_ood
+    # COPY DEMO CONFIGURATION
+	cp -R src/config/demo/. src/ondemand/apps/dashboard
 
 start_ood_installer:
 	docker create --rm --name ood_installer --privileged -p 43000:443 ood_puppet:5.0.1
@@ -45,5 +54,5 @@ ssh:
 docker_systemd:
 	docker build -t rocky_systemd:8 -f Dockerfile.systemd .
 
-docker_puppet:
+docker_ood_installer:
 	docker build -t ood_puppet:5.0.1 -f docker/Dockerfile.puppet .

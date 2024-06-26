@@ -15,7 +15,7 @@ jobs:
 
       - name: Build and Release
         working-directory: src
-        run: make build_latest_ood
+        run: make build_demo
 
       - name: Checkout OOD
         uses: actions/checkout@v4
@@ -27,7 +27,6 @@ jobs:
       - name: Copy OOD demo build
         run: |
           rm -rf target/*
-          cp -R src/config/demo/. src/ondemand/apps/dashboard
           cp -R src/ondemand/apps/dashboard/. target
 
       - name: Commit new build

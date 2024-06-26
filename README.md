@@ -1,6 +1,6 @@
 # OnDemand Development
 
-## Checkout and Build
+## Local Environment - Checkout, Build, and Deploy
 git clone --recurse-submodules https://github.com/hmdc/ondemand_development.git
 
 Build OOD code from the directory: `ondemand/apps/dashboard `.
@@ -9,6 +9,24 @@ The build assumes that the application will be deployed as  `/pun/sys/ood `
 ```
 make build-latest-ood
 ```
+
+We use Docker Compose to deploy locally. We deploy the OOD build, an Request Tracker server, and a Slurm cluster with 2 compute nodes.
+Review the [docker-compose.yml](docker-compose.yml) file for more information. To deploy the build locally and start the environment:
+```
+make start_ood
+```
+
+OOD Version 3.1.4 is deployed under: [https://localhost:33000/pun/sys/dashboard](https://localhost:33000/pun/sys/dashboard)
+
+OOD Latest is deployed under: [https://localhost:33000/pun/sys/ood](https://localhost:33000/pun/sys/ood)
+
+Request Tracker with credentials `root` => `password` is deployed under: [http://localhost:34000/](http://localhost:34000/)
+
+The latest version takes around 5 minutes to start up from the first request.
+
+RStudio and Remote Desktop are the only interactive applications deployed in the local environment and they are both functional.
+
+The configuration for the local environment is mounted into the OOD container from the local directory: [config/local](config/local)
 
 ## Update OnDemand
 Update OnDemand code to the latest version from the HMDC fork: https://github.com/hmdc/ondemand.git
@@ -46,6 +64,10 @@ openondemand::install_apps:
     git_revision: ood_staging_demo
 ```
 This addition will be merged with existing values for the `openondemand::install_apps` property.
+
+### Configuration
+All the configuration related to the demo installation is stored locally under [config/demo](config/demo) and copied into the build with the GitHub action.
+
 
 ## Docker Images
 File: docker/Dockerfile.systemd

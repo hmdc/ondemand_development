@@ -4,8 +4,7 @@ support_ticket_basic:
 
 support_ticket:
   description: |
-    <strong>My Description Text</strong><br />
-    This is a description text for the frontend with HTML support
+    This is a description text for the frontend
 
   #ui_template: "rt_service_template"
   attributes:
@@ -17,6 +16,7 @@ support_ticket:
     server: "http://rt:34000"
     user: "root"
     pass: "password"
+    priority: 4
     queues:
       - "General"
   email_bak:
