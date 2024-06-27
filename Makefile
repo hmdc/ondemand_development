@@ -34,7 +34,7 @@ build_latest_ood:
 	docker run --rm -v $(WORKING_DIR):/usr/local/app -w /usr/local/app $(OS_IMAGE) ./rocky8_build.sh
 build_system_demo: build_latest_ood
     # COPY DEMO CONFIGURATION
-	cp -R src/config/demo/. src/ondemand/apps/dashboard
+	cp -R config/demo/. ondemand/apps/dashboard
 
 start_ood_installer:
 	docker create --rm --name ood_installer --privileged -p 43000:443 ood_puppet:5.0.1
