@@ -8,7 +8,4 @@ Rails.application.config.after_initialize do
     labs.unshift(primary)
     paths.concat labs.map { |p| FavoritePath.new("/n/holyscratch01/#{p}", title: "Scratch #{p}")  }
   end
-
-  NavConfig.categories = ["Clusters", "Files", "Jobs", "Interactive Apps" ]
-  NavConfig.categories_whitelist = true
 end

@@ -40,6 +40,9 @@ git commit -m "Update OnDemand codebase"
 ## Building and Deploying OOD Demo
 ### Building
 This is completed with GitHub actions.
+> Note<br>
+> The demo has been configured to work on the Cannon cluster only.
+
 
 Go to the actions tab in the  `ondemand_development ` project: https://github.com/hmdc/ondemand_development/actions
 

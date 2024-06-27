@@ -10,13 +10,13 @@ module OodCore
       # @param config [#to_h] the configuration for the batch connect template
       def self.build_turbovnc(config)
         context = config.to_h.symbolize_keys.reject { |k, _| k == :template }
-        Templates::TURBOVNC.new(context)
+        Templates::Turbovnc.new(context)
       end
     end
 
     module Templates
       # A batch connect template that starts up a VNC server within a batch job
-      class TURBOVNC < Template
+      class Turbovnc < Template
         # @param context [#to_h] the context used to render the template
         # @option context [#to_sym, Array<#to_sym>] :conn_params ([]) A list of
         #   connection parameters added to the connection file (`:host`,
@@ -103,7 +103,9 @@ module OodCore
                 #{vnc_clean}
 
                 # Attempt to start VNC server
-                VNC_OUT=$(vncserver -log "#{vnc_log}" -rfbauth "#{vnc_passwd}" -nohttpd -noxstartup #{vnc_args} 2>&1)
+                # FASRC modified: turbovnc > ~v2.2.5 no longer accepts -nohttpd
+                #VNC_OUT=$(vncserver -log "#{vnc_log}" -rfbauth "#{vnc_passwd}" -nohttpd -noxstartup #{vnc_args} 2>&1)
+                VNC_OUT=$(vncserver -log "#{vnc_log}" -rfbauth "#{vnc_passwd}" -noxstartup #{vnc_args} 2>&1)
                 VNC_PID=$(pgrep -s 0 Xvnc) # the script above will daemonize the Xvnc process
                 echo "${VNC_OUT}"
 
@@ -147,6 +149,7 @@ module OodCore
 
               # Launch websockify websocket server
               echo "Starting websocket server..."
+              # FASRC modified: use a specific port range allowed by firewall
               websocket=$(find_port ${host} 7000 11000) 
               #{websockify_cmd} -D ${websocket} localhost:${port}
 
