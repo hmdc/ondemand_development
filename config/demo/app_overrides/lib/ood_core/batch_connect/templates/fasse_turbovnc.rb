@@ -1,6 +1,6 @@
 require "ood_core/refinements/hash_extensions"
-# THIS IS THE CANNON VERSION
-# FIND PORT BETWEEN 7000 AND 11000
+# THIS IS THE FASSE VERSION
+# FIND PORT BETWEEN 12000 AND 14000
 module OodCore
   module BatchConnect
     class Factory
@@ -103,7 +103,9 @@ module OodCore
                 #{vnc_clean}
 
                 # Attempt to start VNC server
-                VNC_OUT=$(vncserver -log "#{vnc_log}" -rfbauth "#{vnc_passwd}" -nohttpd -noxstartup #{vnc_args} 2>&1)
+                # FASRC modified: turbovnc > ~v2.2.5 no longer accepts -nohttpd
+                #VNC_OUT=$(vncserver -log "#{vnc_log}" -rfbauth "#{vnc_passwd}" -nohttpd -noxstartup #{vnc_args} 2>&1)
+                VNC_OUT=$(vncserver -log "#{vnc_log}" -rfbauth "#{vnc_passwd}" -noxstartup #{vnc_args} 2>&1)
                 VNC_PID=$(pgrep -s 0 Xvnc) # the script above will daemonize the Xvnc process
                 echo "${VNC_OUT}"
 
@@ -147,7 +149,8 @@ module OodCore
 
               # Launch websockify websocket server
               echo "Starting websocket server..."
-              websocket=$(find_port ${host} 7000 11000) 
+              # FASRC modified: use a specific port range allowed by firewall
+              websocket=$(find_port ${host} 12000 14000)
               #{websockify_cmd} -D ${websocket} localhost:${port}
 
               # Set up background process that scans the log file for successful
