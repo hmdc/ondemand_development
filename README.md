@@ -68,11 +68,42 @@ This addition will be merged with existing values for the `openondemand::install
 ### Configuration
 All the configuration related to the demo installation is stored locally under [config/demo](config/demo) and copied into the build with the GitHub action.
 
+
 ## Making changes to OnDemand
+
+make clean
+
+
+### Update OnDemand code for the development project
+```
 git submodule update --remote ondemand
 git add ondemand
 git commit -m "Updated ondemand codebase"
+```
+### Implement changes to the OnDemand codebase
 
+### Running Tests
+In order to run the system tests locally, we need to make changes to the [./ondemand/apps/dashboard/test/application_system_test_case.rb](./ondemand/apps/dashboard/test/application_system_test_case.rb) file.
+
+Add the following options at the beginning of the test, just below the `driven_by` line:
+```
+options.add_argument('--no-sandbox') unless options.args.include?('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage') unless options.args.include?('--disable-dev-shm-usage')
+```
+
+Start the OOD tester Docker image:
+```
+make start_ood_tester
+```
+
+This will start the image and install the required libraries for testing. Once completed, we can run tests from the command prompt.
+
+Run the required tests, eg:
+```
+bundle exec rake test TEST=test/apps/request_tracker_service_test.rb
+bundle exec rake test TEST=test/integration/saved_settings_widget_test.rb
+bundle exec rake test TEST=test/system/preset_apps_navbar_test.rb
+```
 
 
 ## Docker Images
@@ -80,13 +111,19 @@ File: docker/Dockerfile.systemd
 Name: Systemd Image
 Description: Creates a base image based on Rocky8 with Systemd installed. This is required by Puppet to initialize, start, and configure services.
 How to build it:
-Build Puppet Image: make docker_systemd
+make docker_systemd
 
 File: docker/Dockerfile.puppet
-Name: Puppet Image
+Name: OOD Installer
 Description: Puppet base image based on our Systemd image. This image has Puppet, OOD Puppet module, and all required modules to install OOD.
 How to build it:
-Build Puppet Image: make docker_puppet
+make docker_ood_installer
+
+File: docker/Dockerfile.test
+Name: OOD Tester Image
+Description: Image based on Ruby and Chromedriver with the required software to run OOD tests.
+How to build it:
+make docker_ood_tester
 
 File: N/A
 Name: hmdc/sid-ood:ood-3.1.4.el8
@@ -94,7 +131,7 @@ Description: OODv3.1.4 installation based on out Puppet image. This is the image
 This image has been pushed to DockerHub: https://hub.docker.com/r/hmdc/sid-ood/tags
 
 How to build it:
-Build Puppet Image: make docker_puppet
+Build Puppet Image: make docker_ood_installer
 Start Puppet Image: make start_ood_installer
 Run Puppet and install OOD: make install_ood
 Commit new OOD image locally and push to DockerHub: make commit_ood

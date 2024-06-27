@@ -1,0 +1,20 @@
+ARG CHROME_VERSION=109
+
+FROM nbulai/ruby-chromedriver:${CHROME_VERSION}
+
+RUN rm /etc/apt/sources.list.d/google-chrome.list
+RUN apt-get update
+RUN apt-get -y --no-install-recommends install rsync rclone
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && apt-get install -y nodejs
+RUN groupadd -g 3210 ood && \
+    useradd -u 3210 --create-home -g 3210 -s /bin/bash ood
+
+COPY ./config/local/ondemand_test_setup.sh ./usr/local/bin/ondemand_test_setup.sh
+RUN chmod +x /usr/local/bin/ondemand_test_setup.sh
+
+USER ood
+WORKDIR /usr/local/app
+
+ENTRYPOINT ["/usr/local/bin/ondemand_test_setup.sh"]
+
+CMD ["/bin/bash"]

@@ -1,6 +1,6 @@
 # default run ood locally
 all:: start_ood
-.PHONY: start_ood stop_ood clean build-latest-ood build_system_demo build_user_demo start_ood_installer install_ood commit_ood build_ood docker-puppet ssh
+.PHONY: start_ood stop_ood clean build_latest_ood build_system_demo start_ood_installer install_ood commit_ood docker_systemd docker_ood_installer docker_ood_tester ssh
 
 OS_IMAGE := rockylinux/rockylinux:8
 WORKING_DIR := $(shell pwd)
@@ -10,6 +10,7 @@ PUPPET_DIR := /etc/puppetlabs/code/environments/production
 OOD_UID := $(shell id -u)
 OOD_GID := $(shell id -g)
 SID_OOD_IMAGE := hmdc/sid-ood:ood-3.1.4.el8
+SID_TEST_IMAGE := hmdc/sid-ood:test-109
 SID_SLURM_IMAGE := hmdc/sid-slurm:v3-slurm-21-08-6-1
 
 ENV := env SID_SLURM_IMAGE=$(SID_SLURM_IMAGE) SID_OOD_IMAGE=$(SID_OOD_IMAGE) OOD_UID=$(OOD_UID) OOD_GID=$(OOD_GID)
@@ -51,8 +52,14 @@ commit_ood:
 ssh:
 	docker exec -it ood_installer /bin/bash || :
 
+start_ood_tester:
+	docker run --rm -it -v $(PWD)/ondemand:/usr/local/app -w /usr/app/local $(SID_TEST_IMAGE) || :
+
 docker_systemd:
 	docker build -t rocky_systemd:8 -f Dockerfile.systemd .
 
 docker_ood_installer:
 	docker build -t ood_puppet:5.0.1 -f docker/Dockerfile.puppet .
+
+docker_ood_tester:
+	docker build -t $(SID_TEST_IMAGE) -f docker/Dockerfile.test .
