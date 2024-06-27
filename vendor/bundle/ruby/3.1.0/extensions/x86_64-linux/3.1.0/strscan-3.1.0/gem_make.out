@@ -5,18 +5,18 @@ checking for rb_reg_onig_match() in ruby.h... no
 creating Makefile
 
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.1.0/gems/strscan-3.1.0/ext/strscan
-make DESTDIR\= sitearchdir\=./.gem.20240627-273-jqj7rw sitelibdir\=./.gem.20240627-273-jqj7rw clean
+make DESTDIR\= sitearchdir\=./.gem.20240627-274-7pv3rh sitelibdir\=./.gem.20240627-274-7pv3rh clean
 rm -f 
 rm -fr strscan.so false *.o  *.bak mkmf.log .*.time
 
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.1.0/gems/strscan-3.1.0/ext/strscan
-make DESTDIR\= sitearchdir\=./.gem.20240627-273-jqj7rw sitelibdir\=./.gem.20240627-273-jqj7rw
+make DESTDIR\= sitearchdir\=./.gem.20240627-274-7pv3rh sitelibdir\=./.gem.20240627-274-7pv3rh
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_ONIG_REGION_MEMSIZE    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o strscan.o -c strscan.c
 rm -f strscan.so
 gcc -shared -o strscan.so strscan.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  -lruby  -lm  -lc
 
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.1.0/gems/strscan-3.1.0/ext/strscan
-make DESTDIR\= sitearchdir\=./.gem.20240627-273-jqj7rw sitelibdir\=./.gem.20240627-273-jqj7rw install
-/usr/bin/mkdir -p . ./.gem.20240627-273-jqj7rw
+make DESTDIR\= sitearchdir\=./.gem.20240627-274-7pv3rh sitelibdir\=./.gem.20240627-274-7pv3rh install
+/usr/bin/mkdir -p . ./.gem.20240627-274-7pv3rh
 exit > .sitearchdir.time
-/usr/bin/install -c -m 0755 strscan.so ./.gem.20240627-273-jqj7rw
+/usr/bin/install -c -m 0755 strscan.so ./.gem.20240627-274-7pv3rh
