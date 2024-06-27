@@ -1,5 +1,109 @@
 # News
 
+## 3.3.0 - 2024-06-11 {#version-3-3-0}
+
+### Improvements
+
+  * Added support for strscan 0.7.0 installed with Ruby 2.6.
+    * GH-142
+    * Reported by Fernando Trigoso.
+
+### Thanks
+
+  * Fernando Trigoso
+
+## 3.2.9 - 2024-06-09 {#version-3-2-9}
+
+### Improvements
+
+  * Added support for old strscan.
+    * GH-132
+    * Reported by Adam.
+
+  * Improved attribute value parse performance.
+    * GH-135
+    * Patch by NAITOH Jun.
+
+  * Improved `REXML::Node#each_recursive` performance.
+    * GH-134
+    * GH-139
+    * Patch by Hiroya Fujinami.
+
+  * Improved text parse performance.
+    * Reported by mprogrammer.
+
+### Thanks
+
+  * Adam
+  * NAITOH Jun
+  * Hiroya Fujinami
+  * mprogrammer
+
+## 3.2.8 - 2024-05-16 {#version-3-2-8}
+
+### Fixes
+
+  * Suppressed a warning
+
+## 3.2.7 - 2024-05-16 {#version-3-2-7}
+
+### Improvements
+
+  * Improve parse performance by using `StringScanner`.
+
+    * GH-106
+    * GH-107
+    * GH-108
+    * GH-109
+    * GH-112
+    * GH-113
+    * GH-114
+    * GH-115
+    * GH-116
+    * GH-117
+    * GH-118
+    * GH-119
+    * GH-121
+
+    * Patch by NAITOH Jun.
+
+  * Improved parse performance when an attribute has many `<`s.
+
+    * GH-126
+
+### Fixes
+
+  * XPath: Fixed a bug of `normalize_space(array)`.
+
+    * GH-110
+    * GH-111
+
+    * Patch by flatisland.
+
+  * XPath: Fixed a bug that wrong position is used with nested path.
+
+    * GH-110
+    * GH-122
+
+    * Reported by jcavalieri.
+    * Patch by NAITOH Jun.
+
+  * Fixed a bug that an exception message can't be generated for
+    invalid encoding XML.
+
+    * GH-29
+    * GH-123
+
+    * Reported by DuKewu.
+    * Patch by NAITOH Jun.
+
+### Thanks
+
+  * NAITOH Jun
+  * flatisland
+  * jcavalieri
+  * DuKewu
+
 ## 3.2.6 - 2023-07-27 {#version-3-2-6}
 
 ### Improvements
