@@ -35,7 +35,6 @@ services:
       - ./data:/home/ood/ondemand/data
       - ./ondemand/apps/dashboard:/var/www/ood/apps/sys/ood
       - ./config/local/.env:/var/www/ood/apps/sys/ood/.env
-      - ./ondemand/apps/system-status:/var/www/ood/apps/sys/system-status
       - ./config/local/public:/var/www/ood/public
       - ./config/local/ondemand.d:/etc/ood/config/ondemand.d
     ports:
