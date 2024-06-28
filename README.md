@@ -1,17 +1,22 @@
 # OnDemand Development
 
 ## Local Environment - Checkout, Build, and Deploy
+Checkout the project pulling the OnDemand codebase as a submodule:
+```
 git clone --recurse-submodules https://github.com/hmdc/ondemand_development.git
+```
+The OnDemand codebase will be checkout under the directory `ondemand`.
 
-Build OOD code from the directory: `ondemand/apps/dashboard `.
-
-The build assumes that the application will be deployed as  `/pun/sys/ood `
+Build OOD dashboard code from the directory: `ondemand/apps/dashboard `.
+The build configures the application to be deployed as `/pun/sys/ood`, required by the location used in our Docker Compose file.
 ```
 make build-latest-ood
 ```
 
-We use Docker Compose to deploy locally. We deploy the OOD build, an Request Tracker server, and a Slurm cluster with 2 compute nodes.
-Review the [docker-compose.yml](docker-compose.yml) file for more information. To deploy the build locally and start the environment:
+We use Docker Compose to deploy locally. We deploy the OOD build, a Request Tracker server, and a Slurm cluster with 2 compute nodes.
+Review the [docker-compose.yml](docker-compose.yml) file for more information.
+
+To deploy the build locally and start the environment:
 ```
 make start_ood
 ```
@@ -24,7 +29,7 @@ Request Tracker with credentials `root` => `password` is deployed under: [http:/
 
 The latest version takes around 5 minutes to start up from the first request.
 
-RStudio and Remote Desktop are the only interactive applications deployed in the local environment and they are both functional.
+`RStudio` and `Remote Desktop` are the only interactive applications deployed in the local environment and they are both functional.
 
 The configuration for the local environment is mounted into the OOD container from the local directory: [config/local](config/local)
 
@@ -38,13 +43,17 @@ git commit -m "Update OnDemand codebase"
 ```
 
 ## Building and Deploying OOD Demo
-### Building
-This is completed with GitHub actions.
+
+### Building OOD as a System Application
+The build application is configured to be deployed as a OOD system application under the `/var/www/ood/apps/sys` root folder.
+This requires the use of Puppet to deploy the application.
+
+Building the OOD demo as a system application is completed with GitHub actions.
 > Note<br>
-> The demo has been configured to work on the Cannon cluster only.
+> The system demo has been configured to work on the Cannon cluster only.
 
 
-Go to the actions tab in the  `ondemand_development ` project: https://github.com/hmdc/ondemand_development/actions
+Go to the actions tab in the `ondemand_development ` project: https://github.com/hmdc/ondemand_development/actions
 
 Select `build-demo` under the `All Workflows` left hand side navigation.
 
@@ -55,7 +64,7 @@ This build has been configured to be deployed under `/var/www/ood/apps/sys/ood`.
 
 https://github.com/hmdc/ondemand_development/tree/ood_staging_demo
 
-### Deploying With Puppet
+#### Deploying With Puppet
 To deploy the application with Puppet, we will use the OOD Puppet module functionality to deploy interactive apps.
 
 We need to update the node YAML file for the environment and add the following configuration:
@@ -68,9 +77,33 @@ openondemand::install_apps:
 ```
 This addition will be merged with existing values for the `openondemand::install_apps` property.
 
-### Configuration
+To access the application in Cannon production use the URL: https://rcood.rc.fas.harvard.edu/pun/sys/ood
+
+#### Configuration
 All the configuration related to the demo installation is stored locally under [config/demo](config/demo) and copied into the build with the GitHub action.
 
+### Building OOD as a User Application
+The user application is built to be deployed as a development application in OOD.
+
+The build will be completed for the OOD dashboard code under `./ondemand/apps/dashboard`
+
+> Note<br>
+> The user demo has been configured to work on the Cannon cluster only.
+
+Building the OOD demo as a user application is completed with Make:
+```
+make build_user_demo
+```
+
+#### Deploying
+The deployment is done by copying the OOD application folder to user's OOD development directory, for Cannon is: ` ~/.fasrcood/dev`.
+
+To copy the OOD application code into Cannon, use the following rsync command with your username:
+```
+rsync -avz --delete --exclude-from='rsync-exclude.conf' ./ondemand/apps/dashboard/ -e ssh <user>@login.rc.fas.harvard.edu:./.fasrcood/dev/ood
+```
+
+To access the application in Cannon production use the URL: https://rcood.rc.fas.harvard.edu/pun/dev/ood
 
 ## Making changes to OnDemand
 
