@@ -11,6 +11,7 @@ OOD_GID := $(shell id -g)
 OS_IMAGE := rockylinux/rockylinux:8
 SID_OOD_IMAGE := hmdc/sid-ood:ood-3.1.4.el8
 SID_TEST_IMAGE := hmdc/sid-ood:test-109
+SID_BUILDER_IMAGE := hmdc/sid-ood:builder-R3.1
 SID_SLURM_IMAGE := hmdc/sid-slurm:v3-slurm-21-08-6-1
 RUBY_VERSION := ruby:3.1
 ROOT_URL := /pun/sys/ood
@@ -18,6 +19,7 @@ ROOT_URL := /pun/sys/ood
 ENV := env SID_SLURM_IMAGE=$(SID_SLURM_IMAGE) SID_OOD_IMAGE=$(SID_OOD_IMAGE) OOD_UID=$(OOD_UID) OOD_GID=$(OOD_GID)
 
 build_system_demo build_user_demo: RUBY_VERSION := ruby:3.0
+build_system_demo build_user_demo: SID_BUILDER_IMAGE := hmdc/sid-ood:builder-R3.0
 build_user_demo: ROOT_URL := /pun/dev/ood
 
 start_ood: stop_ood
@@ -37,7 +39,7 @@ build_latest_ood:
 	# BUILD OOD WITH SID OOD IMAGE
 	#docker run --rm -v $(WORKING_DIR):/usr/local/app -w /usr/local/app $(SID_OOD_IMAGE) ./ood_build.sh
 	# BUILD OOD WITH ROCKY8 IMAGE
-	docker run --rm -v $(WORKING_DIR):/usr/local/app -w /usr/local/app -e RUBY=$(RUBY_VERSION) -e ROOT_URL=$(ROOT_URL) $(OS_IMAGE) ./rocky8_build.sh
+	docker run --rm -v $(WORKING_DIR):/usr/local/app -w /usr/local/app -e ROOT_URL=$(ROOT_URL) $(SID_BUILDER_IMAGE) ./ood_build.sh
 build_system_demo build_user_demo: build_latest_ood
     # COPY DEMO CONFIGURATION
 	cp -R config/demo/. ondemand/apps/dashboard
@@ -66,6 +68,9 @@ docker_systemd:
 
 docker_ood_installer:
 	docker build -t ood_puppet:5.0.1 -f docker/Dockerfile.puppet .
-
 docker_ood_tester:
 	docker build -t $(SID_TEST_IMAGE) -f docker/Dockerfile.test .
+docker_ood_builder:
+	docker build --build-arg RUBY_VERSION=ruby:3.1 -t hmdc/sid-ood:builder-R3.1 -f docker/Dockerfile.builder .
+docker_ood_builder_r3:
+	docker build --build-arg RUBY_VERSION=ruby:3.0 -t hmdc/sid-ood:builder-R3.0 -f docker/Dockerfile.builder .
