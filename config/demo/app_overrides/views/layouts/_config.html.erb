@@ -1,3 +1,20 @@
+<!-- RSTUDIO FIX FOR FASRC. THIS IS REQUIRED BY RSTUDIO, BUT TURBO STREAM LIBRARIES DOES NOT LOAD JS ON view.html.erb -->
+<script>
+<%#
+As of Rstudio 1.4, a CSRF token is required to authenticate. This is normally
+set on the sign-in page, but since we are bypassing the sign-in page and
+POSTing directly, we need to ensure that the CSRF token cookie is set ahead of
+time (i.e. just before the form submission).  When Rstudio receives the POST
+request, it will compare the POSTed csrf token against the value of the cookie.
+%>
+function connect_rstudio(path, form) {
+  const csrf_token = form.elements['csrf-token'].value;
+  const new_cookie = `csrf-token=${csrf_token}; path=${path}; secure`;
+  console.log("Setting Rstudio csrf-token cookie:", new_cookie);
+  document.cookie = new_cookie;
+  return true;
+}
+</script>
 <!-- configuration options exposed to javascript -->
 <div hidden id="ood_config"
   data-max-file-size="<%= Configuration.file_upload_max %>"
