@@ -1,4 +1,9 @@
 # OnDemand Development
+Project to develop and run Open OnDemand.
+
+Requirements:
+ - Docker (Tested with Docker version 24.0.2)
+ - Make (Tested with GNU Make 3.81)
 
 ## Local Environment - Checkout, Build, and Deploy
 Checkout the project pulling the OnDemand codebase as a submodule:
