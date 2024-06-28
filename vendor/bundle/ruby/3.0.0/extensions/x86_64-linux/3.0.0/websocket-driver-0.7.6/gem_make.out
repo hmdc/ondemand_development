@@ -1,5 +1,5 @@
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.0.0/gems/websocket-driver-0.7.6/ext/websocket-driver
-/usr/bin/ruby -I /usr/share/rubygems -r ./siteconf20240627-275-tauxlh.rb extconf.rb
+/usr/bin/ruby -I /usr/share/rubygems -r ./siteconf20240628-10-bzr6rz.rb extconf.rb
 creating Makefile
 
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.0.0/gems/websocket-driver-0.7.6/ext/websocket-driver
@@ -15,6 +15,6 @@ gcc -shared -o websocket_mask.so websocket_mask.o -L. -L/usr/lib64 -L. -Wl,-z,re
 
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.0.0/gems/websocket-driver-0.7.6/ext/websocket-driver
 make DESTDIR\= install
-/usr/bin/mkdir -p . ./.gem.20240627-275-r9hs8n
+/usr/bin/mkdir -p . ./.gem.20240628-10-sy9toi
 exit > .sitearchdir.time
-/usr/bin/install -c -m 0755 websocket_mask.so ./.gem.20240627-275-r9hs8n
+/usr/bin/install -c -m 0755 websocket_mask.so ./.gem.20240628-10-sy9toi

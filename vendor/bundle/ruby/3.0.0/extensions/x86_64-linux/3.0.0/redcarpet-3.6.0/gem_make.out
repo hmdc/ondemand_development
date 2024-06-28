@@ -1,5 +1,5 @@
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.0.0/gems/redcarpet-3.6.0/ext/redcarpet
-/usr/bin/ruby -I /usr/share/rubygems -r ./siteconf20240627-275-ozx4k0.rb extconf.rb
+/usr/bin/ruby -I /usr/share/rubygems -r ./siteconf20240628-10-acb3zk.rb extconf.rb
 creating Makefile
 
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.0.0/gems/redcarpet-3.6.0/ext/redcarpet
@@ -61,6 +61,6 @@ gcc -shared -o redcarpet.so autolink.o buffer.o houdini_href_e.o houdini_html_e.
 
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.0.0/gems/redcarpet-3.6.0/ext/redcarpet
 make DESTDIR\= install
-/usr/bin/mkdir -p . ./.gem.20240627-275-5uke56
+/usr/bin/mkdir -p . ./.gem.20240628-10-e4o8nu
 exit > .sitearchdir.time
-/usr/bin/install -c -m 0755 redcarpet.so ./.gem.20240627-275-5uke56
+/usr/bin/install -c -m 0755 redcarpet.so ./.gem.20240628-10-e4o8nu
