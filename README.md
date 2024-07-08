@@ -82,7 +82,7 @@ openondemand::install_apps:
 ```
 This addition will be merged with existing values for the `openondemand::install_apps` property.
 
-To access the application in Cannon production use the URL: https://rcood.rc.fas.harvard.edu/pun/sys/ood
+To access the application in Cannon production use the URL: `https://rcood.rc.fas.harvard.edu/pun/sys/ood`
 
 #### Configuration
 All the configuration related to the demo installation is stored locally under [config/demo](config/demo) and copied into the build with the GitHub action.
@@ -111,17 +111,43 @@ rsync -avz --delete --exclude-from='rsync-exclude.conf' ./ondemand/apps/dashboar
 To access the application in Cannon production use the URL: https://rcood.rc.fas.harvard.edu/pun/dev/ood
 
 ## Making changes to OnDemand
+The `ondemand` folder within the project works as a standard Git project.
 
-make clean
+We can create branches and commit changes. These will get reflected in the HMDC ondemand fork that we use to contribute to OSC.
 
+When making changes to `ondemand`, do not commit the `ondemand` folder in the parent project `ondemand_development` as this will change the reference to the project the changes available to everyone.
+
+Only update the `ondemand_development` project with the latest version of `ondemand` from main to build the OOD demo with the desired OOD version.
 
 ### Update OnDemand code for the development project
+First, update the HMDC OOD fork to the latest version of OOD from OSC. This can be done using the Git UI: `https://github.com/hmdc/ondemand`
+
+Then update the reference to the OOD codebase in the `ondemand_development` project. From the project root:
 ```
 git submodule update --remote ondemand
 git add ondemand
 git commit -m "Updated ondemand codebase"
 ```
-### Implement changes to the OnDemand codebase
+
+This will update the reference for the OOD codebase within the `ondemand_development` and the GitHub action will build from this version.
+
+### Implement changes to OnDemand and Contribute to OSC
+Create a new branch to work with in the ondemand project:
+```
+cd ondemand
+git checkout -b <my_branch>
+```
+
+Make the required changes. These changes should be reflected automatically in the local development environment, but some changes might require to restart the accplication.
+
+To restart the application, use the `Help > Restart Web Server` link from the top navigation.
+
+Once the changes are completed and the tests are implemented, commit the changes and raise a Pull Request with OSC:
+```
+cd ondemand
+git add the_files_updated
+git commit -m "my message"
+```
 
 ### Running Tests
 In order to run the system tests locally, we need to make changes to the [./ondemand/apps/dashboard/test/application_system_test_case.rb](./ondemand/apps/dashboard/test/application_system_test_case.rb) file.
@@ -148,32 +174,58 @@ bundle exec rake test TEST=test/system/preset_apps_navbar_test.rb
 
 
 ## Docker Images
-File: docker/Dockerfile.systemd
-Name: Systemd Image
-Description: Creates a base image based on Rocky8 with Systemd installed. This is required by Puppet to initialize, start, and configure services.
-How to build it:
+**Name:** OOD Builder <br>
+**File:** docker/Dockerfile.builder <br>
+**Description:** Creates a Docker image based on Rocky8 with the basic Ruby and NodeJS tooling needed to build OnDemand<br>
+**How to build it:**
+```
+# To build with Ruby v3.1 and NodeJS v18
+make docker_ood_builder
+
+# To build with Ruby v3.0 and NodeJS v18
+# This is required to deploy alongside the current production version that still uses Ruby v3.0
+make docker_ood_builder_r3
+```
+
+**Name:** Systemd Image <br>
+**File:** docker/Dockerfile.systemd <br>
+**Description:** Creates a base image based on Rocky8 with Systemd installed. This is required by Puppet to initialize, start, and configure services. <br>
+**How to build it:**
+```
 make docker_systemd
+```
 
-File: docker/Dockerfile.puppet
-Name: OOD Installer
-Description: Puppet base image based on our Systemd image. This image has Puppet, OOD Puppet module, and all required modules to install OOD.
-How to build it:
+**Name:** OOD Installer <br>
+**File:** docker/Dockerfile.puppet <br>
+**Description:** Puppet base image based on our Systemd image. This image has Puppet, OOD Puppet module, and all required modules to install OOD. <br>
+**How to build it:**
+```
 make docker_ood_installer
+```
 
-File: docker/Dockerfile.test
-Name: OOD Tester Image
-Description: Image based on Ruby and Chromedriver with the required software to run OOD tests.
-How to build it:
+**Name:** OOD Tester Image <br>
+**File:** docker/Dockerfile.test <br>
+**Description:** Image based on Ruby and Chromedriver with the required software to run OOD tests. <br>
+**How to build it:**
+```
 make docker_ood_tester
+```
 
-File: N/A
-Name: hmdc/sid-ood:ood-3.1.4.el8
-Description: OODv3.1.4 installation based on out Puppet image. This is the image used for local development.
-This image has been pushed to DockerHub: https://hub.docker.com/r/hmdc/sid-ood/tags
+**Name:** hmdc/sid-ood:ood-3.1.4.el8 <br>
+**File:** N/A <br>
+**Description:** OODv3.1.4 installation based on the OOD installer image. This is the image used for the local development.
 
-How to build it:
-Build Puppet Image: make docker_ood_installer
-Start Puppet Image: make start_ood_installer
-Run Puppet and install OOD: make install_ood
-Commit new OOD image locally and push to DockerHub: make commit_ood
+To build it, we need to start the OOD installer image and then run Puppet on it:
+```
+make start_ood_installer
+make install_ood
+```
+
+This image has been pushed to DockerHub: [https://hub.docker.com/r/hmdc/sid-ood/tags]()
+
+
+**Name:** Slurm Node Image <br>
+**File:** docker/Dockerfile.node <br>
+**Description:** Wrapper image to build Slurm cluster locally <br>
+**How to build it:** It is build automatically by Docker Compose when the local environment is started.
 
