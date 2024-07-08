@@ -37,6 +37,7 @@ services:
       - ./config/local/.env:/var/www/ood/apps/sys/ood/.env
       - ./config/local/public:/var/www/ood/public
       - ./config/local/ondemand.d:/etc/ood/config/ondemand.d
+      - ./config/local/app_overrides:/etc/ood/config/apps/ood
     ports:
       - "33000:443"
     expose:

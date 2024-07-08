@@ -39,6 +39,7 @@ build_latest_ood:
 	# BUILD OOD WITH SID OOD IMAGE
 	#docker run --rm -v $(WORKING_DIR):/usr/local/app -w /usr/local/app $(SID_OOD_IMAGE) ./ood_build.sh
 	# BUILD OOD WITH ROCKY8 IMAGE
+	cp -f config/local/.env ondemand/apps/dashboard
 	docker run --rm -v $(WORKING_DIR):/usr/local/app -w /usr/local/app -e ROOT_URL=$(ROOT_URL) $(SID_BUILDER_IMAGE) ./ood_build.sh
 build_system_demo build_user_demo: build_latest_ood
     # COPY DEMO CONFIGURATION
