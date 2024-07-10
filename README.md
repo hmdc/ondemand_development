@@ -12,27 +12,29 @@ git clone --recurse-submodules https://github.com/hmdc/ondemand_development.git
 ```
 The OnDemand codebase will be checkout under the directory `ondemand`.
 
-Build OOD dashboard code from the directory: `ondemand/apps/dashboard `.
-The build configures the application to be deployed as `/pun/sys/ood`, required by the location used in our Docker Compose file.
+Build the OOD dashboard code that has been checkout in the directory: `ondemand/apps/dashboard `.
+The build process configures the OOD application to be deployed under the URL `/pun/sys/ood`. This URL is required by Docker Compose file that we use to run the application locally.
 ```
+# Build command using make
 make build-latest-ood
 ```
 
-We use Docker Compose to deploy locally. We deploy the OOD build, a Request Tracker server, and a Slurm cluster with 2 compute nodes.
+We use Docker Compose to deploy locally. We deploy the OOD dashboard built in the previous step, a Request Tracker server, and a Slurm cluster with 2 compute nodes.
 Review the [docker-compose.yml](docker-compose.yml) file for more information.
 
-To deploy the build locally and start the environment:
+To deploy the OOD build locally and start the environment execute:
 ```
 make start_ood
 ```
 
 OOD Version 3.1.4 is deployed under: [https://localhost:33000/pun/sys/dashboard](https://localhost:33000/pun/sys/dashboard)
 
-OOD Latest is deployed under: [https://localhost:33000/pun/sys/ood](https://localhost:33000/pun/sys/ood)
+The OOD build is deployed under: [https://localhost:33000/pun/sys/ood](https://localhost:33000/pun/sys/ood) <br>
+The OOD build takes around 5 minutes to start up from the first request.
+
+Both dashboards use the local credentials `ood` => `ood`
 
 Request Tracker with credentials `root` => `password` is deployed under: [http://localhost:34000/](http://localhost:34000/)
-
-The latest version takes around 5 minutes to start up from the first request.
 
 `RStudio` and `Remote Desktop` are the only interactive applications deployed in the local environment and they are both functional.
 
