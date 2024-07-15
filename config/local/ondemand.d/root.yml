@@ -1,5 +1,5 @@
 project_size_timeout: 10
-project_size_enabled: false
+project_size_enabled: true
 host_based_profiles: false
 disable_dashboard_logo: false
 pinned_apps_group_by:

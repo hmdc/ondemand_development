@@ -19,5 +19,6 @@ profiles:
         - columns:
             - width: 10
               widgets:
+                - "saved_settings"
                 - "pinned_apps"
                 - "motd"
