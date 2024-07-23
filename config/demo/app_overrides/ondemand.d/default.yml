@@ -1,0 +1,17 @@
+# File managed by Puppet - DO NOT EDIT
+---
+pinned_apps:
+  - sys/Jupyter
+  - sys/RStudioServer
+  - sys/Matlab
+  - sys/RemoteDesktop
+  - sys/Stata
+  - sys/SAS
+pinned_apps_group_by: category
+dashboard_layout:
+  rows:
+    - columns:
+        - width: 10
+          widgets:
+            - pinned_apps
+            - motd
