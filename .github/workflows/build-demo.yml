@@ -28,6 +28,7 @@ jobs:
         run: |
           rm -rf target/*
           cp -R src/ondemand/apps/dashboard/. target
+          rm -f target/public/.gitignore
 
       - name: Commit new build
         run: |
