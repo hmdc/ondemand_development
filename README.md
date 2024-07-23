@@ -43,11 +43,7 @@ The configuration for the local environment is mounted into the OOD container fr
 ## Update OnDemand
 Update OnDemand code to the latest version from the HMDC fork: https://github.com/hmdc/ondemand.git
 
-Update the submodule to build from the latest version:
-```
-git submodule update --init --recursive
-git commit -m "Update OnDemand codebase"
-```
+Update the submodule to build from the latest version: [see development section](#update-ondemand-codebase)
 
 ## Building and Deploying OOD Demo
 
@@ -121,6 +117,7 @@ When making changes to `ondemand`, do not commit the `ondemand` folder in the pa
 
 Only update the `ondemand_development` project with the latest version of `ondemand` from main to build the OOD demo with the desired OOD version.
 
+<a name="update-ondemand-codebase"></a>
 ### Update OnDemand code for the development project
 First, update the HMDC OOD fork to the latest version of OOD from OSC. This can be done using the Git UI: `https://github.com/hmdc/ondemand`
 
