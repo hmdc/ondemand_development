@@ -1,5 +1,5 @@
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.0.0/gems/nio4r-2.7.1/ext/nio4r
-/usr/bin/ruby -I /usr/share/rubygems -r ./siteconf20240723-9-dms4pz.rb extconf.rb
+/usr/bin/ruby -I /usr/share/rubygems -r ./siteconf20240723-9-dzxw85.rb extconf.rb
 checking for unistd.h... yes
 checking for rb_io_descriptor()... no
 checking for linux/aio_abi.h... yes
@@ -976,6 +976,6 @@ gcc -shared -o nio4r_ext.so bytebuffer.o monitor.o nio4r_ext.o selector.o -L. -L
 
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.0.0/gems/nio4r-2.7.1/ext/nio4r
 make DESTDIR\= install
-/usr/bin/mkdir -p . ./.gem.20240723-9-atqwa1
+/usr/bin/mkdir -p . ./.gem.20240723-9-927tce
 exit > .sitearchdir.time
-/usr/bin/install -c -m 0755 nio4r_ext.so ./.gem.20240723-9-atqwa1
+/usr/bin/install -c -m 0755 nio4r_ext.so ./.gem.20240723-9-927tce

@@ -1,5 +1,5 @@
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.0.0/gems/strscan-3.1.0/ext/strscan
-/usr/bin/ruby -I /usr/share/rubygems -r ./siteconf20240723-9-o8ozx0.rb extconf.rb
+/usr/bin/ruby -I /usr/share/rubygems -r ./siteconf20240723-9-7ecguc.rb extconf.rb
 checking for onig_region_memsize() in ruby.h... yes
 checking for rb_reg_onig_match() in ruby.h... no
 creating Makefile
@@ -17,6 +17,6 @@ gcc -shared -o strscan.so strscan.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,no
 
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.0.0/gems/strscan-3.1.0/ext/strscan
 make DESTDIR\= install
-/usr/bin/mkdir -p . ./.gem.20240723-9-fgsxq6
+/usr/bin/mkdir -p . ./.gem.20240723-9-m0isjw
 exit > .sitearchdir.time
-/usr/bin/install -c -m 0755 strscan.so ./.gem.20240723-9-fgsxq6
+/usr/bin/install -c -m 0755 strscan.so ./.gem.20240723-9-m0isjw
