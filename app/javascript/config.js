@@ -27,9 +27,15 @@ export function transfersPath() {
   return transfersPath;
 }
 
-export function jobsInfoPath(){
+export function rootPath(){
   const cfgData = configData();
-  return cfgData['jobsInfoPath'];
+  const rootPath = cfgData['rootPath'];
+  if(rootPath == '/') {
+    return rootPath;
+  } else {
+    // remove the trailing / from /pun/sys/dashboard/
+    return rootPath.substring(0, rootPath.length-1)
+  }
 }
 
 export function csrfToken() {
@@ -81,4 +87,9 @@ export function statusPollDelay() {
 export function statusIndexUrl() {
   const cfgData = configData();
   return cfgData['statusIndexUrl'];
+}
+
+export function appsDatatablePageLength() {
+  const cfgData = configData();
+  return parseInt(cfgData['appsDatatablePageLength']);
 }

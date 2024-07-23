@@ -1,6 +1,5 @@
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.0.0/gems/nio4r-2.7.1/ext/nio4r
-/usr/bin/ruby -I /usr/share/rubygems -r ./siteconf20240628-10-ciewjv.rb extconf.rb
-[/usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.0.0/specifications/websocket-extensions-0.1.5.gemspec] isn't a Gem::Specification (NilClass instead).
+/usr/bin/ruby -I /usr/share/rubygems -r ./siteconf20240723-9-y8dd2d.rb extconf.rb
 checking for unistd.h... yes
 checking for rb_io_descriptor()... no
 checking for linux/aio_abi.h... yes
@@ -977,6 +976,6 @@ gcc -shared -o nio4r_ext.so bytebuffer.o monitor.o nio4r_ext.o selector.o -L. -L
 
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.0.0/gems/nio4r-2.7.1/ext/nio4r
 make DESTDIR\= install
-/usr/bin/mkdir -p . ./.gem.20240628-10-l0eb8b
+/usr/bin/mkdir -p . ./.gem.20240723-9-xac8fs
 exit > .sitearchdir.time
-/usr/bin/install -c -m 0755 nio4r_ext.so ./.gem.20240628-10-l0eb8b
+/usr/bin/install -c -m 0755 nio4r_ext.so ./.gem.20240723-9-xac8fs

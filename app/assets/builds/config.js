@@ -18,9 +18,14 @@ function transfersPath() {
   const transfersPath2 = cfgData["transfersPath"];
   return transfersPath2;
 }
-function jobsInfoPath() {
+function rootPath() {
   const cfgData = configData();
-  return cfgData["jobsInfoPath"];
+  const rootPath2 = cfgData["rootPath"];
+  if (rootPath2 == "/") {
+    return rootPath2;
+  } else {
+    return rootPath2.substring(0, rootPath2.length - 1);
+  }
 }
 function csrfToken() {
   const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
@@ -60,15 +65,20 @@ function statusIndexUrl() {
   const cfgData = configData();
   return cfgData["statusIndexUrl"];
 }
+function appsDatatablePageLength() {
+  const cfgData = configData();
+  return parseInt(cfgData["appsDatatablePageLength"]);
+}
 export {
   analyticsPath,
+  appsDatatablePageLength,
   bcIndexUrl,
   bcPollDelay,
   configData,
   csrfToken,
   isBCDynamicJSEnabled,
-  jobsInfoPath,
   maxFileSize,
+  rootPath,
   statusIndexUrl,
   statusPollDelay,
   transfersPath,

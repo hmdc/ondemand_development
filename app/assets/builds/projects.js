@@ -4,26 +4,27 @@ var CONFIG_ID = "ood_config";
 function configData() {
   return document.getElementById(CONFIG_ID).dataset;
 }
-function jobsInfoPath() {
+function rootPath() {
   const cfgData = configData();
-  return cfgData["jobsInfoPath"];
+  const rootPath2 = cfgData["rootPath"];
+  if (rootPath2 == "/") {
+    return rootPath2;
+  } else {
+    return rootPath2.substring(0, rootPath2.length - 1);
+  }
 }
 
-// app/javascript/utils.js
-function cssBadgeForState(state) {
-  switch (state) {
-    case "completed":
-      return "bg-success";
-    case "running":
-      return "bg-primary";
-    case "queued":
-      return "bg-info";
-    case "queued_held":
-      return "bg-warning";
-    case "suspended":
-      return "bg-warning";
-    default:
-      return "bg-warning";
+// app/javascript/turbo_shim.js
+function replaceHTML(id, html) {
+  const ele = document.getElementById(id);
+  if (ele == null) {
+    return;
+  } else {
+    var tmp = document.createElement("div");
+    tmp.innerHTML = html;
+    const newHTML = tmp.querySelector("template").innerHTML;
+    tmp.remove();
+    ele.innerHTML = newHTML;
   }
 }
 
@@ -36,40 +37,23 @@ jQuery(function() {
     updateProjectSize(ele);
   });
 });
+function jobDetailsPath(cluster, jobId) {
+  const baseUrl = rootPath();
+  const config = document.getElementById("project_config");
+  const projectId = config.dataset["projectId"];
+  return `${baseUrl}/projects/${projectId}/jobs/${cluster}/${jobId}`;
+}
 function pollForJobInfo(element) {
+  const cluster = element.dataset["jobCluster"];
   const jobId = element.dataset["jobId"];
-  const jobCluster = element.dataset["jobCluster"];
-  const url = `${jobsInfoPath()}/${jobCluster}/${jobId}`;
-  if (jobId === "" || jobCluster === "") {
-    element.innerHTML = "";
+  if (cluster === void 0 || jobId === void 0) {
     return;
   }
-  fetch(url, { headers: { "Accept": "application/json" }, cache: "no-store" }).then((response) => {
-    if (!response.ok) {
-      if (response.status === 404) {
-        throw new Error("404 response while looking for job", { cause: response });
-      } else {
-        throw new Error("Not 2xx response while looking for job", { cause: response });
-      }
-    } else {
-      return response.json();
-    }
-  }).then((data) => {
-    const state = data["state"];
-    element.innerHTML = jobInfoDiv(jobId, state);
-    if (state !== "completed") {
-      setTimeout(pollForJobInfo, 3e4, element);
-    }
-  }).catch((error) => {
-    element.innerHTML = jobInfoDiv(jobId, "undetermined", error.message, "Unable to find the job details");
+  const url = jobDetailsPath(cluster, jobId);
+  fetch(url, { headers: { Accept: "text/vnd.turbo-stream.html" } }).then((response) => response.ok ? Promise.resolve(response) : Promise.reject(response.text())).then((r) => r.text()).then((html) => replaceHTML(element.id, html)).then(setTimeout(pollForJobInfo, 3e4, element)).catch((err) => {
+    console.log("Cannot not retrive job details due to error:");
+    console.log(err);
   });
-}
-function jobInfoDiv(jobId, state, stateTitle = "", stateDescription = "") {
-  return `<div class="job-info justify-content-center d-grid">
-            <span class="me-2">${jobId}</span>
-            <span class="job-info-title badge ${cssBadgeForState(state)}" title="${stateTitle}">${state.toUpperCase()}</span>
-            <span class="job-info-description text-muted">${stateDescription}</span>
-          </div>`;
 }
 function updateProjectSize(element) {
   const UNDETERMINED = "Undetermined Size";
