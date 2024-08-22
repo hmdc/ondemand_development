@@ -171,6 +171,44 @@ bundle exec rake test TEST=test/integration/saved_settings_widget_test.rb
 bundle exec rake test TEST=test/system/preset_apps_navbar_test.rb
 ```
 
+## OOD Puppet Testing
+To create the local OOD environment, we used Puppet and the OOD Puppet module to install and configure OnDemand.
+
+The OOD Installer docker image contains Puppet and the OOD puppet configuration. All is ready in this image to run puppet and install OnDemand.
+
+This is a transient image required to build the OOD environment, so it has not been pushed to the DockerHub registry.
+
+To build the OOD installer locally run:
+```
+# Build Systemd image
+make docker_systemd
+# Build OOD Installer image
+make docker_ood_installer
+```
+
+This will create a Docker image called `ood_puppet:5.0.1`. 
+The Puppet configuration for the local installation of OnDemand is stored under [config/local/puppet]()
+This folder will be mounted into [/etc/puppetlabs/code/environments/production]() when we start the OOD installer image.
+
+To mount the configuration
+To start and connect to the OOD installer image run:
+```
+# Run OOD installer in the background
+make start_ood_installer
+# Connect to OOD installer
+docker exec -it ood_installer /bin/bash
+
+# From the console we can:
+# Run Puppet
+# /opt/puppetlabs/bin/puppet agent -t
+# Try dnf commands
+# /usr/bin/dnf -v check-update
+```
+
+To stop the OOD installer image run
+```
+docker rm -f ood_installer
+```
 
 ## Docker Images
 **Name:** OOD Builder <br>
