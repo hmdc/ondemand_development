@@ -16,7 +16,7 @@ Build the OOD dashboard code that has been checkout in the directory: `ondemand/
 The build process configures the OOD application to be deployed under the URL `/pun/sys/ood`. This URL is required by Docker Compose file that we use to run the application locally.
 ```
 # Build command using make
-make build-latest-ood
+make build_latest_ood
 ```
 
 We use Docker Compose to deploy locally. We deploy the OOD dashboard built in the previous step, a Request Tracker server, and a Slurm cluster with 2 compute nodes.
@@ -208,6 +208,26 @@ docker exec -it ood_installer /bin/bash
 To stop the OOD installer image run
 ```
 docker rm -f ood_installer
+```
+### Manual changes to Apache
+If you need to test manual changes to Apache, the OOD Apache configuration is deployed in: `/etc/httpd/conf.d/ood-portal.conf`
+
+Some Apache useful commands:
+```
+# Run as root
+systemctl status httpd
+systemctl restart httpd
+systemctl stop httpd
+systemctl start httpd
+```
+
+#### Proxy pass settings to connect to FASRC XDMoD from the localhost domain and bypass CORS restrictions.
+```
+SSLProxyEngine on
+<Location "/rest/">
+   ProxyPass "https://xdmod.rc.fas.harvard.edu/rest/"
+   ProxyPassReverse "https://xdmod.rc.fas.harvard.edu/rest/"
+</Location>
 ```
 
 ## Docker Images
