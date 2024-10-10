@@ -18,8 +18,8 @@ ROOT_URL := /pun/sys/ood
 
 ENV := env SID_SLURM_IMAGE=$(SID_SLURM_IMAGE) SID_OOD_IMAGE=$(SID_OOD_IMAGE) OOD_UID=$(OOD_UID) OOD_GID=$(OOD_GID)
 
-build_system_demo build_user_demo: RUBY_VERSION := ruby:3.0
-build_system_demo build_user_demo: SID_BUILDER_IMAGE := hmdc/sid-ood:builder-R3.0
+build_system_demo build_user_demo: RUBY_VERSION := ruby:3.1
+build_system_demo build_user_demo: SID_BUILDER_IMAGE := hmdc/sid-ood:builder-R3.1
 build_user_demo: ROOT_URL := /pun/dev/ood
 
 start_ood: stop_ood
@@ -50,6 +50,7 @@ start_ood_installer:
 	docker cp $(CONFIG_DIR)/manifests ood_installer:$(PUPPET_DIR)
 	docker cp $(CONFIG_DIR)/data ood_installer:$(PUPPET_DIR)
 	docker cp $(CONFIG_DIR)/files ood_installer:$(PUPPET_DIR)
+	docker cp $(CONFIG_DIR)/modules/* ood_installer:$(PUPPET_DIR)/modules
 	docker start ood_installer
 install_ood:
 	docker exec -it ood_installer /opt/puppetlabs/bin/puppet agent -t
