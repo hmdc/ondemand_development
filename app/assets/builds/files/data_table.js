@@ -6442,11 +6442,11 @@ var require_sweetalert2_all = __commonJS({
         applyCustomClass(footer, params, "footer");
       };
       var renderCloseButton = function renderCloseButton2(instance, params) {
-        var closeButton = getCloseButton();
-        setInnerHtml(closeButton, params.closeButtonHtml);
-        applyCustomClass(closeButton, params, "closeButton");
-        toggle(closeButton, params.showCloseButton);
-        closeButton.setAttribute("aria-label", params.closeButtonAriaLabel);
+        var closeButton2 = getCloseButton();
+        setInnerHtml(closeButton2, params.closeButtonHtml);
+        applyCustomClass(closeButton2, params, "closeButton");
+        toggle(closeButton2, params.showCloseButton);
+        closeButton2.setAttribute("aria-label", params.closeButtonAriaLabel);
       };
       var renderIcon = function renderIcon2(instance, params) {
         var innerParams = privateProps.innerParams.get(instance);
@@ -8318,6 +8318,35 @@ var import_handlebars = __toESM(require_handlebars());
 
 // app/javascript/files/sweet_alert.js
 var import_sweetalert2 = __toESM(require_sweetalert2_all());
+
+// app/javascript/alert.js
+function alert(message) {
+  const div = alertDiv(message);
+  const main = document.getElementById("main_container");
+  main.prepend(div);
+}
+function alertDiv(message) {
+  const span = document.createElement("span");
+  span.innerText = message;
+  const div = document.createElement("div");
+  div.classList.add("alert", "alert-danger", "alert-dismissible");
+  div.setAttribute("role", "alert");
+  div.appendChild(span);
+  div.appendChild(closeButton());
+  return div;
+}
+function closeButton() {
+  const button = document.createElement("button");
+  button.classList.add("btn-close");
+  button.dataset.bsDismiss = "alert";
+  const span = document.createElement("span");
+  span.classList.add("sr-only");
+  span.innerText = "Close";
+  button.appendChild(span);
+  return button;
+}
+
+// app/javascript/files/sweet_alert.js
 var EVENTNAME2 = {
   showError: "showError",
   showInput: "showInput",
@@ -8329,7 +8358,7 @@ var sweetAlert = null;
 jQuery(function() {
   sweetAlert = new SweetAlert();
   $(CONTENTID).on(EVENTNAME2.showError, function(e, options) {
-    sweetAlert.alertError(options.title, options.message);
+    alert(options.message);
   });
   $(CONTENTID).on(EVENTNAME2.showPrompt, function(e, options) {
     sweetAlert.alertError(options.title, options.message);
@@ -8538,6 +8567,14 @@ var DataTable = class {
   getTable() {
     return this._table;
   }
+  toHumanSize(number) {
+    if (number === null) {
+      return "-";
+    } else {
+      const unitIndex = number == 0 ? 0 : Math.floor(Math.log(number) / Math.log(1e3));
+      return `${(number / Math.pow(1e3, unitIndex)).toFixed(2)} ${["B", "kB", "MB", "GB", "TB", "PB"][unitIndex]}`;
+    }
+  }
   loadDataTable() {
     this._table = $(CONTENTID).on("xhr.dt", function(e, settings, json, xhr) {
       if (json && json.time) {
@@ -8571,7 +8608,7 @@ var DataTable = class {
         {
           data: "size",
           render: (data, type, row, meta) => {
-            return type == "display" ? row.human_size : data;
+            return type == "display" ? this.toHumanSize(row.size) : data;
           }
         },
         {

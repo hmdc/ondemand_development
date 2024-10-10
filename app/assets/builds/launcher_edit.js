@@ -24,6 +24,10 @@ var newFieldData = {
   auto_environment_variable: {
     label: "Environment Variable",
     help: "Add an environment variable."
+  },
+  auto_cores: {
+    label: "Cores",
+    help: "How many cores the job will run on."
   }
 };
 function addNewFieldButton() {
@@ -136,16 +140,32 @@ function addInProgressField(event) {
   enableNewFieldButton();
 }
 function updateAutoEnvironmentVariable(event) {
-  var aev_name = event.target.value;
+  const aev_name = event.target.value;
   const labelString = event.target.dataset.labelString;
+  const idString = `launcher_auto_environment_variable_${aev_name}`;
+  const nameString = `launcher[auto_environment_variable_${aev_name}]`;
   var input_field = event.target.parentElement.children[2].children[1];
   input_field.removeAttribute("readonly");
-  input_field.id = `launcher_auto_environment_variable_${aev_name}`;
-  input_field.name = `launcher[auto_environment_variable_${aev_name}]`;
+  input_field.id = idString;
+  input_field.name = nameString;
   if (labelString.match(/Environment(&#32;|\s)Variable/)) {
-    var label_field = event.target.parentElement.children[2].children[0];
+    const label_field = event.target.parentElement.children[2].children[0];
     label_field.innerHTML = `Environment Variable: ${aev_name}`;
   }
+  let fixedBoxGroup = event.target.parentElement.children[3].children[0].children[0];
+  let checkbox = fixedBoxGroup.children[0];
+  checkbox.id = `${idString}_fixed`;
+  checkbox.name = `launcher[auto_environment_variable_${aev_name}_fixed]`;
+  checkbox.setAttribute("data-fixed-toggler", idString);
+  let labelIndex = 2;
+  if (fixedBoxGroup.children.length == 3) {
+    let hiddenField = fixedBoxGroup.children[1];
+    hiddenField.name = nameString;
+  } else {
+    labelIndex = 1;
+  }
+  let fixedLabel = fixedBoxGroup.children[labelIndex];
+  fixedLabel.setAttribute("for", `${idString}_fixed`);
 }
 function fixExcludeBasedOnSelect(selectElement) {
   const excludeElementId = selectElement.dataset.excludeId;

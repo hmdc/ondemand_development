@@ -4,6 +4,7 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -19,6 +20,10 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
 
 // node_modules/clipboard/dist/clipboard.js
 var require_clipboard = __commonJS({
@@ -80,23 +85,23 @@ var require_clipboard = __commonJS({
               return fakeElement;
             }
             ;
-            var fakeCopyAction = function fakeCopyAction2(value, options) {
+            var fakeCopyAction = function fakeCopyAction2(value, options3) {
               var fakeElement = createFakeElement(value);
-              options.container.appendChild(fakeElement);
+              options3.container.appendChild(fakeElement);
               var selectedText = select_default()(fakeElement);
               command("copy");
               fakeElement.remove();
               return selectedText;
             };
             var ClipboardActionCopy = function ClipboardActionCopy2(target) {
-              var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
+              var options3 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
                 container: document.body
               };
               var selectedText = "";
               if (typeof target === "string") {
-                selectedText = fakeCopyAction(target, options);
+                selectedText = fakeCopyAction(target, options3);
               } else if (target instanceof HTMLInputElement && !["text", "search", "url", "tel", "password"].includes(target === null || target === void 0 ? void 0 : target.type)) {
-                selectedText = fakeCopyAction(target.value, options);
+                selectedText = fakeCopyAction(target.value, options3);
               } else {
                 selectedText = select_default()(target);
                 command("copy");
@@ -119,8 +124,8 @@ var require_clipboard = __commonJS({
               return _typeof(obj);
             }
             var ClipboardActionDefault = function ClipboardActionDefault2() {
-              var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-              var _options$action = options.action, action = _options$action === void 0 ? "copy" : _options$action, container = options.container, target = options.target, text = options.text;
+              var options3 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
+              var _options$action = options3.action, action = _options$action === void 0 ? "copy" : _options$action, container = options3.container, target = options3.target, text = options3.text;
               if (action !== "copy" && action !== "cut") {
                 throw new Error('Invalid "action" value, use either "copy" or "cut"');
               }
@@ -168,8 +173,8 @@ var require_clipboard = __commonJS({
               }
             }
             function _defineProperties(target, props) {
-              for (var i4 = 0; i4 < props.length; i4++) {
-                var descriptor = props[i4];
+              for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
                 descriptor.enumerable = descriptor.enumerable || false;
                 descriptor.configurable = true;
                 if ("value" in descriptor)
@@ -192,12 +197,12 @@ var require_clipboard = __commonJS({
               if (superClass)
                 _setPrototypeOf(subClass, superClass);
             }
-            function _setPrototypeOf(o4, p4) {
-              _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o5, p5) {
-                o5.__proto__ = p5;
-                return o5;
+            function _setPrototypeOf(o, p) {
+              _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o2, p2) {
+                o2.__proto__ = p2;
+                return o2;
               };
-              return _setPrototypeOf(o4, p4);
+              return _setPrototypeOf(o, p);
             }
             function _createSuper(Derived) {
               var hasNativeReflectConstruct = _isNativeReflectConstruct();
@@ -235,15 +240,15 @@ var require_clipboard = __commonJS({
                 Date.prototype.toString.call(Reflect.construct(Date, [], function() {
                 }));
                 return true;
-              } catch (e4) {
+              } catch (e) {
                 return false;
               }
             }
-            function _getPrototypeOf(o4) {
-              _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf2(o5) {
-                return o5.__proto__ || Object.getPrototypeOf(o5);
+            function _getPrototypeOf(o) {
+              _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf2(o2) {
+                return o2.__proto__ || Object.getPrototypeOf(o2);
               };
-              return _getPrototypeOf(o4);
+              return _getPrototypeOf(o);
             }
             function getAttributeValue(suffix, element) {
               var attribute = "data-clipboard-".concat(suffix);
@@ -255,35 +260,35 @@ var require_clipboard = __commonJS({
             var Clipboard = /* @__PURE__ */ function(_Emitter) {
               _inherits(Clipboard2, _Emitter);
               var _super = _createSuper(Clipboard2);
-              function Clipboard2(trigger, options) {
+              function Clipboard2(trigger, options3) {
                 var _this;
                 _classCallCheck(this, Clipboard2);
                 _this = _super.call(this);
-                _this.resolveOptions(options);
+                _this.resolveOptions(options3);
                 _this.listenClick(trigger);
                 return _this;
               }
               _createClass(Clipboard2, [{
                 key: "resolveOptions",
                 value: function resolveOptions() {
-                  var options = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
-                  this.action = typeof options.action === "function" ? options.action : this.defaultAction;
-                  this.target = typeof options.target === "function" ? options.target : this.defaultTarget;
-                  this.text = typeof options.text === "function" ? options.text : this.defaultText;
-                  this.container = clipboard_typeof(options.container) === "object" ? options.container : document.body;
+                  var options3 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
+                  this.action = typeof options3.action === "function" ? options3.action : this.defaultAction;
+                  this.target = typeof options3.target === "function" ? options3.target : this.defaultTarget;
+                  this.text = typeof options3.text === "function" ? options3.text : this.defaultText;
+                  this.container = clipboard_typeof(options3.container) === "object" ? options3.container : document.body;
                 }
               }, {
                 key: "listenClick",
                 value: function listenClick(trigger) {
                   var _this2 = this;
-                  this.listener = listen_default()(trigger, "click", function(e4) {
-                    return _this2.onClick(e4);
+                  this.listener = listen_default()(trigger, "click", function(e) {
+                    return _this2.onClick(e);
                   });
                 }
               }, {
                 key: "onClick",
-                value: function onClick(e4) {
-                  var trigger = e4.delegateTarget || e4.currentTarget;
+                value: function onClick(e) {
+                  var trigger = e.delegateTarget || e.currentTarget;
                   var action = this.action(trigger) || "copy";
                   var text = actions_default({
                     action,
@@ -329,10 +334,10 @@ var require_clipboard = __commonJS({
               }], [{
                 key: "copy",
                 value: function copy(target) {
-                  var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
+                  var options3 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
                     container: document.body
                   };
-                  return actions_copy(target, options);
+                  return actions_copy(target, options3);
                 }
               }, {
                 key: "cut",
@@ -397,10 +402,10 @@ var require_clipboard = __commonJS({
               });
             }
             function listener(element, selector, type, callback) {
-              return function(e4) {
-                e4.delegateTarget = closest(e4.target, selector);
-                if (e4.delegateTarget) {
-                  callback.call(element, e4);
+              return function(e) {
+                e.delegateTarget = closest(e.target, selector);
+                if (e.delegateTarget) {
+                  callback.call(element, e);
                 }
               };
             }
@@ -445,22 +450,22 @@ var require_clipboard = __commonJS({
                 throw new TypeError("First argument must be a String, HTMLElement, HTMLCollection, or NodeList");
               }
             }
-            function listenNode(node, type, callback) {
-              node.addEventListener(type, callback);
+            function listenNode(node2, type, callback) {
+              node2.addEventListener(type, callback);
               return {
                 destroy: function() {
-                  node.removeEventListener(type, callback);
+                  node2.removeEventListener(type, callback);
                 }
               };
             }
             function listenNodeList(nodeList, type, callback) {
-              Array.prototype.forEach.call(nodeList, function(node) {
-                node.addEventListener(type, callback);
+              Array.prototype.forEach.call(nodeList, function(node2) {
+                node2.addEventListener(type, callback);
               });
               return {
                 destroy: function() {
-                  Array.prototype.forEach.call(nodeList, function(node) {
-                    node.removeEventListener(type, callback);
+                  Array.prototype.forEach.call(nodeList, function(node2) {
+                    node2.removeEventListener(type, callback);
                   });
                 }
               };
@@ -503,12 +508,12 @@ var require_clipboard = __commonJS({
             module2.exports = select;
           },
           279: function(module2) {
-            function E2() {
+            function E() {
             }
-            E2.prototype = {
+            E.prototype = {
               on: function(name, callback, ctx) {
-                var e4 = this.e || (this.e = {});
-                (e4[name] || (e4[name] = [])).push({
+                var e = this.e || (this.e = {});
+                (e[name] || (e[name] = [])).push({
                   fn: callback,
                   ctx
                 });
@@ -527,29 +532,29 @@ var require_clipboard = __commonJS({
               emit: function(name) {
                 var data = [].slice.call(arguments, 1);
                 var evtArr = ((this.e || (this.e = {}))[name] || []).slice();
-                var i4 = 0;
+                var i = 0;
                 var len = evtArr.length;
-                for (i4; i4 < len; i4++) {
-                  evtArr[i4].fn.apply(evtArr[i4].ctx, data);
+                for (i; i < len; i++) {
+                  evtArr[i].fn.apply(evtArr[i].ctx, data);
                 }
                 return this;
               },
               off: function(name, callback) {
-                var e4 = this.e || (this.e = {});
-                var evts = e4[name];
+                var e = this.e || (this.e = {});
+                var evts = e[name];
                 var liveEvents = [];
                 if (evts && callback) {
-                  for (var i4 = 0, len = evts.length; i4 < len; i4++) {
-                    if (evts[i4].fn !== callback && evts[i4].fn._ !== callback)
-                      liveEvents.push(evts[i4]);
+                  for (var i = 0, len = evts.length; i < len; i++) {
+                    if (evts[i].fn !== callback && evts[i].fn._ !== callback)
+                      liveEvents.push(evts[i]);
                   }
                 }
-                liveEvents.length ? e4[name] = liveEvents : delete e4[name];
+                liveEvents.length ? e[name] = liveEvents : delete e[name];
                 return this;
               }
             };
-            module2.exports = E2;
-            module2.exports.TinyEmitter = E2;
+            module2.exports = E;
+            module2.exports.TinyEmitter = E;
           }
         };
         var __webpack_module_cache__ = {};
@@ -602,7 +607,7 @@ var require_utils = __commonJS({
     exports.extend = extend;
     exports.indexOf = indexOf;
     exports.escapeExpression = escapeExpression;
-    exports.isEmpty = isEmpty;
+    exports.isEmpty = isEmpty2;
     exports.createFrame = createFrame;
     exports.blockParams = blockParams;
     exports.appendContextPath = appendContextPath;
@@ -621,10 +626,10 @@ var require_utils = __commonJS({
       return escape2[chr];
     }
     function extend(obj) {
-      for (var i4 = 1; i4 < arguments.length; i4++) {
-        for (var key in arguments[i4]) {
-          if (Object.prototype.hasOwnProperty.call(arguments[i4], key)) {
-            obj[key] = arguments[i4][key];
+      for (var i = 1; i < arguments.length; i++) {
+        for (var key in arguments[i]) {
+          if (Object.prototype.hasOwnProperty.call(arguments[i], key)) {
+            obj[key] = arguments[i][key];
           }
         }
       }
@@ -641,14 +646,14 @@ var require_utils = __commonJS({
       };
     }
     exports.isFunction = isFunction;
-    var isArray = Array.isArray || function(value) {
+    var isArray2 = Array.isArray || function(value) {
       return value && typeof value === "object" ? toString.call(value) === "[object Array]" : false;
     };
-    exports.isArray = isArray;
+    exports.isArray = isArray2;
     function indexOf(array, value) {
-      for (var i4 = 0, len = array.length; i4 < len; i4++) {
-        if (array[i4] === value) {
-          return i4;
+      for (var i = 0, len = array.length; i < len; i++) {
+        if (array[i] === value) {
+          return i;
         }
       }
       return -1;
@@ -669,10 +674,10 @@ var require_utils = __commonJS({
       }
       return string.replace(badChars, escapeChar);
     }
-    function isEmpty(value) {
+    function isEmpty2(value) {
       if (!value && value !== 0) {
         return true;
-      } else if (isArray(value) && value.length === 0) {
+      } else if (isArray2(value) && value.length === 0) {
         return true;
       } else {
         return false;
@@ -687,8 +692,8 @@ var require_utils = __commonJS({
       params.path = ids;
       return params;
     }
-    function appendContextPath(contextPath, id13) {
-      return (contextPath ? contextPath + "." : "") + id13;
+    function appendContextPath(contextPath, id12) {
+      return (contextPath ? contextPath + "." : "") + id12;
     }
   }
 });
@@ -699,8 +704,8 @@ var require_exception = __commonJS({
     "use strict";
     exports.__esModule = true;
     var errorProps = ["description", "fileName", "lineNumber", "endLineNumber", "message", "name", "number", "stack"];
-    function Exception(message, node) {
-      var loc = node && node.loc, line = void 0, endLineNumber = void 0, column = void 0, endColumn = void 0;
+    function Exception(message, node2) {
+      var loc = node2 && node2.loc, line = void 0, endLineNumber = void 0, column = void 0, endColumn = void 0;
       if (loc) {
         line = loc.start.line;
         endLineNumber = loc.end.line;
@@ -749,28 +754,28 @@ var require_block_helper_missing = __commonJS({
     exports.__esModule = true;
     var _utils = require_utils();
     exports["default"] = function(instance) {
-      instance.registerHelper("blockHelperMissing", function(context, options) {
-        var inverse = options.inverse, fn = options.fn;
+      instance.registerHelper("blockHelperMissing", function(context, options3) {
+        var inverse = options3.inverse, fn = options3.fn;
         if (context === true) {
           return fn(this);
         } else if (context === false || context == null) {
           return inverse(this);
         } else if (_utils.isArray(context)) {
           if (context.length > 0) {
-            if (options.ids) {
-              options.ids = [options.name];
+            if (options3.ids) {
+              options3.ids = [options3.name];
             }
-            return instance.helpers.each(context, options);
+            return instance.helpers.each(context, options3);
           } else {
             return inverse(this);
           }
         } else {
-          if (options.data && options.ids) {
-            var data = _utils.createFrame(options.data);
-            data.contextPath = _utils.appendContextPath(options.data.contextPath, options.name);
-            options = { data };
+          if (options3.data && options3.ids) {
+            var data = _utils.createFrame(options3.data);
+            data.contextPath = _utils.appendContextPath(options3.data.contextPath, options3.name);
+            options3 = { data };
           }
-          return fn(context, options);
+          return fn(context, options3);
         }
       });
     };
@@ -790,19 +795,19 @@ var require_each = __commonJS({
     var _exception = require_exception();
     var _exception2 = _interopRequireDefault(_exception);
     exports["default"] = function(instance) {
-      instance.registerHelper("each", function(context, options) {
-        if (!options) {
+      instance.registerHelper("each", function(context, options3) {
+        if (!options3) {
           throw new _exception2["default"]("Must pass iterator to #each");
         }
-        var fn = options.fn, inverse = options.inverse, i4 = 0, ret = "", data = void 0, contextPath = void 0;
-        if (options.data && options.ids) {
-          contextPath = _utils.appendContextPath(options.data.contextPath, options.ids[0]) + ".";
+        var fn = options3.fn, inverse = options3.inverse, i = 0, ret = "", data = void 0, contextPath = void 0;
+        if (options3.data && options3.ids) {
+          contextPath = _utils.appendContextPath(options3.data.contextPath, options3.ids[0]) + ".";
         }
         if (_utils.isFunction(context)) {
           context = context.call(this);
         }
-        if (options.data) {
-          data = _utils.createFrame(options.data);
+        if (options3.data) {
+          data = _utils.createFrame(options3.data);
         }
         function execIteration(field, index, last) {
           if (data) {
@@ -821,9 +826,9 @@ var require_each = __commonJS({
         }
         if (context && typeof context === "object") {
           if (_utils.isArray(context)) {
-            for (var j4 = context.length; i4 < j4; i4++) {
-              if (i4 in context) {
-                execIteration(i4, i4, i4 === context.length - 1);
+            for (var j = context.length; i < j; i++) {
+              if (i in context) {
+                execIteration(i, i, i === context.length - 1);
               }
             }
           } else if (typeof Symbol === "function" && context[Symbol.iterator]) {
@@ -833,26 +838,26 @@ var require_each = __commonJS({
               newContext.push(it.value);
             }
             context = newContext;
-            for (var j4 = context.length; i4 < j4; i4++) {
-              execIteration(i4, i4, i4 === context.length - 1);
+            for (var j = context.length; i < j; i++) {
+              execIteration(i, i, i === context.length - 1);
             }
           } else {
             (function() {
               var priorKey = void 0;
               Object.keys(context).forEach(function(key) {
                 if (priorKey !== void 0) {
-                  execIteration(priorKey, i4 - 1);
+                  execIteration(priorKey, i - 1);
                 }
                 priorKey = key;
-                i4++;
+                i++;
               });
               if (priorKey !== void 0) {
-                execIteration(priorKey, i4 - 1, true);
+                execIteration(priorKey, i - 1, true);
               }
             })();
           }
         }
-        if (i4 === 0) {
+        if (i === 0) {
           ret = inverse(this);
         }
         return ret;
@@ -897,27 +902,27 @@ var require_if = __commonJS({
     var _exception = require_exception();
     var _exception2 = _interopRequireDefault(_exception);
     exports["default"] = function(instance) {
-      instance.registerHelper("if", function(conditional, options) {
+      instance.registerHelper("if", function(conditional, options3) {
         if (arguments.length != 2) {
           throw new _exception2["default"]("#if requires exactly one argument");
         }
         if (_utils.isFunction(conditional)) {
           conditional = conditional.call(this);
         }
-        if (!options.hash.includeZero && !conditional || _utils.isEmpty(conditional)) {
-          return options.inverse(this);
+        if (!options3.hash.includeZero && !conditional || _utils.isEmpty(conditional)) {
+          return options3.inverse(this);
         } else {
-          return options.fn(this);
+          return options3.fn(this);
         }
       });
-      instance.registerHelper("unless", function(conditional, options) {
+      instance.registerHelper("unless", function(conditional, options3) {
         if (arguments.length != 2) {
           throw new _exception2["default"]("#unless requires exactly one argument");
         }
         return instance.helpers["if"].call(this, conditional, {
-          fn: options.inverse,
-          inverse: options.fn,
-          hash: options.hash
+          fn: options3.inverse,
+          inverse: options3.fn,
+          hash: options3.hash
         });
       });
     };
@@ -932,15 +937,15 @@ var require_log = __commonJS({
     exports.__esModule = true;
     exports["default"] = function(instance) {
       instance.registerHelper("log", function() {
-        var args = [void 0], options = arguments[arguments.length - 1];
-        for (var i4 = 0; i4 < arguments.length - 1; i4++) {
-          args.push(arguments[i4]);
+        var args = [void 0], options3 = arguments[arguments.length - 1];
+        for (var i = 0; i < arguments.length - 1; i++) {
+          args.push(arguments[i]);
         }
         var level = 1;
-        if (options.hash.level != null) {
-          level = options.hash.level;
-        } else if (options.data && options.data.level != null) {
-          level = options.data.level;
+        if (options3.hash.level != null) {
+          level = options3.hash.level;
+        } else if (options3.data && options3.data.level != null) {
+          level = options3.data.level;
         }
         args[0] = level;
         instance.log.apply(instance, args);
@@ -956,11 +961,11 @@ var require_lookup = __commonJS({
     "use strict";
     exports.__esModule = true;
     exports["default"] = function(instance) {
-      instance.registerHelper("lookup", function(obj, field, options) {
+      instance.registerHelper("lookup", function(obj, field, options3) {
         if (!obj) {
           return obj;
         }
-        return options.lookupProperty(obj, field);
+        return options3.lookupProperty(obj, field);
       });
     };
     module.exports = exports["default"];
@@ -979,26 +984,26 @@ var require_with = __commonJS({
     var _exception = require_exception();
     var _exception2 = _interopRequireDefault(_exception);
     exports["default"] = function(instance) {
-      instance.registerHelper("with", function(context, options) {
+      instance.registerHelper("with", function(context, options3) {
         if (arguments.length != 2) {
           throw new _exception2["default"]("#with requires exactly one argument");
         }
         if (_utils.isFunction(context)) {
           context = context.call(this);
         }
-        var fn = options.fn;
+        var fn = options3.fn;
         if (!_utils.isEmpty(context)) {
-          var data = options.data;
-          if (options.data && options.ids) {
-            data = _utils.createFrame(options.data);
-            data.contextPath = _utils.appendContextPath(options.data.contextPath, options.ids[0]);
+          var data = options3.data;
+          if (options3.data && options3.ids) {
+            data = _utils.createFrame(options3.data);
+            data.contextPath = _utils.appendContextPath(options3.data.contextPath, options3.ids[0]);
           }
           return fn(context, {
             data,
             blockParams: _utils.blockParams([context], [data && data.contextPath])
           });
         } else {
-          return options.inverse(this);
+          return options3.inverse(this);
         }
       });
     };
@@ -1057,19 +1062,19 @@ var require_inline = __commonJS({
     exports.__esModule = true;
     var _utils = require_utils();
     exports["default"] = function(instance) {
-      instance.registerDecorator("inline", function(fn, props, container, options) {
+      instance.registerDecorator("inline", function(fn, props, container, options3) {
         var ret = fn;
         if (!props.partials) {
           props.partials = {};
-          ret = function(context, options2) {
+          ret = function(context, options4) {
             var original = container.partials;
             container.partials = _utils.extend({}, original, props.partials);
-            var ret2 = fn(context, options2);
+            var ret2 = fn(context, options4);
             container.partials = original;
             return ret2;
           };
         }
-        props.partials[options.args[0]] = options.fn;
+        props.partials[options3.args[0]] = options3.fn;
         return ret;
       });
     };
@@ -1337,8 +1342,8 @@ var require_wrapHelper = __commonJS({
         return helper;
       }
       var wrapper = function wrapper2() {
-        var options = arguments[arguments.length - 1];
-        arguments[arguments.length - 1] = transformOptionsFn(options);
+        var options3 = arguments[arguments.length - 1];
+        arguments[arguments.length - 1] = transformOptionsFn(options3);
         return helper.apply(this, arguments);
       };
       return wrapper;
@@ -1405,37 +1410,37 @@ var require_runtime = __commonJS({
       templateSpec.main.decorator = templateSpec.main_d;
       env.VM.checkRevision(templateSpec.compiler);
       var templateWasPrecompiledWithCompilerV7 = templateSpec.compiler && templateSpec.compiler[0] === 7;
-      function invokePartialWrapper(partial, context, options) {
-        if (options.hash) {
-          context = Utils.extend({}, context, options.hash);
-          if (options.ids) {
-            options.ids[0] = true;
+      function invokePartialWrapper(partial, context, options3) {
+        if (options3.hash) {
+          context = Utils.extend({}, context, options3.hash);
+          if (options3.ids) {
+            options3.ids[0] = true;
           }
         }
-        partial = env.VM.resolvePartial.call(this, partial, context, options);
-        var extendedOptions = Utils.extend({}, options, {
+        partial = env.VM.resolvePartial.call(this, partial, context, options3);
+        var extendedOptions = Utils.extend({}, options3, {
           hooks: this.hooks,
           protoAccessControl: this.protoAccessControl
         });
         var result = env.VM.invokePartial.call(this, partial, context, extendedOptions);
         if (result == null && env.compile) {
-          options.partials[options.name] = env.compile(partial, templateSpec.compilerOptions, env);
-          result = options.partials[options.name](context, extendedOptions);
+          options3.partials[options3.name] = env.compile(partial, templateSpec.compilerOptions, env);
+          result = options3.partials[options3.name](context, extendedOptions);
         }
         if (result != null) {
-          if (options.indent) {
+          if (options3.indent) {
             var lines = result.split("\n");
-            for (var i4 = 0, l4 = lines.length; i4 < l4; i4++) {
-              if (!lines[i4] && i4 + 1 === l4) {
+            for (var i = 0, l = lines.length; i < l; i++) {
+              if (!lines[i] && i + 1 === l) {
                 break;
               }
-              lines[i4] = options.indent + lines[i4];
+              lines[i] = options3.indent + lines[i];
             }
             result = lines.join("\n");
           }
           return result;
         } else {
-          throw new _exception2["default"]("The partial " + options.name + " could not be compiled when running in runtime-only mode");
+          throw new _exception2["default"]("The partial " + options3.name + " could not be compiled when running in runtime-only mode");
         }
       }
       var container = {
@@ -1462,10 +1467,10 @@ var require_runtime = __commonJS({
         },
         lookup: function lookup(depths, name) {
           var len = depths.length;
-          for (var i4 = 0; i4 < len; i4++) {
-            var result = depths[i4] && container.lookupProperty(depths[i4], name);
+          for (var i = 0; i < len; i++) {
+            var result = depths[i] && container.lookupProperty(depths[i], name);
             if (result != null) {
-              return depths[i4][name];
+              return depths[i][name];
             }
           }
         },
@@ -1474,18 +1479,18 @@ var require_runtime = __commonJS({
         },
         escapeExpression: Utils.escapeExpression,
         invokePartial: invokePartialWrapper,
-        fn: function fn(i4) {
-          var ret2 = templateSpec[i4];
-          ret2.decorator = templateSpec[i4 + "_d"];
+        fn: function fn(i) {
+          var ret2 = templateSpec[i];
+          ret2.decorator = templateSpec[i + "_d"];
           return ret2;
         },
         programs: [],
-        program: function program(i4, data, declaredBlockParams, blockParams, depths) {
-          var programWrapper = this.programs[i4], fn = this.fn(i4);
+        program: function program(i, data, declaredBlockParams, blockParams, depths) {
+          var programWrapper = this.programs[i], fn = this.fn(i);
           if (data || depths || blockParams || declaredBlockParams) {
-            programWrapper = wrapProgram(this, i4, fn, data, declaredBlockParams, blockParams, depths);
+            programWrapper = wrapProgram(this, i, fn, data, declaredBlockParams, blockParams, depths);
           } else if (!programWrapper) {
-            programWrapper = this.programs[i4] = wrapProgram(this, i4, fn);
+            programWrapper = this.programs[i] = wrapProgram(this, i, fn);
           }
           return programWrapper;
         },
@@ -1507,16 +1512,16 @@ var require_runtime = __commonJS({
         compilerInfo: templateSpec.compiler
       };
       function ret(context) {
-        var options = arguments.length <= 1 || arguments[1] === void 0 ? {} : arguments[1];
-        var data = options.data;
-        ret._setup(options);
-        if (!options.partial && templateSpec.useData) {
+        var options3 = arguments.length <= 1 || arguments[1] === void 0 ? {} : arguments[1];
+        var data = options3.data;
+        ret._setup(options3);
+        if (!options3.partial && templateSpec.useData) {
           data = initData(context, data);
         }
         var depths = void 0, blockParams = templateSpec.useBlockParams ? [] : void 0;
         if (templateSpec.useDepths) {
-          if (options.depths) {
-            depths = context != options.depths[0] ? [context].concat(options.depths) : options.depths;
+          if (options3.depths) {
+            depths = context != options3.depths[0] ? [context].concat(options3.depths) : options3.depths;
           } else {
             depths = [context];
           }
@@ -1524,92 +1529,92 @@ var require_runtime = __commonJS({
         function main(context2) {
           return "" + templateSpec.main(container, context2, container.helpers, container.partials, data, blockParams, depths);
         }
-        main = executeDecorators(templateSpec.main, main, container, options.depths || [], data, blockParams);
-        return main(context, options);
+        main = executeDecorators(templateSpec.main, main, container, options3.depths || [], data, blockParams);
+        return main(context, options3);
       }
       ret.isTop = true;
-      ret._setup = function(options) {
-        if (!options.partial) {
-          var mergedHelpers = Utils.extend({}, env.helpers, options.helpers);
+      ret._setup = function(options3) {
+        if (!options3.partial) {
+          var mergedHelpers = Utils.extend({}, env.helpers, options3.helpers);
           wrapHelpersToPassLookupProperty(mergedHelpers, container);
           container.helpers = mergedHelpers;
           if (templateSpec.usePartial) {
-            container.partials = container.mergeIfNeeded(options.partials, env.partials);
+            container.partials = container.mergeIfNeeded(options3.partials, env.partials);
           }
           if (templateSpec.usePartial || templateSpec.useDecorators) {
-            container.decorators = Utils.extend({}, env.decorators, options.decorators);
+            container.decorators = Utils.extend({}, env.decorators, options3.decorators);
           }
           container.hooks = {};
-          container.protoAccessControl = _internalProtoAccess.createProtoAccessControl(options);
-          var keepHelperInHelpers = options.allowCallsToHelperMissing || templateWasPrecompiledWithCompilerV7;
+          container.protoAccessControl = _internalProtoAccess.createProtoAccessControl(options3);
+          var keepHelperInHelpers = options3.allowCallsToHelperMissing || templateWasPrecompiledWithCompilerV7;
           _helpers.moveHelperToHooks(container, "helperMissing", keepHelperInHelpers);
           _helpers.moveHelperToHooks(container, "blockHelperMissing", keepHelperInHelpers);
         } else {
-          container.protoAccessControl = options.protoAccessControl;
-          container.helpers = options.helpers;
-          container.partials = options.partials;
-          container.decorators = options.decorators;
-          container.hooks = options.hooks;
+          container.protoAccessControl = options3.protoAccessControl;
+          container.helpers = options3.helpers;
+          container.partials = options3.partials;
+          container.decorators = options3.decorators;
+          container.hooks = options3.hooks;
         }
       };
-      ret._child = function(i4, data, blockParams, depths) {
+      ret._child = function(i, data, blockParams, depths) {
         if (templateSpec.useBlockParams && !blockParams) {
           throw new _exception2["default"]("must pass block params");
         }
         if (templateSpec.useDepths && !depths) {
           throw new _exception2["default"]("must pass parent depths");
         }
-        return wrapProgram(container, i4, templateSpec[i4], data, 0, blockParams, depths);
+        return wrapProgram(container, i, templateSpec[i], data, 0, blockParams, depths);
       };
       return ret;
     }
-    function wrapProgram(container, i4, fn, data, declaredBlockParams, blockParams, depths) {
+    function wrapProgram(container, i, fn, data, declaredBlockParams, blockParams, depths) {
       function prog(context) {
-        var options = arguments.length <= 1 || arguments[1] === void 0 ? {} : arguments[1];
+        var options3 = arguments.length <= 1 || arguments[1] === void 0 ? {} : arguments[1];
         var currentDepths = depths;
         if (depths && context != depths[0] && !(context === container.nullContext && depths[0] === null)) {
           currentDepths = [context].concat(depths);
         }
-        return fn(container, context, container.helpers, container.partials, options.data || data, blockParams && [options.blockParams].concat(blockParams), currentDepths);
+        return fn(container, context, container.helpers, container.partials, options3.data || data, blockParams && [options3.blockParams].concat(blockParams), currentDepths);
       }
       prog = executeDecorators(fn, prog, container, depths, data, blockParams);
-      prog.program = i4;
+      prog.program = i;
       prog.depth = depths ? depths.length : 0;
       prog.blockParams = declaredBlockParams || 0;
       return prog;
     }
-    function resolvePartial(partial, context, options) {
+    function resolvePartial(partial, context, options3) {
       if (!partial) {
-        if (options.name === "@partial-block") {
-          partial = options.data["partial-block"];
+        if (options3.name === "@partial-block") {
+          partial = options3.data["partial-block"];
         } else {
-          partial = options.partials[options.name];
+          partial = options3.partials[options3.name];
         }
-      } else if (!partial.call && !options.name) {
-        options.name = partial;
-        partial = options.partials[partial];
+      } else if (!partial.call && !options3.name) {
+        options3.name = partial;
+        partial = options3.partials[partial];
       }
       return partial;
     }
-    function invokePartial(partial, context, options) {
-      var currentPartialBlock = options.data && options.data["partial-block"];
-      options.partial = true;
-      if (options.ids) {
-        options.data.contextPath = options.ids[0] || options.data.contextPath;
+    function invokePartial(partial, context, options3) {
+      var currentPartialBlock = options3.data && options3.data["partial-block"];
+      options3.partial = true;
+      if (options3.ids) {
+        options3.data.contextPath = options3.ids[0] || options3.data.contextPath;
       }
       var partialBlock = void 0;
-      if (options.fn && options.fn !== noop2) {
+      if (options3.fn && options3.fn !== noop2) {
         (function() {
-          options.data = _base.createFrame(options.data);
-          var fn = options.fn;
-          partialBlock = options.data["partial-block"] = function partialBlockWrapper(context2) {
-            var options2 = arguments.length <= 1 || arguments[1] === void 0 ? {} : arguments[1];
-            options2.data = _base.createFrame(options2.data);
-            options2.data["partial-block"] = currentPartialBlock;
-            return fn(context2, options2);
+          options3.data = _base.createFrame(options3.data);
+          var fn = options3.fn;
+          partialBlock = options3.data["partial-block"] = function partialBlockWrapper(context2) {
+            var options4 = arguments.length <= 1 || arguments[1] === void 0 ? {} : arguments[1];
+            options4.data = _base.createFrame(options4.data);
+            options4.data["partial-block"] = currentPartialBlock;
+            return fn(context2, options4);
           };
           if (fn.partials) {
-            options.partials = Utils.extend({}, options.partials, fn.partials);
+            options3.partials = Utils.extend({}, options3.partials, fn.partials);
           }
         })();
       }
@@ -1617,9 +1622,9 @@ var require_runtime = __commonJS({
         partial = partialBlock;
       }
       if (partial === void 0) {
-        throw new _exception2["default"]("The partial " + options.name + " could not be found");
+        throw new _exception2["default"]("The partial " + options3.name + " could not be found");
       } else if (partial instanceof Function) {
-        return partial(context, options);
+        return partial(context, options3);
       }
     }
     function noop2() {
@@ -1648,8 +1653,8 @@ var require_runtime = __commonJS({
     }
     function passLookupPropertyOption(helper, container) {
       var lookupProperty = container.lookupProperty;
-      return _internalWrapHelper.wrapHelper(helper, function(options) {
-        return Utils.extend({ lookupProperty }, options);
+      return _internalWrapHelper.wrapHelper(helper, function(options3) {
+        return Utils.extend({ lookupProperty }, options3);
       });
     }
   }
@@ -1746,8 +1751,8 @@ var require_ast = __commonJS({
     exports.__esModule = true;
     var AST = {
       helpers: {
-        helperExpression: function helperExpression(node) {
-          return node.type === "SubExpression" || (node.type === "MustacheStatement" || node.type === "BlockStatement") && !!(node.params && node.params.length || node.hash);
+        helperExpression: function helperExpression(node2) {
+          return node2.type === "SubExpression" || (node2.type === "MustacheStatement" || node2.type === "BlockStatement") && !!(node2.params && node2.params.length || node2.hash);
         },
         scopedId: function scopedId(path) {
           return /^\.|this\b/.test(path.original);
@@ -2038,10 +2043,10 @@ var require_parser = __commonJS({
           var ranges = this.lexer.options && this.lexer.options.ranges;
           if (typeof this.yy.parseError === "function")
             this.parseError = this.yy.parseError;
-          function popStack(n3) {
-            stack.length = stack.length - 2 * n3;
-            vstack.length = vstack.length - n3;
-            lstack.length = lstack.length - n3;
+          function popStack(n) {
+            stack.length = stack.length - 2 * n;
+            vstack.length = vstack.length - n;
+            lstack.length = lstack.length - n;
           }
           function lex() {
             var token;
@@ -2051,7 +2056,7 @@ var require_parser = __commonJS({
             }
             return token;
           }
-          var symbol, preErrorSymbol, state, action, a4, r4, yyval = {}, p4, len, newState, expected;
+          var symbol, preErrorSymbol, state, action, a, r, yyval = {}, p, len, newState, expected;
           while (true) {
             state = stack[stack.length - 1];
             if (this.defaultActions[state]) {
@@ -2066,9 +2071,9 @@ var require_parser = __commonJS({
               var errStr = "";
               if (!recovering) {
                 expected = [];
-                for (p4 in table2[state])
-                  if (this.terminals_[p4] && p4 > 2) {
-                    expected.push("'" + this.terminals_[p4] + "'");
+                for (p in table2[state])
+                  if (this.terminals_[p] && p > 2) {
+                    expected.push("'" + this.terminals_[p] + "'");
                   }
                 if (this.lexer.showPosition) {
                   errStr = "Parse error on line " + (yylineno + 1) + ":\n" + this.lexer.showPosition() + "\nExpecting " + expected.join(", ") + ", got '" + (this.terminals_[symbol] || symbol) + "'";
@@ -2107,9 +2112,9 @@ var require_parser = __commonJS({
                 if (ranges) {
                   yyval._$.range = [lstack[lstack.length - (len || 1)].range[0], lstack[lstack.length - 1].range[1]];
                 }
-                r4 = this.performAction.call(yyval, yytext, yyleng, yylineno, this.yy, action[1], vstack, lstack);
-                if (typeof r4 !== "undefined") {
-                  return r4;
+                r = this.performAction.call(yyval, yytext, yyleng, yylineno, this.yy, action[1], vstack, lstack);
+                if (typeof r !== "undefined") {
+                  return r;
                 }
                 if (len) {
                   stack = stack.slice(0, -1 * len * 2);
@@ -2181,7 +2186,7 @@ var require_parser = __commonJS({
             this.matched = this.matched.substr(0, this.matched.length - 1);
             if (lines.length - 1)
               this.yylineno -= lines.length - 1;
-            var r4 = this.yylloc.range;
+            var r = this.yylloc.range;
             this.yylloc = {
               first_line: this.yylloc.first_line,
               last_line: this.yylineno + 1,
@@ -2189,7 +2194,7 @@ var require_parser = __commonJS({
               last_column: lines ? (lines.length === oldLines.length ? this.yylloc.first_column : 0) + oldLines[oldLines.length - lines.length].length - lines[0].length : this.yylloc.first_column - len
             };
             if (this.options.ranges) {
-              this.yylloc.range = [r4[0], r4[0] + this.yyleng - len];
+              this.yylloc.range = [r[0], r[0] + this.yyleng - len];
             }
             return this;
           },
@@ -2197,8 +2202,8 @@ var require_parser = __commonJS({
             this._more = true;
             return this;
           },
-          less: function less(n3) {
-            this.unput(this.match.slice(n3));
+          less: function less(n) {
+            this.unput(this.match.slice(n));
           },
           pastInput: function pastInput() {
             var past = this.matched.substr(0, this.matched.length - this.match.length);
@@ -2213,8 +2218,8 @@ var require_parser = __commonJS({
           },
           showPosition: function showPosition() {
             var pre = this.pastInput();
-            var c4 = new Array(pre.length + 1).join("-");
-            return pre + this.upcomingInput() + "\n" + c4 + "^";
+            var c = new Array(pre.length + 1).join("-");
+            return pre + this.upcomingInput() + "\n" + c + "^";
           },
           next: function next() {
             if (this.done) {
@@ -2228,11 +2233,11 @@ var require_parser = __commonJS({
               this.match = "";
             }
             var rules = this._currentRules();
-            for (var i4 = 0; i4 < rules.length; i4++) {
-              tempMatch = this._input.match(this.rules[rules[i4]]);
+            for (var i = 0; i < rules.length; i++) {
+              tempMatch = this._input.match(this.rules[rules[i]]);
               if (tempMatch && (!match2 || tempMatch[0].length > match2[0].length)) {
                 match2 = tempMatch;
-                index = i4;
+                index = i;
                 if (!this.options.flex)
                   break;
               }
@@ -2272,9 +2277,9 @@ var require_parser = __commonJS({
             }
           },
           lex: function lex() {
-            var r4 = this.next();
-            if (typeof r4 !== "undefined") {
-              return r4;
+            var r = this.next();
+            if (typeof r !== "undefined") {
+              return r;
             } else {
               return this.lex();
             }
@@ -2502,28 +2507,28 @@ var require_visitor = __commonJS({
     Visitor.prototype = {
       constructor: Visitor,
       mutating: false,
-      acceptKey: function acceptKey(node, name) {
-        var value = this.accept(node[name]);
+      acceptKey: function acceptKey(node2, name) {
+        var value = this.accept(node2[name]);
         if (this.mutating) {
           if (value && !Visitor.prototype[value.type]) {
-            throw new _exception2["default"]('Unexpected node type "' + value.type + '" found when accepting ' + name + " on " + node.type);
+            throw new _exception2["default"]('Unexpected node type "' + value.type + '" found when accepting ' + name + " on " + node2.type);
           }
-          node[name] = value;
+          node2[name] = value;
         }
       },
-      acceptRequired: function acceptRequired(node, name) {
-        this.acceptKey(node, name);
-        if (!node[name]) {
-          throw new _exception2["default"](node.type + " requires " + name);
+      acceptRequired: function acceptRequired(node2, name) {
+        this.acceptKey(node2, name);
+        if (!node2[name]) {
+          throw new _exception2["default"](node2.type + " requires " + name);
         }
       },
       acceptArray: function acceptArray(array) {
-        for (var i4 = 0, l4 = array.length; i4 < l4; i4++) {
-          this.acceptKey(array, i4);
-          if (!array[i4]) {
-            array.splice(i4, 1);
-            i4--;
-            l4--;
+        for (var i = 0, l = array.length; i < l; i++) {
+          this.acceptKey(array, i);
+          if (!array[i]) {
+            array.splice(i, 1);
+            i--;
+            l--;
           }
         }
       },
@@ -2613,8 +2618,8 @@ var require_whitespace_control = __commonJS({
     var _visitor = require_visitor();
     var _visitor2 = _interopRequireDefault(_visitor);
     function WhitespaceControl() {
-      var options = arguments.length <= 0 || arguments[0] === void 0 ? {} : arguments[0];
-      this.options = options;
+      var options3 = arguments.length <= 0 || arguments[0] === void 0 ? {} : arguments[0];
+      this.options = options3;
     }
     WhitespaceControl.prototype = new _visitor2["default"]();
     WhitespaceControl.prototype.Program = function(program) {
@@ -2622,32 +2627,32 @@ var require_whitespace_control = __commonJS({
       var isRoot = !this.isRootSeen;
       this.isRootSeen = true;
       var body = program.body;
-      for (var i4 = 0, l4 = body.length; i4 < l4; i4++) {
-        var current = body[i4], strip = this.accept(current);
+      for (var i = 0, l = body.length; i < l; i++) {
+        var current = body[i], strip = this.accept(current);
         if (!strip) {
           continue;
         }
-        var _isPrevWhitespace = isPrevWhitespace(body, i4, isRoot), _isNextWhitespace = isNextWhitespace(body, i4, isRoot), openStandalone = strip.openStandalone && _isPrevWhitespace, closeStandalone = strip.closeStandalone && _isNextWhitespace, inlineStandalone = strip.inlineStandalone && _isPrevWhitespace && _isNextWhitespace;
+        var _isPrevWhitespace = isPrevWhitespace(body, i, isRoot), _isNextWhitespace = isNextWhitespace(body, i, isRoot), openStandalone = strip.openStandalone && _isPrevWhitespace, closeStandalone = strip.closeStandalone && _isNextWhitespace, inlineStandalone = strip.inlineStandalone && _isPrevWhitespace && _isNextWhitespace;
         if (strip.close) {
-          omitRight(body, i4, true);
+          omitRight(body, i, true);
         }
         if (strip.open) {
-          omitLeft(body, i4, true);
+          omitLeft(body, i, true);
         }
         if (doStandalone && inlineStandalone) {
-          omitRight(body, i4);
-          if (omitLeft(body, i4)) {
+          omitRight(body, i);
+          if (omitLeft(body, i)) {
             if (current.type === "PartialStatement") {
-              current.indent = /([ \t]+$)/.exec(body[i4 - 1].original)[1];
+              current.indent = /([ \t]+$)/.exec(body[i - 1].original)[1];
             }
           }
         }
         if (doStandalone && openStandalone) {
           omitRight((current.program || current.inverse).body);
-          omitLeft(body, i4);
+          omitLeft(body, i);
         }
         if (doStandalone && closeStandalone) {
-          omitRight(body, i4);
+          omitRight(body, i);
           omitLeft((current.inverse || current.program).body);
         }
       }
@@ -2695,19 +2700,19 @@ var require_whitespace_control = __commonJS({
     WhitespaceControl.prototype.Decorator = WhitespaceControl.prototype.MustacheStatement = function(mustache) {
       return mustache.strip;
     };
-    WhitespaceControl.prototype.PartialStatement = WhitespaceControl.prototype.CommentStatement = function(node) {
-      var strip = node.strip || {};
+    WhitespaceControl.prototype.PartialStatement = WhitespaceControl.prototype.CommentStatement = function(node2) {
+      var strip = node2.strip || {};
       return {
         inlineStandalone: true,
         open: strip.open,
         close: strip.close
       };
     };
-    function isPrevWhitespace(body, i4, isRoot) {
-      if (i4 === void 0) {
-        i4 = body.length;
+    function isPrevWhitespace(body, i, isRoot) {
+      if (i === void 0) {
+        i = body.length;
       }
-      var prev = body[i4 - 1], sibling = body[i4 - 2];
+      var prev = body[i - 1], sibling = body[i - 2];
       if (!prev) {
         return isRoot;
       }
@@ -2715,11 +2720,11 @@ var require_whitespace_control = __commonJS({
         return (sibling || !isRoot ? /\r?\n\s*?$/ : /(^|\r?\n)\s*?$/).test(prev.original);
       }
     }
-    function isNextWhitespace(body, i4, isRoot) {
-      if (i4 === void 0) {
-        i4 = -1;
+    function isNextWhitespace(body, i, isRoot) {
+      if (i === void 0) {
+        i = -1;
       }
-      var next = body[i4 + 1], sibling = body[i4 + 2];
+      var next = body[i + 1], sibling = body[i + 2];
       if (!next) {
         return isRoot;
       }
@@ -2727,8 +2732,8 @@ var require_whitespace_control = __commonJS({
         return (sibling || !isRoot ? /^\s*?\r?\n/ : /^\s*?(\r?\n|$)/).test(next.original);
       }
     }
-    function omitRight(body, i4, multiple) {
-      var current = body[i4 == null ? 0 : i4 + 1];
+    function omitRight(body, i, multiple) {
+      var current = body[i == null ? 0 : i + 1];
       if (!current || current.type !== "ContentStatement" || !multiple && current.rightStripped) {
         return;
       }
@@ -2736,8 +2741,8 @@ var require_whitespace_control = __commonJS({
       current.value = current.value.replace(multiple ? /^\s+/ : /^[ \t]*\r?\n?/, "");
       current.rightStripped = current.value !== original;
     }
-    function omitLeft(body, i4, multiple) {
-      var current = body[i4 == null ? body.length - 1 : i4 - 1];
+    function omitLeft(body, i, multiple) {
+      var current = body[i == null ? body.length - 1 : i - 1];
       if (!current || current.type !== "ContentStatement" || !multiple && current.leftStripped) {
         return;
       }
@@ -2757,7 +2762,7 @@ var require_helpers2 = __commonJS({
     "use strict";
     exports.__esModule = true;
     exports.SourceLocation = SourceLocation;
-    exports.id = id13;
+    exports.id = id12;
     exports.stripFlags = stripFlags;
     exports.stripComment = stripComment;
     exports.preparePath = preparePath;
@@ -2789,7 +2794,7 @@ var require_helpers2 = __commonJS({
         column: locInfo.last_column
       };
     }
-    function id13(token) {
+    function id12(token) {
       if (/^\[.*\]$/.test(token)) {
         return token.substring(1, token.length - 1);
       } else {
@@ -2808,9 +2813,9 @@ var require_helpers2 = __commonJS({
     function preparePath(data, parts, loc) {
       loc = this.locInfo(loc);
       var original = data ? "@" : "", dig = [], depth = 0;
-      for (var i4 = 0, l4 = parts.length; i4 < l4; i4++) {
-        var part = parts[i4].part, isLiteral = parts[i4].original !== part;
-        original += (parts[i4].separator || "") + part;
+      for (var i = 0, l = parts.length; i < l; i++) {
+        var part = parts[i].part, isLiteral = parts[i].original !== part;
+        original += (parts[i].separator || "") + part;
         if (!isLiteral && (part === ".." || part === "." || part === "this")) {
           if (dig.length > 0) {
             throw new _exception2["default"]("Invalid path: " + original, { loc });
@@ -2974,20 +2979,20 @@ var require_base2 = __commonJS({
     exports.parser = _parser2["default"];
     var yy = {};
     _utils.extend(yy, Helpers);
-    function parseWithoutProcessing(input, options) {
+    function parseWithoutProcessing(input, options3) {
       if (input.type === "Program") {
         return input;
       }
       _parser2["default"].yy = yy;
       yy.locInfo = function(locInfo) {
-        return new yy.SourceLocation(options && options.srcName, locInfo);
+        return new yy.SourceLocation(options3 && options3.srcName, locInfo);
       };
       var ast = _parser2["default"].parse(input);
       return ast;
     }
-    function parse(input, options) {
-      var ast = parseWithoutProcessing(input, options);
-      var strip = new _whitespaceControl2["default"](options);
+    function parse(input, options3) {
+      var ast = parseWithoutProcessing(input, options3);
+      var strip = new _whitespaceControl2["default"](options3);
       return strip.accept(ast);
     }
   }
@@ -3009,7 +3014,7 @@ var require_compiler = __commonJS({
     var _utils = require_utils();
     var _ast = require_ast();
     var _ast2 = _interopRequireDefault(_ast);
-    var slice = [].slice;
+    var slice2 = [].slice;
     function Compiler() {
     }
     Compiler.prototype = {
@@ -3019,30 +3024,30 @@ var require_compiler = __commonJS({
         if (other.opcodes.length !== len) {
           return false;
         }
-        for (var i4 = 0; i4 < len; i4++) {
-          var opcode = this.opcodes[i4], otherOpcode = other.opcodes[i4];
+        for (var i = 0; i < len; i++) {
+          var opcode = this.opcodes[i], otherOpcode = other.opcodes[i];
           if (opcode.opcode !== otherOpcode.opcode || !argEquals(opcode.args, otherOpcode.args)) {
             return false;
           }
         }
         len = this.children.length;
-        for (var i4 = 0; i4 < len; i4++) {
-          if (!this.children[i4].equals(other.children[i4])) {
+        for (var i = 0; i < len; i++) {
+          if (!this.children[i].equals(other.children[i])) {
             return false;
           }
         }
         return true;
       },
       guid: 0,
-      compile: function compile2(program, options) {
+      compile: function compile2(program, options3) {
         this.sourceNode = [];
         this.opcodes = [];
         this.children = [];
-        this.options = options;
-        this.stringParams = options.stringParams;
-        this.trackIds = options.trackIds;
-        options.blockParams = options.blockParams || [];
-        options.knownHelpers = _utils.extend(/* @__PURE__ */ Object.create(null), {
+        this.options = options3;
+        this.stringParams = options3.stringParams;
+        this.trackIds = options3.trackIds;
+        options3.blockParams = options3.blockParams || [];
+        options3.knownHelpers = _utils.extend(/* @__PURE__ */ Object.create(null), {
           helperMissing: true,
           blockHelperMissing: true,
           each: true,
@@ -3051,7 +3056,7 @@ var require_compiler = __commonJS({
           "with": true,
           log: true,
           lookup: true
-        }, options.knownHelpers);
+        }, options3.knownHelpers);
         return this.accept(program);
       },
       compileProgram: function compileProgram(program) {
@@ -3061,20 +3066,20 @@ var require_compiler = __commonJS({
         this.useDepths = this.useDepths || result.useDepths;
         return guid;
       },
-      accept: function accept(node) {
-        if (!this[node.type]) {
-          throw new _exception2["default"]("Unknown type: " + node.type, node);
+      accept: function accept(node2) {
+        if (!this[node2.type]) {
+          throw new _exception2["default"]("Unknown type: " + node2.type, node2);
         }
-        this.sourceNode.unshift(node);
-        var ret = this[node.type](node);
+        this.sourceNode.unshift(node2);
+        var ret = this[node2.type](node2);
         this.sourceNode.shift();
         return ret;
       },
       Program: function Program(program) {
         this.options.blockParams.unshift(program.blockParams);
         var body = program.body, bodyLength = body.length;
-        for (var i4 = 0; i4 < bodyLength; i4++) {
-          this.accept(body[i4]);
+        for (var i = 0; i < bodyLength; i++) {
+          this.accept(body[i]);
         }
         this.options.blockParams.shift();
         this.isSimple = bodyLength === 1;
@@ -3230,20 +3235,20 @@ var require_compiler = __commonJS({
         this.opcode("pushLiteral", "null");
       },
       Hash: function Hash(hash) {
-        var pairs = hash.pairs, i4 = 0, l4 = pairs.length;
+        var pairs = hash.pairs, i = 0, l = pairs.length;
         this.opcode("pushHash");
-        for (; i4 < l4; i4++) {
-          this.pushParam(pairs[i4].value);
+        for (; i < l; i++) {
+          this.pushParam(pairs[i].value);
         }
-        while (i4--) {
-          this.opcode("assignToHash", pairs[i4].key);
+        while (i--) {
+          this.opcode("assignToHash", pairs[i].key);
         }
         this.opcode("popHash");
       },
       opcode: function opcode(name) {
         this.opcodes.push({
           opcode: name,
-          args: slice.call(arguments, 1),
+          args: slice2.call(arguments, 1),
           loc: this.sourceNode[0].loc
         });
       },
@@ -3259,10 +3264,10 @@ var require_compiler = __commonJS({
         var isHelper = !isBlockParam && _ast2["default"].helpers.helperExpression(sexpr);
         var isEligible = !isBlockParam && (isHelper || isSimple);
         if (isEligible && !isHelper) {
-          var _name = sexpr.path.parts[0], options = this.options;
-          if (options.knownHelpers[_name]) {
+          var _name = sexpr.path.parts[0], options3 = this.options;
+          if (options3.knownHelpers[_name]) {
             isHelper = true;
-          } else if (options.knownHelpersOnly) {
+          } else if (options3.knownHelpersOnly) {
             isEligible = false;
           }
         }
@@ -3275,8 +3280,8 @@ var require_compiler = __commonJS({
         }
       },
       pushParams: function pushParams(params) {
-        for (var i4 = 0, l4 = params.length; i4 < l4; i4++) {
-          this.pushParam(params[i4]);
+        for (var i = 0, l = params.length; i < l; i++) {
+          this.pushParam(params[i]);
         }
       },
       pushParam: function pushParam(val) {
@@ -3334,36 +3339,36 @@ var require_compiler = __commonJS({
         }
       }
     };
-    function precompile(input, options, env) {
+    function precompile(input, options3, env) {
       if (input == null || typeof input !== "string" && input.type !== "Program") {
         throw new _exception2["default"]("You must pass a string or Handlebars AST to Handlebars.precompile. You passed " + input);
       }
-      options = options || {};
-      if (!("data" in options)) {
-        options.data = true;
+      options3 = options3 || {};
+      if (!("data" in options3)) {
+        options3.data = true;
       }
-      if (options.compat) {
-        options.useDepths = true;
+      if (options3.compat) {
+        options3.useDepths = true;
       }
-      var ast = env.parse(input, options), environment = new env.Compiler().compile(ast, options);
-      return new env.JavaScriptCompiler().compile(environment, options);
+      var ast = env.parse(input, options3), environment = new env.Compiler().compile(ast, options3);
+      return new env.JavaScriptCompiler().compile(environment, options3);
     }
-    function compile(input, options, env) {
-      if (options === void 0)
-        options = {};
+    function compile(input, options3, env) {
+      if (options3 === void 0)
+        options3 = {};
       if (input == null || typeof input !== "string" && input.type !== "Program") {
         throw new _exception2["default"]("You must pass a string or Handlebars AST to Handlebars.compile. You passed " + input);
       }
-      options = _utils.extend({}, options);
-      if (!("data" in options)) {
-        options.data = true;
+      options3 = _utils.extend({}, options3);
+      if (!("data" in options3)) {
+        options3.data = true;
       }
-      if (options.compat) {
-        options.useDepths = true;
+      if (options3.compat) {
+        options3.useDepths = true;
       }
       var compiled = void 0;
       function compileInput() {
-        var ast = env.parse(input, options), environment = new env.Compiler().compile(ast, options), templateSpec = new env.JavaScriptCompiler().compile(environment, options, void 0, true);
+        var ast = env.parse(input, options3), environment = new env.Compiler().compile(ast, options3), templateSpec = new env.JavaScriptCompiler().compile(environment, options3, void 0, true);
         return env.template(templateSpec);
       }
       function ret(context, execOptions) {
@@ -3378,21 +3383,21 @@ var require_compiler = __commonJS({
         }
         return compiled._setup(setupOptions);
       };
-      ret._child = function(i4, data, blockParams, depths) {
+      ret._child = function(i, data, blockParams, depths) {
         if (!compiled) {
           compiled = compileInput();
         }
-        return compiled._child(i4, data, blockParams, depths);
+        return compiled._child(i, data, blockParams, depths);
       };
       return ret;
     }
-    function argEquals(a4, b3) {
-      if (a4 === b3) {
+    function argEquals(a, b) {
+      if (a === b) {
         return true;
       }
-      if (_utils.isArray(a4) && _utils.isArray(b3) && a4.length === b3.length) {
-        for (var i4 = 0; i4 < a4.length; i4++) {
-          if (!argEquals(a4[i4], b3[i4])) {
+      if (_utils.isArray(a) && _utils.isArray(b) && a.length === b.length) {
+        for (var i = 0; i < a.length; i++) {
+          if (!argEquals(a[i], b[i])) {
             return false;
           }
         }
@@ -3571,18 +3576,18 @@ var require_util = __commonJS({
       }
       var isAbsolute = exports.isAbsolute(path);
       var parts = path.split(/\/+/);
-      for (var part, up = 0, i4 = parts.length - 1; i4 >= 0; i4--) {
-        part = parts[i4];
+      for (var part, up = 0, i = parts.length - 1; i >= 0; i--) {
+        part = parts[i];
         if (part === ".") {
-          parts.splice(i4, 1);
+          parts.splice(i, 1);
         } else if (part === "..") {
           up++;
         } else if (up > 0) {
           if (part === "") {
-            parts.splice(i4 + 1, up);
+            parts.splice(i + 1, up);
             up = 0;
           } else {
-            parts.splice(i4, 2);
+            parts.splice(i, 2);
             up--;
           }
         }
@@ -3658,8 +3663,8 @@ var require_util = __commonJS({
       var obj = /* @__PURE__ */ Object.create(null);
       return !("__proto__" in obj);
     }();
-    function identity2(s4) {
-      return s4;
+    function identity2(s) {
+      return s;
     }
     function toSetString(aStr) {
       if (isProtoString(aStr)) {
@@ -3675,19 +3680,19 @@ var require_util = __commonJS({
       return aStr;
     }
     exports.fromSetString = supportsNullProto ? identity2 : fromSetString;
-    function isProtoString(s4) {
-      if (!s4) {
+    function isProtoString(s) {
+      if (!s) {
         return false;
       }
-      var length = s4.length;
+      var length = s.length;
       if (length < 9) {
         return false;
       }
-      if (s4.charCodeAt(length - 1) !== 95 || s4.charCodeAt(length - 2) !== 95 || s4.charCodeAt(length - 3) !== 111 || s4.charCodeAt(length - 4) !== 116 || s4.charCodeAt(length - 5) !== 111 || s4.charCodeAt(length - 6) !== 114 || s4.charCodeAt(length - 7) !== 112 || s4.charCodeAt(length - 8) !== 95 || s4.charCodeAt(length - 9) !== 95) {
+      if (s.charCodeAt(length - 1) !== 95 || s.charCodeAt(length - 2) !== 95 || s.charCodeAt(length - 3) !== 111 || s.charCodeAt(length - 4) !== 116 || s.charCodeAt(length - 5) !== 111 || s.charCodeAt(length - 6) !== 114 || s.charCodeAt(length - 7) !== 112 || s.charCodeAt(length - 8) !== 95 || s.charCodeAt(length - 9) !== 95) {
         return false;
       }
-      for (var i4 = length - 10; i4 >= 0; i4--) {
-        if (s4.charCodeAt(i4) !== 36) {
+      for (var i = length - 10; i >= 0; i--) {
+        if (s.charCodeAt(i) !== 36) {
           return false;
         }
       }
@@ -3823,8 +3828,8 @@ var require_array_set = __commonJS({
     }
     ArraySet.fromArray = function ArraySet_fromArray(aArray, aAllowDuplicates) {
       var set = new ArraySet();
-      for (var i4 = 0, len = aArray.length; i4 < len; i4++) {
-        set.add(aArray[i4], aAllowDuplicates);
+      for (var i = 0, len = aArray.length; i < len; i++) {
+        set.add(aArray[i], aAllowDuplicates);
       }
       return set;
     };
@@ -4122,8 +4127,8 @@ var require_source_map_generator = __commonJS({
       var nameIdx;
       var sourceIdx;
       var mappings = this._mappings.toArray();
-      for (var i4 = 0, len = mappings.length; i4 < len; i4++) {
-        mapping = mappings[i4];
+      for (var i = 0, len = mappings.length; i < len; i++) {
+        mapping = mappings[i];
         next = "";
         if (mapping.generatedLine !== previousGeneratedLine) {
           previousGeneratedColumn = 0;
@@ -4132,8 +4137,8 @@ var require_source_map_generator = __commonJS({
             previousGeneratedLine++;
           }
         } else {
-          if (i4 > 0) {
-            if (!util.compareByGeneratedPositionsInflated(mapping, mappings[i4 - 1])) {
+          if (i > 0) {
+            if (!util.compareByGeneratedPositionsInflated(mapping, mappings[i - 1])) {
               continue;
             }
             next += ",";
@@ -4255,30 +4260,30 @@ var require_binary_search = __commonJS({
 // node_modules/source-map/lib/quick-sort.js
 var require_quick_sort = __commonJS({
   "node_modules/source-map/lib/quick-sort.js"(exports) {
-    function swap(ary, x4, y4) {
-      var temp = ary[x4];
-      ary[x4] = ary[y4];
-      ary[y4] = temp;
+    function swap(ary, x, y) {
+      var temp = ary[x];
+      ary[x] = ary[y];
+      ary[y] = temp;
     }
     function randomIntInRange(low, high) {
       return Math.round(low + Math.random() * (high - low));
     }
-    function doQuickSort(ary, comparator, p4, r4) {
-      if (p4 < r4) {
-        var pivotIndex = randomIntInRange(p4, r4);
-        var i4 = p4 - 1;
-        swap(ary, pivotIndex, r4);
-        var pivot = ary[r4];
-        for (var j4 = p4; j4 < r4; j4++) {
-          if (comparator(ary[j4], pivot) <= 0) {
-            i4 += 1;
-            swap(ary, i4, j4);
+    function doQuickSort(ary, comparator, p, r) {
+      if (p < r) {
+        var pivotIndex = randomIntInRange(p, r);
+        var i = p - 1;
+        swap(ary, pivotIndex, r);
+        var pivot = ary[r];
+        for (var j = p; j < r; j++) {
+          if (comparator(ary[j], pivot) <= 0) {
+            i += 1;
+            swap(ary, i, j);
           }
         }
-        swap(ary, i4 + 1, j4);
-        var q3 = i4 + 1;
-        doQuickSort(ary, comparator, p4, q3 - 1);
-        doQuickSort(ary, comparator, q3 + 1, r4);
+        swap(ary, i + 1, j);
+        var q = i + 1;
+        doQuickSort(ary, comparator, p, q - 1);
+        doQuickSort(ary, comparator, q + 1, r);
       }
     }
     exports.quickSort = function(ary, comparator) {
@@ -4329,8 +4334,8 @@ var require_source_map_consumer = __commonJS({
       }
     });
     SourceMapConsumer.prototype._charIsMappingSeparator = function SourceMapConsumer_charIsMappingSeparator(aStr, index) {
-      var c4 = aStr.charAt(index);
-      return c4 === ";" || c4 === ",";
+      var c = aStr.charAt(index);
+      return c === ";" || c === ",";
     };
     SourceMapConsumer.prototype._parseMappings = function SourceMapConsumer_parseMappings(aStr, aSourceRoot) {
       throw new Error("Subclasses must implement _parseMappings");
@@ -4437,8 +4442,8 @@ var require_source_map_consumer = __commonJS({
       });
       this._names = ArraySet.fromArray(names.map(String), true);
       this._sources = ArraySet.fromArray(sources, true);
-      this._absoluteSources = this._sources.toArray().map(function(s4) {
-        return util.computeSourceURL(sourceRoot, s4, aSourceMapURL);
+      this._absoluteSources = this._sources.toArray().map(function(s) {
+        return util.computeSourceURL(sourceRoot, s, aSourceMapURL);
       });
       this.sourceRoot = sourceRoot;
       this.sourcesContent = sourcesContent;
@@ -4456,10 +4461,10 @@ var require_source_map_consumer = __commonJS({
       if (this._sources.has(relativeSource)) {
         return this._sources.indexOf(relativeSource);
       }
-      var i4;
-      for (i4 = 0; i4 < this._absoluteSources.length; ++i4) {
-        if (this._absoluteSources[i4] == aSource) {
-          return i4;
+      var i;
+      for (i = 0; i < this._absoluteSources.length; ++i) {
+        if (this._absoluteSources[i] == aSource) {
+          return i;
         }
       }
       return -1;
@@ -4475,14 +4480,14 @@ var require_source_map_consumer = __commonJS({
       );
       smc.file = aSourceMap._file;
       smc._sourceMapURL = aSourceMapURL;
-      smc._absoluteSources = smc._sources.toArray().map(function(s4) {
-        return util.computeSourceURL(smc.sourceRoot, s4, aSourceMapURL);
+      smc._absoluteSources = smc._sources.toArray().map(function(s) {
+        return util.computeSourceURL(smc.sourceRoot, s, aSourceMapURL);
       });
       var generatedMappings = aSourceMap._mappings.toArray().slice();
       var destGeneratedMappings = smc.__generatedMappings = [];
       var destOriginalMappings = smc.__originalMappings = [];
-      for (var i4 = 0, length = generatedMappings.length; i4 < length; i4++) {
-        var srcMapping = generatedMappings[i4];
+      for (var i = 0, length = generatedMappings.length; i < length; i++) {
+        var srcMapping = generatedMappings[i];
         var destMapping = new Mapping();
         destMapping.generatedLine = srcMapping.generatedLine;
         destMapping.generatedColumn = srcMapping.generatedColumn;
@@ -4743,11 +4748,11 @@ var require_source_map_consumer = __commonJS({
         line: -1,
         column: 0
       };
-      this._sections = sections.map(function(s4) {
-        if (s4.url) {
+      this._sections = sections.map(function(s) {
+        if (s.url) {
           throw new Error("Support for url field in sections not implemented.");
         }
-        var offset = util.getArg(s4, "offset");
+        var offset = util.getArg(s, "offset");
         var offsetLine = util.getArg(offset, "line");
         var offsetColumn = util.getArg(offset, "column");
         if (offsetLine < lastOffset.line || offsetLine === lastOffset.line && offsetColumn < lastOffset.column) {
@@ -4759,7 +4764,7 @@ var require_source_map_consumer = __commonJS({
             generatedLine: offsetLine + 1,
             generatedColumn: offsetColumn + 1
           },
-          consumer: new SourceMapConsumer(util.getArg(s4, "map"), aSourceMapURL)
+          consumer: new SourceMapConsumer(util.getArg(s, "map"), aSourceMapURL)
         };
       });
     }
@@ -4769,9 +4774,9 @@ var require_source_map_consumer = __commonJS({
     Object.defineProperty(IndexedSourceMapConsumer.prototype, "sources", {
       get: function() {
         var sources = [];
-        for (var i4 = 0; i4 < this._sections.length; i4++) {
-          for (var j4 = 0; j4 < this._sections[i4].consumer.sources.length; j4++) {
-            sources.push(this._sections[i4].consumer.sources[j4]);
+        for (var i = 0; i < this._sections.length; i++) {
+          for (var j = 0; j < this._sections[i].consumer.sources.length; j++) {
+            sources.push(this._sections[i].consumer.sources[j]);
           }
         }
         return sources;
@@ -4809,13 +4814,13 @@ var require_source_map_consumer = __commonJS({
       });
     };
     IndexedSourceMapConsumer.prototype.hasContentsOfAllSources = function IndexedSourceMapConsumer_hasContentsOfAllSources() {
-      return this._sections.every(function(s4) {
-        return s4.consumer.hasContentsOfAllSources();
+      return this._sections.every(function(s) {
+        return s.consumer.hasContentsOfAllSources();
       });
     };
     IndexedSourceMapConsumer.prototype.sourceContentFor = function IndexedSourceMapConsumer_sourceContentFor(aSource, nullOnMissing) {
-      for (var i4 = 0; i4 < this._sections.length; i4++) {
-        var section = this._sections[i4];
+      for (var i = 0; i < this._sections.length; i++) {
+        var section = this._sections[i];
         var content = section.consumer.sourceContentFor(aSource, true);
         if (content) {
           return content;
@@ -4828,8 +4833,8 @@ var require_source_map_consumer = __commonJS({
       }
     };
     IndexedSourceMapConsumer.prototype.generatedPositionFor = function IndexedSourceMapConsumer_generatedPositionFor(aArgs) {
-      for (var i4 = 0; i4 < this._sections.length; i4++) {
-        var section = this._sections[i4];
+      for (var i = 0; i < this._sections.length; i++) {
+        var section = this._sections[i];
         if (section.consumer._findSourceIndex(util.getArg(aArgs, "source")) === -1) {
           continue;
         }
@@ -4850,11 +4855,11 @@ var require_source_map_consumer = __commonJS({
     IndexedSourceMapConsumer.prototype._parseMappings = function IndexedSourceMapConsumer_parseMappings(aStr, aSourceRoot) {
       this.__generatedMappings = [];
       this.__originalMappings = [];
-      for (var i4 = 0; i4 < this._sections.length; i4++) {
-        var section = this._sections[i4];
+      for (var i = 0; i < this._sections.length; i++) {
+        var section = this._sections[i];
         var sectionMappings = section.consumer._generatedMappings;
-        for (var j4 = 0; j4 < sectionMappings.length; j4++) {
-          var mapping = sectionMappings[j4];
+        for (var j = 0; j < sectionMappings.length; j++) {
+          var mapping = sectionMappings[j];
           var source = section.consumer._sources.at(mapping.source);
           source = util.computeSourceURL(section.consumer.sourceRoot, source, this._sourceMapURL);
           this._sources.add(source);
@@ -4906,7 +4911,7 @@ var require_source_node = __commonJS({
         this.add(aChunks);
     }
     SourceNode.fromStringWithSourceMap = function SourceNode_fromStringWithSourceMap(aGeneratedCode, aSourceMapConsumer, aRelativePath) {
-      var node = new SourceNode();
+      var node2 = new SourceNode();
       var remainingLines = aGeneratedCode.split(REGEX_NEWLINE);
       var remainingLinesIndex = 0;
       var shiftNextLine = function() {
@@ -4936,12 +4941,12 @@ var require_source_node = __commonJS({
           }
         }
         while (lastGeneratedLine < mapping.generatedLine) {
-          node.add(shiftNextLine());
+          node2.add(shiftNextLine());
           lastGeneratedLine++;
         }
         if (lastGeneratedColumn < mapping.generatedColumn) {
           var nextLine = remainingLines[remainingLinesIndex] || "";
-          node.add(nextLine.substr(0, mapping.generatedColumn));
+          node2.add(nextLine.substr(0, mapping.generatedColumn));
           remainingLines[remainingLinesIndex] = nextLine.substr(mapping.generatedColumn);
           lastGeneratedColumn = mapping.generatedColumn;
         }
@@ -4951,7 +4956,7 @@ var require_source_node = __commonJS({
         if (lastMapping) {
           addMappingWithCode(lastMapping, shiftNextLine());
         }
-        node.add(remainingLines.splice(remainingLinesIndex).join(""));
+        node2.add(remainingLines.splice(remainingLinesIndex).join(""));
       }
       aSourceMapConsumer.sources.forEach(function(sourceFile) {
         var content = aSourceMapConsumer.sourceContentFor(sourceFile);
@@ -4959,16 +4964,16 @@ var require_source_node = __commonJS({
           if (aRelativePath != null) {
             sourceFile = util.join(aRelativePath, sourceFile);
           }
-          node.setSourceContent(sourceFile, content);
+          node2.setSourceContent(sourceFile, content);
         }
       });
-      return node;
+      return node2;
       function addMappingWithCode(mapping, code) {
         if (mapping === null || mapping.source === void 0) {
-          node.add(code);
+          node2.add(code);
         } else {
           var source = aRelativePath ? util.join(aRelativePath, mapping.source) : mapping.source;
-          node.add(new SourceNode(
+          node2.add(new SourceNode(
             mapping.originalLine,
             mapping.originalColumn,
             source,
@@ -4996,8 +5001,8 @@ var require_source_node = __commonJS({
     };
     SourceNode.prototype.prepend = function SourceNode_prepend(aChunk) {
       if (Array.isArray(aChunk)) {
-        for (var i4 = aChunk.length - 1; i4 >= 0; i4--) {
-          this.prepend(aChunk[i4]);
+        for (var i = aChunk.length - 1; i >= 0; i--) {
+          this.prepend(aChunk[i]);
         }
       } else if (aChunk[isSourceNode] || typeof aChunk === "string") {
         this.children.unshift(aChunk);
@@ -5010,8 +5015,8 @@ var require_source_node = __commonJS({
     };
     SourceNode.prototype.walk = function SourceNode_walk(aFn) {
       var chunk;
-      for (var i4 = 0, len = this.children.length; i4 < len; i4++) {
-        chunk = this.children[i4];
+      for (var i = 0, len = this.children.length; i < len; i++) {
+        chunk = this.children[i];
         if (chunk[isSourceNode]) {
           chunk.walk(aFn);
         } else {
@@ -5028,15 +5033,15 @@ var require_source_node = __commonJS({
     };
     SourceNode.prototype.join = function SourceNode_join(aSep) {
       var newChildren;
-      var i4;
+      var i;
       var len = this.children.length;
       if (len > 0) {
         newChildren = [];
-        for (i4 = 0; i4 < len - 1; i4++) {
-          newChildren.push(this.children[i4]);
+        for (i = 0; i < len - 1; i++) {
+          newChildren.push(this.children[i]);
           newChildren.push(aSep);
         }
-        newChildren.push(this.children[i4]);
+        newChildren.push(this.children[i]);
         this.children = newChildren;
       }
       return this;
@@ -5056,14 +5061,14 @@ var require_source_node = __commonJS({
       this.sourceContents[util.toSetString(aSourceFile)] = aSourceContent;
     };
     SourceNode.prototype.walkSourceContents = function SourceNode_walkSourceContents(aFn) {
-      for (var i4 = 0, len = this.children.length; i4 < len; i4++) {
-        if (this.children[i4][isSourceNode]) {
-          this.children[i4].walkSourceContents(aFn);
+      for (var i = 0, len = this.children.length; i < len; i++) {
+        if (this.children[i][isSourceNode]) {
+          this.children[i].walkSourceContents(aFn);
         }
       }
       var sources = Object.keys(this.sourceContents);
-      for (var i4 = 0, len = sources.length; i4 < len; i4++) {
-        aFn(util.fromSetString(sources[i4]), this.sourceContents[sources[i4]]);
+      for (var i = 0, len = sources.length; i < len; i++) {
+        aFn(util.fromSetString(sources[i]), this.sourceContents[sources[i]]);
       }
     };
     SourceNode.prototype.toString = function SourceNode_toString() {
@@ -5207,8 +5212,8 @@ var require_code_gen = __commonJS({
     function castChunk(chunk, codeGen, loc) {
       if (_utils.isArray(chunk)) {
         var ret = [];
-        for (var i4 = 0, len = chunk.length; i4 < len; i4++) {
-          ret.push(codeGen.wrap(chunk[i4], loc));
+        for (var i = 0, len = chunk.length; i < len; i++) {
+          ret.push(codeGen.wrap(chunk[i], loc));
         }
         return ret;
       } else if (typeof chunk === "boolean" || typeof chunk === "number") {
@@ -5221,7 +5226,7 @@ var require_code_gen = __commonJS({
       this.source = [];
     }
     CodeGen.prototype = {
-      isEmpty: function isEmpty() {
+      isEmpty: function isEmpty2() {
         return !this.source.length;
       },
       prepend: function prepend(source, loc) {
@@ -5238,8 +5243,8 @@ var require_code_gen = __commonJS({
         return source;
       },
       each: function each(iter) {
-        for (var i4 = 0, len = this.source.length; i4 < len; i4++) {
-          iter(this.source[i4]);
+        for (var i = 0, len = this.source.length; i < len; i++) {
+          iter(this.source[i]);
         }
       },
       empty: function empty() {
@@ -5277,11 +5282,11 @@ var require_code_gen = __commonJS({
       },
       generateList: function generateList(entries) {
         var ret = this.empty();
-        for (var i4 = 0, len = entries.length; i4 < len; i4++) {
-          if (i4) {
+        for (var i = 0, len = entries.length; i < len; i++) {
+          if (i) {
             ret.add(",");
           }
-          ret.add(castChunk(entries[i4], this));
+          ret.add(castChunk(entries[i], this));
         }
         return ret;
       },
@@ -5349,9 +5354,9 @@ var require_javascript_compiler = __commonJS({
         return ["lookupProperty(", parent, ",", JSON.stringify(name), ")"];
       },
       lookupPropertyFunctionIsUsed: false,
-      compile: function compile(environment, options, context, asObject) {
+      compile: function compile(environment, options3, context, asObject) {
         this.environment = environment;
-        this.options = options;
+        this.options = options3;
         this.stringParams = this.options.stringParams;
         this.trackIds = this.options.trackIds;
         this.precompile = !asObject;
@@ -5371,12 +5376,12 @@ var require_javascript_compiler = __commonJS({
         this.compileStack = [];
         this.inlineStack = [];
         this.blockParams = [];
-        this.compileChildren(environment, options);
+        this.compileChildren(environment, options3);
         this.useDepths = this.useDepths || environment.useDepths || environment.useDecorators || this.options.compat;
         this.useBlockParams = this.useBlockParams || environment.useBlockParams;
-        var opcodes = environment.opcodes, opcode = void 0, firstLoc = void 0, i4 = void 0, l4 = void 0;
-        for (i4 = 0, l4 = opcodes.length; i4 < l4; i4++) {
-          opcode = opcodes[i4];
+        var opcodes = environment.opcodes, opcode = void 0, firstLoc = void 0, i = void 0, l = void 0;
+        for (i = 0, l = opcodes.length; i < l; i++) {
+          opcode = opcodes[i];
           this.source.currentLocation = opcode.loc;
           firstLoc = firstLoc || opcode.loc;
           this[opcode.opcode].apply(this, opcode.args);
@@ -5413,11 +5418,11 @@ var require_javascript_compiler = __commonJS({
           var _context = this.context;
           var programs = _context.programs;
           var decorators = _context.decorators;
-          for (i4 = 0, l4 = programs.length; i4 < l4; i4++) {
-            if (programs[i4]) {
-              ret[i4] = programs[i4];
-              if (decorators[i4]) {
-                ret[i4 + "_d"] = decorators[i4];
+          for (i = 0, l = programs.length; i < l; i++) {
+            if (programs[i]) {
+              ret[i] = programs[i];
+              if (decorators[i]) {
+                ret[i + "_d"] = decorators[i];
                 ret.useDecorators = true;
               }
             }
@@ -5441,8 +5446,8 @@ var require_javascript_compiler = __commonJS({
             ret.compiler = JSON.stringify(ret.compiler);
             this.source.currentLocation = { start: { line: 1, column: 0 } };
             ret = this.objectLiteral(ret);
-            if (options.srcName) {
-              ret = ret.toStringWithSourceMap({ file: options.destName });
+            if (options3.srcName) {
+              ret = ret.toStringWithSourceMap({ file: options3.destName });
               ret.map = ret.map && ret.map.toString();
             } else {
               ret = ret.toString();
@@ -5469,10 +5474,10 @@ var require_javascript_compiler = __commonJS({
         }
         var aliasCount = 0;
         Object.keys(this.aliases).forEach(function(alias) {
-          var node = _this.aliases[alias];
-          if (node.children && node.referenceCount > 1) {
+          var node2 = _this.aliases[alias];
+          if (node2.children && node2.referenceCount > 1) {
             varDeclarations += ", alias" + ++aliasCount + "=" + alias;
-            node.children[0] = "alias" + aliasCount;
+            node2.children[0] = "alias" + aliasCount;
           }
         });
         if (this.lookupPropertyFunctionIsUsed) {
@@ -5590,13 +5595,13 @@ var require_javascript_compiler = __commonJS({
         this.pushStackLiteral(this.contextName(this.lastContext));
       },
       lookupOnContext: function lookupOnContext(parts, falsy, strict, scoped) {
-        var i4 = 0;
+        var i = 0;
         if (!scoped && this.options.compat && !this.lastContext) {
-          this.push(this.depthedLookup(parts[i4++]));
+          this.push(this.depthedLookup(parts[i++]));
         } else {
           this.pushContext();
         }
-        this.resolvePath("context", parts, i4, falsy, strict);
+        this.resolvePath("context", parts, i, falsy, strict);
       },
       lookupBlockParam: function lookupBlockParam(blockParamId, parts) {
         this.useBlockParams = true;
@@ -5611,16 +5616,16 @@ var require_javascript_compiler = __commonJS({
         }
         this.resolvePath("data", parts, 0, true, strict);
       },
-      resolvePath: function resolvePath(type, parts, i4, falsy, strict) {
+      resolvePath: function resolvePath(type, parts, i, falsy, strict) {
         var _this2 = this;
         if (this.options.strict || this.options.assumeObjects) {
-          this.push(strictLookup(this.options.strict && strict, this, parts, i4, type));
+          this.push(strictLookup(this.options.strict && strict, this, parts, i, type));
           return;
         }
         var len = parts.length;
-        for (; i4 < len; i4++) {
+        for (; i < len; i++) {
           this.replaceStack(function(current) {
-            var lookup = _this2.nameLookup(current, parts[i4], type);
+            var lookup = _this2.nameLookup(current, parts[i], type);
             if (!falsy) {
               return [" != null ? ", lookup, " : ", current];
             } else {
@@ -5685,8 +5690,8 @@ var require_javascript_compiler = __commonJS({
         }
       },
       registerDecorator: function registerDecorator(paramSize, name) {
-        var foundDecorator = this.nameLookup("decorators", name, "decorator"), options = this.setupHelperArgs(name, paramSize);
-        this.decorators.push(["fn = ", this.decorators.functionCall(foundDecorator, "", ["fn", "props", "container", options]), " || fn;"]);
+        var foundDecorator = this.nameLookup("decorators", name, "decorator"), options3 = this.setupHelperArgs(name, paramSize);
+        this.decorators.push(["fn = ", this.decorators.functionCall(foundDecorator, "", ["fn", "props", "container", options3]), " || fn;"]);
       },
       invokeHelper: function invokeHelper(paramSize, name, isSimple) {
         var nonHelper = this.popStack(), helper = this.setupHelper(paramSize, name);
@@ -5705,8 +5710,8 @@ var require_javascript_compiler = __commonJS({
       itemsSeparatedBy: function itemsSeparatedBy(items, separator2) {
         var result = [];
         result.push(items[0]);
-        for (var i4 = 1; i4 < items.length; i4++) {
-          result.push(separator2, items[i4]);
+        for (var i = 1; i < items.length; i++) {
+          result.push(separator2, items[i]);
         }
         return result;
       },
@@ -5728,33 +5733,33 @@ var require_javascript_compiler = __commonJS({
         this.push(["(", lookup, helper.paramsInit ? ["),(", helper.paramsInit] : [], "),", "(typeof helper === ", this.aliasable('"function"'), " ? ", this.source.functionCall("helper", "call", helper.callParams), " : helper))"]);
       },
       invokePartial: function invokePartial(isDynamic, name, indent) {
-        var params = [], options = this.setupParams(name, 1, params);
+        var params = [], options3 = this.setupParams(name, 1, params);
         if (isDynamic) {
           name = this.popStack();
-          delete options.name;
+          delete options3.name;
         }
         if (indent) {
-          options.indent = JSON.stringify(indent);
+          options3.indent = JSON.stringify(indent);
         }
-        options.helpers = "helpers";
-        options.partials = "partials";
-        options.decorators = "container.decorators";
+        options3.helpers = "helpers";
+        options3.partials = "partials";
+        options3.decorators = "container.decorators";
         if (!isDynamic) {
           params.unshift(this.nameLookup("partials", name, "partial"));
         } else {
           params.unshift(name);
         }
         if (this.options.compat) {
-          options.depths = "depths";
+          options3.depths = "depths";
         }
-        options = this.objectLiteral(options);
-        params.push(options);
+        options3 = this.objectLiteral(options3);
+        params.push(options3);
         this.push(this.source.functionCall("container.invokePartial", "", params));
       },
       assignToHash: function assignToHash(key) {
-        var value = this.popStack(), context = void 0, type = void 0, id13 = void 0;
+        var value = this.popStack(), context = void 0, type = void 0, id12 = void 0;
         if (this.trackIds) {
-          id13 = this.popStack();
+          id12 = this.popStack();
         }
         if (this.stringParams) {
           type = this.popStack();
@@ -5767,8 +5772,8 @@ var require_javascript_compiler = __commonJS({
         if (type) {
           hash.types[key] = type;
         }
-        if (id13) {
-          hash.ids[key] = id13;
+        if (id12) {
+          hash.ids[key] = id12;
         }
         hash.values[key] = value;
       },
@@ -5784,10 +5789,10 @@ var require_javascript_compiler = __commonJS({
         }
       },
       compiler: JavaScriptCompiler,
-      compileChildren: function compileChildren(environment, options) {
+      compileChildren: function compileChildren(environment, options3) {
         var children = environment.children, child = void 0, compiler = void 0;
-        for (var i4 = 0, l4 = children.length; i4 < l4; i4++) {
-          child = children[i4];
+        for (var i = 0, l = children.length; i < l; i++) {
+          child = children[i];
           compiler = new this.compiler();
           var existing = this.matchExistingProgram(child);
           if (existing == null) {
@@ -5795,7 +5800,7 @@ var require_javascript_compiler = __commonJS({
             var index = this.context.programs.length;
             child.index = index;
             child.name = "program" + index;
-            this.context.programs[index] = compiler.compile(child, options, this.context, !this.precompile);
+            this.context.programs[index] = compiler.compile(child, options3, this.context, !this.precompile);
             this.context.decorators[index] = compiler.decorators;
             this.context.environments[index] = child;
             this.useDepths = this.useDepths || compiler.useDepths;
@@ -5811,8 +5816,8 @@ var require_javascript_compiler = __commonJS({
         }
       },
       matchExistingProgram: function matchExistingProgram(child) {
-        for (var i4 = 0, len = this.context.environments.length; i4 < len; i4++) {
-          var environment = this.context.environments[i4];
+        for (var i = 0, len = this.context.environments.length; i < len; i++) {
+          var environment = this.context.environments[i];
           if (environment && environment.equals(child)) {
             return environment;
           }
@@ -5891,8 +5896,8 @@ var require_javascript_compiler = __commonJS({
       flushInline: function flushInline() {
         var inlineStack = this.inlineStack;
         this.inlineStack = [];
-        for (var i4 = 0, len = inlineStack.length; i4 < len; i4++) {
-          var entry = inlineStack[i4];
+        for (var i = 0, len = inlineStack.length; i < len; i++) {
+          var entry = inlineStack[i];
           if (entry instanceof Literal) {
             this.compileStack.push(entry);
           } else {
@@ -5962,90 +5967,90 @@ var require_javascript_compiler = __commonJS({
         };
       },
       setupParams: function setupParams(helper, paramSize, params) {
-        var options = {}, contexts = [], types = [], ids = [], objectArgs = !params, param = void 0;
+        var options3 = {}, contexts = [], types = [], ids = [], objectArgs = !params, param = void 0;
         if (objectArgs) {
           params = [];
         }
-        options.name = this.quotedString(helper);
-        options.hash = this.popStack();
+        options3.name = this.quotedString(helper);
+        options3.hash = this.popStack();
         if (this.trackIds) {
-          options.hashIds = this.popStack();
+          options3.hashIds = this.popStack();
         }
         if (this.stringParams) {
-          options.hashTypes = this.popStack();
-          options.hashContexts = this.popStack();
+          options3.hashTypes = this.popStack();
+          options3.hashContexts = this.popStack();
         }
         var inverse = this.popStack(), program = this.popStack();
         if (program || inverse) {
-          options.fn = program || "container.noop";
-          options.inverse = inverse || "container.noop";
+          options3.fn = program || "container.noop";
+          options3.inverse = inverse || "container.noop";
         }
-        var i4 = paramSize;
-        while (i4--) {
+        var i = paramSize;
+        while (i--) {
           param = this.popStack();
-          params[i4] = param;
+          params[i] = param;
           if (this.trackIds) {
-            ids[i4] = this.popStack();
+            ids[i] = this.popStack();
           }
           if (this.stringParams) {
-            types[i4] = this.popStack();
-            contexts[i4] = this.popStack();
+            types[i] = this.popStack();
+            contexts[i] = this.popStack();
           }
         }
         if (objectArgs) {
-          options.args = this.source.generateArray(params);
+          options3.args = this.source.generateArray(params);
         }
         if (this.trackIds) {
-          options.ids = this.source.generateArray(ids);
+          options3.ids = this.source.generateArray(ids);
         }
         if (this.stringParams) {
-          options.types = this.source.generateArray(types);
-          options.contexts = this.source.generateArray(contexts);
+          options3.types = this.source.generateArray(types);
+          options3.contexts = this.source.generateArray(contexts);
         }
         if (this.options.data) {
-          options.data = "data";
+          options3.data = "data";
         }
         if (this.useBlockParams) {
-          options.blockParams = "blockParams";
+          options3.blockParams = "blockParams";
         }
-        return options;
+        return options3;
       },
       setupHelperArgs: function setupHelperArgs(helper, paramSize, params, useRegister) {
-        var options = this.setupParams(helper, paramSize, params);
-        options.loc = JSON.stringify(this.source.currentLocation);
-        options = this.objectLiteral(options);
+        var options3 = this.setupParams(helper, paramSize, params);
+        options3.loc = JSON.stringify(this.source.currentLocation);
+        options3 = this.objectLiteral(options3);
         if (useRegister) {
           this.useRegister("options");
           params.push("options");
-          return ["options=", options];
+          return ["options=", options3];
         } else if (params) {
-          params.push(options);
+          params.push(options3);
           return "";
         } else {
-          return options;
+          return options3;
         }
       }
     };
     (function() {
       var reservedWords = "break else new var case finally return void catch for switch while continue function this with default if throw delete in try do instanceof typeof abstract enum int short boolean export interface static byte extends long super char final native synchronized class float package throws const goto private transient debugger implements protected volatile double import public let yield await null true false".split(" ");
       var compilerWords = JavaScriptCompiler.RESERVED_WORDS = {};
-      for (var i4 = 0, l4 = reservedWords.length; i4 < l4; i4++) {
-        compilerWords[reservedWords[i4]] = true;
+      for (var i = 0, l = reservedWords.length; i < l; i++) {
+        compilerWords[reservedWords[i]] = true;
       }
     })();
     JavaScriptCompiler.isValidJavaScriptVariableName = function(name) {
       return !JavaScriptCompiler.RESERVED_WORDS[name] && /^[a-zA-Z_$][0-9a-zA-Z_$]*$/.test(name);
     };
-    function strictLookup(requireTerminal, compiler, parts, i4, type) {
+    function strictLookup(requireTerminal, compiler, parts, i, type) {
       var stack = compiler.popStack(), len = parts.length;
       if (requireTerminal) {
         len--;
       }
-      for (; i4 < len; i4++) {
-        stack = compiler.nameLookup(stack, parts[i4], type);
+      for (; i < len; i++) {
+        stack = compiler.nameLookup(stack, parts[i], type);
       }
       if (requireTerminal) {
-        return [compiler.aliasable("container.strict"), "(", stack, ", ", compiler.quotedString(parts[i4]), ", ", JSON.stringify(compiler.source.currentLocation), " )"];
+        return [compiler.aliasable("container.strict"), "(", stack, ", ", compiler.quotedString(parts[i]), ", ", JSON.stringify(compiler.source.currentLocation), " )"];
       } else {
         return stack;
       }
@@ -6078,11 +6083,11 @@ var require_handlebars = __commonJS({
     var _create = _handlebarsRuntime2["default"].create;
     function create() {
       var hb = _create();
-      hb.compile = function(input, options) {
-        return _handlebarsCompilerCompiler.compile(input, options, hb);
+      hb.compile = function(input, options3) {
+        return _handlebarsCompilerCompiler.compile(input, options3, hb);
       };
-      hb.precompile = function(input, options) {
-        return _handlebarsCompilerCompiler.precompile(input, options, hb);
+      hb.precompile = function(input, options3) {
+        return _handlebarsCompilerCompiler.precompile(input, options3, hb);
       };
       hb.AST = _handlebarsCompilerAst2["default"];
       hb.Compiler = _handlebarsCompilerCompiler.Compiler;
@@ -6128,8 +6133,8 @@ var require_sweetalert2_all = __commonJS({
         }
       }
       function _defineProperties(target, props) {
-        for (var i4 = 0; i4 < props.length; i4++) {
-          var descriptor = props[i4];
+        for (var i = 0; i < props.length; i++) {
+          var descriptor = props[i];
           descriptor.enumerable = descriptor.enumerable || false;
           descriptor.configurable = true;
           if ("value" in descriptor)
@@ -6144,10 +6149,10 @@ var require_sweetalert2_all = __commonJS({
           _defineProperties(Constructor, staticProps);
         return Constructor;
       }
-      function _extends4() {
-        _extends4 = Object.assign || function(target) {
-          for (var i4 = 1; i4 < arguments.length; i4++) {
-            var source = arguments[i4];
+      function _extends3() {
+        _extends3 = Object.assign || function(target) {
+          for (var i = 1; i < arguments.length; i++) {
+            var source = arguments[i];
             for (var key in source) {
               if (Object.prototype.hasOwnProperty.call(source, key)) {
                 target[key] = source[key];
@@ -6156,7 +6161,7 @@ var require_sweetalert2_all = __commonJS({
           }
           return target;
         };
-        return _extends4.apply(this, arguments);
+        return _extends3.apply(this, arguments);
       }
       function _inherits(subClass, superClass) {
         if (typeof superClass !== "function" && superClass !== null) {
@@ -6172,18 +6177,18 @@ var require_sweetalert2_all = __commonJS({
         if (superClass)
           _setPrototypeOf(subClass, superClass);
       }
-      function _getPrototypeOf(o4) {
-        _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf2(o5) {
-          return o5.__proto__ || Object.getPrototypeOf(o5);
+      function _getPrototypeOf(o) {
+        _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf2(o2) {
+          return o2.__proto__ || Object.getPrototypeOf(o2);
         };
-        return _getPrototypeOf(o4);
+        return _getPrototypeOf(o);
       }
-      function _setPrototypeOf(o4, p4) {
-        _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o5, p5) {
-          o5.__proto__ = p5;
-          return o5;
+      function _setPrototypeOf(o, p) {
+        _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o2, p2) {
+          o2.__proto__ = p2;
+          return o2;
         };
-        return _setPrototypeOf(o4, p4);
+        return _setPrototypeOf(o, p);
       }
       function _isNativeReflectConstruct() {
         if (typeof Reflect === "undefined" || !Reflect.construct)
@@ -6196,7 +6201,7 @@ var require_sweetalert2_all = __commonJS({
           Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {
           }));
           return true;
-        } catch (e4) {
+        } catch (e) {
           return false;
         }
       }
@@ -6205,9 +6210,9 @@ var require_sweetalert2_all = __commonJS({
           _construct = Reflect.construct;
         } else {
           _construct = function _construct2(Parent2, args2, Class2) {
-            var a4 = [null];
-            a4.push.apply(a4, args2);
-            var Constructor = Function.bind.apply(Parent2, a4);
+            var a = [null];
+            a.push.apply(a, args2);
+            var Constructor = Function.bind.apply(Parent2, a);
             var instance = new Constructor();
             if (Class2)
               _setPrototypeOf(instance, Class2.prototype);
@@ -6269,9 +6274,9 @@ var require_sweetalert2_all = __commonJS({
       var consolePrefix = "SweetAlert2:";
       var uniqueArray = function uniqueArray2(arr) {
         var result = [];
-        for (var i4 = 0; i4 < arr.length; i4++) {
-          if (result.indexOf(arr[i4]) === -1) {
-            result.push(arr[i4]);
+        for (var i = 0; i < arr.length; i++) {
+          if (result.indexOf(arr[i]) === -1) {
+            result.push(arr[i]);
           }
         }
         return result;
@@ -6331,7 +6336,7 @@ var require_sweetalert2_all = __commonJS({
       var argsToParams = function argsToParams2(args) {
         var params = {};
         if (_typeof(args[0]) === "object" && !isElement(args[0])) {
-          _extends4(params, args[0]);
+          _extends3(params, args[0]);
         } else {
           ["title", "html", "icon"].forEach(function(name, index) {
             var arg = args[index];
@@ -6347,8 +6352,8 @@ var require_sweetalert2_all = __commonJS({
       var swalPrefix = "swal2-";
       var prefix = function prefix2(items) {
         var result = {};
-        for (var i4 in items) {
-          result[items[i4]] = swalPrefix + items[i4];
+        for (var i in items) {
+          result[items[i]] = swalPrefix + items[i];
         }
         return result;
       };
@@ -6420,12 +6425,12 @@ var require_sweetalert2_all = __commonJS({
       };
       var focusable = '\n  a[href],\n  area[href],\n  input:not([disabled]),\n  select:not([disabled]),\n  textarea:not([disabled]),\n  button:not([disabled]),\n  iframe,\n  object,\n  embed,\n  [tabindex="0"],\n  [contenteditable],\n  audio[controls],\n  video[controls],\n  summary\n';
       var getFocusableElements = function getFocusableElements2() {
-        var focusableElementsWithTabindex = toArray(getPopup().querySelectorAll('[tabindex]:not([tabindex="-1"]):not([tabindex="0"])')).sort(function(a4, b3) {
-          a4 = parseInt(a4.getAttribute("tabindex"));
-          b3 = parseInt(b3.getAttribute("tabindex"));
-          if (a4 > b3) {
+        var focusableElementsWithTabindex = toArray(getPopup().querySelectorAll('[tabindex]:not([tabindex="-1"]):not([tabindex="0"])')).sort(function(a, b) {
+          a = parseInt(a.getAttribute("tabindex"));
+          b = parseInt(b.getAttribute("tabindex"));
+          if (a > b) {
             return 1;
-          } else if (a4 < b3) {
+          } else if (a < b) {
             return -1;
           }
           return 0;
@@ -6467,8 +6472,8 @@ var require_sweetalert2_all = __commonJS({
           return false;
         }
         var classList = className.split(/\s+/);
-        for (var i4 = 0; i4 < classList.length; i4++) {
-          if (!elem.classList.contains(classList[i4])) {
+        for (var i = 0; i < classList.length; i++) {
+          if (!elem.classList.contains(classList[i])) {
             return false;
           }
         }
@@ -6541,9 +6546,9 @@ var require_sweetalert2_all = __commonJS({
         toggleClass(target, classList, false);
       };
       var getChildByClass = function getChildByClass2(elem, className) {
-        for (var i4 = 0; i4 < elem.childNodes.length; i4++) {
-          if (hasClass(elem.childNodes[i4], className)) {
-            return elem.childNodes[i4];
+        for (var i = 0; i < elem.childNodes.length; i++) {
+          if (hasClass(elem.childNodes[i], className)) {
+            return elem.childNodes[i];
           }
         }
       };
@@ -6564,7 +6569,7 @@ var require_sweetalert2_all = __commonJS({
       var hide = function hide2(elem) {
         elem.style.display = "none";
       };
-      var setStyle = function setStyle2(parent, selector, property, value) {
+      var setStyle2 = function setStyle3(parent, selector, property, value) {
         var el = parent.querySelector(selector);
         if (el) {
           el.style[property] = value;
@@ -6631,11 +6636,11 @@ var require_sweetalert2_all = __commonJS({
         return true;
       };
       var oldInputVal;
-      var resetValidationMessage = function resetValidationMessage2(e4) {
-        if (Swal2.isVisible() && oldInputVal !== e4.target.value) {
+      var resetValidationMessage = function resetValidationMessage2(e) {
+        if (Swal2.isVisible() && oldInputVal !== e.target.value) {
           Swal2.resetValidationMessage();
         }
-        oldInputVal = e4.target.value;
+        oldInputVal = e.target.value;
       };
       var addInputChangeListeners = function addInputChangeListeners2() {
         var content = getContent();
@@ -6651,12 +6656,12 @@ var require_sweetalert2_all = __commonJS({
         select.onchange = resetValidationMessage;
         checkbox.onchange = resetValidationMessage;
         textarea.oninput = resetValidationMessage;
-        range.oninput = function(e4) {
-          resetValidationMessage(e4);
+        range.oninput = function(e) {
+          resetValidationMessage(e);
           rangeOutput.value = range.value;
         };
-        range.onchange = function(e4) {
-          resetValidationMessage(e4);
+        range.onchange = function(e) {
+          resetValidationMessage(e);
           range.nextSibling.value = range.value;
         };
       };
@@ -6713,8 +6718,8 @@ var require_sweetalert2_all = __commonJS({
       var handleJqueryElem = function handleJqueryElem2(target, elem) {
         target.textContent = "";
         if (0 in elem) {
-          for (var i4 = 0; i4 in elem; i4++) {
-            target.appendChild(elem[i4].cloneNode(true));
+          for (var i = 0; i in elem; i++) {
+            target.appendChild(elem[i].cloneNode(true));
           }
         } else {
           target.appendChild(elem.cloneNode(true));
@@ -6730,9 +6735,9 @@ var require_sweetalert2_all = __commonJS({
           OAnimation: "oAnimationEnd oanimationend",
           animation: "animationend"
         };
-        for (var i4 in transEndEventNames) {
-          if (Object.prototype.hasOwnProperty.call(transEndEventNames, i4) && typeof testEl.style[i4] !== "undefined") {
-            return transEndEventNames[i4];
+        for (var i in transEndEventNames) {
+          if (Object.prototype.hasOwnProperty.call(transEndEventNames, i) && typeof testEl.style[i] !== "undefined") {
+            return transEndEventNames[i];
           }
         }
         return false;
@@ -6869,8 +6874,8 @@ var require_sweetalert2_all = __commonJS({
         });
       };
       var removeAttributes = function removeAttributes2(input) {
-        for (var i4 = 0; i4 < input.attributes.length; i4++) {
-          var attrName = input.attributes[i4].name;
+        for (var i = 0; i < input.attributes.length; i++) {
+          var attrName = input.attributes[i].name;
           if (!(["type", "value", "style"].indexOf(attrName) !== -1)) {
             input.removeAttribute(attrName);
           }
@@ -7016,11 +7021,11 @@ var require_sweetalert2_all = __commonJS({
         applyCustomClass(footer, params, "footer");
       };
       var renderCloseButton = function renderCloseButton2(instance, params) {
-        var closeButton = getCloseButton();
-        setInnerHtml(closeButton, params.closeButtonHtml);
-        applyCustomClass(closeButton, params, "closeButton");
-        toggle(closeButton, params.showCloseButton);
-        closeButton.setAttribute("aria-label", params.closeButtonAriaLabel);
+        var closeButton2 = getCloseButton();
+        setInnerHtml(closeButton2, params.closeButtonHtml);
+        applyCustomClass(closeButton2, params, "closeButton");
+        toggle(closeButton2, params.showCloseButton);
+        closeButton2.setAttribute("aria-label", params.closeButtonAriaLabel);
       };
       var renderIcon = function renderIcon2(instance, params) {
         var innerParams = privateProps.innerParams.get(instance);
@@ -7057,8 +7062,8 @@ var require_sweetalert2_all = __commonJS({
         var popup = getPopup();
         var popupBackgroundColor = window.getComputedStyle(popup).getPropertyValue("background-color");
         var successIconParts = popup.querySelectorAll("[class^=swal2-success-circular-line], .swal2-success-fix");
-        for (var i4 = 0; i4 < successIconParts.length; i4++) {
-          successIconParts[i4].style.backgroundColor = popupBackgroundColor;
+        for (var i = 0; i < successIconParts.length; i++) {
+          successIconParts[i].style.backgroundColor = popupBackgroundColor;
         }
       };
       var setContent = function setContent2(icon, params) {
@@ -7086,9 +7091,9 @@ var require_sweetalert2_all = __commonJS({
         icon.style.borderColor = params.iconColor;
         for (var _i = 0, _arr = [".swal2-success-line-tip", ".swal2-success-line-long", ".swal2-x-mark-line-left", ".swal2-x-mark-line-right"]; _i < _arr.length; _i++) {
           var sel = _arr[_i];
-          setStyle(icon, sel, "backgroundColor", params.iconColor);
+          setStyle2(icon, sel, "backgroundColor", params.iconColor);
         }
-        setStyle(icon, ".swal2-success-ring", "borderColor", params.iconColor);
+        setStyle2(icon, ".swal2-success-ring", "borderColor", params.iconColor);
       };
       var iconContent = function iconContent2(content) {
         return '<div class="'.concat(swalClasses["icon-content"], '">').concat(content, "</div>");
@@ -7117,13 +7122,13 @@ var require_sweetalert2_all = __commonJS({
         };
         var queueResult = [];
         return new Promise(function(resolve) {
-          (function step(i4, callback) {
-            if (i4 < currentSteps.length) {
-              document.body.setAttribute("data-swal2-queue-step", i4);
-              Swal3.fire(currentSteps[i4]).then(function(result) {
+          (function step(i, callback) {
+            if (i < currentSteps.length) {
+              document.body.setAttribute("data-swal2-queue-step", i);
+              Swal3.fire(currentSteps[i]).then(function(result) {
                 if (typeof result.value !== "undefined") {
                   queueResult.push(result.value);
-                  step(i4 + 1, callback);
+                  step(i + 1, callback);
                 } else {
                   resetAndResolve(resolve, {
                     dismiss: result.dismiss
@@ -7241,7 +7246,7 @@ var require_sweetalert2_all = __commonJS({
           addClass(popup, swalClasses["icon-".concat(params.icon)]);
         }
       };
-      var render = function render2(instance, params) {
+      var render2 = function render3(instance, params) {
         renderPopup(instance, params);
         renderContainer(instance, params);
         renderHeader(instance, params);
@@ -7284,7 +7289,7 @@ var require_sweetalert2_all = __commonJS({
           _createClass(MixinSwal2, [{
             key: "_main",
             value: function _main2(params, priorityMixinParams) {
-              return _get(_getPrototypeOf(MixinSwal2.prototype), "_main", this).call(this, params, _extends4({}, mixinParams, priorityMixinParams));
+              return _get(_getPrototypeOf(MixinSwal2.prototype), "_main", this).call(this, params, _extends3({}, mixinParams, priorityMixinParams));
             }
           }]);
           return MixinSwal2;
@@ -7329,14 +7334,14 @@ var require_sweetalert2_all = __commonJS({
           if (!returnFocus) {
             return resolve();
           }
-          var x4 = window.scrollX;
-          var y4 = window.scrollY;
+          var x = window.scrollX;
+          var y = window.scrollY;
           globalState.restoreFocusTimeout = setTimeout(function() {
             focusPreviousActiveElement();
             resolve();
           }, RESTORE_FOCUS_TIMEOUT);
-          if (typeof x4 !== "undefined" && typeof y4 !== "undefined") {
-            window.scrollTo(x4, y4);
+          if (typeof x !== "undefined" && typeof y !== "undefined") {
+            window.scrollTo(x, y);
           }
         });
       };
@@ -7360,9 +7365,9 @@ var require_sweetalert2_all = __commonJS({
         var timer = globalState.timeout;
         return timer && (timer.running ? stopTimer() : resumeTimer());
       };
-      var increaseTimer = function increaseTimer2(n3) {
+      var increaseTimer = function increaseTimer2(n) {
         if (globalState.timeout) {
-          var remaining = globalState.timeout.increase(n3);
+          var remaining = globalState.timeout.increase(n);
           animateTimerProgressBar(remaining, true);
           return remaining;
         }
@@ -7642,13 +7647,13 @@ var require_sweetalert2_all = __commonJS({
       var lockBodyScroll = function lockBodyScroll2() {
         var container = getContainer();
         var preventTouchMove;
-        container.ontouchstart = function(e4) {
-          preventTouchMove = shouldPreventTouchMove(e4);
+        container.ontouchstart = function(e) {
+          preventTouchMove = shouldPreventTouchMove(e);
         };
-        container.ontouchmove = function(e4) {
+        container.ontouchmove = function(e) {
           if (preventTouchMove) {
-            e4.preventDefault();
-            e4.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
           }
         };
       };
@@ -7781,7 +7786,7 @@ var require_sweetalert2_all = __commonJS({
             isDismissed: true
           };
         }
-        return _extends4({
+        return _extends3({
           isConfirmed: false,
           isDenied: false,
           isDismissed: false
@@ -7807,8 +7812,8 @@ var require_sweetalert2_all = __commonJS({
       };
       var animatePopup = function animatePopup2(instance, popup, container, returnFocus, didClose) {
         globalState.swalCloseEventFinishedCallback = removePopupAndResetState.bind(null, instance, container, returnFocus, didClose);
-        popup.addEventListener(animationEndEvent, function(e4) {
-          if (e4.target === popup) {
+        popup.addEventListener(animationEndEvent, function(e) {
+          if (e.target === popup) {
             globalState.swalCloseEventFinishedCallback();
             delete globalState.swalCloseEventFinishedCallback;
           }
@@ -7835,8 +7840,8 @@ var require_sweetalert2_all = __commonJS({
         if (input.type === "radio") {
           var radiosContainer = input.parentNode.parentNode;
           var radios = radiosContainer.querySelectorAll("input");
-          for (var i4 = 0; i4 < radios.length; i4++) {
-            radios[i4].disabled = disabled;
+          for (var i = 0; i < radios.length; i++) {
+            radios[i].disabled = disabled;
           }
         } else {
           input.disabled = disabled;
@@ -7917,12 +7922,12 @@ var require_sweetalert2_all = __commonJS({
           }
         }, {
           key: "increase",
-          value: function increase(n3) {
+          value: function increase(n) {
             var running = this.running;
             if (running) {
               this.stop();
             }
-            this.remaining += n3;
+            this.remaining += n;
             if (running) {
               this.start();
             }
@@ -7988,7 +7993,7 @@ var require_sweetalert2_all = __commonJS({
         }
         var templateContent = template.content || template;
         showWarningsForElements(templateContent);
-        var result = _extends4(getSwalParams(templateContent), getSwalButtons(templateContent), getSwalImage(templateContent), getSwalIcon(templateContent), getSwalInput(templateContent), getSwalStringParams(templateContent, swalStringParams));
+        var result = _extends3(getSwalParams(templateContent), getSwalButtons(templateContent), getSwalImage(templateContent), getSwalIcon(templateContent), getSwalInput(templateContent), getSwalStringParams(templateContent, swalStringParams));
         return result;
       };
       var getSwalParams = function getSwalParams2(templateContent) {
@@ -8088,8 +8093,8 @@ var require_sweetalert2_all = __commonJS({
       };
       var getSwalStringParams = function getSwalStringParams2(templateContent, paramNames) {
         var result = {};
-        for (var i4 in paramNames) {
-          var paramName = paramNames[i4];
+        for (var i in paramNames) {
+          var paramName = paramNames[i];
           var tag = templateContent.querySelector(paramName);
           if (tag) {
             showWarningsForAttributes(tag, []);
@@ -8276,8 +8281,8 @@ var require_sweetalert2_all = __commonJS({
               optgroup.label = optionValue;
               optgroup.disabled = false;
               select2.appendChild(optgroup);
-              optionLabel.forEach(function(o4) {
-                return renderOption(optgroup, o4[1], o4[0]);
+              optionLabel.forEach(function(o) {
+                return renderOption(optgroup, o[1], o[0]);
               });
             } else {
               renderOption(select2, optionLabel, optionValue);
@@ -8442,8 +8447,8 @@ var require_sweetalert2_all = __commonJS({
           globalState2.keydownHandlerAdded = false;
         }
         if (!innerParams.toast) {
-          globalState2.keydownHandler = function(e4) {
-            return keydownHandler(instance, e4, dismissWith);
+          globalState2.keydownHandler = function(e) {
+            return keydownHandler(instance, e, dismissWith);
           };
           globalState2.keydownTarget = innerParams.keydownListenerCapture ? window : getPopup();
           globalState2.keydownListenerCapture = innerParams.keydownListenerCapture;
@@ -8482,53 +8487,53 @@ var require_sweetalert2_all = __commonJS({
         "Escape",
         "Esc"
       ];
-      var keydownHandler = function keydownHandler2(instance, e4, dismissWith) {
+      var keydownHandler = function keydownHandler2(instance, e, dismissWith) {
         var innerParams = privateProps.innerParams.get(instance);
         if (!innerParams) {
           return;
         }
         if (innerParams.stopKeydownPropagation) {
-          e4.stopPropagation();
+          e.stopPropagation();
         }
-        if (e4.key === "Enter") {
-          handleEnter(instance, e4, innerParams);
-        } else if (e4.key === "Tab") {
-          handleTab(e4, innerParams);
-        } else if ([].concat(arrowKeysNextButton, arrowKeysPreviousButton).indexOf(e4.key) !== -1) {
-          handleArrows(e4.key);
-        } else if (escKeys.indexOf(e4.key) !== -1) {
-          handleEsc(e4, innerParams, dismissWith);
+        if (e.key === "Enter") {
+          handleEnter(instance, e, innerParams);
+        } else if (e.key === "Tab") {
+          handleTab(e, innerParams);
+        } else if ([].concat(arrowKeysNextButton, arrowKeysPreviousButton).indexOf(e.key) !== -1) {
+          handleArrows(e.key);
+        } else if (escKeys.indexOf(e.key) !== -1) {
+          handleEsc(e, innerParams, dismissWith);
         }
       };
-      var handleEnter = function handleEnter2(instance, e4, innerParams) {
-        if (e4.isComposing) {
+      var handleEnter = function handleEnter2(instance, e, innerParams) {
+        if (e.isComposing) {
           return;
         }
-        if (e4.target && instance.getInput() && e4.target.outerHTML === instance.getInput().outerHTML) {
+        if (e.target && instance.getInput() && e.target.outerHTML === instance.getInput().outerHTML) {
           if (["textarea", "file"].indexOf(innerParams.input) !== -1) {
             return;
           }
           clickConfirm();
-          e4.preventDefault();
+          e.preventDefault();
         }
       };
-      var handleTab = function handleTab2(e4, innerParams) {
-        var targetElement = e4.target;
+      var handleTab = function handleTab2(e, innerParams) {
+        var targetElement = e.target;
         var focusableElements = getFocusableElements();
         var btnIndex = -1;
-        for (var i4 = 0; i4 < focusableElements.length; i4++) {
-          if (targetElement === focusableElements[i4]) {
-            btnIndex = i4;
+        for (var i = 0; i < focusableElements.length; i++) {
+          if (targetElement === focusableElements[i]) {
+            btnIndex = i;
             break;
           }
         }
-        if (!e4.shiftKey) {
+        if (!e.shiftKey) {
           setFocus(innerParams, btnIndex, 1);
         } else {
           setFocus(innerParams, btnIndex, -1);
         }
-        e4.stopPropagation();
-        e4.preventDefault();
+        e.stopPropagation();
+        e.preventDefault();
       };
       var handleArrows = function handleArrows2(key) {
         var confirmButton = getConfirmButton();
@@ -8543,9 +8548,9 @@ var require_sweetalert2_all = __commonJS({
           buttonToFocus.focus();
         }
       };
-      var handleEsc = function handleEsc2(e4, innerParams, dismissWith) {
+      var handleEsc = function handleEsc2(e, innerParams, dismissWith) {
         if (callIfFunction(innerParams.allowEscapeKey)) {
-          e4.preventDefault();
+          e.preventDefault();
           dismissWith(DismissReason.esc);
         }
       };
@@ -8571,9 +8576,9 @@ var require_sweetalert2_all = __commonJS({
       var ignoreOutsideClick = false;
       var handleModalMousedown = function handleModalMousedown2(domCache) {
         domCache.popup.onmousedown = function() {
-          domCache.container.onmouseup = function(e4) {
+          domCache.container.onmouseup = function(e) {
             domCache.container.onmouseup = void 0;
-            if (e4.target === domCache.container) {
+            if (e.target === domCache.container) {
               ignoreOutsideClick = true;
             }
           };
@@ -8581,29 +8586,29 @@ var require_sweetalert2_all = __commonJS({
       };
       var handleContainerMousedown = function handleContainerMousedown2(domCache) {
         domCache.container.onmousedown = function() {
-          domCache.popup.onmouseup = function(e4) {
+          domCache.popup.onmouseup = function(e) {
             domCache.popup.onmouseup = void 0;
-            if (e4.target === domCache.popup || domCache.popup.contains(e4.target)) {
+            if (e.target === domCache.popup || domCache.popup.contains(e.target)) {
               ignoreOutsideClick = true;
             }
           };
         };
       };
       var handleModalClick = function handleModalClick2(instance, domCache, dismissWith) {
-        domCache.container.onclick = function(e4) {
+        domCache.container.onclick = function(e) {
           var innerParams = privateProps.innerParams.get(instance);
           if (ignoreOutsideClick) {
             ignoreOutsideClick = false;
             return;
           }
-          if (e4.target === domCache.container && callIfFunction(innerParams.allowOutsideClick)) {
+          if (e.target === domCache.container && callIfFunction(innerParams.allowOutsideClick)) {
             dismissWith(DismissReason.backdrop);
           }
         };
       };
       function _main(userParams) {
         var mixinParams = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-        showWarningsForParams(_extends4({}, mixinParams, userParams));
+        showWarningsForParams(_extends3({}, mixinParams, userParams));
         if (globalState.currentInstance) {
           globalState.currentInstance._destroy();
         }
@@ -8617,15 +8622,15 @@ var require_sweetalert2_all = __commonJS({
         }
         clearTimeout(globalState.restoreFocusTimeout);
         var domCache = populateDomCache(this);
-        render(this, innerParams);
+        render2(this, innerParams);
         privateProps.innerParams.set(this, innerParams);
         return swalPromise(this, domCache, innerParams);
       }
       var prepareParams = function prepareParams2(userParams, mixinParams) {
         var templateParams = getTemplateParams(userParams);
-        var params = _extends4({}, defaultParams, mixinParams, templateParams, userParams);
-        params.showClass = _extends4({}, defaultParams.showClass, params.showClass);
-        params.hideClass = _extends4({}, defaultParams.hideClass, params.hideClass);
+        var params = _extends3({}, defaultParams, mixinParams, templateParams, userParams);
+        params.showClass = _extends3({}, defaultParams.showClass, params.showClass);
+        params.hideClass = _extends3({}, defaultParams.hideClass, params.hideClass);
         if (userParams.animation === false) {
           params.showClass = {
             popup: "swal2-noanimation",
@@ -8747,12 +8752,12 @@ var require_sweetalert2_all = __commonJS({
             warn('Invalid parameter to update: "'.concat(param, '". Updatable params are listed here: https://github.com/sweetalert2/sweetalert2/blob/master/src/utils/params.js\n\nIf you think this parameter should be updatable, request it here: https://github.com/sweetalert2/sweetalert2/issues/new?template=02_feature_request.md'));
           }
         });
-        var updatedParams = _extends4({}, innerParams, validUpdatableParams);
-        render(this, updatedParams);
+        var updatedParams = _extends3({}, innerParams, validUpdatableParams);
+        render2(this, updatedParams);
         privateProps.innerParams.set(this, updatedParams);
         Object.defineProperties(this, {
           params: {
-            value: _extends4({}, this.params, params),
+            value: _extends3({}, this.params, params),
             writable: false,
             enumerable: true
           }
@@ -8790,8 +8795,8 @@ var require_sweetalert2_all = __commonJS({
         unsetWeakMaps(privateMethods);
       };
       var unsetWeakMaps = function unsetWeakMaps2(obj) {
-        for (var i4 in obj) {
-          obj[i4] = /* @__PURE__ */ new WeakMap();
+        for (var i in obj) {
+          obj[i] = /* @__PURE__ */ new WeakMap();
         }
       };
       var instanceMethods = /* @__PURE__ */ Object.freeze({
@@ -8854,8 +8859,8 @@ var require_sweetalert2_all = __commonJS({
         }]);
         return SweetAlert3;
       }();
-      _extends4(SweetAlert2.prototype, instanceMethods);
-      _extends4(SweetAlert2, staticMethods);
+      _extends3(SweetAlert2.prototype, instanceMethods);
+      _extends3(SweetAlert2, staticMethods);
       Object.keys(instanceMethods).forEach(function(key) {
         SweetAlert2[key] = function() {
           if (currentInstance) {
@@ -8873,15 +8878,15 @@ var require_sweetalert2_all = __commonJS({
     if (typeof exports !== "undefined" && exports.Sweetalert2) {
       exports.swal = exports.sweetAlert = exports.Swal = exports.SweetAlert = exports.Sweetalert2;
     }
-    "undefined" != typeof document && function(e4, t4) {
-      var n3 = e4.createElement("style");
-      if (e4.getElementsByTagName("head")[0].appendChild(n3), n3.styleSheet)
-        n3.styleSheet.disabled || (n3.styleSheet.cssText = t4);
+    "undefined" != typeof document && function(e, t) {
+      var n = e.createElement("style");
+      if (e.getElementsByTagName("head")[0].appendChild(n), n.styleSheet)
+        n.styleSheet.disabled || (n.styleSheet.cssText = t);
       else
         try {
-          n3.innerHTML = t4;
-        } catch (e5) {
-          n3.innerText = t4;
+          n.innerHTML = t;
+        } catch (e2) {
+          n.innerText = t;
         }
     }(document, '.swal2-popup.swal2-toast{flex-direction:column;align-items:stretch;width:auto;padding:1.25em;overflow-y:hidden;background:#fff;box-shadow:0 0 .625em #d9d9d9}.swal2-popup.swal2-toast .swal2-header{flex-direction:row;padding:0}.swal2-popup.swal2-toast .swal2-title{flex-grow:1;justify-content:flex-start;margin:0 .625em;font-size:1em}.swal2-popup.swal2-toast .swal2-loading{justify-content:center}.swal2-popup.swal2-toast .swal2-input{height:2em;margin:.3125em auto;font-size:1em}.swal2-popup.swal2-toast .swal2-validation-message{font-size:1em}.swal2-popup.swal2-toast .swal2-footer{margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-popup.swal2-toast .swal2-close{position:static;width:.8em;height:.8em;line-height:.8}.swal2-popup.swal2-toast .swal2-content{justify-content:flex-start;margin:0 .625em;padding:0;font-size:1em;text-align:initial}.swal2-popup.swal2-toast .swal2-html-container{padding:.625em 0 0}.swal2-popup.swal2-toast .swal2-html-container:empty{padding:0}.swal2-popup.swal2-toast .swal2-icon{width:2em;min-width:2em;height:2em;margin:0 .5em 0 0}.swal2-popup.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:700}@media all and (-ms-high-contrast:none),(-ms-high-contrast:active){.swal2-popup.swal2-toast .swal2-icon .swal2-icon-content{font-size:.25em}}.swal2-popup.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-popup.swal2-toast .swal2-actions{flex:1;flex-basis:auto!important;align-self:stretch;width:auto;height:2.2em;height:auto;margin:0 .3125em;margin-top:.3125em;padding:0}.swal2-popup.swal2-toast .swal2-styled{margin:.125em .3125em;padding:.3125em .625em;font-size:1em}.swal2-popup.swal2-toast .swal2-styled:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(100,150,200,.5)}.swal2-popup.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;transform:rotate(45deg);border-radius:50%}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-.8em;left:-.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-popup.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-popup.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}.swal2-popup.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{-webkit-animation:swal2-toast-animate-success-line-tip .75s;animation:swal2-toast-animate-success-line-tip .75s}.swal2-popup.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{-webkit-animation:swal2-toast-animate-success-line-long .75s;animation:swal2-toast-animate-success-line-long .75s}.swal2-popup.swal2-toast.swal2-show{-webkit-animation:swal2-toast-show .5s;animation:swal2-toast-show .5s}.swal2-popup.swal2-toast.swal2-hide{-webkit-animation:swal2-toast-hide .1s forwards;animation:swal2-toast-hide .1s forwards}.swal2-container{display:flex;position:fixed;z-index:1060;top:0;right:0;bottom:0;left:0;flex-direction:row;align-items:center;justify-content:center;padding:.625em;overflow-x:hidden;transition:background-color .1s;-webkit-overflow-scrolling:touch}.swal2-container.swal2-backdrop-show,.swal2-container.swal2-noanimation{background:rgba(0,0,0,.4)}.swal2-container.swal2-backdrop-hide{background:0 0!important}.swal2-container.swal2-top{align-items:flex-start}.swal2-container.swal2-top-left,.swal2-container.swal2-top-start{align-items:flex-start;justify-content:flex-start}.swal2-container.swal2-top-end,.swal2-container.swal2-top-right{align-items:flex-start;justify-content:flex-end}.swal2-container.swal2-center{align-items:center}.swal2-container.swal2-center-left,.swal2-container.swal2-center-start{align-items:center;justify-content:flex-start}.swal2-container.swal2-center-end,.swal2-container.swal2-center-right{align-items:center;justify-content:flex-end}.swal2-container.swal2-bottom{align-items:flex-end}.swal2-container.swal2-bottom-left,.swal2-container.swal2-bottom-start{align-items:flex-end;justify-content:flex-start}.swal2-container.swal2-bottom-end,.swal2-container.swal2-bottom-right{align-items:flex-end;justify-content:flex-end}.swal2-container.swal2-bottom-end>:first-child,.swal2-container.swal2-bottom-left>:first-child,.swal2-container.swal2-bottom-right>:first-child,.swal2-container.swal2-bottom-start>:first-child,.swal2-container.swal2-bottom>:first-child{margin-top:auto}.swal2-container.swal2-grow-fullscreen>.swal2-modal{display:flex!important;flex:1;align-self:stretch;justify-content:center}.swal2-container.swal2-grow-row>.swal2-modal{display:flex!important;flex:1;align-content:center;justify-content:center}.swal2-container.swal2-grow-column{flex:1;flex-direction:column}.swal2-container.swal2-grow-column.swal2-bottom,.swal2-container.swal2-grow-column.swal2-center,.swal2-container.swal2-grow-column.swal2-top{align-items:center}.swal2-container.swal2-grow-column.swal2-bottom-left,.swal2-container.swal2-grow-column.swal2-bottom-start,.swal2-container.swal2-grow-column.swal2-center-left,.swal2-container.swal2-grow-column.swal2-center-start,.swal2-container.swal2-grow-column.swal2-top-left,.swal2-container.swal2-grow-column.swal2-top-start{align-items:flex-start}.swal2-container.swal2-grow-column.swal2-bottom-end,.swal2-container.swal2-grow-column.swal2-bottom-right,.swal2-container.swal2-grow-column.swal2-center-end,.swal2-container.swal2-grow-column.swal2-center-right,.swal2-container.swal2-grow-column.swal2-top-end,.swal2-container.swal2-grow-column.swal2-top-right{align-items:flex-end}.swal2-container.swal2-grow-column>.swal2-modal{display:flex!important;flex:1;align-content:center;justify-content:center}.swal2-container.swal2-no-transition{transition:none!important}.swal2-container:not(.swal2-top):not(.swal2-top-start):not(.swal2-top-end):not(.swal2-top-left):not(.swal2-top-right):not(.swal2-center-start):not(.swal2-center-end):not(.swal2-center-left):not(.swal2-center-right):not(.swal2-bottom):not(.swal2-bottom-start):not(.swal2-bottom-end):not(.swal2-bottom-left):not(.swal2-bottom-right):not(.swal2-grow-fullscreen)>.swal2-modal{margin:auto}@media all and (-ms-high-contrast:none),(-ms-high-contrast:active){.swal2-container .swal2-modal{margin:0!important}}.swal2-popup{display:none;position:relative;box-sizing:border-box;flex-direction:column;justify-content:center;width:32em;max-width:100%;padding:1.25em;border:none;border-radius:5px;background:#fff;font-family:inherit;font-size:1rem}.swal2-popup:focus{outline:0}.swal2-popup.swal2-loading{overflow-y:hidden}.swal2-header{display:flex;flex-direction:column;align-items:center;padding:0 1.8em}.swal2-title{position:relative;max-width:100%;margin:0 0 .4em;padding:0;color:#595959;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;word-wrap:break-word}.swal2-actions{display:flex;z-index:1;box-sizing:border-box;flex-wrap:wrap;align-items:center;justify-content:center;width:100%;margin:1.25em auto 0;padding:0}.swal2-actions:not(.swal2-loading) .swal2-styled[disabled]{opacity:.4}.swal2-actions:not(.swal2-loading) .swal2-styled:hover{background-image:linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1))}.swal2-actions:not(.swal2-loading) .swal2-styled:active{background-image:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2))}.swal2-loader{display:none;align-items:center;justify-content:center;width:2.2em;height:2.2em;margin:0 1.875em;-webkit-animation:swal2-rotate-loading 1.5s linear 0s infinite normal;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border-width:.25em;border-style:solid;border-radius:100%;border-color:#2778c4 transparent #2778c4 transparent}.swal2-styled{margin:.3125em;padding:.625em 1.1em;box-shadow:none;font-weight:500}.swal2-styled:not([disabled]){cursor:pointer}.swal2-styled.swal2-confirm{border:0;border-radius:.25em;background:initial;background-color:#2778c4;color:#fff;font-size:1em}.swal2-styled.swal2-deny{border:0;border-radius:.25em;background:initial;background-color:#d14529;color:#fff;font-size:1em}.swal2-styled.swal2-cancel{border:0;border-radius:.25em;background:initial;background-color:#757575;color:#fff;font-size:1em}.swal2-styled:focus{outline:0;box-shadow:0 0 0 3px rgba(100,150,200,.5)}.swal2-styled::-moz-focus-inner{border:0}.swal2-footer{justify-content:center;margin:1.25em 0 0;padding:1em 0 0;border-top:1px solid #eee;color:#545454;font-size:1em}.swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;height:.25em;overflow:hidden;border-bottom-right-radius:5px;border-bottom-left-radius:5px}.swal2-timer-progress-bar{width:100%;height:.25em;background:rgba(0,0,0,.2)}.swal2-image{max-width:100%;margin:1.25em auto}.swal2-close{position:absolute;z-index:2;top:0;right:0;align-items:center;justify-content:center;width:1.2em;height:1.2em;padding:0;overflow:hidden;transition:color .1s ease-out;border:none;border-radius:5px;background:0 0;color:#ccc;font-family:serif;font-size:2.5em;line-height:1.2;cursor:pointer}.swal2-close:hover{transform:none;background:0 0;color:#f27474}.swal2-close:focus{outline:0;box-shadow:inset 0 0 0 3px rgba(100,150,200,.5)}.swal2-close::-moz-focus-inner{border:0}.swal2-content{z-index:1;justify-content:center;margin:0;padding:0 1.6em;color:#545454;font-size:1.125em;font-weight:400;line-height:normal;text-align:center;word-wrap:break-word}.swal2-checkbox,.swal2-file,.swal2-input,.swal2-radio,.swal2-select,.swal2-textarea{margin:1em auto}.swal2-file,.swal2-input,.swal2-textarea{box-sizing:border-box;width:100%;transition:border-color .3s,box-shadow .3s;border:1px solid #d9d9d9;border-radius:.1875em;background:inherit;box-shadow:inset 0 1px 1px rgba(0,0,0,.06);color:inherit;font-size:1.125em}.swal2-file.swal2-inputerror,.swal2-input.swal2-inputerror,.swal2-textarea.swal2-inputerror{border-color:#f27474!important;box-shadow:0 0 2px #f27474!important}.swal2-file:focus,.swal2-input:focus,.swal2-textarea:focus{border:1px solid #b4dbed;outline:0;box-shadow:0 0 0 3px rgba(100,150,200,.5)}.swal2-file::-moz-placeholder,.swal2-input::-moz-placeholder,.swal2-textarea::-moz-placeholder{color:#ccc}.swal2-file:-ms-input-placeholder,.swal2-input:-ms-input-placeholder,.swal2-textarea:-ms-input-placeholder{color:#ccc}.swal2-file::placeholder,.swal2-input::placeholder,.swal2-textarea::placeholder{color:#ccc}.swal2-range{margin:1em auto;background:#fff}.swal2-range input{width:80%}.swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}.swal2-range input,.swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}.swal2-input{height:2.625em;padding:0 .75em}.swal2-input[type=number]{max-width:10em}.swal2-file{background:inherit;font-size:1.125em}.swal2-textarea{height:6.75em;padding:.75em}.swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:inherit;color:inherit;font-size:1.125em}.swal2-checkbox,.swal2-radio{align-items:center;justify-content:center;background:#fff;color:inherit}.swal2-checkbox label,.swal2-radio label{margin:0 .6em;font-size:1.125em}.swal2-checkbox input,.swal2-radio input{flex-shrink:0;margin:0 .4em}.swal2-input-label{display:flex;justify-content:center;margin:1em auto}.swal2-validation-message{align-items:center;justify-content:center;margin:0 -2.7em;padding:.625em;overflow:hidden;background:#f0f0f0;color:#666;font-size:1em;font-weight:300}.swal2-validation-message::before{content:"!";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}.swal2-icon{position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:1.25em auto 1.875em;border:.25em solid transparent;border-radius:50%;border-color:#000;font-family:inherit;line-height:5em;cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}.swal2-icon.swal2-error{border-color:#f27474;color:#f27474}.swal2-icon.swal2-error .swal2-x-mark{position:relative;flex-grow:1}.swal2-icon.swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}.swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}.swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}.swal2-icon.swal2-error.swal2-icon-show{-webkit-animation:swal2-animate-error-icon .5s;animation:swal2-animate-error-icon .5s}.swal2-icon.swal2-error.swal2-icon-show .swal2-x-mark{-webkit-animation:swal2-animate-error-x-mark .5s;animation:swal2-animate-error-x-mark .5s}.swal2-icon.swal2-warning{border-color:#facea8;color:#f8bb86}.swal2-icon.swal2-info{border-color:#9de0f6;color:#3fc3ee}.swal2-icon.swal2-question{border-color:#c9dae1;color:#87adbd}.swal2-icon.swal2-success{border-color:#a5dc86;color:#a5dc86}.swal2-icon.swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;transform:rotate(45deg);border-radius:50%}.swal2-icon.swal2-success [class^=swal2-success-circular-line][class$=left]{top:-.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}.swal2-icon.swal2-success [class^=swal2-success-circular-line][class$=right]{top:-.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}.swal2-icon.swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-.25em;left:-.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}.swal2-icon.swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}.swal2-icon.swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}.swal2-icon.swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}.swal2-icon.swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}.swal2-icon.swal2-success.swal2-icon-show .swal2-success-line-tip{-webkit-animation:swal2-animate-success-line-tip .75s;animation:swal2-animate-success-line-tip .75s}.swal2-icon.swal2-success.swal2-icon-show .swal2-success-line-long{-webkit-animation:swal2-animate-success-line-long .75s;animation:swal2-animate-success-line-long .75s}.swal2-icon.swal2-success.swal2-icon-show .swal2-success-circular-line-right{-webkit-animation:swal2-rotate-success-circular-line 4.25s ease-in;animation:swal2-rotate-success-circular-line 4.25s ease-in}.swal2-progress-steps{flex-wrap:wrap;align-items:center;max-width:100%;margin:0 0 1.25em;padding:0;background:inherit;font-weight:600}.swal2-progress-steps li{display:inline-block;position:relative}.swal2-progress-steps .swal2-progress-step{z-index:20;flex-shrink:0;width:2em;height:2em;border-radius:2em;background:#2778c4;color:#fff;line-height:2em;text-align:center}.swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#2778c4}.swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:#add8e6;color:#fff}.swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:#add8e6}.swal2-progress-steps .swal2-progress-step-line{z-index:10;flex-shrink:0;width:2.5em;height:.4em;margin:0 -1px;background:#2778c4}[class^=swal2]{-webkit-tap-highlight-color:transparent}.swal2-show{-webkit-animation:swal2-show .3s;animation:swal2-show .3s}.swal2-hide{-webkit-animation:swal2-hide .15s forwards;animation:swal2-hide .15s forwards}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{right:auto;left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}@supports (-ms-accelerator:true){.swal2-range input{width:100%!important}.swal2-range output{display:none}}@media all and (-ms-high-contrast:none),(-ms-high-contrast:active){.swal2-range input{width:100%!important}.swal2-range output{display:none}}@-webkit-keyframes swal2-toast-show{0%{transform:translateY(-.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0)}}@keyframes swal2-toast-show{0%{transform:translateY(-.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0)}}@-webkit-keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@-webkit-keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@-webkit-keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}@-webkit-keyframes swal2-show{0%{transform:scale(.7)}45%{transform:scale(1.05)}80%{transform:scale(.95)}100%{transform:scale(1)}}@keyframes swal2-show{0%{transform:scale(.7)}45%{transform:scale(1.05)}80%{transform:scale(.95)}100%{transform:scale(1)}}@-webkit-keyframes swal2-hide{0%{transform:scale(1);opacity:1}100%{transform:scale(.5);opacity:0}}@keyframes swal2-hide{0%{transform:scale(1);opacity:1}100%{transform:scale(.5);opacity:0}}@-webkit-keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@-webkit-keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@-webkit-keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@-webkit-keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(.4);opacity:0}50%{margin-top:1.625em;transform:scale(.4);opacity:0}80%{margin-top:-.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(.4);opacity:0}50%{margin-top:1.625em;transform:scale(.4);opacity:0}80%{margin-top:-.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@-webkit-keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0);opacity:1}}@-webkit-keyframes swal2-rotate-loading{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes swal2-rotate-loading{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto!important}body.swal2-no-backdrop .swal2-container{top:auto;right:auto;bottom:auto;left:auto;max-width:calc(100% - .625em * 2);background-color:transparent!important}body.swal2-no-backdrop .swal2-container>.swal2-modal{box-shadow:0 0 10px rgba(0,0,0,.4)}body.swal2-no-backdrop .swal2-container.swal2-top{top:0;left:50%;transform:translateX(-50%)}body.swal2-no-backdrop .swal2-container.swal2-top-left,body.swal2-no-backdrop .swal2-container.swal2-top-start{top:0;left:0}body.swal2-no-backdrop .swal2-container.swal2-top-end,body.swal2-no-backdrop .swal2-container.swal2-top-right{top:0;right:0}body.swal2-no-backdrop .swal2-container.swal2-center{top:50%;left:50%;transform:translate(-50%,-50%)}body.swal2-no-backdrop .swal2-container.swal2-center-left,body.swal2-no-backdrop .swal2-container.swal2-center-start{top:50%;left:0;transform:translateY(-50%)}body.swal2-no-backdrop .swal2-container.swal2-center-end,body.swal2-no-backdrop .swal2-container.swal2-center-right{top:50%;right:0;transform:translateY(-50%)}body.swal2-no-backdrop .swal2-container.swal2-bottom{bottom:0;left:50%;transform:translateX(-50%)}body.swal2-no-backdrop .swal2-container.swal2-bottom-left,body.swal2-no-backdrop .swal2-container.swal2-bottom-start{bottom:0;left:0}body.swal2-no-backdrop .swal2-container.swal2-bottom-end,body.swal2-no-backdrop .swal2-container.swal2-bottom-right{right:0;bottom:0}@media print{body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){overflow-y:scroll!important}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) .swal2-container{position:static!important}}body.swal2-toast-shown .swal2-container{background-color:transparent}body.swal2-toast-shown .swal2-container.swal2-top{top:0;right:auto;bottom:auto;left:50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{top:0;right:0;bottom:auto;left:auto}body.swal2-toast-shown .swal2-container.swal2-top-left,body.swal2-toast-shown .swal2-container.swal2-top-start{top:0;right:auto;bottom:auto;left:0}body.swal2-toast-shown .swal2-container.swal2-center-left,body.swal2-toast-shown .swal2-container.swal2-center-start{top:50%;right:auto;bottom:auto;left:0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{top:50%;right:auto;bottom:auto;left:50%;transform:translate(-50%,-50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{top:50%;right:0;bottom:auto;left:auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-left,body.swal2-toast-shown .swal2-container.swal2-bottom-start{top:auto;right:auto;bottom:0;left:0}body.swal2-toast-shown .swal2-container.swal2-bottom{top:auto;right:auto;bottom:0;left:50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{top:auto;right:0;bottom:0;left:auto}');
   }
@@ -9226,7 +9231,7 @@ var require_lodash = __commonJS({
             return types;
           }
           return freeProcess && freeProcess.binding && freeProcess.binding("util");
-        } catch (e4) {
+        } catch (e) {
         }
       }();
       var nodeIsArrayBuffer = nodeUtil && nodeUtil.isArrayBuffer, nodeIsDate = nodeUtil && nodeUtil.isDate, nodeIsMap = nodeUtil && nodeUtil.isMap, nodeIsRegExp = nodeUtil && nodeUtil.isRegExp, nodeIsSet = nodeUtil && nodeUtil.isSet, nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
@@ -9423,9 +9428,9 @@ var require_lodash = __commonJS({
         }
         return result;
       }
-      function baseTimes(n3, iteratee) {
-        var index = -1, result = Array(n3);
-        while (++index < n3) {
+      function baseTimes(n, iteratee) {
+        var index = -1, result = Array(n);
+        while (++index < n) {
           result[index] = iteratee(index);
         }
         return result;
@@ -9575,7 +9580,7 @@ var require_lodash = __commonJS({
         return string.match(reUnicodeWord) || [];
       }
       var runInContext = function runInContext2(context) {
-        context = context == null ? root : _7.defaults(root.Object(), context, _7.pick(root, contextProps));
+        context = context == null ? root : _4.defaults(root.Object(), context, _4.pick(root, contextProps));
         var Array2 = context.Array, Date2 = context.Date, Error2 = context.Error, Function2 = context.Function, Math2 = context.Math, Object2 = context.Object, RegExp2 = context.RegExp, String2 = context.String, TypeError2 = context.TypeError;
         var arrayProto = Array2.prototype, funcProto = Function2.prototype, objectProto = Object2.prototype;
         var coreJsData = context["__core-js_shared__"];
@@ -9592,24 +9597,24 @@ var require_lodash = __commonJS({
         var reIsNative = RegExp2(
           "^" + funcToString.call(hasOwnProperty).replace(reRegExpChar, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$"
         );
-        var Buffer2 = moduleExports ? context.Buffer : undefined2, Symbol2 = context.Symbol, Uint8Array2 = context.Uint8Array, allocUnsafe = Buffer2 ? Buffer2.allocUnsafe : undefined2, getPrototype = overArg(Object2.getPrototypeOf, Object2), objectCreate = Object2.create, propertyIsEnumerable = objectProto.propertyIsEnumerable, splice = arrayProto.splice, spreadableSymbol = Symbol2 ? Symbol2.isConcatSpreadable : undefined2, symIterator = Symbol2 ? Symbol2.iterator : undefined2, symToStringTag = Symbol2 ? Symbol2.toStringTag : undefined2;
+        var Buffer3 = moduleExports ? context.Buffer : undefined2, Symbol2 = context.Symbol, Uint8Array2 = context.Uint8Array, allocUnsafe = Buffer3 ? Buffer3.allocUnsafe : undefined2, getPrototype = overArg(Object2.getPrototypeOf, Object2), objectCreate = Object2.create, propertyIsEnumerable = objectProto.propertyIsEnumerable, splice = arrayProto.splice, spreadableSymbol = Symbol2 ? Symbol2.isConcatSpreadable : undefined2, symIterator = Symbol2 ? Symbol2.iterator : undefined2, symToStringTag = Symbol2 ? Symbol2.toStringTag : undefined2;
         var defineProperty = function() {
           try {
             var func = getNative(Object2, "defineProperty");
             func({}, "", {});
             return func;
-          } catch (e4) {
+          } catch (e) {
           }
         }();
         var ctxClearTimeout = context.clearTimeout !== root.clearTimeout && context.clearTimeout, ctxNow = Date2 && Date2.now !== root.Date.now && Date2.now, ctxSetTimeout = context.setTimeout !== root.setTimeout && context.setTimeout;
-        var nativeCeil = Math2.ceil, nativeFloor = Math2.floor, nativeGetSymbols = Object2.getOwnPropertySymbols, nativeIsBuffer = Buffer2 ? Buffer2.isBuffer : undefined2, nativeIsFinite = context.isFinite, nativeJoin = arrayProto.join, nativeKeys = overArg(Object2.keys, Object2), nativeMax = Math2.max, nativeMin = Math2.min, nativeNow = Date2.now, nativeParseInt = context.parseInt, nativeRandom = Math2.random, nativeReverse = arrayProto.reverse;
+        var nativeCeil = Math2.ceil, nativeFloor = Math2.floor, nativeGetSymbols = Object2.getOwnPropertySymbols, nativeIsBuffer = Buffer3 ? Buffer3.isBuffer : undefined2, nativeIsFinite = context.isFinite, nativeJoin = arrayProto.join, nativeKeys = overArg(Object2.keys, Object2), nativeMax = Math2.max, nativeMin = Math2.min, nativeNow = Date2.now, nativeParseInt = context.parseInt, nativeRandom = Math2.random, nativeReverse = arrayProto.reverse;
         var DataView2 = getNative(context, "DataView"), Map2 = getNative(context, "Map"), Promise2 = getNative(context, "Promise"), Set2 = getNative(context, "Set"), WeakMap2 = getNative(context, "WeakMap"), nativeCreate = getNative(Object2, "create");
         var metaMap = WeakMap2 && new WeakMap2();
         var realNames = {};
         var dataViewCtorString = toSource(DataView2), mapCtorString = toSource(Map2), promiseCtorString = toSource(Promise2), setCtorString = toSource(Set2), weakMapCtorString = toSource(WeakMap2);
         var symbolProto = Symbol2 ? Symbol2.prototype : undefined2, symbolValueOf = symbolProto ? symbolProto.valueOf : undefined2, symbolToString = symbolProto ? symbolProto.toString : undefined2;
         function lodash(value) {
-          if (isObjectLike(value) && !isArray(value) && !(value instanceof LazyWrapper)) {
+          if (isObjectLike(value) && !isArray2(value) && !(value instanceof LazyWrapper)) {
             if (value instanceof LodashWrapper) {
               return value;
             }
@@ -9688,7 +9693,7 @@ var require_lodash = __commonJS({
           return result2;
         }
         function lazyValue() {
-          var array = this.__wrapped__.value(), dir = this.__dir__, isArr = isArray(array), isRight = dir < 0, arrLength = isArr ? array.length : 0, view = getView(0, arrLength, this.__views__), start = view.start, end = view.end, length = end - start, index = isRight ? end : start - 1, iteratees = this.__iteratees__, iterLength = iteratees.length, resIndex = 0, takeCount = nativeMin(length, this.__takeCount__);
+          var array = this.__wrapped__.value(), dir = this.__dir__, isArr = isArray2(array), isRight = dir < 0, arrLength = isArr ? array.length : 0, view = getView(0, arrLength, this.__views__), start = view.start, end = view.end, length = end - start, index = isRight ? end : start - 1, iteratees = this.__iteratees__, iterLength = iteratees.length, resIndex = 0, takeCount = nativeMin(length, this.__takeCount__);
           if (!isArr || !isRight && arrLength == length && takeCount == length) {
             return baseWrapperValue(array, this.__actions__);
           }
@@ -9897,7 +9902,7 @@ var require_lodash = __commonJS({
         Stack.prototype.has = stackHas;
         Stack.prototype.set = stackSet;
         function arrayLikeKeys(value, inherited) {
-          var isArr = isArray(value), isArg = !isArr && isArguments(value), isBuff = !isArr && !isArg && isBuffer(value), isType = !isArr && !isArg && !isBuff && isTypedArray(value), skipIndexes = isArr || isArg || isBuff || isType, result2 = skipIndexes ? baseTimes(value.length, String2) : [], length = result2.length;
+          var isArr = isArray2(value), isArg = !isArr && isArguments(value), isBuff = !isArr && !isArg && isBuffer(value), isType = !isArr && !isArg && !isBuff && isTypedArray(value), skipIndexes = isArr || isArg || isBuff || isType, result2 = skipIndexes ? baseTimes(value.length, String2) : [], length = result2.length;
           for (var key in value) {
             if ((inherited || hasOwnProperty.call(value, key)) && !(skipIndexes && (key == "length" || isBuff && (key == "offset" || key == "parent") || isType && (key == "buffer" || key == "byteLength" || key == "byteOffset") || isIndex(key, length)))) {
               result2.push(key);
@@ -9909,8 +9914,8 @@ var require_lodash = __commonJS({
           var length = array.length;
           return length ? array[baseRandom(0, length - 1)] : undefined2;
         }
-        function arraySampleSize(array, n3) {
-          return shuffleSelf(copyArray(array), baseClamp(n3, 0, array.length));
+        function arraySampleSize(array, n) {
+          return shuffleSelf(copyArray(array), baseClamp(n, 0, array.length));
         }
         function arrayShuffle(array) {
           return shuffleSelf(copyArray(array));
@@ -9988,7 +9993,7 @@ var require_lodash = __commonJS({
           if (!isObject(value)) {
             return value;
           }
-          var isArr = isArray(value);
+          var isArr = isArray2(value);
           if (isArr) {
             result2 = initCloneArray(value);
             if (!isDeep) {
@@ -10185,7 +10190,7 @@ var require_lodash = __commonJS({
         }
         function baseGetAllKeys(object, keysFunc, symbolsFunc) {
           var result2 = keysFunc(object);
-          return isArray(object) ? result2 : arrayPush(result2, symbolsFunc(object));
+          return isArray2(object) ? result2 : arrayPush(result2, symbolsFunc(object));
         }
         function baseGetTag(value) {
           if (value == null) {
@@ -10268,7 +10273,7 @@ var require_lodash = __commonJS({
           return baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
         }
         function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
-          var objIsArr = isArray(object), othIsArr = isArray(other), objTag = objIsArr ? arrayTag : getTag(object), othTag = othIsArr ? arrayTag : getTag(other);
+          var objIsArr = isArray2(object), othIsArr = isArray2(other), objTag = objIsArr ? arrayTag : getTag(object), othTag = othIsArr ? arrayTag : getTag(other);
           objTag = objTag == argsTag ? objectTag : objTag;
           othTag = othTag == argsTag ? objectTag : othTag;
           var objIsObj = objTag == objectTag, othIsObj = othTag == objectTag, isSameTag = objTag == othTag;
@@ -10355,7 +10360,7 @@ var require_lodash = __commonJS({
             return identity2;
           }
           if (typeof value == "object") {
-            return isArray(value) ? baseMatchesProperty(value[0], value[1]) : baseMatches(value);
+            return isArray2(value) ? baseMatchesProperty(value[0], value[1]) : baseMatches(value);
           }
           return property(value);
         }
@@ -10437,10 +10442,10 @@ var require_lodash = __commonJS({
           var newValue = customizer ? customizer(objValue, srcValue, key + "", object, source, stack) : undefined2;
           var isCommon = newValue === undefined2;
           if (isCommon) {
-            var isArr = isArray(srcValue), isBuff = !isArr && isBuffer(srcValue), isTyped = !isArr && !isBuff && isTypedArray(srcValue);
+            var isArr = isArray2(srcValue), isBuff = !isArr && isBuffer(srcValue), isTyped = !isArr && !isBuff && isTypedArray(srcValue);
             newValue = srcValue;
             if (isArr || isBuff || isTyped) {
-              if (isArray(objValue)) {
+              if (isArray2(objValue)) {
                 newValue = objValue;
               } else if (isArrayLikeObject(objValue)) {
                 newValue = copyArray(objValue);
@@ -10471,18 +10476,18 @@ var require_lodash = __commonJS({
           }
           assignMergeValue(object, key, newValue);
         }
-        function baseNth(array, n3) {
+        function baseNth(array, n) {
           var length = array.length;
           if (!length) {
             return;
           }
-          n3 += n3 < 0 ? length : 0;
-          return isIndex(n3, length) ? array[n3] : undefined2;
+          n += n < 0 ? length : 0;
+          return isIndex(n, length) ? array[n] : undefined2;
         }
         function baseOrderBy(collection, iteratees, orders) {
           if (iteratees.length) {
             iteratees = arrayMap(iteratees, function(iteratee2) {
-              if (isArray(iteratee2)) {
+              if (isArray2(iteratee2)) {
                 return function(value) {
                   return baseGet(value, iteratee2.length === 1 ? iteratee2[0] : iteratee2);
                 };
@@ -10569,20 +10574,20 @@ var require_lodash = __commonJS({
           }
           return result2;
         }
-        function baseRepeat(string, n3) {
+        function baseRepeat(string, n) {
           var result2 = "";
-          if (!string || n3 < 1 || n3 > MAX_SAFE_INTEGER) {
+          if (!string || n < 1 || n > MAX_SAFE_INTEGER) {
             return result2;
           }
           do {
-            if (n3 % 2) {
+            if (n % 2) {
               result2 += string;
             }
-            n3 = nativeFloor(n3 / 2);
-            if (n3) {
+            n = nativeFloor(n / 2);
+            if (n) {
               string += string;
             }
-          } while (n3);
+          } while (n);
           return result2;
         }
         function baseRest(func, start) {
@@ -10591,9 +10596,9 @@ var require_lodash = __commonJS({
         function baseSample(collection) {
           return arraySample(values(collection));
         }
-        function baseSampleSize(collection, n3) {
+        function baseSampleSize(collection, n) {
           var array = values(collection);
-          return shuffleSelf(array, baseClamp(n3, 0, array.length));
+          return shuffleSelf(array, baseClamp(n, 0, array.length));
         }
         function baseSet(object, path, value, customizer) {
           if (!isObject(object)) {
@@ -10727,7 +10732,7 @@ var require_lodash = __commonJS({
           if (typeof value == "string") {
             return value;
           }
-          if (isArray(value)) {
+          if (isArray2(value)) {
             return arrayMap(value, baseToString) + "";
           }
           if (isSymbol(value)) {
@@ -10830,7 +10835,7 @@ var require_lodash = __commonJS({
           return typeof value == "function" ? value : identity2;
         }
         function castPath(value, object) {
-          if (isArray(value)) {
+          if (isArray2(value)) {
             return value;
           }
           return isKey(value, object) ? [value] : stringToPath(toString(value));
@@ -10841,8 +10846,8 @@ var require_lodash = __commonJS({
           end = end === undefined2 ? length : end;
           return !start && end >= length ? array : baseSlice(array, start, end);
         }
-        var clearTimeout2 = ctxClearTimeout || function(id13) {
-          return root.clearTimeout(id13);
+        var clearTimeout2 = ctxClearTimeout || function(id12) {
+          return root.clearTimeout(id12);
         };
         function cloneBuffer(buffer, isDeep) {
           if (isDeep) {
@@ -10965,7 +10970,7 @@ var require_lodash = __commonJS({
         }
         function createAggregator(setter, initializer) {
           return function(collection, iteratee2) {
-            var func = isArray(collection) ? arrayAggregator : baseAggregator, accumulator = initializer ? initializer() : {};
+            var func = isArray2(collection) ? arrayAggregator : baseAggregator, accumulator = initializer ? initializer() : {};
             return func(collection, setter, getIteratee(iteratee2, 2), accumulator);
           };
         }
@@ -11132,7 +11137,7 @@ var require_lodash = __commonJS({
             }
             return function() {
               var args = arguments, value = args[0];
-              if (wrapper && args.length == 1 && isArray(value)) {
+              if (wrapper && args.length == 1 && isArray2(value)) {
                 return wrapper.plant(value).value();
               }
               var index2 = 0, result2 = length ? funcs[index2].apply(this, args) : value;
@@ -11590,7 +11595,7 @@ var require_lodash = __commonJS({
           try {
             value[symToStringTag] = undefined2;
             var unmasked = true;
-          } catch (e4) {
+          } catch (e) {
           }
           var result2 = nativeObjectToString.call(value);
           if (unmasked) {
@@ -11679,7 +11684,7 @@ var require_lodash = __commonJS({
             return result2;
           }
           length = object == null ? 0 : object.length;
-          return !!length && isLength(length) && isIndex(key, length) && (isArray(object) || isArguments(object));
+          return !!length && isLength(length) && isIndex(key, length) && (isArray2(object) || isArguments(object));
         }
         function initCloneArray(array) {
           var length = array.length, result2 = new array.constructor(length);
@@ -11736,7 +11741,7 @@ var require_lodash = __commonJS({
           return source.replace(reWrapComment, "{\n/* [wrapped with " + details + "] */\n");
         }
         function isFlattenable(value) {
-          return isArray(value) || isArguments(value) || !!(spreadableSymbol && value && value[spreadableSymbol]);
+          return isArray2(value) || isArguments(value) || !!(spreadableSymbol && value && value[spreadableSymbol]);
         }
         function isIndex(value, length) {
           var type = typeof value;
@@ -11754,7 +11759,7 @@ var require_lodash = __commonJS({
           return false;
         }
         function isKey(value, object) {
-          if (isArray(value)) {
+          if (isArray2(value)) {
             return false;
           }
           var type = typeof value;
@@ -11947,11 +11952,11 @@ var require_lodash = __commonJS({
           if (func != null) {
             try {
               return funcToString.call(func);
-            } catch (e4) {
+            } catch (e) {
             }
             try {
               return func + "";
-            } catch (e4) {
+            } catch (e) {
             }
           }
           return "";
@@ -12010,7 +12015,7 @@ var require_lodash = __commonJS({
           while (index--) {
             args[index - 1] = arguments[index];
           }
-          return arrayPush(isArray(array) ? copyArray(array) : [array], baseFlatten(args, 1));
+          return arrayPush(isArray2(array) ? copyArray(array) : [array], baseFlatten(args, 1));
         }
         var difference = baseRest(function(array, values2) {
           return isArrayLikeObject(array) ? baseDifference(array, baseFlatten(values2, 1, isArrayLikeObject, true)) : [];
@@ -12029,22 +12034,22 @@ var require_lodash = __commonJS({
           }
           return isArrayLikeObject(array) ? baseDifference(array, baseFlatten(values2, 1, isArrayLikeObject, true), undefined2, comparator) : [];
         });
-        function drop(array, n3, guard) {
+        function drop(array, n, guard) {
           var length = array == null ? 0 : array.length;
           if (!length) {
             return [];
           }
-          n3 = guard || n3 === undefined2 ? 1 : toInteger(n3);
-          return baseSlice(array, n3 < 0 ? 0 : n3, length);
+          n = guard || n === undefined2 ? 1 : toInteger(n);
+          return baseSlice(array, n < 0 ? 0 : n, length);
         }
-        function dropRight(array, n3, guard) {
+        function dropRight(array, n, guard) {
           var length = array == null ? 0 : array.length;
           if (!length) {
             return [];
           }
-          n3 = guard || n3 === undefined2 ? 1 : toInteger(n3);
-          n3 = length - n3;
-          return baseSlice(array, 0, n3 < 0 ? 0 : n3);
+          n = guard || n === undefined2 ? 1 : toInteger(n);
+          n = length - n;
+          return baseSlice(array, 0, n < 0 ? 0 : n);
         }
         function dropRightWhile(array, predicate) {
           return array && array.length ? baseWhile(array, getIteratee(predicate, 3), true, true) : [];
@@ -12168,8 +12173,8 @@ var require_lodash = __commonJS({
           }
           return value === value ? strictLastIndexOf(array, value, index) : baseFindIndex(array, baseIsNaN, index, true);
         }
-        function nth(array, n3) {
-          return array && array.length ? baseNth(array, toInteger(n3)) : undefined2;
+        function nth(array, n) {
+          return array && array.length ? baseNth(array, toInteger(n)) : undefined2;
         }
         var pull = baseRest(pullAll);
         function pullAll(array, values2) {
@@ -12208,7 +12213,7 @@ var require_lodash = __commonJS({
         function reverse(array) {
           return array == null ? array : nativeReverse.call(array);
         }
-        function slice(array, start, end) {
+        function slice2(array, start, end) {
           var length = array == null ? 0 : array.length;
           if (!length) {
             return [];
@@ -12264,21 +12269,21 @@ var require_lodash = __commonJS({
           var length = array == null ? 0 : array.length;
           return length ? baseSlice(array, 1, length) : [];
         }
-        function take(array, n3, guard) {
+        function take(array, n, guard) {
           if (!(array && array.length)) {
             return [];
           }
-          n3 = guard || n3 === undefined2 ? 1 : toInteger(n3);
-          return baseSlice(array, 0, n3 < 0 ? 0 : n3);
+          n = guard || n === undefined2 ? 1 : toInteger(n);
+          return baseSlice(array, 0, n < 0 ? 0 : n);
         }
-        function takeRight(array, n3, guard) {
+        function takeRight(array, n, guard) {
           var length = array == null ? 0 : array.length;
           if (!length) {
             return [];
           }
-          n3 = guard || n3 === undefined2 ? 1 : toInteger(n3);
-          n3 = length - n3;
-          return baseSlice(array, n3 < 0 ? 0 : n3, length);
+          n = guard || n === undefined2 ? 1 : toInteger(n);
+          n = length - n;
+          return baseSlice(array, n < 0 ? 0 : n, length);
         }
         function takeRightWhile(array, predicate) {
           return array && array.length ? baseWhile(array, getIteratee(predicate, 3), false, true) : [];
@@ -12461,14 +12466,14 @@ var require_lodash = __commonJS({
           }
         });
         function every(collection, predicate, guard) {
-          var func = isArray(collection) ? arrayEvery : baseEvery;
+          var func = isArray2(collection) ? arrayEvery : baseEvery;
           if (guard && isIterateeCall(collection, predicate, guard)) {
             predicate = undefined2;
           }
           return func(collection, getIteratee(predicate, 3));
         }
         function filter(collection, predicate) {
-          var func = isArray(collection) ? arrayFilter : baseFilter;
+          var func = isArray2(collection) ? arrayFilter : baseFilter;
           return func(collection, getIteratee(predicate, 3));
         }
         var find = createFind(findIndex);
@@ -12484,14 +12489,14 @@ var require_lodash = __commonJS({
           return baseFlatten(map(collection, iteratee2), depth);
         }
         function forEach(collection, iteratee2) {
-          var func = isArray(collection) ? arrayEach : baseEach;
+          var func = isArray2(collection) ? arrayEach : baseEach;
           return func(collection, getIteratee(iteratee2, 3));
         }
         function forEachRight(collection, iteratee2) {
-          var func = isArray(collection) ? arrayEachRight : baseEachRight;
+          var func = isArray2(collection) ? arrayEachRight : baseEachRight;
           return func(collection, getIteratee(iteratee2, 3));
         }
-        var groupBy = createAggregator(function(result2, value, key) {
+        var groupBy2 = createAggregator(function(result2, value, key) {
           if (hasOwnProperty.call(result2, key)) {
             result2[key].push(value);
           } else {
@@ -12518,18 +12523,18 @@ var require_lodash = __commonJS({
           baseAssignValue(result2, key, value);
         });
         function map(collection, iteratee2) {
-          var func = isArray(collection) ? arrayMap : baseMap;
+          var func = isArray2(collection) ? arrayMap : baseMap;
           return func(collection, getIteratee(iteratee2, 3));
         }
         function orderBy(collection, iteratees, orders, guard) {
           if (collection == null) {
             return [];
           }
-          if (!isArray(iteratees)) {
+          if (!isArray2(iteratees)) {
             iteratees = iteratees == null ? [] : [iteratees];
           }
           orders = guard ? undefined2 : orders;
-          if (!isArray(orders)) {
+          if (!isArray2(orders)) {
             orders = orders == null ? [] : [orders];
           }
           return baseOrderBy(collection, iteratees, orders);
@@ -12540,32 +12545,32 @@ var require_lodash = __commonJS({
           return [[], []];
         });
         function reduce(collection, iteratee2, accumulator) {
-          var func = isArray(collection) ? arrayReduce : baseReduce, initAccum = arguments.length < 3;
+          var func = isArray2(collection) ? arrayReduce : baseReduce, initAccum = arguments.length < 3;
           return func(collection, getIteratee(iteratee2, 4), accumulator, initAccum, baseEach);
         }
         function reduceRight(collection, iteratee2, accumulator) {
-          var func = isArray(collection) ? arrayReduceRight : baseReduce, initAccum = arguments.length < 3;
+          var func = isArray2(collection) ? arrayReduceRight : baseReduce, initAccum = arguments.length < 3;
           return func(collection, getIteratee(iteratee2, 4), accumulator, initAccum, baseEachRight);
         }
         function reject(collection, predicate) {
-          var func = isArray(collection) ? arrayFilter : baseFilter;
+          var func = isArray2(collection) ? arrayFilter : baseFilter;
           return func(collection, negate(getIteratee(predicate, 3)));
         }
         function sample(collection) {
-          var func = isArray(collection) ? arraySample : baseSample;
+          var func = isArray2(collection) ? arraySample : baseSample;
           return func(collection);
         }
-        function sampleSize(collection, n3, guard) {
-          if (guard ? isIterateeCall(collection, n3, guard) : n3 === undefined2) {
-            n3 = 1;
+        function sampleSize(collection, n, guard) {
+          if (guard ? isIterateeCall(collection, n, guard) : n === undefined2) {
+            n = 1;
           } else {
-            n3 = toInteger(n3);
+            n = toInteger(n);
           }
-          var func = isArray(collection) ? arraySampleSize : baseSampleSize;
-          return func(collection, n3);
+          var func = isArray2(collection) ? arraySampleSize : baseSampleSize;
+          return func(collection, n);
         }
         function shuffle(collection) {
-          var func = isArray(collection) ? arrayShuffle : baseShuffle;
+          var func = isArray2(collection) ? arrayShuffle : baseShuffle;
           return func(collection);
         }
         function size(collection) {
@@ -12582,7 +12587,7 @@ var require_lodash = __commonJS({
           return baseKeys(collection).length;
         }
         function some(collection, predicate, guard) {
-          var func = isArray(collection) ? arraySome : baseSome;
+          var func = isArray2(collection) ? arraySome : baseSome;
           if (guard && isIterateeCall(collection, predicate, guard)) {
             predicate = undefined2;
           }
@@ -12603,33 +12608,33 @@ var require_lodash = __commonJS({
         var now = ctxNow || function() {
           return root.Date.now();
         };
-        function after(n3, func) {
+        function after(n, func) {
           if (typeof func != "function") {
             throw new TypeError2(FUNC_ERROR_TEXT);
           }
-          n3 = toInteger(n3);
+          n = toInteger(n);
           return function() {
-            if (--n3 < 1) {
+            if (--n < 1) {
               return func.apply(this, arguments);
             }
           };
         }
-        function ary(func, n3, guard) {
-          n3 = guard ? undefined2 : n3;
-          n3 = func && n3 == null ? func.length : n3;
-          return createWrap(func, WRAP_ARY_FLAG, undefined2, undefined2, undefined2, undefined2, n3);
+        function ary(func, n, guard) {
+          n = guard ? undefined2 : n;
+          n = func && n == null ? func.length : n;
+          return createWrap(func, WRAP_ARY_FLAG, undefined2, undefined2, undefined2, undefined2, n);
         }
-        function before(n3, func) {
+        function before(n, func) {
           var result2;
           if (typeof func != "function") {
             throw new TypeError2(FUNC_ERROR_TEXT);
           }
-          n3 = toInteger(n3);
+          n = toInteger(n);
           return function() {
-            if (--n3 > 0) {
+            if (--n > 0) {
               result2 = func.apply(this, arguments);
             }
-            if (n3 <= 1) {
+            if (n <= 1) {
               func = undefined2;
             }
             return result2;
@@ -12663,17 +12668,17 @@ var require_lodash = __commonJS({
           result2.placeholder = curryRight.placeholder;
           return result2;
         }
-        function debounce3(func, wait, options) {
+        function debounce3(func, wait, options3) {
           var lastArgs, lastThis, maxWait, result2, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
           if (typeof func != "function") {
             throw new TypeError2(FUNC_ERROR_TEXT);
           }
           wait = toNumber(wait) || 0;
-          if (isObject(options)) {
-            leading = !!options.leading;
-            maxing = "maxWait" in options;
-            maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
-            trailing = "trailing" in options ? !!options.trailing : trailing;
+          if (isObject(options3)) {
+            leading = !!options3.leading;
+            maxing = "maxWait" in options3;
+            maxWait = maxing ? nativeMax(toNumber(options3.maxWait) || 0, wait) : maxWait;
+            trailing = "trailing" in options3 ? !!options3.trailing : trailing;
           }
           function invokeFunc(time) {
             var args = lastArgs, thisArg = lastThis;
@@ -12744,7 +12749,7 @@ var require_lodash = __commonJS({
           debounced.flush = flush;
           return debounced;
         }
-        var defer = baseRest(function(func, args) {
+        var defer2 = baseRest(function(func, args) {
           return baseDelay(func, 1, args);
         });
         var delay = baseRest(function(func, wait, args) {
@@ -12793,7 +12798,7 @@ var require_lodash = __commonJS({
           return before(2, func);
         }
         var overArgs = castRest(function(func, transforms) {
-          transforms = transforms.length == 1 && isArray(transforms[0]) ? arrayMap(transforms[0], baseUnary(getIteratee())) : arrayMap(baseFlatten(transforms, 1), baseUnary(getIteratee()));
+          transforms = transforms.length == 1 && isArray2(transforms[0]) ? arrayMap(transforms[0], baseUnary(getIteratee())) : arrayMap(baseFlatten(transforms, 1), baseUnary(getIteratee()));
           var funcsLength = transforms.length;
           return baseRest(function(args) {
             var index = -1, length = nativeMin(args.length, funcsLength);
@@ -12834,14 +12839,14 @@ var require_lodash = __commonJS({
             return apply(func, this, otherArgs);
           });
         }
-        function throttle2(func, wait, options) {
+        function throttle2(func, wait, options3) {
           var leading = true, trailing = true;
           if (typeof func != "function") {
             throw new TypeError2(FUNC_ERROR_TEXT);
           }
-          if (isObject(options)) {
-            leading = "leading" in options ? !!options.leading : leading;
-            trailing = "trailing" in options ? !!options.trailing : trailing;
+          if (isObject(options3)) {
+            leading = "leading" in options3 ? !!options3.leading : leading;
+            trailing = "trailing" in options3 ? !!options3.trailing : trailing;
           }
           return debounce3(func, wait, {
             "leading": leading,
@@ -12860,7 +12865,7 @@ var require_lodash = __commonJS({
             return [];
           }
           var value = arguments[0];
-          return isArray(value) ? value : [value];
+          return isArray2(value) ? value : [value];
         }
         function clone(value) {
           return baseClone(value, CLONE_SYMBOLS_FLAG);
@@ -12891,7 +12896,7 @@ var require_lodash = __commonJS({
         }()) ? baseIsArguments : function(value) {
           return isObjectLike(value) && hasOwnProperty.call(value, "callee") && !propertyIsEnumerable.call(value, "callee");
         };
-        var isArray = Array2.isArray;
+        var isArray2 = Array2.isArray;
         var isArrayBuffer = nodeIsArrayBuffer ? baseUnary(nodeIsArrayBuffer) : baseIsArrayBuffer;
         function isArrayLike(value) {
           return value != null && isLength(value.length) && !isFunction(value);
@@ -12907,11 +12912,11 @@ var require_lodash = __commonJS({
         function isElement(value) {
           return isObjectLike(value) && value.nodeType === 1 && !isPlainObject(value);
         }
-        function isEmpty(value) {
+        function isEmpty2(value) {
           if (value == null) {
             return true;
           }
-          if (isArrayLike(value) && (isArray(value) || typeof value == "string" || typeof value.splice == "function" || isBuffer(value) || isTypedArray(value) || isArguments(value))) {
+          if (isArrayLike(value) && (isArray2(value) || typeof value == "string" || typeof value.splice == "function" || isBuffer(value) || isTypedArray(value) || isArguments(value))) {
             return !value.length;
           }
           var tag = getTag(value);
@@ -13009,7 +13014,7 @@ var require_lodash = __commonJS({
         }
         var isSet = nodeIsSet ? baseUnary(nodeIsSet) : baseIsSet;
         function isString(value) {
-          return typeof value == "string" || !isArray(value) && isObjectLike(value) && baseGetTag(value) == stringTag;
+          return typeof value == "string" || !isArray2(value) && isObjectLike(value) && baseGetTag(value) == stringTag;
         }
         function isSymbol(value) {
           return typeof value == "symbol" || isObjectLike(value) && baseGetTag(value) == symbolTag;
@@ -13086,7 +13091,7 @@ var require_lodash = __commonJS({
         function toString(value) {
           return value == null ? "" : baseToString(value);
         }
-        var assign2 = createAssigner(function(object, source) {
+        var assign3 = createAssigner(function(object, source) {
           if (isPrototype(source) || isArrayLike(source)) {
             copyObject(source, keys(source), object);
             return;
@@ -13111,7 +13116,7 @@ var require_lodash = __commonJS({
           var result2 = baseCreate(prototype);
           return properties == null ? result2 : baseAssign(result2, properties);
         }
-        var defaults = baseRest(function(object, sources) {
+        var defaults2 = baseRest(function(object, sources) {
           object = Object2(object);
           var index = -1;
           var length = sources.length;
@@ -13283,7 +13288,7 @@ var require_lodash = __commonJS({
         var toPairs = createToPairs(keys);
         var toPairsIn = createToPairs(keysIn);
         function transform(object, iteratee2, accumulator) {
-          var isArr = isArray(object), isArrLike = isArr || isBuffer(object) || isTypedArray(object);
+          var isArr = isArray2(object), isArrLike = isArr || isBuffer(object) || isTypedArray(object);
           iteratee2 = getIteratee(iteratee2, 4);
           if (accumulator == null) {
             var Ctor = object && object.constructor;
@@ -13443,13 +13448,13 @@ var require_lodash = __commonJS({
           }
           return nativeParseInt(toString(string).replace(reTrimStart, ""), radix || 0);
         }
-        function repeat(string, n3, guard) {
-          if (guard ? isIterateeCall(string, n3, guard) : n3 === undefined2) {
-            n3 = 1;
+        function repeat(string, n, guard) {
+          if (guard ? isIterateeCall(string, n, guard) : n === undefined2) {
+            n = 1;
           } else {
-            n3 = toInteger(n3);
+            n = toInteger(n);
           }
-          return baseRepeat(toString(string), n3);
+          return baseRepeat(toString(string), n);
         }
         function replace() {
           var args = arguments, string = toString(args[0]);
@@ -13484,20 +13489,20 @@ var require_lodash = __commonJS({
           target = baseToString(target);
           return string.slice(position, position + target.length) == target;
         }
-        function template(string, options, guard) {
+        function template(string, options3, guard) {
           var settings = lodash.templateSettings;
-          if (guard && isIterateeCall(string, options, guard)) {
-            options = undefined2;
+          if (guard && isIterateeCall(string, options3, guard)) {
+            options3 = undefined2;
           }
           string = toString(string);
-          options = assignInWith({}, options, settings, customDefaultsAssignIn);
-          var imports = assignInWith({}, options.imports, settings.imports, customDefaultsAssignIn), importsKeys = keys(imports), importsValues = baseValues(imports, importsKeys);
-          var isEscaping, isEvaluating, index = 0, interpolate2 = options.interpolate || reNoMatch, source = "__p += '";
+          options3 = assignInWith({}, options3, settings, customDefaultsAssignIn);
+          var imports = assignInWith({}, options3.imports, settings.imports, customDefaultsAssignIn), importsKeys = keys(imports), importsValues = baseValues(imports, importsKeys);
+          var isEscaping, isEvaluating, index = 0, interpolate2 = options3.interpolate || reNoMatch, source = "__p += '";
           var reDelimiters = RegExp2(
-            (options.escape || reNoMatch).source + "|" + interpolate2.source + "|" + (interpolate2 === reInterpolate ? reEsTemplate : reNoMatch).source + "|" + (options.evaluate || reNoMatch).source + "|$",
+            (options3.escape || reNoMatch).source + "|" + interpolate2.source + "|" + (interpolate2 === reInterpolate ? reEsTemplate : reNoMatch).source + "|" + (options3.evaluate || reNoMatch).source + "|$",
             "g"
           );
-          var sourceURL = "//# sourceURL=" + (hasOwnProperty.call(options, "sourceURL") ? (options.sourceURL + "").replace(/\s/g, " ") : "lodash.templateSources[" + ++templateCounter + "]") + "\n";
+          var sourceURL = "//# sourceURL=" + (hasOwnProperty.call(options3, "sourceURL") ? (options3.sourceURL + "").replace(/\s/g, " ") : "lodash.templateSources[" + ++templateCounter + "]") + "\n";
           string.replace(reDelimiters, function(match2, escapeValue, interpolateValue, esTemplateValue, evaluateValue, offset) {
             interpolateValue || (interpolateValue = esTemplateValue);
             source += string.slice(index, offset).replace(reUnescapedString, escapeStringChar);
@@ -13516,7 +13521,7 @@ var require_lodash = __commonJS({
             return match2;
           });
           source += "';\n";
-          var variable = hasOwnProperty.call(options, "variable") && options.variable;
+          var variable = hasOwnProperty.call(options3, "variable") && options3.variable;
           if (!variable) {
             source = "with (obj) {\n" + source + "\n}\n";
           } else if (reForbiddenIdentifierChars.test(variable)) {
@@ -13572,12 +13577,12 @@ var require_lodash = __commonJS({
           var strSymbols = stringToArray(string), start = charsStartIndex(strSymbols, stringToArray(chars));
           return castSlice(strSymbols, start).join("");
         }
-        function truncate(string, options) {
+        function truncate(string, options3) {
           var length = DEFAULT_TRUNC_LENGTH, omission = DEFAULT_TRUNC_OMISSION;
-          if (isObject(options)) {
-            var separator2 = "separator" in options ? options.separator : separator2;
-            length = "length" in options ? toInteger(options.length) : length;
-            omission = "omission" in options ? baseToString(options.omission) : omission;
+          if (isObject(options3)) {
+            var separator2 = "separator" in options3 ? options3.separator : separator2;
+            length = "length" in options3 ? toInteger(options3.length) : length;
+            omission = "omission" in options3 ? baseToString(options3.omission) : omission;
           }
           string = toString(string);
           var strLength = string.length;
@@ -13638,8 +13643,8 @@ var require_lodash = __commonJS({
         var attempt = baseRest(function(func, args) {
           try {
             return apply(func, undefined2, args);
-          } catch (e4) {
-            return isError(e4) ? e4 : new Error2(e4);
+          } catch (e) {
+            return isError(e) ? e : new Error2(e);
           }
         });
         var bindAll = flatRest(function(object, methodNames) {
@@ -13702,15 +13707,15 @@ var require_lodash = __commonJS({
             return baseInvoke(object, path, args);
           };
         });
-        function mixin(object, source, options) {
+        function mixin(object, source, options3) {
           var props = keys(source), methodNames = baseFunctions(source, props);
-          if (options == null && !(isObject(source) && (methodNames.length || !props.length))) {
-            options = source;
+          if (options3 == null && !(isObject(source) && (methodNames.length || !props.length))) {
+            options3 = source;
             source = object;
             object = this;
             methodNames = baseFunctions(source, keys(source));
           }
-          var chain2 = !(isObject(options) && "chain" in options) || !!options.chain, isFunc = isFunction(object);
+          var chain2 = !(isObject(options3) && "chain" in options3) || !!options3.chain, isFunc = isFunction(object);
           arrayEach(methodNames, function(methodName) {
             var func = source[methodName];
             object[methodName] = func;
@@ -13737,10 +13742,10 @@ var require_lodash = __commonJS({
         }
         function noop2() {
         }
-        function nthArg(n3) {
-          n3 = toInteger(n3);
+        function nthArg(n) {
+          n = toInteger(n);
           return baseRest(function(args) {
-            return baseNth(args, n3);
+            return baseNth(args, n);
           });
         }
         var over = createOver(arrayMap);
@@ -13771,29 +13776,29 @@ var require_lodash = __commonJS({
         function stubTrue() {
           return true;
         }
-        function times(n3, iteratee2) {
-          n3 = toInteger(n3);
-          if (n3 < 1 || n3 > MAX_SAFE_INTEGER) {
+        function times(n, iteratee2) {
+          n = toInteger(n);
+          if (n < 1 || n > MAX_SAFE_INTEGER) {
             return [];
           }
-          var index = MAX_ARRAY_LENGTH, length = nativeMin(n3, MAX_ARRAY_LENGTH);
+          var index = MAX_ARRAY_LENGTH, length = nativeMin(n, MAX_ARRAY_LENGTH);
           iteratee2 = getIteratee(iteratee2);
-          n3 -= MAX_ARRAY_LENGTH;
+          n -= MAX_ARRAY_LENGTH;
           var result2 = baseTimes(length, iteratee2);
-          while (++index < n3) {
+          while (++index < n) {
             iteratee2(index);
           }
           return result2;
         }
         function toPath(value) {
-          if (isArray(value)) {
+          if (isArray2(value)) {
             return arrayMap(value, toKey);
           }
           return isSymbol(value) ? [value] : copyArray(stringToPath(toString(value)));
         }
         function uniqueId(prefix) {
-          var id13 = ++idCounter;
-          return toString(prefix) + id13;
+          var id12 = ++idCounter;
+          return toString(prefix) + id12;
         }
         var add = createMathOperation(function(augend, addend) {
           return augend + addend;
@@ -13836,7 +13841,7 @@ var require_lodash = __commonJS({
         }
         lodash.after = after;
         lodash.ary = ary;
-        lodash.assign = assign2;
+        lodash.assign = assign3;
         lodash.assignIn = assignIn;
         lodash.assignInWith = assignInWith;
         lodash.assignWith = assignWith;
@@ -13858,9 +13863,9 @@ var require_lodash = __commonJS({
         lodash.curry = curry;
         lodash.curryRight = curryRight;
         lodash.debounce = debounce3;
-        lodash.defaults = defaults;
+        lodash.defaults = defaults2;
         lodash.defaultsDeep = defaultsDeep;
-        lodash.defer = defer;
+        lodash.defer = defer2;
         lodash.delay = delay;
         lodash.difference = difference;
         lodash.differenceBy = differenceBy;
@@ -13883,7 +13888,7 @@ var require_lodash = __commonJS({
         lodash.fromPairs = fromPairs;
         lodash.functions = functions;
         lodash.functionsIn = functionsIn;
-        lodash.groupBy = groupBy;
+        lodash.groupBy = groupBy2;
         lodash.initial = initial;
         lodash.intersection = intersection;
         lodash.intersectionBy = intersectionBy;
@@ -13939,7 +13944,7 @@ var require_lodash = __commonJS({
         lodash.set = set;
         lodash.setWith = setWith;
         lodash.shuffle = shuffle;
-        lodash.slice = slice;
+        lodash.slice = slice2;
         lodash.sortBy = sortBy;
         lodash.sortedUniq = sortedUniq;
         lodash.sortedUniqBy = sortedUniqBy;
@@ -14032,7 +14037,7 @@ var require_lodash = __commonJS({
         lodash.inRange = inRange;
         lodash.invoke = invoke;
         lodash.isArguments = isArguments;
-        lodash.isArray = isArray;
+        lodash.isArray = isArray2;
         lodash.isArrayBuffer = isArrayBuffer;
         lodash.isArrayLike = isArrayLike;
         lodash.isArrayLikeObject = isArrayLikeObject;
@@ -14040,7 +14045,7 @@ var require_lodash = __commonJS({
         lodash.isBuffer = isBuffer;
         lodash.isDate = isDate;
         lodash.isElement = isElement;
-        lodash.isEmpty = isEmpty;
+        lodash.isEmpty = isEmpty2;
         lodash.isEqual = isEqual2;
         lodash.isEqualWith = isEqualWith;
         lodash.isError = isError;
@@ -14154,21 +14159,21 @@ var require_lodash = __commonJS({
           lodash[methodName].placeholder = lodash;
         });
         arrayEach(["drop", "take"], function(methodName, index) {
-          LazyWrapper.prototype[methodName] = function(n3) {
-            n3 = n3 === undefined2 ? 1 : nativeMax(toInteger(n3), 0);
+          LazyWrapper.prototype[methodName] = function(n) {
+            n = n === undefined2 ? 1 : nativeMax(toInteger(n), 0);
             var result2 = this.__filtered__ && !index ? new LazyWrapper(this) : this.clone();
             if (result2.__filtered__) {
-              result2.__takeCount__ = nativeMin(n3, result2.__takeCount__);
+              result2.__takeCount__ = nativeMin(n, result2.__takeCount__);
             } else {
               result2.__views__.push({
-                "size": nativeMin(n3, MAX_ARRAY_LENGTH),
+                "size": nativeMin(n, MAX_ARRAY_LENGTH),
                 "type": methodName + (result2.__dir__ < 0 ? "Right" : "")
               });
             }
             return result2;
           };
-          LazyWrapper.prototype[methodName + "Right"] = function(n3) {
-            return this.reverse()[methodName](n3).reverse();
+          LazyWrapper.prototype[methodName + "Right"] = function(n) {
+            return this.reverse()[methodName](n).reverse();
           };
         });
         arrayEach(["filter", "map", "takeWhile"], function(methodName, index) {
@@ -14244,7 +14249,7 @@ var require_lodash = __commonJS({
             return;
           }
           lodash.prototype[methodName] = function() {
-            var value = this.__wrapped__, args = isTaker ? [1] : arguments, isLazy = value instanceof LazyWrapper, iteratee2 = args[0], useLazy = isLazy || isArray(value);
+            var value = this.__wrapped__, args = isTaker ? [1] : arguments, isLazy = value instanceof LazyWrapper, iteratee2 = args[0], useLazy = isLazy || isArray2(value);
             var interceptor = function(value2) {
               var result3 = lodashFunc.apply(lodash, arrayPush([value2], args));
               return isTaker && chainAll ? result3[0] : result3;
@@ -14272,10 +14277,10 @@ var require_lodash = __commonJS({
             var args = arguments;
             if (retUnwrapped && !this.__chain__) {
               var value = this.value();
-              return func.apply(isArray(value) ? value : [], args);
+              return func.apply(isArray2(value) ? value : [], args);
             }
             return this[chainName](function(value2) {
-              return func.apply(isArray(value2) ? value2 : [], args);
+              return func.apply(isArray2(value2) ? value2 : [], args);
             });
           };
         });
@@ -14309,17 +14314,17 @@ var require_lodash = __commonJS({
         }
         return lodash;
       };
-      var _7 = runInContext();
+      var _4 = runInContext();
       if (typeof define == "function" && typeof define.amd == "object" && define.amd) {
-        root._ = _7;
+        root._ = _4;
         define(function() {
-          return _7;
+          return _4;
         });
       } else if (freeModule) {
-        (freeModule.exports = _7)._ = _7;
-        freeExports._ = _7;
+        (freeModule.exports = _4)._ = _4;
+        freeExports._ = _4;
       } else {
-        root._ = _7;
+        root._ = _4;
       }
     }).call(exports);
   }
@@ -14354,25 +14359,25 @@ var require_namespace_emitter = __commonJS({
         var keep = [];
         if (event2 && fn) {
           var fns = this._fns[event2];
-          var i4 = 0;
-          var l4 = fns ? fns.length : 0;
-          for (i4; i4 < l4; i4++) {
-            if (fns[i4] !== fn) {
-              keep.push(fns[i4]);
+          var i = 0;
+          var l = fns ? fns.length : 0;
+          for (i; i < l; i++) {
+            if (fns[i] !== fn) {
+              keep.push(fns[i]);
             }
           }
         }
         keep.length ? this._fns[event2] = keep : delete this._fns[event2];
       };
-      function getListeners(e4) {
-        var out = _fns[e4] ? _fns[e4] : [];
-        var idx = e4.indexOf(":");
-        var args = idx === -1 ? [e4] : [e4.substring(0, idx), e4.substring(idx + 1)];
+      function getListeners(e) {
+        var out = _fns[e] ? _fns[e] : [];
+        var idx = e.indexOf(":");
+        var args = idx === -1 ? [e] : [e.substring(0, idx), e.substring(idx + 1)];
         var keys = Object.keys(_fns);
-        var i4 = 0;
-        var l4 = keys.length;
-        for (i4; i4 < l4; i4++) {
-          var key = keys[i4];
+        var i = 0;
+        var l = keys.length;
+        for (i; i < l; i++) {
+          var key = keys[i];
           if (key === "*") {
             out = out.concat(_fns[key]);
           }
@@ -14383,14 +14388,14 @@ var require_namespace_emitter = __commonJS({
         }
         return out;
       }
-      function emitAll(e4, fns, args) {
-        var i4 = 0;
-        var l4 = fns.length;
-        for (i4; i4 < l4; i4++) {
-          if (!fns[i4])
+      function emitAll(e, fns, args) {
+        var i = 0;
+        var l = fns.length;
+        for (i; i < l; i++) {
+          if (!fns[i])
             break;
-          fns[i4].event = e4;
-          fns[i4].apply(fns[i4], args);
+          fns[i].event = e;
+          fns[i].apply(fns[i], args);
         }
       }
       return emitter;
@@ -14486,7 +14491,7 @@ var require_getRawTag = __commonJS({
       try {
         value[symToStringTag] = void 0;
         var unmasked = true;
-      } catch (e4) {
+      } catch (e) {
       }
       var result = nativeObjectToString.call(value);
       if (unmasked) {
@@ -14598,17 +14603,17 @@ var require_debounce = __commonJS({
     var FUNC_ERROR_TEXT = "Expected a function";
     var nativeMax = Math.max;
     var nativeMin = Math.min;
-    function debounce3(func, wait, options) {
+    function debounce3(func, wait, options3) {
       var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
       if (typeof func != "function") {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       wait = toNumber(wait) || 0;
-      if (isObject(options)) {
-        leading = !!options.leading;
-        maxing = "maxWait" in options;
-        maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
-        trailing = "trailing" in options ? !!options.trailing : trailing;
+      if (isObject(options3)) {
+        leading = !!options3.leading;
+        maxing = "maxWait" in options3;
+        maxWait = maxing ? nativeMax(toNumber(options3.maxWait) || 0, wait) : maxWait;
+        trailing = "trailing" in options3 ? !!options3.trailing : trailing;
       }
       function invokeFunc(time) {
         var args = lastArgs, thisArg = lastThis;
@@ -14689,14 +14694,14 @@ var require_throttle = __commonJS({
     var debounce3 = require_debounce();
     var isObject = require_isObject();
     var FUNC_ERROR_TEXT = "Expected a function";
-    function throttle2(func, wait, options) {
+    function throttle2(func, wait, options3) {
       var leading = true, trailing = true;
       if (typeof func != "function") {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
-      if (isObject(options)) {
-        leading = "leading" in options ? !!options.leading : leading;
-        trailing = "trailing" in options ? !!options.trailing : trailing;
+      if (isObject(options3)) {
+        leading = "leading" in options3 ? !!options3.leading : leading;
+        trailing = "trailing" in options3 ? !!options3.trailing : trailing;
       }
       return debounce3(func, wait, {
         "leading": leading,
@@ -14815,10 +14820,10 @@ var require_classnames = __commonJS({
     (function() {
       "use strict";
       var hasOwn = {}.hasOwnProperty;
-      function classNames13() {
+      function classNames15() {
         var classes = "";
-        for (var i4 = 0; i4 < arguments.length; i4++) {
-          var arg = arguments[i4];
+        for (var i = 0; i < arguments.length; i++) {
+          var arg = arguments[i];
           if (arg) {
             classes = appendClass(classes, parseValue(arg));
           }
@@ -14833,7 +14838,7 @@ var require_classnames = __commonJS({
           return "";
         }
         if (Array.isArray(arg)) {
-          return classNames13.apply(null, arg);
+          return classNames15.apply(null, arg);
         }
         if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes("[native code]")) {
           return arg.toString();
@@ -14856,14 +14861,14 @@ var require_classnames = __commonJS({
         return value + newClass;
       }
       if (typeof module !== "undefined" && module.exports) {
-        classNames13.default = classNames13;
-        module.exports = classNames13;
+        classNames15.default = classNames15;
+        module.exports = classNames15;
       } else if (typeof define === "function" && typeof define.amd === "object" && define.amd) {
         define("classnames", [], function() {
-          return classNames13;
+          return classNames15;
         });
       } else {
-        window.classNames = classNames13;
+        window.classNames = classNames15;
       }
     })();
   }
@@ -14929,10 +14934,10 @@ var require_eventemitter3 = __commonJS({
         return [];
       if (handlers.fn)
         return [handlers.fn];
-      for (var i4 = 0, l4 = handlers.length, ee3 = new Array(l4); i4 < l4; i4++) {
-        ee3[i4] = handlers[i4].fn;
+      for (var i = 0, l = handlers.length, ee2 = new Array(l); i < l; i++) {
+        ee2[i] = handlers[i].fn;
       }
-      return ee3;
+      return ee2;
     };
     EventEmitter2.prototype.listenerCount = function listenerCount(event2) {
       var evt = prefix ? prefix + event2 : event2, listeners = this._events[evt];
@@ -14942,11 +14947,11 @@ var require_eventemitter3 = __commonJS({
         return 1;
       return listeners.length;
     };
-    EventEmitter2.prototype.emit = function emit(event2, a1, a22, a32, a4, a5) {
+    EventEmitter2.prototype.emit = function emit(event2, a1, a2, a3, a4, a5) {
       var evt = prefix ? prefix + event2 : event2;
       if (!this._events[evt])
         return false;
-      var listeners = this._events[evt], len = arguments.length, args, i4;
+      var listeners = this._events[evt], len = arguments.length, args, i;
       if (listeners.fn) {
         if (listeners.once)
           this.removeListener(event2, listeners.fn, void 0, true);
@@ -14956,42 +14961,42 @@ var require_eventemitter3 = __commonJS({
           case 2:
             return listeners.fn.call(listeners.context, a1), true;
           case 3:
-            return listeners.fn.call(listeners.context, a1, a22), true;
+            return listeners.fn.call(listeners.context, a1, a2), true;
           case 4:
-            return listeners.fn.call(listeners.context, a1, a22, a32), true;
+            return listeners.fn.call(listeners.context, a1, a2, a3), true;
           case 5:
-            return listeners.fn.call(listeners.context, a1, a22, a32, a4), true;
+            return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
           case 6:
-            return listeners.fn.call(listeners.context, a1, a22, a32, a4, a5), true;
+            return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
         }
-        for (i4 = 1, args = new Array(len - 1); i4 < len; i4++) {
-          args[i4 - 1] = arguments[i4];
+        for (i = 1, args = new Array(len - 1); i < len; i++) {
+          args[i - 1] = arguments[i];
         }
         listeners.fn.apply(listeners.context, args);
       } else {
-        var length = listeners.length, j4;
-        for (i4 = 0; i4 < length; i4++) {
-          if (listeners[i4].once)
-            this.removeListener(event2, listeners[i4].fn, void 0, true);
+        var length = listeners.length, j;
+        for (i = 0; i < length; i++) {
+          if (listeners[i].once)
+            this.removeListener(event2, listeners[i].fn, void 0, true);
           switch (len) {
             case 1:
-              listeners[i4].fn.call(listeners[i4].context);
+              listeners[i].fn.call(listeners[i].context);
               break;
             case 2:
-              listeners[i4].fn.call(listeners[i4].context, a1);
+              listeners[i].fn.call(listeners[i].context, a1);
               break;
             case 3:
-              listeners[i4].fn.call(listeners[i4].context, a1, a22);
+              listeners[i].fn.call(listeners[i].context, a1, a2);
               break;
             case 4:
-              listeners[i4].fn.call(listeners[i4].context, a1, a22, a32);
+              listeners[i].fn.call(listeners[i].context, a1, a2, a3);
               break;
             default:
               if (!args)
-                for (j4 = 1, args = new Array(len - 1); j4 < len; j4++) {
-                  args[j4 - 1] = arguments[j4];
+                for (j = 1, args = new Array(len - 1); j < len; j++) {
+                  args[j - 1] = arguments[j];
                 }
-              listeners[i4].fn.apply(listeners[i4].context, args);
+              listeners[i].fn.apply(listeners[i].context, args);
           }
         }
       }
@@ -15017,9 +15022,9 @@ var require_eventemitter3 = __commonJS({
           clearEvent(this, evt);
         }
       } else {
-        for (var i4 = 0, events = [], length = listeners.length; i4 < length; i4++) {
-          if (listeners[i4].fn !== fn || once && !listeners[i4].once || context && listeners[i4].context !== context) {
-            events.push(listeners[i4]);
+        for (var i = 0, events = [], length = listeners.length; i < length; i++) {
+          if (listeners[i].fn !== fn || once && !listeners[i].once || context && listeners[i].context !== context) {
+            events.push(listeners[i]);
           }
         }
         if (events.length)
@@ -15051,23 +15056,6 @@ var require_eventemitter3 = __commonJS({
   }
 });
 
-// node_modules/is-shallow-equal/index.js
-var require_is_shallow_equal = __commonJS({
-  "node_modules/is-shallow-equal/index.js"(exports, module) {
-    module.exports = function isShallowEqual(a4, b3) {
-      if (a4 === b3)
-        return true;
-      for (var i4 in a4)
-        if (!(i4 in b3))
-          return false;
-      for (var i4 in b3)
-        if (a4[i4] !== b3[i4])
-          return false;
-      return true;
-    };
-  }
-});
-
 // app/javascript/files/clip_board.js
 var import_clipboard = __toESM(require_clipboard());
 var import_handlebars3 = __toESM(require_handlebars());
@@ -15077,6 +15065,35 @@ var import_handlebars = __toESM(require_handlebars());
 
 // app/javascript/files/sweet_alert.js
 var import_sweetalert2 = __toESM(require_sweetalert2_all());
+
+// app/javascript/alert.js
+function alert2(message) {
+  const div = alertDiv(message);
+  const main = document.getElementById("main_container");
+  main.prepend(div);
+}
+function alertDiv(message) {
+  const span = document.createElement("span");
+  span.innerText = message;
+  const div = document.createElement("div");
+  div.classList.add("alert", "alert-danger", "alert-dismissible");
+  div.setAttribute("role", "alert");
+  div.appendChild(span);
+  div.appendChild(closeButton());
+  return div;
+}
+function closeButton() {
+  const button = document.createElement("button");
+  button.classList.add("btn-close");
+  button.dataset.bsDismiss = "alert";
+  const span = document.createElement("span");
+  span.classList.add("sr-only");
+  span.innerText = "Close";
+  button.appendChild(span);
+  return button;
+}
+
+// app/javascript/files/sweet_alert.js
 var EVENTNAME2 = {
   showError: "showError",
   showInput: "showInput",
@@ -15087,17 +15104,17 @@ var EVENTNAME2 = {
 var sweetAlert = null;
 jQuery(function() {
   sweetAlert = new SweetAlert();
-  $(CONTENTID).on(EVENTNAME2.showError, function(e4, options) {
-    sweetAlert.alertError(options.title, options.message);
+  $(CONTENTID).on(EVENTNAME2.showError, function(e, options3) {
+    alert2(options3.message);
   });
-  $(CONTENTID).on(EVENTNAME2.showPrompt, function(e4, options) {
-    sweetAlert.alertError(options.title, options.message);
+  $(CONTENTID).on(EVENTNAME2.showPrompt, function(e, options3) {
+    sweetAlert.alertError(options3.title, options3.message);
   });
-  $(CONTENTID).on(EVENTNAME2.showInput, function(e4, options) {
-    sweetAlert.input(options);
+  $(CONTENTID).on(EVENTNAME2.showInput, function(e, options3) {
+    sweetAlert.input(options3);
   });
-  $(CONTENTID).on(EVENTNAME2.showLoading, function(e4, options) {
-    sweetAlert.loading(options.message);
+  $(CONTENTID).on(EVENTNAME2.showLoading, function(e, options3) {
+    sweetAlert.loading(options3.message);
   });
   $(CONTENTID).on(EVENTNAME2.closeSwal, function() {
     sweetAlert.close();
@@ -15107,14 +15124,14 @@ var SweetAlert = class {
   constructor() {
     this.setMixin();
   }
-  input(options) {
-    import_sweetalert2.default.fire(options.inputOptions).then(function(result) {
+  input(options3) {
+    import_sweetalert2.default.fire(options3.inputOptions).then(function(result) {
       if (result.isConfirmed) {
         const eventData = {
           result,
-          files: options.files ? options.files : null
+          files: options3.files ? options3.files : null
         };
-        $(CONTENTID).trigger(options.action, eventData);
+        $(CONTENTID).trigger(options3.action, eventData);
       } else {
         $(CONTENTID).trigger(EVENTNAME.reloadTable);
       }
@@ -15195,15 +15212,15 @@ jQuery(function() {
   window.onpopstate = function(event2) {
     table.goto(location.href);
   };
-  $(CONTENTID).on(EVENTNAME.reloadTable, function(e4, options) {
-    let url2 = $.isEmptyObject(options) ? "" : options.url;
+  $(CONTENTID).on(EVENTNAME.reloadTable, function(e, options3) {
+    let url2 = $.isEmptyObject(options3) ? "" : options3.url;
     table.reloadTable(url2);
   });
-  $(CONTENTID).on(EVENTNAME.getJsonResponse, function(e4, options) {
-    table.dataFromJsonResponse(options.response);
+  $(CONTENTID).on(EVENTNAME.getJsonResponse, function(e, options3) {
+    table.dataFromJsonResponse(options3.response);
   });
-  $(CONTENTID).on(EVENTNAME.goto, function(e4, options) {
-    table.goto(options.path);
+  $(CONTENTID).on(EVENTNAME.goto, function(e, options3) {
+    table.goto(options3.path);
   });
   $("#show-dotfiles").on("change", function() {
     table.setShowDotFiles(this.checked);
@@ -15235,21 +15252,21 @@ jQuery(function() {
   table.getTable().on("draw.dtSelect.dt select.dtSelect.dt deselect.dtSelect.dt info.dt", function() {
     table.updateDatatablesStatus();
   });
-  table.getTable().on("user-select", function(e4, dt, type, cell, originalEvent) {
+  table.getTable().on("user-select", function(e, dt, type, cell, originalEvent) {
     var selected_rows = dt.rows({ selected: true });
     if (originalEvent.target.closest(".actions-btn-group")) {
-      e4.preventDefault();
+      e.preventDefault();
     } else if (selected_rows.count() == 1 && cell.index().row == selected_rows.indexes()[0]) {
-      e4.preventDefault();
+      e.preventDefault();
     } else {
       cell.node().closest("tr").querySelector("input[type=checkbox]").focus();
     }
   });
-  table.getTable().on("deselect", function(e4, dt, type, indexes) {
-    dt.rows(indexes).nodes().toArray().forEach((e5) => $(e5).find("input[type=checkbox]").prop("checked", false));
+  table.getTable().on("deselect", function(e, dt, type, indexes) {
+    dt.rows(indexes).nodes().toArray().forEach((e2) => $(e2).find("input[type=checkbox]").prop("checked", false));
   });
-  table.getTable().on("select", function(e4, dt, type, indexes) {
-    dt.rows(indexes).nodes().toArray().forEach((e5) => $(e5).find("input[type=checkbox]").prop("checked", true));
+  table.getTable().on("select", function(e, dt, type, indexes) {
+    dt.rows(indexes).nodes().toArray().forEach((e2) => $(e2).find("input[type=checkbox]").prop("checked", true));
   });
   $("#directory-contents tbody").on("click", "tr td:first-child input[type=checkbox]", function() {
     if ($(this).is(":checked")) {
@@ -15259,23 +15276,23 @@ jQuery(function() {
     }
     this.focus();
   });
-  $("#directory-contents tbody").on("keydown", "input, a", function(e4) {
-    if (e4.key == "ArrowDown") {
-      e4.preventDefault();
+  $("#directory-contents tbody").on("keydown", "input, a", function(e) {
+    if (e.key == "ArrowDown") {
+      e.preventDefault();
       let tr = $(this.closest("tr")).next("tr").get(0);
       if (tr) {
         tr.querySelector("input[type=checkbox]").focus();
-        if (!e4.shiftKey) {
+        if (!e.shiftKey) {
           table.getTable().rows().deselect();
         }
         table.getTable().row(tr).select();
       }
-    } else if (e4.key == "ArrowUp") {
-      e4.preventDefault();
+    } else if (e.key == "ArrowUp") {
+      e.preventDefault();
       let tr = $(this.closest("tr")).prev("tr").get(0);
       if (tr) {
         tr.querySelector("input[type=checkbox]").focus();
-        if (!e4.shiftKey) {
+        if (!e.shiftKey) {
           table.getTable().rows().deselect();
         }
         table.getTable().row(tr).select();
@@ -15297,8 +15314,16 @@ var DataTable = class {
   getTable() {
     return this._table;
   }
+  toHumanSize(number) {
+    if (number === null) {
+      return "-";
+    } else {
+      const unitIndex = number == 0 ? 0 : Math.floor(Math.log(number) / Math.log(1e3));
+      return `${(number / Math.pow(1e3, unitIndex)).toFixed(2)} ${["B", "kB", "MB", "GB", "TB", "PB"][unitIndex]}`;
+    }
+  }
   loadDataTable() {
-    this._table = $(CONTENTID).on("xhr.dt", function(e4, settings, json, xhr) {
+    this._table = $(CONTENTID).on("xhr.dt", function(e, settings, json, xhr) {
       if (json && json.time) {
         history.replaceState(_.merge({}, history.state, { currentDirectoryUpdatedAt: json.time }), null);
       }
@@ -15330,7 +15355,7 @@ var DataTable = class {
         {
           data: "size",
           render: (data, type, row, meta) => {
-            return type == "display" ? row.human_size : data;
+            return type == "display" ? this.toHumanSize(row.size) : data;
           }
         },
         {
@@ -15366,7 +15391,7 @@ var DataTable = class {
     try {
       const response = await fetch(request_url, { headers: { "Accept": "application/json" }, cache: "no-store" });
       const data = await this.dataFromJsonResponse(response);
-      history.state.currentFilenames = Array.from(data.files, (x4) => x4.name);
+      history.state.currentFilenames = Array.from(data.files, (x) => x.name);
       $("#shell-wrapper").replaceWith(data.shell_dropdown_html);
       this._table.clear();
       this._table.rows.add(data.files);
@@ -15389,10 +15414,10 @@ var DataTable = class {
         }
       });
       return result;
-    } catch (e4) {
+    } catch (e) {
       const eventData = {
         "title": `Error occurred when attempting to access ${request_url}`,
-        "message": e4.message
+        "message": e.message
       };
       $(CONTENTID).trigger(EVENTNAME2.showError, eventData);
       $("#open-in-terminal-btn").addClass("disabled");
@@ -15426,13 +15451,13 @@ var DataTable = class {
   }
   dataFromJsonResponse(response) {
     return new Promise((resolve, reject) => {
-      Promise.resolve(response).then((response2) => response2.ok ? Promise.resolve(response2) : Promise.reject(new Error(response2.statusText))).then((response2) => response2.json()).then((data) => data.error_message ? Promise.reject(new Error(data.error_message)) : resolve(data)).catch((e4) => reject(e4));
+      Promise.resolve(response).then((response2) => response2.ok ? Promise.resolve(response2) : Promise.reject(new Error(response2.statusText))).then((response2) => response2.json()).then((data) => data.error_message ? Promise.reject(new Error(data.error_message)) : resolve(data)).catch((e) => reject(e));
     });
   }
-  actionsBtnTemplate(options) {
+  actionsBtnTemplate(options3) {
     let template_str = $("#actions-btn-template").html();
     let compiled = import_handlebars.default.compile(template_str);
-    let results = compiled(options);
+    let results = compiled(options3);
     return results;
   }
   updateDatatablesStatus() {
@@ -15454,7 +15479,7 @@ var DataTable = class {
             currentFilesPath: data.files_path,
             currentFilesUploadPath: data.files_upload_path,
             currentFilesystem: data.filesystem,
-            currentFilenames: Array.from(data.files, (x4) => x4.name)
+            currentFilenames: Array.from(data.files, (x) => x.name)
           }, data.name, data.url);
         }
         this.updateGlobus();
@@ -15531,18 +15556,18 @@ jQuery(function() {
     }
   });
   $("#directory-contents tbody").on("dblclick", "tr td:not(:first-child)", function() {
-    let a4 = this.parentElement.querySelector("a");
-    if (a4.classList.contains("d")) {
+    let a = this.parentElement.querySelector("a");
+    if (a.classList.contains("d")) {
       const eventData = {
-        "path": a4.getAttribute("href")
+        "path": a.getAttribute("href")
       };
       $(CONTENTID).trigger(EVENTNAME.goto, eventData);
     }
   });
-  $("#directory-contents tbody").on("click", ".download-file", function(e4) {
-    e4.preventDefault();
+  $("#directory-contents tbody").on("click", ".download-file", function(e) {
+    e.preventDefault();
     const table2 = $(CONTENTID).DataTable();
-    const row = e4.currentTarget.dataset.rowIndex;
+    const row = e.currentTarget.dataset.rowIndex;
     const eventData = {
       selection: table2.rows(row).data()
     };
@@ -15567,7 +15592,7 @@ jQuery(function() {
   });
   $("#delete-btn").on("click", function() {
     let table2 = $(CONTENTID).DataTable();
-    let files = table2.rows({ selected: true }).data().toArray().map((f4) => f4.name);
+    let files = table2.rows({ selected: true }).data().toArray().map((f) => f.name);
     const eventData = {
       files
     };
@@ -15576,10 +15601,10 @@ jQuery(function() {
   $(document).on("click", "#goto-btn", function() {
     $(CONTENTID).trigger(EVENTNAME4.changeDirectoryPrompt);
   });
-  $(document).on("click", ".rename-file", function(e4) {
-    e4.preventDefault();
+  $(document).on("click", ".rename-file", function(e) {
+    e.preventDefault();
     let table2 = $(CONTENTID).DataTable();
-    let rowId = e4.currentTarget.dataset.rowIndex;
+    let rowId = e.currentTarget.dataset.rowIndex;
     let row = table2.row(rowId).data();
     let fileName = $($.parseHTML(row.name)).text();
     const eventData = {
@@ -15587,10 +15612,10 @@ jQuery(function() {
     };
     $(CONTENTID).trigger(EVENTNAME4.renameFilePrompt, eventData);
   });
-  $(document).on("click", ".delete-file", function(e4) {
-    e4.preventDefault();
+  $(document).on("click", ".delete-file", function(e) {
+    e.preventDefault();
     let table2 = $(CONTENTID).DataTable();
-    let rowId = e4.currentTarget.dataset.rowIndex;
+    let rowId = e.currentTarget.dataset.rowIndex;
     let row = table2.row(rowId).data();
     let fileName = $($.parseHTML(row.name)).text();
     const eventData = {
@@ -15604,54 +15629,54 @@ jQuery(function() {
   $(CONTENTID).on(EVENTNAME4.newDirectoryPrompt, function() {
     fileOps.newDirectoryPrompt();
   });
-  $(CONTENTID).on(EVENTNAME4.renameFilePrompt, function(e4, options) {
-    fileOps.renameFilePrompt(options.file);
+  $(CONTENTID).on(EVENTNAME4.renameFilePrompt, function(e, options3) {
+    fileOps.renameFilePrompt(options3.file);
   });
-  $(CONTENTID).on(EVENTNAME4.renameFile, function(e4, options) {
-    fileOps.renameFile(options.files, options.result.value);
+  $(CONTENTID).on(EVENTNAME4.renameFile, function(e, options3) {
+    fileOps.renameFile(options3.files, options3.result.value);
   });
-  $(CONTENTID).on(EVENTNAME4.createFile, function(e4, options) {
-    fileOps.newFile(options.result.value);
+  $(CONTENTID).on(EVENTNAME4.createFile, function(e, options3) {
+    fileOps.newFile(options3.result.value);
   });
-  $(CONTENTID).on(EVENTNAME4.createDirectory, function(e4, options) {
-    fileOps.newDirectory(options.result.value);
+  $(CONTENTID).on(EVENTNAME4.createDirectory, function(e, options3) {
+    fileOps.newDirectory(options3.result.value);
   });
-  $(CONTENTID).on(EVENTNAME4.download, function(e4, options) {
-    if (options.selection.length == 0) {
+  $(CONTENTID).on(EVENTNAME4.download, function(e, options3) {
+    if (options3.selection.length == 0) {
       const eventData = {
         "title": "Select a file, files, or directory to download",
         "message": "You have selected none."
       };
       $(CONTENTID).trigger(EVENTNAME2.showError, eventData);
     } else {
-      fileOps.download(options.selection);
+      fileOps.download(options3.selection);
     }
   });
-  $(CONTENTID).on(EVENTNAME4.deletePrompt, function(e4, options) {
-    if (options.files.length == 0) {
+  $(CONTENTID).on(EVENTNAME4.deletePrompt, function(e, options3) {
+    if (options3.files.length == 0) {
       const eventData = {
         "title": "Select a file, files, or directory to delete.",
         "message": "You have selected none."
       };
       $(CONTENTID).trigger(EVENTNAME2.showError, eventData);
     } else {
-      fileOps.deletePrompt(options.files);
+      fileOps.deletePrompt(options3.files);
     }
   });
-  $(CONTENTID).on(EVENTNAME4.deleteFile, function(e4, options) {
-    fileOps.delete(options.files, options.from_fs);
+  $(CONTENTID).on(EVENTNAME4.deleteFile, function(e, options3) {
+    fileOps.delete(options3.files, options3.from_fs);
   });
-  $(CONTENTID).on(EVENTNAME4.moveFile, function(e4, options) {
-    fileOps.move(options.files, options.token, options.from_fs, options.to_fs);
+  $(CONTENTID).on(EVENTNAME4.moveFile, function(e, options3) {
+    fileOps.move(options3.files, options3.token, options3.from_fs, options3.to_fs);
   });
-  $(CONTENTID).on(EVENTNAME4.copyFile, function(e4, options) {
-    fileOps.copy(options.files, options.token, options.from_fs, options.to_fs);
+  $(CONTENTID).on(EVENTNAME4.copyFile, function(e, options3) {
+    fileOps.copy(options3.files, options3.token, options3.from_fs, options3.to_fs);
   });
   $(CONTENTID).on(EVENTNAME4.changeDirectoryPrompt, function() {
     fileOps.changeDirectoryPrompt();
   });
-  $(CONTENTID).on(EVENTNAME4.changeDirectory, function(e4, options) {
-    fileOps.changeDirectory(options.result.value);
+  $(CONTENTID).on(EVENTNAME4.changeDirectory, function(e, options3) {
+    fileOps.changeDirectory(options3.result.value);
   });
 });
 var FileOps = class {
@@ -15757,8 +15782,8 @@ var FileOps = class {
     let myFileOp = new FileOps();
     fetch(`${history.state.currentDirectoryUrl}/${encodeURI(filename)}?touch=true`, { method: "put", headers: { "X-CSRF-Token": csrfToken() } }).then((response) => this.dataFromJsonResponse(response)).then(function() {
       myFileOp.reloadTable();
-    }).catch(function(e4) {
-      myFileOp.alertError("Error occurred when attempting to create new file", e4.message);
+    }).catch(function(e) {
+      myFileOp.alertError("Error occurred when attempting to create new file", e.message);
     });
   }
   newDirectoryPrompt() {
@@ -15782,16 +15807,16 @@ var FileOps = class {
     let myFileOp = new FileOps();
     fetch(`${history.state.currentDirectoryUrl}/${encodeURI(filename)}?dir=true`, { method: "put", headers: { "X-CSRF-Token": csrfToken() } }).then((response) => this.dataFromJsonResponse(response)).then(function() {
       myFileOp.reloadTable();
-    }).catch(function(e4) {
-      myFileOp.alertError("Error occurred when attempting to create new directory", e4.message);
+    }).catch(function(e) {
+      myFileOp.alertError("Error occurred when attempting to create new directory", e.message);
     });
   }
   download(selection) {
-    selection.toArray().forEach((f4) => {
-      if (f4.type == "d") {
-        this.downloadDirectory(f4);
-      } else if (f4.type == "f") {
-        this.downloadFile(f4);
+    selection.toArray().forEach((f) => {
+      if (f.type == "d") {
+        this.downloadDirectory(f);
+      } else if (f.type == "f") {
+        this.downloadFile(f);
       }
     });
   }
@@ -15812,9 +15837,9 @@ var FileOps = class {
         this.doneLoading();
         this.alertError("Error while downloading", data.error_message);
       }
-    }).catch((e4) => {
+    }).catch((e) => {
       this.doneLoading();
-      this.alertError("Error while downloading", e4.message);
+      this.alertError("Error while downloading", e.message);
     });
   }
   downloadFile(file) {
@@ -15828,12 +15853,12 @@ var FileOps = class {
   }
   dataFromJsonResponse(response) {
     return new Promise((resolve, reject) => {
-      Promise.resolve(response).then((response2) => response2.ok ? Promise.resolve(response2) : Promise.reject(new Error(response2.statusText))).then((response2) => response2.json()).then((data) => data.error_message ? Promise.reject(new Error(data.error_message)) : resolve(data)).catch((e4) => reject(e4));
+      Promise.resolve(response).then((response2) => response2.ok ? Promise.resolve(response2) : Promise.reject(new Error(response2.statusText))).then((response2) => response2.json()).then((data) => data.error_message ? Promise.reject(new Error(data.error_message)) : resolve(data)).catch((e) => reject(e));
     });
   }
   delete(files) {
     this.showSwalLoading("Deleting files...: ");
-    this.removeFiles(files.map((f4) => [history.state.currentDirectory, f4].join("/")), csrfToken());
+    this.removeFiles(files.map((f) => [history.state.currentDirectory, f].join("/")), csrfToken());
   }
   transferFiles(files, action, summary, from_fs, to_fs) {
     this._failures = 0;
@@ -15861,19 +15886,19 @@ var FileOps = class {
       this.fadeOutTransferStatus(data);
       this.doneLoading();
       this.reloadTable();
-    }).then(() => this.doneLoading()).catch((e4) => this.alertError("Error occurred when attempting to " + summary, e4.message));
+    }).then(() => this.doneLoading()).catch((e) => this.alertError("Error occurred when attempting to " + summary, e.message));
   }
   findAndUpdateTransferStatus(data) {
-    let id13 = `#${data.id}`;
-    if ($(id13).length) {
-      $(id13).replaceWith(this.reportTransferTemplate(data));
+    let id12 = `#${data.id}`;
+    if ($(id12).length) {
+      $(id12).replaceWith(this.reportTransferTemplate(data));
     } else {
       $(".transfers-status").append(this.reportTransferTemplate(data));
     }
   }
   fadeOutTransferStatus(data) {
-    let id13 = `#${data.id}`;
-    $(id13).fadeOut(4e3);
+    let id12 = `#${data.id}`;
+    $(id12).fadeOut(4e3);
   }
   reportTransferTemplate = function() {
     let template_str = $("#transfer-template").html();
@@ -15962,20 +15987,20 @@ jQuery(function() {
     };
     $(CONTENTID).trigger(EVENTNAME3.updateClipboard, eventData);
   });
-  $(CONTENTID).on("success", function(e4) {
-    $(e4.trigger).tooltip({ title: "Copied path to clipboard!", trigger: "manual", placement: "bottom" }).tooltip("show");
-    setTimeout(() => $(e4.trigger).tooltip("hide"), 2e3);
-    e4.clearSelection();
+  $(CONTENTID).on("success", function(e) {
+    $(e.trigger).tooltip({ title: "Copied path to clipboard!", trigger: "manual", placement: "bottom" }).tooltip("show");
+    setTimeout(() => $(e.trigger).tooltip("hide"), 2e3);
+    e.clearSelection();
   });
-  $(CONTENTID).on("error", function(e4) {
-    e4.clearSelection();
+  $(CONTENTID).on("error", function(e) {
+    e.clearSelection();
   });
-  $(CONTENTID).on(EVENTNAME3.clearClipboard, function(e4, options) {
+  $(CONTENTID).on(EVENTNAME3.clearClipboard, function(e, options3) {
     clipBoard.clearClipboard();
     clipBoard.updateViewForClipboard();
   });
-  $(CONTENTID).on(EVENTNAME3.updateClipboard, function(e4, options) {
-    if (options.selection.length == 0) {
+  $(CONTENTID).on(EVENTNAME3.updateClipboard, function(e, options3) {
+    if (options3.selection.length == 0) {
       const eventData = {
         "title": "Select a file, files, or directory to copy or move.",
         "message": "You have selected none."
@@ -15983,11 +16008,11 @@ jQuery(function() {
       $(CONTENTID).trigger(EVENTNAME2.showError, eventData);
       $(CONTENTID).trigger(EVENTNAME3.clearClipboard, eventData);
     } else {
-      clipBoard.updateClipboardFromSelection(options.selection);
+      clipBoard.updateClipboardFromSelection(options3.selection);
       clipBoard.updateViewForClipboard();
     }
   });
-  $(CONTENTID).on(EVENTNAME3.updateClipboardView, function(e4, options) {
+  $(CONTENTID).on(EVENTNAME3.updateClipboardView, function(e, options3) {
     clipBoard.updateViewForClipboard();
   });
 });
@@ -16010,8 +16035,8 @@ var ClipBoard = class {
       let clipboardData = {
         from: history.state.currentDirectory,
         from_fs: history.state.currentFilesystem,
-        files: selection.toArray().map((f4) => {
-          return { directory: f4.type == "d", name: f4.name };
+        files: selection.toArray().map((f) => {
+          return { directory: f.type == "d", name: f.name };
         })
       };
       localStorage.setItem("filesClipboard", JSON.stringify(clipboardData));
@@ -16034,8 +16059,8 @@ var ClipBoard = class {
           this.updateViewForClipboard();
         } else {
           let files = {};
-          clipboard2.files.forEach((f4) => {
-            files[`${clipboard2.from}/${f4.name}`] = `${history.state.currentDirectory}/${f4.name}`;
+          clipboard2.files.forEach((f) => {
+            files[`${clipboard2.from}/${f.name}`] = `${history.state.currentDirectory}/${f.name}`;
           });
           const eventData = {
             "files": files,
@@ -16055,8 +16080,8 @@ var ClipBoard = class {
         clipboard2.to = history.state.currentDirectory;
         clipboard2.to_fs = history.state.currentFilesystem;
         let files = {};
-        clipboard2.files.forEach((f4) => {
-          files[`${clipboard2.from}/${f4.name}`] = `${clipboard2.to}/${f4.name}`;
+        clipboard2.files.forEach((f) => {
+          files[`${clipboard2.from}/${f.name}`] = `${clipboard2.to}/${f.name}`;
         });
         const eventData = {
           "files": files,
@@ -16073,15 +16098,14 @@ var ClipBoard = class {
 };
 
 // node_modules/@uppy/utils/lib/Translator.js
-function _classPrivateFieldLooseBase(receiver, privateKey) {
-  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
+function _classPrivateFieldLooseBase(e, t) {
+  if (!{}.hasOwnProperty.call(e, t))
     throw new TypeError("attempted to use private field on non-instance");
-  }
-  return receiver;
+  return e;
 }
 var id = 0;
-function _classPrivateFieldLooseKey(name) {
-  return "__private_" + id++ + "_" + name;
+function _classPrivateFieldLooseKey(e) {
+  return "__private_" + id++ + "_" + e;
 }
 function insertReplacement(source, rx, replacement) {
   const newParts = [];
@@ -16089,26 +16113,26 @@ function insertReplacement(source, rx, replacement) {
     if (typeof chunk !== "string") {
       return newParts.push(chunk);
     }
-    return rx[Symbol.split](chunk).forEach((raw, i4, list) => {
+    return rx[Symbol.split](chunk).forEach((raw, i, list) => {
       if (raw !== "") {
         newParts.push(raw);
       }
-      if (i4 < list.length - 1) {
+      if (i < list.length - 1) {
         newParts.push(replacement);
       }
     });
   });
   return newParts;
 }
-function interpolate(phrase, options) {
+function interpolate(phrase, options3) {
   const dollarRegex = /\$/g;
   const dollarBillsYall = "$$$$";
   let interpolated = [phrase];
-  if (options == null)
+  if (options3 == null)
     return interpolated;
-  for (const arg of Object.keys(options)) {
+  for (const arg of Object.keys(options3)) {
     if (arg !== "_") {
-      let replacement = options[arg];
+      let replacement = options3[arg];
       if (typeof replacement === "string") {
         replacement = dollarRegex[Symbol.replace](replacement, dollarBillsYall);
       }
@@ -16136,8 +16160,8 @@ var Translator = class {
     });
     this.locale = {
       strings: {},
-      pluralize(n3) {
-        if (n3 === 1) {
+      pluralize(n) {
+        if (n === 1) {
           return 0;
         }
         return 1;
@@ -16150,10 +16174,10 @@ var Translator = class {
     }
     _classPrivateFieldLooseBase(this, _onMissingKey)[_onMissingKey] = onMissingKey;
   }
-  translate(key, options) {
-    return this.translateArray(key, options).join("");
+  translate(key, options3) {
+    return this.translateArray(key, options3).join("");
   }
-  translateArray(key, options) {
+  translateArray(key, options3) {
     let string = this.locale.strings[key];
     if (string == null) {
       _classPrivateFieldLooseBase(this, _onMissingKey)[_onMissingKey](key);
@@ -16161,16 +16185,16 @@ var Translator = class {
     }
     const hasPluralForms = typeof string === "object";
     if (hasPluralForms) {
-      if (options && typeof options.smart_count !== "undefined") {
-        const plural = this.locale.pluralize(options.smart_count);
-        return interpolate(string[plural], options);
+      if (options3 && typeof options3.smart_count !== "undefined") {
+        const plural = this.locale.pluralize(options3.smart_count);
+        return interpolate(string[plural], options3);
       }
       throw new Error("Attempted to use a string with plural forms, but no value was given for %{smart_count}");
     }
     if (typeof string !== "string") {
       throw new Error(`string was not a string`);
     }
-    return interpolate(string, options);
+    return interpolate(string, options3);
   }
 };
 function _apply2(locale) {
@@ -16193,30 +16217,29 @@ var import_namespace_emitter = __toESM(require_namespace_emitter(), 1);
 // node_modules/nanoid/non-secure/index.js
 var urlAlphabet = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
 var nanoid = (size = 21) => {
-  let id13 = "";
-  let i4 = size;
-  while (i4--) {
-    id13 += urlAlphabet[Math.random() * 64 | 0];
+  let id12 = "";
+  let i = size;
+  while (i--) {
+    id12 += urlAlphabet[Math.random() * 64 | 0];
   }
-  return id13;
+  return id12;
 };
 
 // node_modules/@uppy/core/lib/Uppy.js
 var import_throttle = __toESM(require_throttle(), 1);
 
 // node_modules/@uppy/store-default/lib/index.js
-function _classPrivateFieldLooseBase2(receiver, privateKey) {
-  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
+function _classPrivateFieldLooseBase2(e, t) {
+  if (!{}.hasOwnProperty.call(e, t))
     throw new TypeError("attempted to use private field on non-instance");
-  }
-  return receiver;
+  return e;
 }
 var id2 = 0;
-function _classPrivateFieldLooseKey2(name) {
-  return "__private_" + id2++ + "_" + name;
+function _classPrivateFieldLooseKey2(e) {
+  return "__private_" + id2++ + "_" + e;
 }
 var packageJson = {
-  "version": "3.2.2"
+  "version": "4.1.0"
 };
 var _callbacks = /* @__PURE__ */ _classPrivateFieldLooseKey2("callbacks");
 var _publish = /* @__PURE__ */ _classPrivateFieldLooseKey2("publish");
@@ -16358,23 +16381,23 @@ function encodeFilename(name) {
   }) + suffix;
 }
 function generateFileID(file, instanceId) {
-  let id13 = instanceId || "uppy";
+  let id12 = instanceId || "uppy";
   if (typeof file.name === "string") {
-    id13 += `-${encodeFilename(file.name.toLowerCase())}`;
+    id12 += `-${encodeFilename(file.name.toLowerCase())}`;
   }
   if (file.type !== void 0) {
-    id13 += `-${file.type}`;
+    id12 += `-${file.type}`;
   }
   if (file.meta && typeof file.meta.relativePath === "string") {
-    id13 += `-${encodeFilename(file.meta.relativePath.toLowerCase())}`;
+    id12 += `-${encodeFilename(file.meta.relativePath.toLowerCase())}`;
   }
   if (file.data.size !== void 0) {
-    id13 += `-${file.data.size}`;
+    id12 += `-${file.data.size}`;
   }
   if (file.data.lastModified !== void 0) {
-    id13 += `-${file.data.lastModified}`;
+    id12 += `-${file.data.lastModified}`;
   }
-  return id13;
+  return id12;
 }
 function hasFileStableId(file) {
   if (!file.isRemote || !file.remote)
@@ -16399,10 +16422,10 @@ function supportsUploadProgress(userAgent) {
   }
   if (!userAgent)
     return true;
-  const m4 = /Edge\/(\d+\.\d+)/.exec(userAgent);
-  if (!m4)
+  const m = /Edge\/(\d+\.\d+)/.exec(userAgent);
+  if (!m)
     return true;
-  const edgeVersion = m4[1];
+  const edgeVersion = m[1];
   const version = edgeVersion.split(".", 2);
   const major = parseInt(version[0], 10);
   const minor = parseInt(version[1], 10);
@@ -16513,7 +16536,7 @@ var Restricter = class {
       maxNumberOfFiles
     } = this.getOpts().restrictions;
     if (maxNumberOfFiles) {
-      const nonGhostFiles = existingFiles.filter((f4) => !f4.isGhost);
+      const nonGhostFiles = existingFiles.filter((f) => !f.isGhost);
       if (nonGhostFiles.length + addingFiles.length > maxNumberOfFiles) {
         throw new RestrictionError(`${this.getI18n()("youCanOnlyUploadX", {
           smart_count: maxNumberOfFiles
@@ -16521,9 +16544,9 @@ var Restricter = class {
       }
     }
     if (maxTotalFileSize) {
-      const totalFilesSize = [...existingFiles, ...addingFiles].reduce((total, f4) => {
+      const totalFilesSize = [...existingFiles, ...addingFiles].reduce((total, f) => {
         var _f$size;
-        return total + ((_f$size = f4.size) != null ? _f$size : 0);
+        return total + ((_f$size = f.size) != null ? _f$size : 0);
       }, 0);
       if (totalFilesSize > maxTotalFileSize) {
         throw new RestrictionError(this.getI18n()("aggregateExceedsSize", {
@@ -16561,9 +16584,10 @@ var Restricter = class {
       }
     }
     if (maxFileSize2 && file.size != null && file.size > maxFileSize2) {
+      var _file$name;
       throw new RestrictionError(this.getI18n()("exceedsSize", {
         size: (0, import_prettier_bytes.default)(maxFileSize2),
-        file: file.name
+        file: (_file$name = file.name) != null ? _file$name : this.getI18n()("unnamed")
       }), {
         file
       });
@@ -16593,8 +16617,9 @@ var Restricter = class {
     }
   }
   getMissingRequiredMetaFields(file) {
+    var _file$name2;
     const error = new RestrictionError(this.getI18n()("missingRequiredMetaFieldOnFile", {
-      fileName: file.name
+      fileName: (_file$name2 = file.name) != null ? _file$name2 : this.getI18n()("unnamed")
     }));
     const {
       requiredMetaFields
@@ -16675,20 +16700,17 @@ var locale_default = {
 };
 
 // node_modules/@uppy/core/lib/Uppy.js
-var _Symbol$for;
-var _Symbol$for2;
-function _classPrivateFieldLooseBase3(receiver, privateKey) {
-  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
+function _classPrivateFieldLooseBase3(e, t) {
+  if (!{}.hasOwnProperty.call(e, t))
     throw new TypeError("attempted to use private field on non-instance");
-  }
-  return receiver;
+  return e;
 }
 var id3 = 0;
-function _classPrivateFieldLooseKey3(name) {
-  return "__private_" + id3++ + "_" + name;
+function _classPrivateFieldLooseKey3(e) {
+  return "__private_" + id3++ + "_" + e;
 }
 var packageJson2 = {
-  "version": "3.13.0"
+  "version": "4.2.0"
 };
 var defaultUploadState = {
   totalProgress: 0,
@@ -16717,8 +16739,6 @@ var _createUpload = /* @__PURE__ */ _classPrivateFieldLooseKey3("createUpload");
 var _getUpload = /* @__PURE__ */ _classPrivateFieldLooseKey3("getUpload");
 var _removeUpload = /* @__PURE__ */ _classPrivateFieldLooseKey3("removeUpload");
 var _runUpload = /* @__PURE__ */ _classPrivateFieldLooseKey3("runUpload");
-_Symbol$for = Symbol.for("uppy test: getPlugins");
-_Symbol$for2 = Symbol.for("uppy test: createUpload");
 var Uppy = class {
   constructor(_opts) {
     Object.defineProperty(this, _runUpload, {
@@ -16820,7 +16840,7 @@ var Uppy = class {
       value: /* @__PURE__ */ new Map()
     });
     this.defaultLocale = locale_default;
-    const defaultOptions8 = {
+    const defaultOptions6 = {
       id: "uppy",
       autoProceed: false,
       allowMultipleUploadBatches: true,
@@ -16834,13 +16854,13 @@ var Uppy = class {
       infoTimeout: 5e3
     };
     const merged = {
-      ...defaultOptions8,
+      ...defaultOptions6,
       ..._opts
     };
     this.opts = {
       ...merged,
       restrictions: {
-        ...defaultOptions8.restrictions,
+        ...defaultOptions6.restrictions,
         ..._opts && _opts.restrictions
       }
     };
@@ -16868,12 +16888,10 @@ var Uppy = class {
       info: []
     });
     _classPrivateFieldLooseBase3(this, _restricter)[_restricter] = new Restricter(() => this.opts, () => this.i18n);
-    _classPrivateFieldLooseBase3(this, _storeUnsubscribe)[_storeUnsubscribe] = this.store.subscribe(
-      (prevState, nextState, patch) => {
-        this.emit("state-update", prevState, nextState, patch);
-        this.updateAll(nextState);
-      }
-    );
+    _classPrivateFieldLooseBase3(this, _storeUnsubscribe)[_storeUnsubscribe] = this.store.subscribe((prevState, nextState, patch) => {
+      this.emit("state-update", prevState, nextState, patch);
+      this.updateAll(nextState);
+    });
     if (this.opts.debug && typeof window !== "undefined") {
       window[this.opts.id] = this;
     }
@@ -16963,14 +16981,14 @@ var Uppy = class {
   resetProgress() {
     const defaultProgress = {
       percentage: 0,
-      bytesUploaded: 0,
+      bytesUploaded: false,
       uploadComplete: false,
       uploadStarted: null
     };
     const files = {
       ...this.getState().files
     };
-    const updatedFiles = {};
+    const updatedFiles = /* @__PURE__ */ Object.create(null);
     Object.keys(files).forEach((fileID) => {
       updatedFiles[fileID] = {
         ...files[fileID],
@@ -16984,9 +17002,8 @@ var Uppy = class {
       files: updatedFiles,
       ...defaultUploadState
     });
-    this.emit("reset-progress");
   }
-  clearUploadedFiles() {
+  clear() {
     const {
       capabilities,
       currentUploads
@@ -17071,7 +17088,7 @@ var Uppy = class {
     return Object.values(files);
   }
   getFilesByIds(ids) {
-    return ids.map((id13) => this.getFile(id13));
+    return ids.map((id12) => this.getFile(id12));
   }
   getObjectOfFilesPerState() {
     const {
@@ -17139,14 +17156,20 @@ var Uppy = class {
       isSomeGhost: files.some((file) => file.isGhost)
     };
   }
-  validateRestrictions(file, files) {
-    if (files === void 0) {
-      files = this.getFiles();
-    }
+  validateSingleFile(file) {
     try {
-      _classPrivateFieldLooseBase3(this, _restricter)[_restricter].validate(files, [file]);
+      _classPrivateFieldLooseBase3(this, _restricter)[_restricter].validateSingleFile(file);
     } catch (err) {
-      return err;
+      return err.message;
+    }
+    return null;
+  }
+  validateAggregateRestrictions(files) {
+    const existingFiles = this.getFiles();
+    try {
+      _classPrivateFieldLooseBase3(this, _restricter)[_restricter].validateAggregateRestrictions(existingFiles, files);
+    } catch (err) {
+      return err.message;
     }
     return null;
   }
@@ -17230,7 +17253,7 @@ var Uppy = class {
       _classPrivateFieldLooseBase3(this, _startIfAutoProceed)[_startIfAutoProceed]();
     }
   }
-  removeFiles(fileIDs, reason) {
+  removeFiles(fileIDs) {
     const {
       files,
       currentUploads
@@ -17281,7 +17304,7 @@ var Uppy = class {
     this.calculateTotalProgress();
     const removedFileIDs = Object.keys(removedFiles);
     removedFileIDs.forEach((fileID) => {
-      this.emit("file-removed", removedFiles[fileID], reason);
+      this.emit("file-removed", removedFiles[fileID]);
     });
     if (removedFileIDs.length > 5) {
       this.log(`Removed ${removedFileIDs.length} files`);
@@ -17289,19 +17312,20 @@ var Uppy = class {
       this.log(`Removed files: ${removedFileIDs.join(", ")}`);
     }
   }
-  removeFile(fileID, reason) {
-    this.removeFiles([fileID], reason);
+  removeFile(fileID) {
+    this.removeFiles([fileID]);
   }
   pauseResume(fileID) {
     if (!this.getState().capabilities.resumableUploads || this.getFile(fileID).progress.uploadComplete) {
       return void 0;
     }
-    const wasPaused = this.getFile(fileID).isPaused || false;
+    const file = this.getFile(fileID);
+    const wasPaused = file.isPaused || false;
     const isPaused = !wasPaused;
     this.setFileState(fileID, {
       isPaused
     });
-    this.emit("upload-pause", fileID, isPaused);
+    this.emit("upload-pause", file, isPaused);
     return isPaused;
   }
   pauseAll() {
@@ -17362,7 +17386,7 @@ var Uppy = class {
       files: updatedFiles,
       error: null
     });
-    this.emit("retry-all", filesToRetry);
+    this.emit("retry-all", Object.values(updatedFiles));
     if (filesToRetry.length === 0) {
       return Promise.resolve({
         successful: [],
@@ -17374,30 +17398,23 @@ var Uppy = class {
     });
     return _classPrivateFieldLooseBase3(this, _runUpload)[_runUpload](uploadID);
   }
-  cancelAll(_temp) {
-    let {
-      reason = "user"
-    } = _temp === void 0 ? {} : _temp;
-    this.emit("cancel-all", {
-      reason
-    });
-    if (reason === "user") {
-      const {
-        files
-      } = this.getState();
-      const fileIDs = Object.keys(files);
-      if (fileIDs.length) {
-        this.removeFiles(fileIDs, "cancel-all");
-      }
-      this.setState(defaultUploadState);
+  cancelAll() {
+    this.emit("cancel-all");
+    const {
+      files
+    } = this.getState();
+    const fileIDs = Object.keys(files);
+    if (fileIDs.length) {
+      this.removeFiles(fileIDs);
     }
+    this.setState(defaultUploadState);
   }
   retryUpload(fileID) {
     this.setFileState(fileID, {
       error: null,
       isPaused: false
     });
-    this.emit("upload-retry", fileID);
+    this.emit("upload-retry", this.getFile(fileID));
     const uploadID = _classPrivateFieldLooseBase3(this, _createUpload)[_createUpload]([fileID], {
       forceAllowNewUpload: true
     });
@@ -17476,12 +17493,15 @@ var Uppy = class {
   getID() {
     return this.opts.id;
   }
-  use(Plugin, opts) {
+  use(Plugin) {
     if (typeof Plugin !== "function") {
       const msg = `Expected a plugin class, but got ${Plugin === null ? "null" : typeof Plugin}. Please verify that the plugin was imported and spelled correctly.`;
       throw new TypeError(msg);
     }
-    const plugin = new Plugin(this, opts);
+    for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+      args[_key2 - 1] = arguments[_key2];
+    }
+    const plugin = new Plugin(this, ...args);
     const pluginId = plugin.id;
     if (!pluginId) {
       throw new Error("Your plugin must have an id");
@@ -17492,7 +17512,7 @@ var Uppy = class {
     const existsPluginAlready = this.getPlugin(pluginId);
     if (existsPluginAlready) {
       const msg = `Already found a plugin named '${existsPluginAlready.id}'. Tried to use: '${pluginId}'.
-Uppy plugins must have unique \`id\` options. See https://uppy.io/docs/plugins/#id.`;
+Uppy plugins must have unique \`id\` options.`;
       throw new Error(msg);
     }
     if (Plugin.VERSION) {
@@ -17507,15 +17527,15 @@ Uppy plugins must have unique \`id\` options. See https://uppy.io/docs/plugins/#
     this.emit("plugin-added", plugin);
     return this;
   }
-  getPlugin(id13) {
+  getPlugin(id12) {
     for (const plugins of Object.values(_classPrivateFieldLooseBase3(this, _plugins)[_plugins])) {
-      const foundPlugin = plugins.find((plugin) => plugin.id === id13);
+      const foundPlugin = plugins.find((plugin) => plugin.id === id12);
       if (foundPlugin != null)
         return foundPlugin;
     }
     return void 0;
   }
-  [_Symbol$for](type) {
+  [Symbol.for("uppy test: getPlugins")](type) {
     return _classPrivateFieldLooseBase3(this, _plugins)[_plugins][type];
   }
   iteratePlugins(method) {
@@ -17541,14 +17561,9 @@ Uppy plugins must have unique \`id\` options. See https://uppy.io/docs/plugins/#
     };
     this.setState(updatedState);
   }
-  close(_temp2) {
-    let {
-      reason
-    } = _temp2 === void 0 ? {} : _temp2;
+  destroy() {
     this.log(`Closing Uppy instance ${this.opts.id}: removing all files and uninstalling plugins`);
-    this.cancelAll({
-      reason
-    });
+    this.cancelAll();
     _classPrivateFieldLooseBase3(this, _storeUnsubscribe)[_storeUnsubscribe]();
     this.iteratePlugins((plugin) => {
       this.removePlugin(plugin);
@@ -17601,8 +17616,8 @@ Uppy plugins must have unique \`id\` options. See https://uppy.io/docs/plugins/#
         break;
     }
   }
-  registerRequestClient(id13, client) {
-    _classPrivateFieldLooseBase3(this, _requestClientById)[_requestClientById].set(id13, client);
+  registerRequestClient(id12, client) {
+    _classPrivateFieldLooseBase3(this, _requestClientById)[_requestClientById].set(id12, client);
   }
   getRequestClientForFile(file) {
     if (!file.remote)
@@ -17620,7 +17635,7 @@ Uppy plugins must have unique \`id\` options. See https://uppy.io/docs/plugins/#
     }
     return _classPrivateFieldLooseBase3(this, _runUpload)[_runUpload](uploadID);
   }
-  [_Symbol$for2]() {
+  [Symbol.for("uppy test: createUpload")]() {
     return _classPrivateFieldLooseBase3(this, _createUpload)[_createUpload](...arguments);
   }
   addResultData(uploadID, data) {
@@ -17770,14 +17785,14 @@ function _transformFile2(fileDescriptorOrFile) {
   const fileType = getFileType(file);
   const fileName = getFileName(fileType, file);
   const fileExtension = getFileNameAndExtension(fileName).extension;
-  const id13 = getSafeFileId(file, this.getID());
+  const id12 = getSafeFileId(file, this.getID());
   const meta = file.meta || {};
   meta.name = fileName;
   meta.type = fileType;
   const size = Number.isFinite(file.data.size) ? file.data.size : null;
   return {
     source: file.source || "",
-    id: id13,
+    id: id12,
     name: fileName,
     extension: fileExtension || "",
     meta: {
@@ -17788,7 +17803,7 @@ function _transformFile2(fileDescriptorOrFile) {
     data: file.data,
     progress: {
       percentage: 0,
-      bytesUploaded: 0,
+      bytesUploaded: false,
       bytesTotal: size,
       uploadComplete: false,
       uploadStarted: null
@@ -17796,7 +17811,7 @@ function _transformFile2(fileDescriptorOrFile) {
     size,
     isGhost: false,
     isRemote: file.isRemote || false,
-    remote: file.remote || "",
+    remote: file.remote,
     preview: file.preview
   };
 }
@@ -17837,8 +17852,9 @@ function _checkAndUpdateFileState2(filesToAdd) {
       }
       const onBeforeFileAddedResult = this.opts.onBeforeFileAdded(newFile, nextFilesState);
       if (!onBeforeFileAddedResult && this.checkIfFileAlreadyExists(newFile.id)) {
+        var _newFile$name;
         throw new RestrictionError(this.i18n("noDuplicates", {
-          fileName: newFile.name
+          fileName: (_newFile$name = newFile.name) != null ? _newFile$name : this.i18n("unnamed")
         }), {
           file: fileToAdd
         });
@@ -17949,12 +17965,7 @@ function _addListeners2() {
     }]));
     this.patchFilesState(filesState);
   };
-  this.on("upload-start", (files) => {
-    files.forEach((file) => {
-      this.emit("upload-started", file);
-    });
-    onUploadStarted(files);
-  });
+  this.on("upload-start", onUploadStarted);
   this.on("upload-progress", this.calculateProgress);
   this.on("upload-success", (file, uploadResp) => {
     if (file == null || !this.getFile(file.id)) {
@@ -18074,10 +18085,7 @@ function _createUpload2(fileIDs, opts) {
     throw new Error("Cannot create a new upload: already uploading.");
   }
   const uploadID = nanoid();
-  this.emit("upload", {
-    id: uploadID,
-    fileIDs
-  });
+  this.emit("upload", uploadID, this.getFilesByIds(fileIDs));
   this.setState({
     allowNewUpload: this.opts.allowMultipleUploadBatches !== false && this.opts.allowMultipleUploads !== false,
     currentUploads: {
@@ -18171,318 +18179,1002 @@ async function _runUpload2(uploadID) {
 Uppy.VERSION = packageJson2.version;
 var Uppy_default = Uppy;
 
-// node_modules/preact/dist/preact.module.js
-var n;
-var l;
-var u;
-var t;
-var i;
-var o;
-var r;
-var f;
-var e;
-var c = {};
-var s = [];
-var a = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i;
-var h = Array.isArray;
-function v(n3, l4) {
-  for (var u4 in l4)
-    n3[u4] = l4[u4];
-  return n3;
+// node_modules/preact/src/constants.js
+var MODE_HYDRATE = 1 << 5;
+var MODE_SUSPENDED = 1 << 7;
+var INSERT_VNODE = 1 << 16;
+var MATCHED = 1 << 17;
+var RESET_MODE = ~(MODE_HYDRATE | MODE_SUSPENDED);
+var EMPTY_OBJ = {};
+var EMPTY_ARR = [];
+var IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i;
+
+// node_modules/preact/src/util.js
+var isArray = Array.isArray;
+function assign(obj, props) {
+  for (let i in props)
+    obj[i] = props[i];
+  return obj;
 }
-function p(n3) {
-  var l4 = n3.parentNode;
-  l4 && l4.removeChild(n3);
+function removeNode(node2) {
+  let parentNode = node2.parentNode;
+  if (parentNode)
+    parentNode.removeChild(node2);
 }
-function y(l4, u4, t4) {
-  var i4, o4, r4, f4 = {};
-  for (r4 in u4)
-    "key" == r4 ? i4 = u4[r4] : "ref" == r4 ? o4 = u4[r4] : f4[r4] = u4[r4];
-  if (arguments.length > 2 && (f4.children = arguments.length > 3 ? n.call(arguments, 2) : t4), "function" == typeof l4 && null != l4.defaultProps)
-    for (r4 in l4.defaultProps)
-      void 0 === f4[r4] && (f4[r4] = l4.defaultProps[r4]);
-  return d(l4, f4, i4, o4, null);
+var slice = EMPTY_ARR.slice;
+
+// node_modules/preact/src/diff/catch-error.js
+function _catchError(error, vnode, oldVNode, errorInfo) {
+  let component, ctor, handled;
+  for (; vnode = vnode._parent; ) {
+    if ((component = vnode._component) && !component._processingException) {
+      try {
+        ctor = component.constructor;
+        if (ctor && ctor.getDerivedStateFromError != null) {
+          component.setState(ctor.getDerivedStateFromError(error));
+          handled = component._dirty;
+        }
+        if (component.componentDidCatch != null) {
+          component.componentDidCatch(error, errorInfo || {});
+          handled = component._dirty;
+        }
+        if (handled) {
+          return component._pendingError = component;
+        }
+      } catch (e) {
+        error = e;
+      }
+    }
+  }
+  throw error;
 }
-function d(n3, t4, i4, o4, r4) {
-  var f4 = { type: n3, props: t4, key: i4, ref: o4, __k: null, __: null, __b: 0, __e: null, __d: void 0, __c: null, constructor: void 0, __v: null == r4 ? ++u : r4, __i: -1, __u: 0 };
-  return null == r4 && null != l.vnode && l.vnode(f4), f4;
+
+// node_modules/preact/src/options.js
+var options = {
+  _catchError
+};
+var options_default = options;
+
+// node_modules/preact/src/create-element.js
+var vnodeId = 0;
+function createElement(type, props, children) {
+  let normalizedProps = {}, key, ref, i;
+  for (i in props) {
+    if (i == "key")
+      key = props[i];
+    else if (i == "ref")
+      ref = props[i];
+    else
+      normalizedProps[i] = props[i];
+  }
+  if (arguments.length > 2) {
+    normalizedProps.children = arguments.length > 3 ? slice.call(arguments, 2) : children;
+  }
+  if (typeof type == "function" && type.defaultProps != null) {
+    for (i in type.defaultProps) {
+      if (normalizedProps[i] === void 0) {
+        normalizedProps[i] = type.defaultProps[i];
+      }
+    }
+  }
+  return createVNode(type, normalizedProps, key, ref, null);
 }
-function _3() {
+function createVNode(type, props, key, ref, original) {
+  const vnode = {
+    type,
+    props,
+    key,
+    ref,
+    _children: null,
+    _parent: null,
+    _depth: 0,
+    _dom: null,
+    _nextDom: void 0,
+    _component: null,
+    constructor: void 0,
+    _original: original == null ? ++vnodeId : original,
+    _index: -1,
+    _flags: 0
+  };
+  if (original == null && options_default.vnode != null)
+    options_default.vnode(vnode);
+  return vnode;
+}
+function createRef() {
   return { current: null };
 }
-function g(n3) {
-  return n3.children;
+function Fragment2(props) {
+  return props.children;
 }
-function b(n3, l4) {
-  this.props = n3, this.context = l4;
+
+// node_modules/preact/src/component.js
+function BaseComponent(props, context) {
+  this.props = props;
+  this.context = context;
 }
-function m(n3, l4) {
-  if (null == l4)
-    return n3.__ ? m(n3.__, n3.__i + 1) : null;
-  for (var u4; l4 < n3.__k.length; l4++)
-    if (null != (u4 = n3.__k[l4]) && null != u4.__e)
-      return u4.__e;
-  return "function" == typeof n3.type ? m(n3) : null;
+BaseComponent.prototype.setState = function(update, callback) {
+  let s;
+  if (this._nextState != null && this._nextState !== this.state) {
+    s = this._nextState;
+  } else {
+    s = this._nextState = assign({}, this.state);
+  }
+  if (typeof update == "function") {
+    update = update(assign({}, s), this.props);
+  }
+  if (update) {
+    assign(s, update);
+  }
+  if (update == null)
+    return;
+  if (this._vnode) {
+    if (callback) {
+      this._stateCallbacks.push(callback);
+    }
+    enqueueRender(this);
+  }
+};
+BaseComponent.prototype.forceUpdate = function(callback) {
+  if (this._vnode) {
+    this._force = true;
+    if (callback)
+      this._renderCallbacks.push(callback);
+    enqueueRender(this);
+  }
+};
+BaseComponent.prototype.render = Fragment2;
+function getDomSibling(vnode, childIndex) {
+  if (childIndex == null) {
+    return vnode._parent ? getDomSibling(vnode._parent, vnode._index + 1) : null;
+  }
+  let sibling;
+  for (; childIndex < vnode._children.length; childIndex++) {
+    sibling = vnode._children[childIndex];
+    if (sibling != null && sibling._dom != null) {
+      return sibling._dom;
+    }
+  }
+  return typeof vnode.type == "function" ? getDomSibling(vnode) : null;
 }
-function w(n3) {
-  var l4, u4;
-  if (null != (n3 = n3.__) && null != n3.__c) {
-    for (n3.__e = n3.__c.base = null, l4 = 0; l4 < n3.__k.length; l4++)
-      if (null != (u4 = n3.__k[l4]) && null != u4.__e) {
-        n3.__e = n3.__c.base = u4.__e;
+function renderComponent(component) {
+  let oldVNode = component._vnode, oldDom = oldVNode._dom, commitQueue = [], refQueue = [];
+  if (component._parentDom) {
+    const newVNode = assign({}, oldVNode);
+    newVNode._original = oldVNode._original + 1;
+    if (options_default.vnode)
+      options_default.vnode(newVNode);
+    diff(
+      component._parentDom,
+      newVNode,
+      oldVNode,
+      component._globalContext,
+      component._parentDom.namespaceURI,
+      oldVNode._flags & MODE_HYDRATE ? [oldDom] : null,
+      commitQueue,
+      oldDom == null ? getDomSibling(oldVNode) : oldDom,
+      !!(oldVNode._flags & MODE_HYDRATE),
+      refQueue
+    );
+    newVNode._original = oldVNode._original;
+    newVNode._parent._children[newVNode._index] = newVNode;
+    commitRoot(commitQueue, newVNode, refQueue);
+    if (newVNode._dom != oldDom) {
+      updateParentDomPointers(newVNode);
+    }
+  }
+}
+function updateParentDomPointers(vnode) {
+  if ((vnode = vnode._parent) != null && vnode._component != null) {
+    vnode._dom = vnode._component.base = null;
+    for (let i = 0; i < vnode._children.length; i++) {
+      let child = vnode._children[i];
+      if (child != null && child._dom != null) {
+        vnode._dom = vnode._component.base = child._dom;
         break;
       }
-    return w(n3);
+    }
+    return updateParentDomPointers(vnode);
   }
 }
-function k(n3) {
-  (!n3.__d && (n3.__d = true) && i.push(n3) && !x.__r++ || o !== l.debounceRendering) && ((o = l.debounceRendering) || r)(x);
-}
-function x() {
-  var n3, u4, t4, o4, r4, e4, c4, s4, a4;
-  for (i.sort(f); n3 = i.shift(); )
-    n3.__d && (u4 = i.length, o4 = void 0, e4 = (r4 = (t4 = n3).__v).__e, s4 = [], a4 = [], (c4 = t4.__P) && ((o4 = v({}, r4)).__v = r4.__v + 1, l.vnode && l.vnode(o4), F(c4, o4, r4, t4.__n, void 0 !== c4.ownerSVGElement, 32 & r4.__u ? [e4] : null, s4, null == e4 ? m(r4) : e4, !!(32 & r4.__u), a4), o4.__v = r4.__v, o4.__.__k[o4.__i] = o4, L(s4, o4, a4), o4.__e != e4 && w(o4)), i.length > u4 && i.sort(f));
-  x.__r = 0;
-}
-function C(n3, l4, u4, t4, i4, o4, r4, f4, e4, a4, h4) {
-  var v4, p4, y4, d4, _7, g3 = t4 && t4.__k || s, b3 = l4.length;
-  for (u4.__d = e4, P(u4, l4, g3), e4 = u4.__d, v4 = 0; v4 < b3; v4++)
-    null != (y4 = u4.__k[v4]) && "boolean" != typeof y4 && "function" != typeof y4 && (p4 = -1 === y4.__i ? c : g3[y4.__i] || c, y4.__i = v4, F(n3, y4, p4, i4, o4, r4, f4, e4, a4, h4), d4 = y4.__e, y4.ref && p4.ref != y4.ref && (p4.ref && O(p4.ref, null, y4), h4.push(y4.ref, y4.__c || d4, y4)), null == _7 && null != d4 && (_7 = d4), 65536 & y4.__u || p4.__k === y4.__k ? (d4 || p4.__e != e4 || (e4 = m(p4)), e4 = S(y4, e4, n3)) : "function" == typeof y4.type && void 0 !== y4.__d ? e4 = y4.__d : d4 && (e4 = d4.nextSibling), y4.__d = void 0, y4.__u &= -196609);
-  u4.__d = e4, u4.__e = _7;
-}
-function P(n3, l4, u4) {
-  var t4, i4, o4, r4, f4, e4 = l4.length, c4 = u4.length, s4 = c4, a4 = 0;
-  for (n3.__k = [], t4 = 0; t4 < e4; t4++)
-    r4 = t4 + a4, null != (i4 = n3.__k[t4] = null == (i4 = l4[t4]) || "boolean" == typeof i4 || "function" == typeof i4 ? null : "string" == typeof i4 || "number" == typeof i4 || "bigint" == typeof i4 || i4.constructor == String ? d(null, i4, null, null, null) : h(i4) ? d(g, { children: i4 }, null, null, null) : void 0 === i4.constructor && i4.__b > 0 ? d(i4.type, i4.props, i4.key, i4.ref ? i4.ref : null, i4.__v) : i4) ? (i4.__ = n3, i4.__b = n3.__b + 1, f4 = I(i4, u4, r4, s4), i4.__i = f4, o4 = null, -1 !== f4 && (s4--, (o4 = u4[f4]) && (o4.__u |= 131072)), null == o4 || null === o4.__v ? (-1 == f4 && a4--, "function" != typeof i4.type && (i4.__u |= 65536)) : f4 !== r4 && (f4 === r4 + 1 ? a4++ : f4 > r4 ? s4 > e4 - r4 ? a4 += f4 - r4 : a4-- : f4 < r4 ? f4 == r4 - 1 && (a4 = f4 - r4) : a4 = 0, f4 !== t4 + a4 && (i4.__u |= 65536))) : (o4 = u4[r4]) && null == o4.key && o4.__e && 0 == (131072 & o4.__u) && (o4.__e == n3.__d && (n3.__d = m(o4)), j(o4, o4, false), u4[r4] = null, s4--);
-  if (s4)
-    for (t4 = 0; t4 < c4; t4++)
-      null != (o4 = u4[t4]) && 0 == (131072 & o4.__u) && (o4.__e == n3.__d && (n3.__d = m(o4)), j(o4, o4));
-}
-function S(n3, l4, u4) {
-  var t4, i4;
-  if ("function" == typeof n3.type) {
-    for (t4 = n3.__k, i4 = 0; t4 && i4 < t4.length; i4++)
-      t4[i4] && (t4[i4].__ = n3, l4 = S(t4[i4], l4, u4));
-    return l4;
+var rerenderQueue = [];
+var prevDebounce;
+var defer = typeof Promise == "function" ? Promise.prototype.then.bind(Promise.resolve()) : setTimeout;
+function enqueueRender(c) {
+  if (!c._dirty && (c._dirty = true) && rerenderQueue.push(c) && !process2._rerenderCount++ || prevDebounce !== options_default.debounceRendering) {
+    prevDebounce = options_default.debounceRendering;
+    (prevDebounce || defer)(process2);
   }
-  n3.__e != l4 && (u4.insertBefore(n3.__e, l4 || null), l4 = n3.__e);
-  do {
-    l4 = l4 && l4.nextSibling;
-  } while (null != l4 && 8 === l4.nodeType);
-  return l4;
 }
-function $2(n3, l4) {
-  return l4 = l4 || [], null == n3 || "boolean" == typeof n3 || (h(n3) ? n3.some(function(n4) {
-    $2(n4, l4);
-  }) : l4.push(n3)), l4;
-}
-function I(n3, l4, u4, t4) {
-  var i4 = n3.key, o4 = n3.type, r4 = u4 - 1, f4 = u4 + 1, e4 = l4[u4];
-  if (null === e4 || e4 && i4 == e4.key && o4 === e4.type && 0 == (131072 & e4.__u))
-    return u4;
-  if (t4 > (null != e4 && 0 == (131072 & e4.__u) ? 1 : 0))
-    for (; r4 >= 0 || f4 < l4.length; ) {
-      if (r4 >= 0) {
-        if ((e4 = l4[r4]) && 0 == (131072 & e4.__u) && i4 == e4.key && o4 === e4.type)
-          return r4;
-        r4--;
-      }
-      if (f4 < l4.length) {
-        if ((e4 = l4[f4]) && 0 == (131072 & e4.__u) && i4 == e4.key && o4 === e4.type)
-          return f4;
-        f4++;
+var depthSort = (a, b) => a._vnode._depth - b._vnode._depth;
+function process2() {
+  let c;
+  rerenderQueue.sort(depthSort);
+  while (c = rerenderQueue.shift()) {
+    if (c._dirty) {
+      let renderQueueLength = rerenderQueue.length;
+      renderComponent(c);
+      if (rerenderQueue.length > renderQueueLength) {
+        rerenderQueue.sort(depthSort);
       }
     }
+  }
+  process2._rerenderCount = 0;
+}
+process2._rerenderCount = 0;
+
+// node_modules/preact/src/diff/children.js
+function diffChildren(parentDom, renderResult, newParentVNode, oldParentVNode, globalContext, namespace, excessDomChildren, commitQueue, oldDom, isHydrating, refQueue) {
+  let i, oldVNode, childVNode, newDom, firstChildDom;
+  let oldChildren = oldParentVNode && oldParentVNode._children || EMPTY_ARR;
+  let newChildrenLength = renderResult.length;
+  newParentVNode._nextDom = oldDom;
+  constructNewChildrenArray(newParentVNode, renderResult, oldChildren);
+  oldDom = newParentVNode._nextDom;
+  for (i = 0; i < newChildrenLength; i++) {
+    childVNode = newParentVNode._children[i];
+    if (childVNode == null || typeof childVNode == "boolean" || typeof childVNode == "function") {
+      continue;
+    }
+    if (childVNode._index === -1) {
+      oldVNode = EMPTY_OBJ;
+    } else {
+      oldVNode = oldChildren[childVNode._index] || EMPTY_OBJ;
+    }
+    childVNode._index = i;
+    diff(
+      parentDom,
+      childVNode,
+      oldVNode,
+      globalContext,
+      namespace,
+      excessDomChildren,
+      commitQueue,
+      oldDom,
+      isHydrating,
+      refQueue
+    );
+    newDom = childVNode._dom;
+    if (childVNode.ref && oldVNode.ref != childVNode.ref) {
+      if (oldVNode.ref) {
+        applyRef(oldVNode.ref, null, childVNode);
+      }
+      refQueue.push(
+        childVNode.ref,
+        childVNode._component || newDom,
+        childVNode
+      );
+    }
+    if (firstChildDom == null && newDom != null) {
+      firstChildDom = newDom;
+    }
+    if (childVNode._flags & INSERT_VNODE || oldVNode._children === childVNode._children) {
+      oldDom = insert(childVNode, oldDom, parentDom);
+    } else if (typeof childVNode.type == "function" && childVNode._nextDom !== void 0) {
+      oldDom = childVNode._nextDom;
+    } else if (newDom) {
+      oldDom = newDom.nextSibling;
+    }
+    childVNode._nextDom = void 0;
+    childVNode._flags &= ~(INSERT_VNODE | MATCHED);
+  }
+  newParentVNode._nextDom = oldDom;
+  newParentVNode._dom = firstChildDom;
+}
+function constructNewChildrenArray(newParentVNode, renderResult, oldChildren) {
+  let i;
+  let childVNode;
+  let oldVNode;
+  const newChildrenLength = renderResult.length;
+  let oldChildrenLength = oldChildren.length, remainingOldChildren = oldChildrenLength;
+  let skew = 0;
+  newParentVNode._children = [];
+  for (i = 0; i < newChildrenLength; i++) {
+    childVNode = renderResult[i];
+    if (childVNode == null || typeof childVNode == "boolean" || typeof childVNode == "function") {
+      childVNode = newParentVNode._children[i] = null;
+    } else if (typeof childVNode == "string" || typeof childVNode == "number" || typeof childVNode == "bigint" || childVNode.constructor == String) {
+      childVNode = newParentVNode._children[i] = createVNode(
+        null,
+        childVNode,
+        null,
+        null,
+        null
+      );
+    } else if (isArray(childVNode)) {
+      childVNode = newParentVNode._children[i] = createVNode(
+        Fragment2,
+        { children: childVNode },
+        null,
+        null,
+        null
+      );
+    } else if (childVNode.constructor === void 0 && childVNode._depth > 0) {
+      childVNode = newParentVNode._children[i] = createVNode(
+        childVNode.type,
+        childVNode.props,
+        childVNode.key,
+        childVNode.ref ? childVNode.ref : null,
+        childVNode._original
+      );
+    } else {
+      childVNode = newParentVNode._children[i] = childVNode;
+    }
+    const skewedIndex = i + skew;
+    if (childVNode == null) {
+      oldVNode = oldChildren[skewedIndex];
+      if (oldVNode && oldVNode.key == null && oldVNode._dom && (oldVNode._flags & MATCHED) === 0) {
+        if (oldVNode._dom == newParentVNode._nextDom) {
+          newParentVNode._nextDom = getDomSibling(oldVNode);
+        }
+        unmount(oldVNode, oldVNode, false);
+        oldChildren[skewedIndex] = null;
+        remainingOldChildren--;
+      }
+      continue;
+    }
+    childVNode._parent = newParentVNode;
+    childVNode._depth = newParentVNode._depth + 1;
+    const matchingIndex = findMatchingIndex(
+      childVNode,
+      oldChildren,
+      skewedIndex,
+      remainingOldChildren
+    );
+    childVNode._index = matchingIndex;
+    oldVNode = null;
+    if (matchingIndex !== -1) {
+      oldVNode = oldChildren[matchingIndex];
+      remainingOldChildren--;
+      if (oldVNode) {
+        oldVNode._flags |= MATCHED;
+      }
+    }
+    const isMounting = oldVNode == null || oldVNode._original === null;
+    if (isMounting) {
+      if (matchingIndex == -1) {
+        skew--;
+      }
+      if (typeof childVNode.type != "function") {
+        childVNode._flags |= INSERT_VNODE;
+      }
+    } else if (matchingIndex !== skewedIndex) {
+      if (matchingIndex == skewedIndex - 1) {
+        skew--;
+      } else if (matchingIndex == skewedIndex + 1) {
+        skew++;
+      } else if (matchingIndex > skewedIndex) {
+        if (remainingOldChildren > newChildrenLength - skewedIndex) {
+          skew += matchingIndex - skewedIndex;
+        } else {
+          skew--;
+        }
+      } else if (matchingIndex < skewedIndex) {
+        if (matchingIndex == skewedIndex - skew) {
+          skew -= matchingIndex - skewedIndex;
+        } else {
+          skew++;
+        }
+      }
+      if (matchingIndex !== i + skew) {
+        childVNode._flags |= INSERT_VNODE;
+      }
+    }
+  }
+  if (remainingOldChildren) {
+    for (i = 0; i < oldChildrenLength; i++) {
+      oldVNode = oldChildren[i];
+      if (oldVNode != null && (oldVNode._flags & MATCHED) === 0) {
+        if (oldVNode._dom == newParentVNode._nextDom) {
+          newParentVNode._nextDom = getDomSibling(oldVNode);
+        }
+        unmount(oldVNode, oldVNode);
+      }
+    }
+  }
+}
+function insert(parentVNode, oldDom, parentDom) {
+  if (typeof parentVNode.type == "function") {
+    let children = parentVNode._children;
+    for (let i = 0; children && i < children.length; i++) {
+      if (children[i]) {
+        children[i]._parent = parentVNode;
+        oldDom = insert(children[i], oldDom, parentDom);
+      }
+    }
+    return oldDom;
+  } else if (parentVNode._dom != oldDom) {
+    if (oldDom && parentVNode.type && !parentDom.contains(oldDom)) {
+      oldDom = getDomSibling(parentVNode);
+    }
+    parentDom.insertBefore(parentVNode._dom, oldDom || null);
+    oldDom = parentVNode._dom;
+  }
+  do {
+    oldDom = oldDom && oldDom.nextSibling;
+  } while (oldDom != null && oldDom.nodeType === 8);
+  return oldDom;
+}
+function toChildArray(children, out) {
+  out = out || [];
+  if (children == null || typeof children == "boolean") {
+  } else if (isArray(children)) {
+    children.some((child) => {
+      toChildArray(child, out);
+    });
+  } else {
+    out.push(children);
+  }
+  return out;
+}
+function findMatchingIndex(childVNode, oldChildren, skewedIndex, remainingOldChildren) {
+  const key = childVNode.key;
+  const type = childVNode.type;
+  let x = skewedIndex - 1;
+  let y = skewedIndex + 1;
+  let oldVNode = oldChildren[skewedIndex];
+  let shouldSearch = remainingOldChildren > (oldVNode != null && (oldVNode._flags & MATCHED) === 0 ? 1 : 0);
+  if (oldVNode === null || oldVNode && key == oldVNode.key && type === oldVNode.type && (oldVNode._flags & MATCHED) === 0) {
+    return skewedIndex;
+  } else if (shouldSearch) {
+    while (x >= 0 || y < oldChildren.length) {
+      if (x >= 0) {
+        oldVNode = oldChildren[x];
+        if (oldVNode && (oldVNode._flags & MATCHED) === 0 && key == oldVNode.key && type === oldVNode.type) {
+          return x;
+        }
+        x--;
+      }
+      if (y < oldChildren.length) {
+        oldVNode = oldChildren[y];
+        if (oldVNode && (oldVNode._flags & MATCHED) === 0 && key == oldVNode.key && type === oldVNode.type) {
+          return y;
+        }
+        y++;
+      }
+    }
+  }
   return -1;
 }
-function H(n3, l4, u4) {
-  "-" === l4[0] ? n3.setProperty(l4, null == u4 ? "" : u4) : n3[l4] = null == u4 ? "" : "number" != typeof u4 || a.test(l4) ? u4 : u4 + "px";
-}
-function T(n3, l4, u4, t4, i4) {
-  var o4;
-  n:
-    if ("style" === l4)
-      if ("string" == typeof u4)
-        n3.style.cssText = u4;
-      else {
-        if ("string" == typeof t4 && (n3.style.cssText = t4 = ""), t4)
-          for (l4 in t4)
-            u4 && l4 in u4 || H(n3.style, l4, "");
-        if (u4)
-          for (l4 in u4)
-            t4 && u4[l4] === t4[l4] || H(n3.style, l4, u4[l4]);
-      }
-    else if ("o" === l4[0] && "n" === l4[1])
-      o4 = l4 !== (l4 = l4.replace(/(PointerCapture)$|Capture$/i, "$1")), l4 = l4.toLowerCase() in n3 || "onFocusOut" === l4 || "onFocusIn" === l4 ? l4.toLowerCase().slice(2) : l4.slice(2), n3.l || (n3.l = {}), n3.l[l4 + o4] = u4, u4 ? t4 ? u4.u = t4.u : (u4.u = Date.now(), n3.addEventListener(l4, o4 ? D : A, o4)) : n3.removeEventListener(l4, o4 ? D : A, o4);
-    else {
-      if (i4)
-        l4 = l4.replace(/xlink(H|:h)/, "h").replace(/sName$/, "s");
-      else if ("width" !== l4 && "height" !== l4 && "href" !== l4 && "list" !== l4 && "form" !== l4 && "tabIndex" !== l4 && "download" !== l4 && "rowSpan" !== l4 && "colSpan" !== l4 && "role" !== l4 && l4 in n3)
-        try {
-          n3[l4] = null == u4 ? "" : u4;
-          break n;
-        } catch (n4) {
-        }
-      "function" == typeof u4 || (null == u4 || false === u4 && "-" !== l4[4] ? n3.removeAttribute(l4) : n3.setAttribute(l4, u4));
-    }
-}
-function A(n3) {
-  if (this.l) {
-    var u4 = this.l[n3.type + false];
-    if (n3.t) {
-      if (n3.t <= u4.u)
-        return;
-    } else
-      n3.t = Date.now();
-    return u4(l.event ? l.event(n3) : n3);
+
+// node_modules/preact/src/diff/props.js
+function setStyle(style, key, value) {
+  if (key[0] === "-") {
+    style.setProperty(key, value == null ? "" : value);
+  } else if (value == null) {
+    style[key] = "";
+  } else if (typeof value != "number" || IS_NON_DIMENSIONAL.test(key)) {
+    style[key] = value;
+  } else {
+    style[key] = value + "px";
   }
 }
-function D(n3) {
-  if (this.l)
-    return this.l[n3.type + true](l.event ? l.event(n3) : n3);
-}
-function F(n3, u4, t4, i4, o4, r4, f4, e4, c4, s4) {
-  var a4, p4, y4, d4, _7, m4, w4, k4, x4, P3, S3, $4, I3, H3, T3, A3 = u4.type;
-  if (void 0 !== u4.constructor)
-    return null;
-  128 & t4.__u && (c4 = !!(32 & t4.__u), r4 = [e4 = u4.__e = t4.__e]), (a4 = l.__b) && a4(u4);
-  n:
-    if ("function" == typeof A3)
-      try {
-        if (k4 = u4.props, x4 = (a4 = A3.contextType) && i4[a4.__c], P3 = a4 ? x4 ? x4.props.value : a4.__ : i4, t4.__c ? w4 = (p4 = u4.__c = t4.__c).__ = p4.__E : ("prototype" in A3 && A3.prototype.render ? u4.__c = p4 = new A3(k4, P3) : (u4.__c = p4 = new b(k4, P3), p4.constructor = A3, p4.render = z), x4 && x4.sub(p4), p4.props = k4, p4.state || (p4.state = {}), p4.context = P3, p4.__n = i4, y4 = p4.__d = true, p4.__h = [], p4._sb = []), null == p4.__s && (p4.__s = p4.state), null != A3.getDerivedStateFromProps && (p4.__s == p4.state && (p4.__s = v({}, p4.__s)), v(p4.__s, A3.getDerivedStateFromProps(k4, p4.__s))), d4 = p4.props, _7 = p4.state, p4.__v = u4, y4)
-          null == A3.getDerivedStateFromProps && null != p4.componentWillMount && p4.componentWillMount(), null != p4.componentDidMount && p4.__h.push(p4.componentDidMount);
-        else {
-          if (null == A3.getDerivedStateFromProps && k4 !== d4 && null != p4.componentWillReceiveProps && p4.componentWillReceiveProps(k4, P3), !p4.__e && (null != p4.shouldComponentUpdate && false === p4.shouldComponentUpdate(k4, p4.__s, P3) || u4.__v === t4.__v)) {
-            for (u4.__v !== t4.__v && (p4.props = k4, p4.state = p4.__s, p4.__d = false), u4.__e = t4.__e, u4.__k = t4.__k, u4.__k.forEach(function(n4) {
-              n4 && (n4.__ = u4);
-            }), S3 = 0; S3 < p4._sb.length; S3++)
-              p4.__h.push(p4._sb[S3]);
-            p4._sb = [], p4.__h.length && f4.push(p4);
-            break n;
-          }
-          null != p4.componentWillUpdate && p4.componentWillUpdate(k4, p4.__s, P3), null != p4.componentDidUpdate && p4.__h.push(function() {
-            p4.componentDidUpdate(d4, _7, m4);
-          });
+var eventClock = 0;
+function setProperty(dom, name, value, oldValue, namespace) {
+  let useCapture;
+  o:
+    if (name === "style") {
+      if (typeof value == "string") {
+        dom.style.cssText = value;
+      } else {
+        if (typeof oldValue == "string") {
+          dom.style.cssText = oldValue = "";
         }
-        if (p4.context = P3, p4.props = k4, p4.__P = n3, p4.__e = false, $4 = l.__r, I3 = 0, "prototype" in A3 && A3.prototype.render) {
-          for (p4.state = p4.__s, p4.__d = false, $4 && $4(u4), a4 = p4.render(p4.props, p4.state, p4.context), H3 = 0; H3 < p4._sb.length; H3++)
-            p4.__h.push(p4._sb[H3]);
-          p4._sb = [];
-        } else
-          do {
-            p4.__d = false, $4 && $4(u4), a4 = p4.render(p4.props, p4.state, p4.context), p4.state = p4.__s;
-          } while (p4.__d && ++I3 < 25);
-        p4.state = p4.__s, null != p4.getChildContext && (i4 = v(v({}, i4), p4.getChildContext())), y4 || null == p4.getSnapshotBeforeUpdate || (m4 = p4.getSnapshotBeforeUpdate(d4, _7)), C(n3, h(T3 = null != a4 && a4.type === g && null == a4.key ? a4.props.children : a4) ? T3 : [T3], u4, t4, i4, o4, r4, f4, e4, c4, s4), p4.base = u4.__e, u4.__u &= -161, p4.__h.length && f4.push(p4), w4 && (p4.__E = p4.__ = null);
-      } catch (n4) {
-        u4.__v = null, c4 || null != r4 ? (u4.__e = e4, u4.__u |= c4 ? 160 : 32, r4[r4.indexOf(e4)] = null) : (u4.__e = t4.__e, u4.__k = t4.__k), l.__e(n4, u4, t4);
+        if (oldValue) {
+          for (name in oldValue) {
+            if (!(value && name in value)) {
+              setStyle(dom.style, name, "");
+            }
+          }
+        }
+        if (value) {
+          for (name in value) {
+            if (!oldValue || value[name] !== oldValue[name]) {
+              setStyle(dom.style, name, value[name]);
+            }
+          }
+        }
       }
-    else
-      null == r4 && u4.__v === t4.__v ? (u4.__k = t4.__k, u4.__e = t4.__e) : u4.__e = M(t4.__e, u4, t4, i4, o4, r4, f4, c4, s4);
-  (a4 = l.diffed) && a4(u4);
+    } else if (name[0] === "o" && name[1] === "n") {
+      useCapture = name !== (name = name.replace(/(PointerCapture)$|Capture$/i, "$1"));
+      if (name.toLowerCase() in dom || name === "onFocusOut" || name === "onFocusIn")
+        name = name.toLowerCase().slice(2);
+      else
+        name = name.slice(2);
+      if (!dom._listeners)
+        dom._listeners = {};
+      dom._listeners[name + useCapture] = value;
+      if (value) {
+        if (!oldValue) {
+          value._attached = eventClock;
+          dom.addEventListener(
+            name,
+            useCapture ? eventProxyCapture : eventProxy,
+            useCapture
+          );
+        } else {
+          value._attached = oldValue._attached;
+        }
+      } else {
+        dom.removeEventListener(
+          name,
+          useCapture ? eventProxyCapture : eventProxy,
+          useCapture
+        );
+      }
+    } else {
+      if (namespace == "http://www.w3.org/2000/svg") {
+        name = name.replace(/xlink(H|:h)/, "h").replace(/sName$/, "s");
+      } else if (name != "width" && name != "height" && name != "href" && name != "list" && name != "form" && name != "tabIndex" && name != "download" && name != "rowSpan" && name != "colSpan" && name != "role" && name != "popover" && name in dom) {
+        try {
+          dom[name] = value == null ? "" : value;
+          break o;
+        } catch (e) {
+        }
+      }
+      if (typeof value == "function") {
+      } else if (value != null && (value !== false || name[4] === "-")) {
+        dom.setAttribute(name, name == "popover" && value == true ? "" : value);
+      } else {
+        dom.removeAttribute(name);
+      }
+    }
 }
-function L(n3, u4, t4) {
-  u4.__d = void 0;
-  for (var i4 = 0; i4 < t4.length; i4++)
-    O(t4[i4], t4[++i4], t4[++i4]);
-  l.__c && l.__c(u4, n3), n3.some(function(u5) {
+function createEventProxy(useCapture) {
+  return function(e) {
+    if (this._listeners) {
+      const eventHandler = this._listeners[e.type + useCapture];
+      if (e._dispatched == null) {
+        e._dispatched = eventClock++;
+      } else if (e._dispatched < eventHandler._attached) {
+        return;
+      }
+      return eventHandler(options_default.event ? options_default.event(e) : e);
+    }
+  };
+}
+var eventProxy = createEventProxy(false);
+var eventProxyCapture = createEventProxy(true);
+
+// node_modules/preact/src/diff/index.js
+function diff(parentDom, newVNode, oldVNode, globalContext, namespace, excessDomChildren, commitQueue, oldDom, isHydrating, refQueue) {
+  let tmp, newType = newVNode.type;
+  if (newVNode.constructor !== void 0)
+    return null;
+  if (oldVNode._flags & MODE_SUSPENDED) {
+    isHydrating = !!(oldVNode._flags & MODE_HYDRATE);
+    oldDom = newVNode._dom = oldVNode._dom;
+    excessDomChildren = [oldDom];
+  }
+  if (tmp = options_default._diff)
+    tmp(newVNode);
+  outer:
+    if (typeof newType == "function") {
+      try {
+        let c, isNew, oldProps, oldState, snapshot, clearProcessingException;
+        let newProps = newVNode.props;
+        const isClassComponent = "prototype" in newType && newType.prototype.render;
+        tmp = newType.contextType;
+        let provider = tmp && globalContext[tmp._id];
+        let componentContext = tmp ? provider ? provider.props.value : tmp._defaultValue : globalContext;
+        if (oldVNode._component) {
+          c = newVNode._component = oldVNode._component;
+          clearProcessingException = c._processingException = c._pendingError;
+        } else {
+          if (isClassComponent) {
+            newVNode._component = c = new newType(newProps, componentContext);
+          } else {
+            newVNode._component = c = new BaseComponent(
+              newProps,
+              componentContext
+            );
+            c.constructor = newType;
+            c.render = doRender;
+          }
+          if (provider)
+            provider.sub(c);
+          c.props = newProps;
+          if (!c.state)
+            c.state = {};
+          c.context = componentContext;
+          c._globalContext = globalContext;
+          isNew = c._dirty = true;
+          c._renderCallbacks = [];
+          c._stateCallbacks = [];
+        }
+        if (isClassComponent && c._nextState == null) {
+          c._nextState = c.state;
+        }
+        if (isClassComponent && newType.getDerivedStateFromProps != null) {
+          if (c._nextState == c.state) {
+            c._nextState = assign({}, c._nextState);
+          }
+          assign(
+            c._nextState,
+            newType.getDerivedStateFromProps(newProps, c._nextState)
+          );
+        }
+        oldProps = c.props;
+        oldState = c.state;
+        c._vnode = newVNode;
+        if (isNew) {
+          if (isClassComponent && newType.getDerivedStateFromProps == null && c.componentWillMount != null) {
+            c.componentWillMount();
+          }
+          if (isClassComponent && c.componentDidMount != null) {
+            c._renderCallbacks.push(c.componentDidMount);
+          }
+        } else {
+          if (isClassComponent && newType.getDerivedStateFromProps == null && newProps !== oldProps && c.componentWillReceiveProps != null) {
+            c.componentWillReceiveProps(newProps, componentContext);
+          }
+          if (!c._force && (c.shouldComponentUpdate != null && c.shouldComponentUpdate(
+            newProps,
+            c._nextState,
+            componentContext
+          ) === false || newVNode._original === oldVNode._original)) {
+            if (newVNode._original !== oldVNode._original) {
+              c.props = newProps;
+              c.state = c._nextState;
+              c._dirty = false;
+            }
+            newVNode._dom = oldVNode._dom;
+            newVNode._children = oldVNode._children;
+            newVNode._children.forEach((vnode) => {
+              if (vnode)
+                vnode._parent = newVNode;
+            });
+            for (let i = 0; i < c._stateCallbacks.length; i++) {
+              c._renderCallbacks.push(c._stateCallbacks[i]);
+            }
+            c._stateCallbacks = [];
+            if (c._renderCallbacks.length) {
+              commitQueue.push(c);
+            }
+            break outer;
+          }
+          if (c.componentWillUpdate != null) {
+            c.componentWillUpdate(newProps, c._nextState, componentContext);
+          }
+          if (isClassComponent && c.componentDidUpdate != null) {
+            c._renderCallbacks.push(() => {
+              c.componentDidUpdate(oldProps, oldState, snapshot);
+            });
+          }
+        }
+        c.context = componentContext;
+        c.props = newProps;
+        c._parentDom = parentDom;
+        c._force = false;
+        let renderHook = options_default._render, count = 0;
+        if (isClassComponent) {
+          c.state = c._nextState;
+          c._dirty = false;
+          if (renderHook)
+            renderHook(newVNode);
+          tmp = c.render(c.props, c.state, c.context);
+          for (let i = 0; i < c._stateCallbacks.length; i++) {
+            c._renderCallbacks.push(c._stateCallbacks[i]);
+          }
+          c._stateCallbacks = [];
+        } else {
+          do {
+            c._dirty = false;
+            if (renderHook)
+              renderHook(newVNode);
+            tmp = c.render(c.props, c.state, c.context);
+            c.state = c._nextState;
+          } while (c._dirty && ++count < 25);
+        }
+        c.state = c._nextState;
+        if (c.getChildContext != null) {
+          globalContext = assign(assign({}, globalContext), c.getChildContext());
+        }
+        if (isClassComponent && !isNew && c.getSnapshotBeforeUpdate != null) {
+          snapshot = c.getSnapshotBeforeUpdate(oldProps, oldState);
+        }
+        let isTopLevelFragment = tmp != null && tmp.type === Fragment2 && tmp.key == null;
+        let renderResult = isTopLevelFragment ? tmp.props.children : tmp;
+        diffChildren(
+          parentDom,
+          isArray(renderResult) ? renderResult : [renderResult],
+          newVNode,
+          oldVNode,
+          globalContext,
+          namespace,
+          excessDomChildren,
+          commitQueue,
+          oldDom,
+          isHydrating,
+          refQueue
+        );
+        c.base = newVNode._dom;
+        newVNode._flags &= RESET_MODE;
+        if (c._renderCallbacks.length) {
+          commitQueue.push(c);
+        }
+        if (clearProcessingException) {
+          c._pendingError = c._processingException = null;
+        }
+      } catch (e) {
+        newVNode._original = null;
+        if (isHydrating || excessDomChildren != null) {
+          newVNode._flags |= isHydrating ? MODE_HYDRATE | MODE_SUSPENDED : MODE_HYDRATE;
+          while (oldDom && oldDom.nodeType === 8 && oldDom.nextSibling) {
+            oldDom = oldDom.nextSibling;
+          }
+          excessDomChildren[excessDomChildren.indexOf(oldDom)] = null;
+          newVNode._dom = oldDom;
+        } else {
+          newVNode._dom = oldVNode._dom;
+          newVNode._children = oldVNode._children;
+        }
+        options_default._catchError(e, newVNode, oldVNode);
+      }
+    } else if (excessDomChildren == null && newVNode._original === oldVNode._original) {
+      newVNode._children = oldVNode._children;
+      newVNode._dom = oldVNode._dom;
+    } else {
+      newVNode._dom = diffElementNodes(
+        oldVNode._dom,
+        newVNode,
+        oldVNode,
+        globalContext,
+        namespace,
+        excessDomChildren,
+        commitQueue,
+        isHydrating,
+        refQueue
+      );
+    }
+  if (tmp = options_default.diffed)
+    tmp(newVNode);
+}
+function commitRoot(commitQueue, root, refQueue) {
+  root._nextDom = void 0;
+  for (let i = 0; i < refQueue.length; i++) {
+    applyRef(refQueue[i], refQueue[++i], refQueue[++i]);
+  }
+  if (options_default._commit)
+    options_default._commit(root, commitQueue);
+  commitQueue.some((c) => {
     try {
-      n3 = u5.__h, u5.__h = [], n3.some(function(n4) {
-        n4.call(u5);
+      commitQueue = c._renderCallbacks;
+      c._renderCallbacks = [];
+      commitQueue.some((cb) => {
+        cb.call(c);
       });
-    } catch (n4) {
-      l.__e(n4, u5.__v);
+    } catch (e) {
+      options_default._catchError(e, c._vnode);
     }
   });
 }
-function M(l4, u4, t4, i4, o4, r4, f4, e4, s4) {
-  var a4, v4, y4, d4, _7, g3, b3, w4 = t4.props, k4 = u4.props, x4 = u4.type;
-  if ("svg" === x4 && (o4 = true), null != r4) {
-    for (a4 = 0; a4 < r4.length; a4++)
-      if ((_7 = r4[a4]) && "setAttribute" in _7 == !!x4 && (x4 ? _7.localName === x4 : 3 === _7.nodeType)) {
-        l4 = _7, r4[a4] = null;
+function diffElementNodes(dom, newVNode, oldVNode, globalContext, namespace, excessDomChildren, commitQueue, isHydrating, refQueue) {
+  let oldProps = oldVNode.props;
+  let newProps = newVNode.props;
+  let nodeType = newVNode.type;
+  let i;
+  let newHtml;
+  let oldHtml;
+  let newChildren;
+  let value;
+  let inputValue;
+  let checked;
+  if (nodeType === "svg")
+    namespace = "http://www.w3.org/2000/svg";
+  else if (nodeType === "math")
+    namespace = "http://www.w3.org/1998/Math/MathML";
+  else if (!namespace)
+    namespace = "http://www.w3.org/1999/xhtml";
+  if (excessDomChildren != null) {
+    for (i = 0; i < excessDomChildren.length; i++) {
+      value = excessDomChildren[i];
+      if (value && "setAttribute" in value === !!nodeType && (nodeType ? value.localName === nodeType : value.nodeType === 3)) {
+        dom = value;
+        excessDomChildren[i] = null;
         break;
       }
+    }
   }
-  if (null == l4) {
-    if (null === x4)
-      return document.createTextNode(k4);
-    l4 = o4 ? document.createElementNS("http://www.w3.org/2000/svg", x4) : document.createElement(x4, k4.is && k4), r4 = null, e4 = false;
+  if (dom == null) {
+    if (nodeType === null) {
+      return document.createTextNode(newProps);
+    }
+    dom = document.createElementNS(
+      namespace,
+      nodeType,
+      newProps.is && newProps
+    );
+    excessDomChildren = null;
+    isHydrating = false;
   }
-  if (null === x4)
-    w4 === k4 || e4 && l4.data === k4 || (l4.data = k4);
-  else {
-    if (r4 = r4 && n.call(l4.childNodes), w4 = t4.props || c, !e4 && null != r4)
-      for (w4 = {}, a4 = 0; a4 < l4.attributes.length; a4++)
-        w4[(_7 = l4.attributes[a4]).name] = _7.value;
-    for (a4 in w4)
-      _7 = w4[a4], "children" == a4 || ("dangerouslySetInnerHTML" == a4 ? y4 = _7 : "key" === a4 || a4 in k4 || T(l4, a4, null, _7, o4));
-    for (a4 in k4)
-      _7 = k4[a4], "children" == a4 ? d4 = _7 : "dangerouslySetInnerHTML" == a4 ? v4 = _7 : "value" == a4 ? g3 = _7 : "checked" == a4 ? b3 = _7 : "key" === a4 || e4 && "function" != typeof _7 || w4[a4] === _7 || T(l4, a4, _7, w4[a4], o4);
-    if (v4)
-      e4 || y4 && (v4.__html === y4.__html || v4.__html === l4.innerHTML) || (l4.innerHTML = v4.__html), u4.__k = [];
-    else if (y4 && (l4.innerHTML = ""), C(l4, h(d4) ? d4 : [d4], u4, t4, i4, o4 && "foreignObject" !== x4, r4, f4, r4 ? r4[0] : t4.__k && m(t4, 0), e4, s4), null != r4)
-      for (a4 = r4.length; a4--; )
-        null != r4[a4] && p(r4[a4]);
-    e4 || (a4 = "value", void 0 !== g3 && (g3 !== l4[a4] || "progress" === x4 && !g3 || "option" === x4 && g3 !== w4[a4]) && T(l4, a4, g3, w4[a4], false), a4 = "checked", void 0 !== b3 && b3 !== l4[a4] && T(l4, a4, b3, w4[a4], false));
+  if (nodeType === null) {
+    if (oldProps !== newProps && (!isHydrating || dom.data !== newProps)) {
+      dom.data = newProps;
+    }
+  } else {
+    excessDomChildren = excessDomChildren && slice.call(dom.childNodes);
+    oldProps = oldVNode.props || EMPTY_OBJ;
+    if (!isHydrating && excessDomChildren != null) {
+      oldProps = {};
+      for (i = 0; i < dom.attributes.length; i++) {
+        value = dom.attributes[i];
+        oldProps[value.name] = value.value;
+      }
+    }
+    for (i in oldProps) {
+      value = oldProps[i];
+      if (i == "children") {
+      } else if (i == "dangerouslySetInnerHTML") {
+        oldHtml = value;
+      } else if (i !== "key" && !(i in newProps)) {
+        if (i == "value" && "defaultValue" in newProps || i == "checked" && "defaultChecked" in newProps) {
+          continue;
+        }
+        setProperty(dom, i, null, value, namespace);
+      }
+    }
+    for (i in newProps) {
+      value = newProps[i];
+      if (i == "children") {
+        newChildren = value;
+      } else if (i == "dangerouslySetInnerHTML") {
+        newHtml = value;
+      } else if (i == "value") {
+        inputValue = value;
+      } else if (i == "checked") {
+        checked = value;
+      } else if (i !== "key" && (!isHydrating || typeof value == "function") && oldProps[i] !== value) {
+        setProperty(dom, i, value, oldProps[i], namespace);
+      }
+    }
+    if (newHtml) {
+      if (!isHydrating && (!oldHtml || newHtml.__html !== oldHtml.__html && newHtml.__html !== dom.innerHTML)) {
+        dom.innerHTML = newHtml.__html;
+      }
+      newVNode._children = [];
+    } else {
+      if (oldHtml)
+        dom.innerHTML = "";
+      diffChildren(
+        dom,
+        isArray(newChildren) ? newChildren : [newChildren],
+        newVNode,
+        oldVNode,
+        globalContext,
+        nodeType === "foreignObject" ? "http://www.w3.org/1999/xhtml" : namespace,
+        excessDomChildren,
+        commitQueue,
+        excessDomChildren ? excessDomChildren[0] : oldVNode._children && getDomSibling(oldVNode, 0),
+        isHydrating,
+        refQueue
+      );
+      if (excessDomChildren != null) {
+        for (i = excessDomChildren.length; i--; ) {
+          if (excessDomChildren[i] != null)
+            removeNode(excessDomChildren[i]);
+        }
+      }
+    }
+    if (!isHydrating) {
+      i = "value";
+      if (inputValue !== void 0 && (inputValue !== dom[i] || nodeType === "progress" && !inputValue || nodeType === "option" && inputValue !== oldProps[i])) {
+        setProperty(dom, i, inputValue, oldProps[i], namespace);
+      }
+      i = "checked";
+      if (checked !== void 0 && checked !== dom[i]) {
+        setProperty(dom, i, checked, oldProps[i], namespace);
+      }
+    }
   }
-  return l4;
+  return dom;
 }
-function O(n3, u4, t4) {
+function applyRef(ref, value, vnode) {
   try {
-    "function" == typeof n3 ? n3(u4) : n3.current = u4;
-  } catch (n4) {
-    l.__e(n4, t4);
+    if (typeof ref == "function") {
+      let hasRefUnmount = typeof ref._unmount == "function";
+      if (hasRefUnmount) {
+        ref._unmount();
+      }
+      if (!hasRefUnmount || value != null) {
+        ref._unmount = ref(value);
+      }
+    } else
+      ref.current = value;
+  } catch (e) {
+    options_default._catchError(e, vnode);
   }
 }
-function j(n3, u4, t4) {
-  var i4, o4;
-  if (l.unmount && l.unmount(n3), (i4 = n3.ref) && (i4.current && i4.current !== n3.__e || O(i4, null, u4)), null != (i4 = n3.__c)) {
-    if (i4.componentWillUnmount)
-      try {
-        i4.componentWillUnmount();
-      } catch (n4) {
-        l.__e(n4, u4);
-      }
-    i4.base = i4.__P = null, n3.__c = void 0;
+function unmount(vnode, parentVNode, skipRemove) {
+  let r;
+  if (options_default.unmount)
+    options_default.unmount(vnode);
+  if (r = vnode.ref) {
+    if (!r.current || r.current === vnode._dom) {
+      applyRef(r, null, parentVNode);
+    }
   }
-  if (i4 = n3.__k)
-    for (o4 = 0; o4 < i4.length; o4++)
-      i4[o4] && j(i4[o4], u4, t4 || "function" != typeof n3.type);
-  t4 || null == n3.__e || p(n3.__e), n3.__ = n3.__e = n3.__d = void 0;
-}
-function z(n3, l4, u4) {
-  return this.constructor(n3, u4);
-}
-function N(u4, t4, i4) {
-  var o4, r4, f4, e4;
-  l.__ && l.__(u4, t4), r4 = (o4 = "function" == typeof i4) ? null : i4 && i4.__k || t4.__k, f4 = [], e4 = [], F(t4, u4 = (!o4 && i4 || t4).__k = y(g, null, [u4]), r4 || c, c, void 0 !== t4.ownerSVGElement, !o4 && i4 ? [i4] : r4 ? null : t4.firstChild ? n.call(t4.childNodes) : null, f4, !o4 && i4 ? i4 : r4 ? r4.__e : t4.firstChild, o4, e4), L(f4, u4, e4);
-}
-function B(l4, u4, t4) {
-  var i4, o4, r4, f4, e4 = v({}, l4.props);
-  for (r4 in l4.type && l4.type.defaultProps && (f4 = l4.type.defaultProps), u4)
-    "key" == r4 ? i4 = u4[r4] : "ref" == r4 ? o4 = u4[r4] : e4[r4] = void 0 === u4[r4] && void 0 !== f4 ? f4[r4] : u4[r4];
-  return arguments.length > 2 && (e4.children = arguments.length > 3 ? n.call(arguments, 2) : t4), d(l4.type, e4, i4 || l4.key, o4 || l4.ref, null);
-}
-n = s.slice, l = { __e: function(n3, l4, u4, t4) {
-  for (var i4, o4, r4; l4 = l4.__; )
-    if ((i4 = l4.__c) && !i4.__)
+  if ((r = vnode._component) != null) {
+    if (r.componentWillUnmount) {
       try {
-        if ((o4 = i4.constructor) && null != o4.getDerivedStateFromError && (i4.setState(o4.getDerivedStateFromError(n3)), r4 = i4.__d), null != i4.componentDidCatch && (i4.componentDidCatch(n3, t4 || {}), r4 = i4.__d), r4)
-          return i4.__E = i4;
-      } catch (l5) {
-        n3 = l5;
+        r.componentWillUnmount();
+      } catch (e) {
+        options_default._catchError(e, parentVNode);
       }
-  throw n3;
-} }, u = 0, t = function(n3) {
-  return null != n3 && null == n3.constructor;
-}, b.prototype.setState = function(n3, l4) {
-  var u4;
-  u4 = null != this.__s && this.__s !== this.state ? this.__s : this.__s = v({}, this.state), "function" == typeof n3 && (n3 = n3(v({}, u4), this.props)), n3 && v(u4, n3), null != n3 && this.__v && (l4 && this._sb.push(l4), k(this));
-}, b.prototype.forceUpdate = function(n3) {
-  this.__v && (this.__e = true, n3 && this.__h.push(n3), k(this));
-}, b.prototype.render = g, i = [], r = "function" == typeof Promise ? Promise.prototype.then.bind(Promise.resolve()) : setTimeout, f = function(n3, l4) {
-  return n3.__v.__b - l4.__v.__b;
-}, x.__r = 0, e = 0;
+    }
+    r.base = r._parentDom = null;
+  }
+  if (r = vnode._children) {
+    for (let i = 0; i < r.length; i++) {
+      if (r[i]) {
+        unmount(
+          r[i],
+          parentVNode,
+          skipRemove || typeof vnode.type != "function"
+        );
+      }
+    }
+  }
+  if (!skipRemove && vnode._dom != null) {
+    removeNode(vnode._dom);
+  }
+  vnode._component = vnode._parent = vnode._dom = vnode._nextDom = void 0;
+}
+function doRender(props, state, context) {
+  return this.constructor(props, context);
+}
+
+// node_modules/preact/src/render.js
+function render(vnode, parentDom, replaceNode) {
+  if (options_default._root)
+    options_default._root(vnode, parentDom);
+  let isHydrating = typeof replaceNode == "function";
+  let oldVNode = isHydrating ? null : replaceNode && replaceNode._children || parentDom._children;
+  vnode = (!isHydrating && replaceNode || parentDom)._children = createElement(Fragment2, null, [vnode]);
+  let commitQueue = [], refQueue = [];
+  diff(
+    parentDom,
+    vnode,
+    oldVNode || EMPTY_OBJ,
+    EMPTY_OBJ,
+    parentDom.namespaceURI,
+    !isHydrating && replaceNode ? [replaceNode] : oldVNode ? null : parentDom.firstChild ? slice.call(parentDom.childNodes) : null,
+    commitQueue,
+    !isHydrating && replaceNode ? replaceNode : oldVNode ? oldVNode._dom : parentDom.firstChild,
+    isHydrating,
+    refQueue
+  );
+  commitRoot(commitQueue, vnode, refQueue);
+}
+
+// node_modules/preact/src/clone-element.js
+function cloneElement(vnode, props, children) {
+  let normalizedProps = assign({}, vnode.props), key, ref, i;
+  let defaultProps;
+  if (vnode.type && vnode.type.defaultProps) {
+    defaultProps = vnode.type.defaultProps;
+  }
+  for (i in props) {
+    if (i == "key")
+      key = props[i];
+    else if (i == "ref")
+      ref = props[i];
+    else if (props[i] === void 0 && defaultProps !== void 0) {
+      normalizedProps[i] = defaultProps[i];
+    } else {
+      normalizedProps[i] = props[i];
+    }
+  }
+  if (arguments.length > 2) {
+    normalizedProps.children = arguments.length > 3 ? slice.call(arguments, 2) : children;
+  }
+  return createVNode(
+    vnode.type,
+    normalizedProps,
+    key || vnode.key,
+    ref || vnode.ref,
+    null
+  );
+}
 
 // node_modules/@uppy/utils/lib/isDOMElement.js
 function isDOMElement(obj) {
@@ -18572,15 +19264,14 @@ var BasePlugin = class {
 };
 
 // node_modules/@uppy/core/lib/UIPlugin.js
-function _classPrivateFieldLooseBase4(receiver, privateKey) {
-  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
+function _classPrivateFieldLooseBase4(e, t) {
+  if (!{}.hasOwnProperty.call(e, t))
     throw new TypeError("attempted to use private field on non-instance");
-  }
-  return receiver;
+  return e;
 }
 var id4 = 0;
-function _classPrivateFieldLooseKey4(name) {
-  return "__private_" + id4++ + "_" + name;
+function _classPrivateFieldLooseKey4(e) {
+  return "__private_" + id4++ + "_" + e;
 }
 function debounce(fn) {
   let calling = null;
@@ -18622,9 +19313,9 @@ var UIPlugin = class extends BasePlugin {
       }
     } else if (typeof target === "function") {
       const Target = target;
-      this.uppy.iteratePlugins((p4) => {
-        if (p4 instanceof Target) {
-          targetPlugin = p4;
+      this.uppy.iteratePlugins((p) => {
+        if (p instanceof Target) {
+          targetPlugin = p;
         }
       });
     }
@@ -18640,14 +19331,14 @@ var UIPlugin = class extends BasePlugin {
       _classPrivateFieldLooseBase4(this, _updateUI)[_updateUI] = debounce((state) => {
         if (!this.uppy.getPlugin(this.id))
           return;
-        N(this.render(state), uppyRootElement);
+        render(this.render(state, uppyRootElement), uppyRootElement);
         this.afterUpdate();
       });
       this.uppy.log(`Installing ${callerPluginName} to a DOM element '${target}'`);
       if (this.opts.replaceTargetContent) {
         targetElement.innerHTML = "";
       }
-      N(this.render(this.uppy.getState()), uppyRootElement);
+      render(this.render(this.uppy.getState(), uppyRootElement), uppyRootElement);
       this.el = uppyRootElement;
       targetElement.appendChild(uppyRootElement);
       uppyRootElement.dir = this.opts.direction || getTextDirection_default(uppyRootElement) || "ltr";
@@ -18671,7 +19362,7 @@ var UIPlugin = class extends BasePlugin {
     }
     throw new Error(message);
   }
-  render(state) {
+  render(state, container) {
     throw new Error("Extend the render method to add your plugin to a DOM element");
   }
   update(state) {
@@ -18798,7 +19489,7 @@ function UploadBtn(props) {
   }) : i18n("uploadXFiles", {
     smart_count: newFiles
   });
-  return y("button", {
+  return createElement("button", {
     type: "button",
     className: uploadBtnClassNames,
     "aria-label": i18n("uploadXFiles", {
@@ -18814,7 +19505,7 @@ function RetryBtn(props) {
     i18n,
     uppy: uppy2
   } = props;
-  return y("button", {
+  return createElement("button", {
     type: "button",
     className: "uppy-u-reset uppy-c-btn uppy-StatusBar-actionBtn uppy-StatusBar-actionBtn--retry",
     "aria-label": i18n("retryUpload"),
@@ -18822,14 +19513,14 @@ function RetryBtn(props) {
     }),
     "data-uppy-super-focusable": true,
     "data-cy": "retry"
-  }, y("svg", {
+  }, createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-c-icon",
     width: "8",
     height: "10",
     viewBox: "0 0 8 10"
-  }, y("path", {
+  }, createElement("path", {
     d: "M4 2.408a2.75 2.75 0 1 0 2.75 2.75.626.626 0 0 1 1.25.018v.023a4 4 0 1 1-4-4.041V.25a.25.25 0 0 1 .389-.208l2.299 1.533a.25.25 0 0 1 0 .416l-2.3 1.533A.25.25 0 0 1 4 3.316v-.908z"
   })), i18n("retry"));
 }
@@ -18838,7 +19529,7 @@ function CancelBtn(props) {
     i18n,
     uppy: uppy2
   } = props;
-  return y("button", {
+  return createElement("button", {
     type: "button",
     className: "uppy-u-reset uppy-StatusBar-actionCircleBtn",
     title: i18n("cancel"),
@@ -18846,22 +19537,22 @@ function CancelBtn(props) {
     onClick: () => uppy2.cancelAll(),
     "data-cy": "cancel",
     "data-uppy-super-focusable": true
-  }, y("svg", {
+  }, createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-c-icon",
     width: "16",
     height: "16",
     viewBox: "0 0 16 16"
-  }, y("g", {
+  }, createElement("g", {
     fill: "none",
     fillRule: "evenodd"
-  }, y("circle", {
+  }, createElement("circle", {
     fill: "#888",
     cx: "8",
     cy: "8",
     r: "8"
-  }), y("path", {
+  }), createElement("path", {
     fill: "#FFF",
     d: "M9.283 8l2.567 2.567-1.283 1.283L8 9.283 5.433 11.85 4.15 10.567 6.717 8 4.15 5.433 5.433 4.15 8 6.717l2.567-2.567 1.283 1.283z"
   }))));
@@ -18888,7 +19579,7 @@ function PauseResumeButton(props) {
     }
     uppy2.pauseAll();
   }
-  return y("button", {
+  return createElement("button", {
     title,
     "aria-label": title,
     className: "uppy-u-reset uppy-StatusBar-actionCircleBtn",
@@ -18896,22 +19587,22 @@ function PauseResumeButton(props) {
     onClick: togglePauseResume,
     "data-cy": "togglePauseResume",
     "data-uppy-super-focusable": true
-  }, y("svg", {
+  }, createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-c-icon",
     width: "16",
     height: "16",
     viewBox: "0 0 16 16"
-  }, y("g", {
+  }, createElement("g", {
     fill: "none",
     fillRule: "evenodd"
-  }, y("circle", {
+  }, createElement("circle", {
     fill: "#888",
     cx: "8",
     cy: "8",
     r: "8"
-  }), y("path", {
+  }), createElement("path", {
     fill: "#FFF",
     d: isAllPaused ? "M6 4.25L11.5 8 6 11.75z" : "M5 4.5h2v7H5v-7zm4 0h2v7H9v-7z"
   }))));
@@ -18921,7 +19612,7 @@ function DoneBtn(props) {
     i18n,
     doneButtonHandler
   } = props;
-  return y("button", {
+  return createElement("button", {
     type: "button",
     className: "uppy-u-reset uppy-c-btn uppy-StatusBar-actionBtn uppy-StatusBar-actionBtn--done",
     onClick: doneButtonHandler,
@@ -18929,13 +19620,13 @@ function DoneBtn(props) {
   }, i18n("done"));
 }
 function LoadingSpinner() {
-  return y("svg", {
+  return createElement("svg", {
     className: "uppy-StatusBar-spinner",
     "aria-hidden": "true",
     focusable: "false",
     width: "14",
     height: "14"
-  }, y("path", {
+  }, createElement("path", {
     d: "M13.983 6.547c-.12-2.509-1.64-4.893-3.939-5.936-2.48-1.127-5.488-.656-7.556 1.094C.524 3.367-.398 6.048.162 8.562c.556 2.495 2.46 4.52 4.94 5.183 2.932.784 5.61-.602 7.256-3.015-1.493 1.993-3.745 3.309-6.298 2.868-2.514-.434-4.578-2.349-5.153-4.84a6.226 6.226 0 0 1 2.98-6.778C6.34.586 9.74 1.1 11.373 3.493c.407.596.693 1.282.842 1.988.127.598.073 1.197.161 1.794.078.525.543 1.257 1.15.864.525-.341.49-1.05.456-1.592-.007-.15.02.3 0 0",
     fillRule: "evenodd"
   }));
@@ -18950,9 +19641,9 @@ function ProgressBarProcessing(props) {
     message
   } = progress;
   const dot = `\xB7`;
-  return y("div", {
+  return createElement("div", {
     className: "uppy-StatusBar-content"
-  }, y(LoadingSpinner, null), mode === "determinate" ? `${Math.round(value * 100)}% ${dot} ` : "", message);
+  }, createElement(LoadingSpinner, null), mode === "determinate" ? `${Math.round(value * 100)}% ${dot} ` : "", message);
 }
 function ProgressDetails(props) {
   const {
@@ -18964,12 +19655,12 @@ function ProgressDetails(props) {
     i18n
   } = props;
   const ifShowFilesUploadedOfTotal = numUploads > 1;
-  return y("div", {
+  return createElement("div", {
     className: "uppy-StatusBar-statusSecondary"
   }, ifShowFilesUploadedOfTotal && i18n("filesUploadedOfTotal", {
     complete,
     smart_count: numUploads
-  }), y("span", {
+  }), createElement("span", {
     className: "uppy-StatusBar-additionalInfo"
   }, ifShowFilesUploadedOfTotal && renderDot(), i18n("dataUploadedOfTotal", {
     complete: (0, import_prettier_bytes2.default)(totalUploadedSize),
@@ -18984,7 +19675,7 @@ function FileUploadCount(props) {
     complete,
     numUploads
   } = props;
-  return y("div", {
+  return createElement("div", {
     className: "uppy-StatusBar-statusSecondary"
   }, i18n("filesUploadedOfTotal", {
     complete,
@@ -18998,13 +19689,13 @@ function UploadNewlyAddedFiles(props) {
     startUpload
   } = props;
   const uploadBtnClassNames = (0, import_classnames.default)("uppy-u-reset", "uppy-c-btn", "uppy-StatusBar-actionBtn", "uppy-StatusBar-actionBtn--uploadNewlyAdded");
-  return y("div", {
+  return createElement("div", {
     className: "uppy-StatusBar-statusSecondary"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-StatusBar-statusSecondaryHint"
   }, i18n("xMoreFilesAdded", {
     smart_count: newFiles
-  })), y("button", {
+  })), createElement("button", {
     type: "button",
     className: uploadBtnClassNames,
     "aria-label": i18n("uploadXFiles", {
@@ -19038,7 +19729,7 @@ function ProgressBarUploading(props) {
   function renderProgressDetails() {
     if (!isAllPaused && !showUploadNewlyAddedFiles && showProgressDetails) {
       if (supportsUploadProgress2) {
-        return y(ProgressDetails, {
+        return createElement(ProgressDetails, {
           numUploads,
           complete,
           totalUploadedSize,
@@ -19047,7 +19738,7 @@ function ProgressBarUploading(props) {
           i18n
         });
       }
-      return y(FileUploadCount, {
+      return createElement(FileUploadCount, {
         i18n,
         complete,
         numUploads
@@ -19055,15 +19746,15 @@ function ProgressBarUploading(props) {
     }
     return null;
   }
-  return y("div", {
+  return createElement("div", {
     className: "uppy-StatusBar-content",
     "aria-label": title,
     title
-  }, !isAllPaused ? y(LoadingSpinner, null) : null, y("div", {
+  }, !isAllPaused ? createElement(LoadingSpinner, null) : null, createElement("div", {
     className: "uppy-StatusBar-status"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-StatusBar-statusPrimary"
-  }, supportsUploadProgress2 ? `${title}: ${totalProgress}%` : title), renderProgressDetails(), showUploadNewlyAddedFiles ? y(UploadNewlyAddedFiles, {
+  }, supportsUploadProgress2 ? `${title}: ${totalProgress}%` : title), renderProgressDetails(), showUploadNewlyAddedFiles ? createElement(UploadNewlyAddedFiles, {
     i18n,
     newFiles,
     startUpload
@@ -19073,22 +19764,22 @@ function ProgressBarComplete(props) {
   const {
     i18n
   } = props;
-  return y("div", {
+  return createElement("div", {
     className: "uppy-StatusBar-content",
     role: "status",
     title: i18n("complete")
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-StatusBar-status"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-StatusBar-statusPrimary"
-  }, y("svg", {
+  }, createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-StatusBar-statusIndicator uppy-c-icon",
     width: "15",
     height: "11",
     viewBox: "0 0 15 11"
-  }, y("path", {
+  }, createElement("path", {
     d: "M.414 5.843L1.627 4.63l3.472 3.472L13.202 0l1.212 1.213L5.1 10.528z"
   })), i18n("complete"))));
 }
@@ -19105,30 +19796,30 @@ function ProgressBarError(props) {
  ${error}`;
     alert(errorMessage);
   }
-  return y("div", {
+  return createElement("div", {
     className: "uppy-StatusBar-content",
     title: i18n("uploadFailed")
-  }, y("svg", {
+  }, createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-StatusBar-statusIndicator uppy-c-icon",
     width: "11",
     height: "11",
     viewBox: "0 0 11 11"
-  }, y("path", {
+  }, createElement("path", {
     d: "M4.278 5.5L0 1.222 1.222 0 5.5 4.278 9.778 0 11 1.222 6.722 5.5 11 9.778 9.778 11 5.5 6.722 1.222 11 0 9.778z"
-  })), y("div", {
+  })), createElement("div", {
     className: "uppy-StatusBar-status"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-StatusBar-statusPrimary"
-  }, i18n("uploadFailed"), y("button", {
+  }, i18n("uploadFailed"), createElement("button", {
     className: "uppy-u-reset uppy-StatusBar-details",
     "aria-label": i18n("showErrorDetails"),
     "data-microtip-position": "top-right",
     "data-microtip-size": "medium",
     onClick: displayErrorAlert,
     type: "button"
-  }, "?")), y(FileUploadCount, {
+  }, "?")), createElement(FileUploadCount, {
     i18n,
     complete,
     numUploads
@@ -19144,38 +19835,38 @@ var {
   STATE_POSTPROCESSING,
   STATE_COMPLETE
 } = StatusBarStates_default;
-function StatusBar(props) {
-  const {
+function StatusBarUI(_ref) {
+  let {
     newFiles,
     allowNewUpload,
     isUploadInProgress,
     isAllPaused,
     resumableUploads,
     error,
-    hideUploadButton,
-    hidePauseResumeButton,
-    hideCancelButton,
-    hideRetryButton,
+    hideUploadButton = void 0,
+    hidePauseResumeButton = false,
+    hideCancelButton = false,
+    hideRetryButton = false,
     recoveredState,
     uploadState,
     totalProgress,
     files,
     supportsUploadProgress: supportsUploadProgress2,
-    hideAfterFinish,
+    hideAfterFinish = false,
     isSomeGhost,
-    doneButtonHandler,
+    doneButtonHandler = void 0,
     isUploadStarted,
     i18n,
     startUpload,
     uppy: uppy2,
     isAllComplete,
-    showProgressDetails,
+    showProgressDetails = void 0,
     numUploads,
     complete,
     totalSize,
     totalETA,
     totalUploadedSize
-  } = props;
+  } = _ref;
   function getProgressValue() {
     switch (uploadState) {
       case STATE_POSTPROCESSING:
@@ -19218,23 +19909,9 @@ function StatusBar(props) {
         return false;
     }
   }
-  function getIsHidden() {
-    if (recoveredState) {
-      return false;
-    }
-    switch (uploadState) {
-      case STATE_WAITING:
-        return hideUploadButton || newFiles === 0;
-      case STATE_COMPLETE:
-        return hideAfterFinish;
-      default:
-        return false;
-    }
-  }
   const progressValue = getProgressValue();
-  const isHidden = getIsHidden();
   const width = progressValue != null ? progressValue : 100;
-  const showUploadBtn = !error && newFiles && !isUploadInProgress && !isAllPaused && allowNewUpload && !hideUploadButton;
+  const showUploadBtn = !error && newFiles && (!isUploadInProgress && !isAllPaused || recoveredState) && allowNewUpload && !hideUploadButton;
   const showCancelBtn = !hideCancelButton && uploadState !== STATE_WAITING && uploadState !== STATE_COMPLETE;
   const showPauseResumeBtn = resumableUploads && !hidePauseResumeButton && uploadState === STATE_UPLOADING;
   const showRetryBtn = error && !isAllComplete && !hideRetryButton;
@@ -19245,40 +19922,26 @@ function StatusBar(props) {
   const statusBarClassNames = (0, import_classnames2.default)("uppy-StatusBar", `is-${uploadState}`, {
     "has-ghosts": isSomeGhost
   });
-  return y("div", {
-    className: statusBarClassNames,
-    "aria-hidden": isHidden
-  }, y("div", {
-    className: progressClassNames,
-    style: {
-      width: `${width}%`
-    },
-    role: "progressbar",
-    "aria-label": `${width}%`,
-    "aria-valuetext": `${width}%`,
-    "aria-valuemin": 0,
-    "aria-valuemax": 100,
-    "aria-valuenow": progressValue
-  }), (() => {
+  const progressBarStateEl = (() => {
     switch (uploadState) {
       case STATE_PREPROCESSING:
       case STATE_POSTPROCESSING:
-        return y(ProgressBarProcessing, {
+        return createElement(ProgressBarProcessing, {
           progress: calculateProcessingProgress(files)
         });
       case STATE_COMPLETE:
-        return y(ProgressBarComplete, {
+        return createElement(ProgressBarComplete, {
           i18n
         });
       case STATE_ERROR:
-        return y(ProgressBarError, {
+        return createElement(ProgressBarError, {
           error,
           i18n,
           numUploads,
           complete
         });
       case STATE_UPLOADING:
-        return y(ProgressBarUploading, {
+        return createElement(ProgressBarUploading, {
           i18n,
           supportsUploadProgress: supportsUploadProgress2,
           totalProgress,
@@ -19297,9 +19960,27 @@ function StatusBar(props) {
       default:
         return null;
     }
-  })(), y("div", {
+  })();
+  const atLeastOneAction = showUploadBtn || showRetryBtn || showPauseResumeBtn || showCancelBtn || showDoneBtn;
+  const thereIsNothingInside = !atLeastOneAction && !progressBarStateEl;
+  const isHidden = thereIsNothingInside || uploadState === STATE_COMPLETE && hideAfterFinish;
+  return createElement("div", {
+    className: statusBarClassNames,
+    "aria-hidden": isHidden
+  }, createElement("div", {
+    className: progressClassNames,
+    style: {
+      width: `${width}%`
+    },
+    role: "progressbar",
+    "aria-label": `${width}%`,
+    "aria-valuetext": `${width}%`,
+    "aria-valuemin": 0,
+    "aria-valuemax": 100,
+    "aria-valuenow": progressValue
+  }), progressBarStateEl, createElement("div", {
     className: "uppy-StatusBar-actions"
-  }, recoveredState || showUploadBtn ? y(UploadBtn, {
+  }, showUploadBtn ? createElement(UploadBtn, {
     newFiles,
     isUploadStarted,
     recoveredState,
@@ -19307,32 +19988,23 @@ function StatusBar(props) {
     isSomeGhost,
     startUpload,
     uploadState
-  }) : null, showRetryBtn ? y(RetryBtn, {
+  }) : null, showRetryBtn ? createElement(RetryBtn, {
     i18n,
     uppy: uppy2
-  }) : null, showPauseResumeBtn ? y(PauseResumeButton, {
+  }) : null, showPauseResumeBtn ? createElement(PauseResumeButton, {
     isAllPaused,
     i18n,
     isAllComplete,
     resumableUploads,
     uppy: uppy2
-  }) : null, showCancelBtn ? y(CancelBtn, {
+  }) : null, showCancelBtn ? createElement(CancelBtn, {
     i18n,
     uppy: uppy2
-  }) : null, showDoneBtn ? y(DoneBtn, {
+  }) : null, showDoneBtn ? createElement(DoneBtn, {
     i18n,
     doneButtonHandler
   }) : null));
 }
-StatusBar.defaultProps = {
-  doneButtonHandler: void 0,
-  hideAfterFinish: false,
-  hideCancelButton: false,
-  hidePauseResumeButton: false,
-  hideRetryButton: false,
-  hideUploadButton: void 0,
-  showProgressDetails: void 0
-};
 
 // node_modules/@uppy/status-bar/lib/locale.js
 var locale_default2 = {
@@ -19371,18 +20043,17 @@ var locale_default2 = {
 };
 
 // node_modules/@uppy/status-bar/lib/StatusBar.js
-function _classPrivateFieldLooseBase5(receiver, privateKey) {
-  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
+function _classPrivateFieldLooseBase5(e, t) {
+  if (!{}.hasOwnProperty.call(e, t))
     throw new TypeError("attempted to use private field on non-instance");
-  }
-  return receiver;
+  return e;
 }
 var id5 = 0;
-function _classPrivateFieldLooseKey5(name) {
-  return "__private_" + id5++ + "_" + name;
+function _classPrivateFieldLooseKey5(e) {
+  return "__private_" + id5++ + "_" + e;
 }
 var packageJson3 = {
-  "version": "3.3.3"
+  "version": "4.0.3"
 };
 var speedFilterHalfLife = 2e3;
 var ETAFilterHalfLife = 2e3;
@@ -19398,10 +20069,10 @@ function getUploadingState(error, isAllComplete, recoveredState, files) {
   }
   let state = StatusBarStates_default.STATE_WAITING;
   const fileIDs = Object.keys(files);
-  for (let i4 = 0; i4 < fileIDs.length; i4++) {
+  for (let i = 0; i < fileIDs.length; i++) {
     const {
       progress
-    } = files[fileIDs[i4]];
+    } = files[fileIDs[i]];
     if (progress.uploadStarted && !progress.uploadComplete) {
       return StatusBarStates_default.STATE_UPLOADING;
     }
@@ -19415,7 +20086,6 @@ function getUploadingState(error, isAllComplete, recoveredState, files) {
   return state;
 }
 var defaultOptions2 = {
-  target: "body",
   hideUploadButton: false,
   hideRetryButton: false,
   hidePauseResumeButton: false,
@@ -19430,7 +20100,7 @@ var _previousSpeed = /* @__PURE__ */ _classPrivateFieldLooseKey5("previousSpeed"
 var _previousETA = /* @__PURE__ */ _classPrivateFieldLooseKey5("previousETA");
 var _computeSmoothETA = /* @__PURE__ */ _classPrivateFieldLooseKey5("computeSmoothETA");
 var _onUploadStart = /* @__PURE__ */ _classPrivateFieldLooseKey5("onUploadStart");
-var StatusBar2 = class extends UIPlugin_default {
+var StatusBar = class extends UIPlugin_default {
   constructor(uppy2, opts) {
     super(uppy2, {
       ...defaultOptions2,
@@ -19504,7 +20174,6 @@ var StatusBar2 = class extends UIPlugin_default {
       completeFiles,
       isUploadStarted,
       isAllComplete,
-      isAllErrored,
       isAllPaused,
       isUploadInProgress,
       isSomeGhost
@@ -19523,7 +20192,7 @@ var StatusBar2 = class extends UIPlugin_default {
       total: totalSize,
       remaining: totalSize - totalUploadedSize
     });
-    return StatusBar({
+    return StatusBarUI({
       error,
       uploadState: getUploadingState(error, isAllComplete, recoveredState, state.files || {}),
       allowNewUpload,
@@ -19532,7 +20201,6 @@ var StatusBar2 = class extends UIPlugin_default {
       totalUploadedSize,
       isAllComplete: false,
       isAllPaused,
-      isAllErrored,
       isUploadStarted,
       isUploadInProgress,
       isSomeGhost,
@@ -19553,8 +20221,7 @@ var StatusBar2 = class extends UIPlugin_default {
       hideRetryButton: this.opts.hideRetryButton,
       hidePauseResumeButton: this.opts.hidePauseResumeButton,
       hideCancelButton: this.opts.hideCancelButton,
-      hideAfterFinish: this.opts.hideAfterFinish,
-      isTargetDOMEl: this.isTargetDOMEl
+      hideAfterFinish: this.opts.hideAfterFinish
     });
   }
   onMount() {
@@ -19607,14 +20274,14 @@ function _computeSmoothETA2(totalBytes) {
   _classPrivateFieldLooseBase5(this, _lastUpdateTime)[_lastUpdateTime] = performance.now();
   return Math.round(filteredETA / 100) / 10;
 }
-StatusBar2.VERSION = packageJson3.version;
+StatusBar.VERSION = packageJson3.version;
 
 // node_modules/@uppy/informer/lib/FadeIn.js
 var TRANSITION_MS = 300;
-var FadeIn = class extends b {
+var FadeIn = class extends BaseComponent {
   constructor() {
     super(...arguments);
-    this.ref = _3();
+    this.ref = createRef();
   }
   componentWillEnter(callback) {
     this.ref.current.style.opacity = "1";
@@ -19630,7 +20297,7 @@ var FadeIn = class extends b {
     const {
       children
     } = this.props;
-    return y("div", {
+    return createElement("div", {
       className: "uppy-Informer-animated",
       ref: this.ref
     }, children);
@@ -19638,7 +20305,7 @@ var FadeIn = class extends b {
 };
 
 // node_modules/@uppy/informer/lib/TransitionGroup.js
-function assign(obj, props) {
+function assign2(obj, props) {
   return Object.assign(obj, props);
 }
 function getKey(vnode, fallback) {
@@ -19647,16 +20314,16 @@ function getKey(vnode, fallback) {
 }
 function linkRef(component, name) {
   const cache = component._ptgLinkedRefs || (component._ptgLinkedRefs = {});
-  return cache[name] || (cache[name] = (c4) => {
-    component.refs[name] = c4;
+  return cache[name] || (cache[name] = (c) => {
+    component.refs[name] = c;
   });
 }
 function getChildMapping(children) {
   const out = {};
-  for (let i4 = 0; i4 < children.length; i4++) {
-    if (children[i4] != null) {
-      const key = getKey(children[i4], i4.toString(36));
-      out[key] = children[i4];
+  for (let i = 0; i < children.length; i++) {
+    if (children[i] != null) {
+      const key = getKey(children[i], i.toString(36));
+      out[key] = children[i];
     }
   }
   return out;
@@ -19680,25 +20347,25 @@ function mergeChildMappings(prev, next) {
   const childMapping = {};
   for (const nextKey in next) {
     if (nextKeysPending.hasOwnProperty(nextKey)) {
-      for (let i4 = 0; i4 < nextKeysPending[nextKey].length; i4++) {
-        const pendingNextKey = nextKeysPending[nextKey][i4];
-        childMapping[nextKeysPending[nextKey][i4]] = getValueForKey(pendingNextKey);
+      for (let i = 0; i < nextKeysPending[nextKey].length; i++) {
+        const pendingNextKey = nextKeysPending[nextKey][i];
+        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
       }
     }
     childMapping[nextKey] = getValueForKey(nextKey);
   }
-  for (let i4 = 0; i4 < pendingKeys.length; i4++) {
-    childMapping[pendingKeys[i4]] = getValueForKey(pendingKeys[i4]);
+  for (let i = 0; i < pendingKeys.length; i++) {
+    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
   }
   return childMapping;
 }
-var identity = (i4) => i4;
-var TransitionGroup = class extends b {
+var identity = (i) => i;
+var TransitionGroup = class extends BaseComponent {
   constructor(props, context) {
     super(props, context);
     this.refs = {};
     this.state = {
-      children: getChildMapping($2($2(this.props.children)) || [])
+      children: getChildMapping(toChildArray(toChildArray(this.props.children)) || [])
     };
     this.performAppear = this.performAppear.bind(this);
     this.performEnter = this.performEnter.bind(this);
@@ -19719,7 +20386,7 @@ var TransitionGroup = class extends b {
     }
   }
   componentWillReceiveProps(nextProps) {
-    const nextChildMapping = getChildMapping($2(nextProps.children) || []);
+    const nextChildMapping = getChildMapping(toChildArray(nextProps.children) || []);
     const prevChildMapping = this.state.children;
     this.setState((prevState) => ({
       children: mergeChildMappings(prevState.children, nextChildMapping)
@@ -19779,7 +20446,7 @@ var TransitionGroup = class extends b {
     }
     delete this.currentlyTransitioningKeys[key];
     this._finishAbort(key);
-    const currentChildMapping = getChildMapping($2(this.props.children) || []);
+    const currentChildMapping = getChildMapping(toChildArray(this.props.children) || []);
     if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
       this.performLeave(key);
     }
@@ -19800,7 +20467,7 @@ var TransitionGroup = class extends b {
     }
     delete this.currentlyTransitioningKeys[key];
     this._finishAbort(key);
-    const currentChildMapping = getChildMapping($2(this.props.children) || []);
+    const currentChildMapping = getChildMapping(toChildArray(this.props.children) || []);
     if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
       this.performLeave(key);
     }
@@ -19828,11 +20495,11 @@ var TransitionGroup = class extends b {
       component.componentDidLeave();
     }
     delete this.currentlyTransitioningKeys[key];
-    const currentChildMapping = getChildMapping($2(this.props.children) || []);
+    const currentChildMapping = getChildMapping(toChildArray(this.props.children) || []);
     if (currentChildMapping && currentChildMapping.hasOwnProperty(key)) {
       this.performEnter(key);
     } else {
-      const children = assign({}, this.state.children);
+      const children = assign2({}, this.state.children);
       delete children[key];
       this.setState({
         children
@@ -19860,12 +20527,12 @@ var TransitionGroup = class extends b {
       if (!child)
         return void 0;
       const ref = linkRef(this, key);
-      return B(childFactory(child), {
+      return cloneElement(childFactory(child), {
         ref,
         key
       });
     }).filter(Boolean);
-    return y(component, props, childrenToRender);
+    return createElement(component, props, childrenToRender);
   }
 };
 TransitionGroup.defaultProps = {
@@ -19876,19 +20543,19 @@ var TransitionGroup_default = TransitionGroup;
 
 // node_modules/@uppy/informer/lib/Informer.js
 var packageJson4 = {
-  "version": "3.1.0"
+  "version": "4.1.0"
 };
 var Informer = class extends UIPlugin_default {
   constructor(uppy2, opts) {
     super(uppy2, opts);
     this.render = (state) => {
-      return y("div", {
+      return createElement("div", {
         className: "uppy uppy-Informer"
-      }, y(TransitionGroup_default, null, state.info.map((info) => y(FadeIn, {
+      }, createElement(TransitionGroup_default, null, state.info.map((info) => createElement(FadeIn, {
         key: info.message
-      }, y("p", {
+      }, createElement("p", {
         role: "alert"
-      }, info.message, " ", info.details && y("span", {
+      }, info.message, " ", info.details && createElement("span", {
         "aria-label": info.details,
         "data-microtip-position": "top-left",
         "data-microtip-size": "medium",
@@ -19923,8 +20590,8 @@ function dataURItoBlob(dataURI, opts, toFile) {
   if ((dataURIData == null ? void 0 : dataURIData[2]) != null) {
     const binary = atob(decodeURIComponent(dataURIData[3]));
     const bytes = new Uint8Array(binary.length);
-    for (let i4 = 0; i4 < binary.length; i4++) {
-      bytes[i4] = binary.charCodeAt(i4);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
     }
     data = [bytes];
   } else if ((dataURIData == null ? void 0 : dataURIData[3]) != null) {
@@ -19953,762 +20620,1350 @@ function isPreviewSupported(fileType) {
   return /^[^/]+\/(jpe?g|gif|png|svg|svg\+xml|bmp|webp|avif)$/.test(fileType);
 }
 
-// node_modules/exifr/dist/mini.esm.mjs
-function e2(e4, t4, s4) {
-  return t4 in e4 ? Object.defineProperty(e4, t4, { value: s4, enumerable: true, configurable: true, writable: true }) : e4[t4] = s4, e4;
+// node_modules/exifr/src/polyfill/global.mjs
+var global_default = typeof self !== "undefined" ? self : global;
+
+// node_modules/exifr/src/util/platform.mjs
+var browser = typeof navigator !== "undefined";
+var worker = browser && typeof HTMLImageElement === "undefined";
+var node = !!(typeof global !== "undefined" && typeof process !== "undefined" && process.versions && process.versions.node);
+var Buffer2 = global_default.Buffer;
+var BigInt = global_default.BigInt;
+var hasBuffer = !!Buffer2;
+
+// node_modules/exifr/src/util/helpers.mjs
+var TIFF_LITTLE_ENDIAN = 18761;
+var TIFF_BIG_ENDIAN = 19789;
+var undefinedIfEmpty = (object) => isEmpty(object) ? void 0 : object;
+var isDefined = (val) => val !== void 0;
+function isEmpty(arg) {
+  if (arg === void 0)
+    return true;
+  if (arg instanceof Map)
+    return arg.size === 0;
+  else
+    return Object.values(arg).filter(isDefined).length === 0;
 }
-var t2 = "undefined" != typeof self ? self : global;
-var s2 = "undefined" != typeof navigator;
-var i2 = s2 && "undefined" == typeof HTMLImageElement;
-var n2 = !("undefined" == typeof global || "undefined" == typeof process || !process.versions || !process.versions.node);
-var r2 = t2.Buffer;
-var a2 = !!r2;
-var h2 = (e4) => void 0 !== e4;
-function f2(e4) {
-  return void 0 === e4 || (e4 instanceof Map ? 0 === e4.size : 0 === Object.values(e4).filter(h2).length);
+function throwError(message) {
+  let err = new Error(message);
+  delete err.stack;
+  throw err;
 }
-function l2(e4) {
-  let t4 = new Error(e4);
-  throw delete t4.stack, t4;
+function removeNullTermination(string) {
+  while (string.endsWith("\0"))
+    string = string.slice(0, -1);
+  return string;
 }
-function o2(e4) {
-  let t4 = function(e5) {
-    let t5 = 0;
-    return e5.ifd0.enabled && (t5 += 1024), e5.exif.enabled && (t5 += 2048), e5.makerNote && (t5 += 2048), e5.userComment && (t5 += 1024), e5.gps.enabled && (t5 += 512), e5.interop.enabled && (t5 += 100), e5.ifd1.enabled && (t5 += 1024), t5 + 2048;
-  }(e4);
-  return e4.jfif.enabled && (t4 += 50), e4.xmp.enabled && (t4 += 2e4), e4.iptc.enabled && (t4 += 14e3), e4.icc.enabled && (t4 += 6e3), t4;
+function normalizeString(string) {
+  string = removeNullTermination(string).trim();
+  return string === "" ? void 0 : string;
 }
-var u2 = (e4) => String.fromCharCode.apply(null, e4);
-var d2 = "undefined" != typeof TextDecoder ? new TextDecoder("utf-8") : void 0;
-var c2 = class {
-  static from(e4, t4) {
-    return e4 instanceof this && e4.le === t4 ? e4 : new c2(e4, void 0, void 0, t4);
+function estimateTiffSize(options3) {
+  let bytes = 0;
+  if (options3.ifd0.enabled)
+    bytes += 1024;
+  if (options3.exif.enabled)
+    bytes += 2048;
+  if (options3.makerNote)
+    bytes += 2048;
+  if (options3.userComment)
+    bytes += 1024;
+  if (options3.gps.enabled)
+    bytes += 512;
+  if (options3.interop.enabled)
+    bytes += 100;
+  if (options3.ifd1.enabled)
+    bytes += 1024;
+  return bytes + 2048;
+}
+function estimateMetadataSize(options3) {
+  let bytes = estimateTiffSize(options3);
+  if (options3.jfif.enabled)
+    bytes += 50;
+  if (options3.xmp.enabled)
+    bytes += 2e4;
+  if (options3.iptc.enabled)
+    bytes += 14e3;
+  if (options3.icc.enabled)
+    bytes += 6e3;
+  return bytes;
+}
+
+// node_modules/exifr/src/util/BufferView.mjs
+var arrayToCharCode = (arr) => String.fromCharCode.apply(null, arr);
+var utf8decoder = typeof TextDecoder !== "undefined" ? new TextDecoder("utf-8") : void 0;
+function uint8ArrayToUtf8String(uint8array) {
+  if (utf8decoder)
+    return utf8decoder.decode(uint8array);
+  else if (hasBuffer)
+    return Buffer.from(uint8array).toString("utf8");
+  else
+    return decodeURIComponent(escape(arrayToCharCode(uint8array)));
+}
+var BufferView = class {
+  static from(arg, le) {
+    if (arg instanceof this && arg.le === le)
+      return arg;
+    else
+      return new BufferView(arg, void 0, void 0, le);
   }
-  constructor(e4, t4 = 0, s4, i4) {
-    if ("boolean" == typeof i4 && (this.le = i4), Array.isArray(e4) && (e4 = new Uint8Array(e4)), 0 === e4)
-      this.byteOffset = 0, this.byteLength = 0;
-    else if (e4 instanceof ArrayBuffer) {
-      void 0 === s4 && (s4 = e4.byteLength - t4);
-      let i5 = new DataView(e4, t4, s4);
-      this._swapDataView(i5);
-    } else if (e4 instanceof Uint8Array || e4 instanceof DataView || e4 instanceof c2) {
-      void 0 === s4 && (s4 = e4.byteLength - t4), (t4 += e4.byteOffset) + s4 > e4.byteOffset + e4.byteLength && l2("Creating view outside of available memory in ArrayBuffer");
-      let i5 = new DataView(e4.buffer, t4, s4);
-      this._swapDataView(i5);
-    } else if ("number" == typeof e4) {
-      let t5 = new DataView(new ArrayBuffer(e4));
-      this._swapDataView(t5);
-    } else
-      l2("Invalid input argument for BufferView: " + e4);
+  constructor(arg, offset = 0, length, le) {
+    if (typeof le === "boolean")
+      this.le = le;
+    if (Array.isArray(arg))
+      arg = new Uint8Array(arg);
+    if (arg === 0) {
+      this.byteOffset = 0;
+      this.byteLength = 0;
+    } else if (arg instanceof ArrayBuffer) {
+      if (length === void 0)
+        length = arg.byteLength - offset;
+      let dataView = new DataView(arg, offset, length);
+      this._swapDataView(dataView);
+    } else if (arg instanceof Uint8Array || arg instanceof DataView || arg instanceof BufferView) {
+      if (length === void 0)
+        length = arg.byteLength - offset;
+      offset += arg.byteOffset;
+      if (offset + length > arg.byteOffset + arg.byteLength)
+        throwError("Creating view outside of available memory in ArrayBuffer");
+      let dataView = new DataView(arg.buffer, offset, length);
+      this._swapDataView(dataView);
+    } else if (typeof arg === "number") {
+      let dataView = new DataView(new ArrayBuffer(arg));
+      this._swapDataView(dataView);
+    } else {
+      throwError("Invalid input argument for BufferView: " + arg);
+    }
   }
-  _swapArrayBuffer(e4) {
-    this._swapDataView(new DataView(e4));
+  _swapArrayBuffer(arrayBuffer) {
+    this._swapDataView(new DataView(arrayBuffer));
   }
-  _swapBuffer(e4) {
-    this._swapDataView(new DataView(e4.buffer, e4.byteOffset, e4.byteLength));
+  _swapBuffer(uint8) {
+    this._swapDataView(new DataView(uint8.buffer, uint8.byteOffset, uint8.byteLength));
   }
-  _swapDataView(e4) {
-    this.dataView = e4, this.buffer = e4.buffer, this.byteOffset = e4.byteOffset, this.byteLength = e4.byteLength;
+  _swapDataView(dataView) {
+    this.dataView = dataView;
+    this.buffer = dataView.buffer;
+    this.byteOffset = dataView.byteOffset;
+    this.byteLength = dataView.byteLength;
   }
-  _lengthToEnd(e4) {
-    return this.byteLength - e4;
+  _lengthToEnd(offset) {
+    return this.byteLength - offset;
   }
-  set(e4, t4, s4 = c2) {
-    return e4 instanceof DataView || e4 instanceof c2 ? e4 = new Uint8Array(e4.buffer, e4.byteOffset, e4.byteLength) : e4 instanceof ArrayBuffer && (e4 = new Uint8Array(e4)), e4 instanceof Uint8Array || l2("BufferView.set(): Invalid data argument."), this.toUint8().set(e4, t4), new s4(this, t4, e4.byteLength);
+  set(arg, offset, Class = BufferView) {
+    if (arg instanceof DataView || arg instanceof BufferView)
+      arg = new Uint8Array(arg.buffer, arg.byteOffset, arg.byteLength);
+    else if (arg instanceof ArrayBuffer)
+      arg = new Uint8Array(arg);
+    if (!(arg instanceof Uint8Array))
+      throwError(`BufferView.set(): Invalid data argument.`);
+    let uintView = this.toUint8();
+    uintView.set(arg, offset);
+    return new Class(this, offset, arg.byteLength);
   }
-  subarray(e4, t4) {
-    return t4 = t4 || this._lengthToEnd(e4), new c2(this, e4, t4);
+  subarray(offset, length) {
+    length = length || this._lengthToEnd(offset);
+    return new BufferView(this, offset, length);
   }
   toUint8() {
     return new Uint8Array(this.buffer, this.byteOffset, this.byteLength);
   }
-  getUint8Array(e4, t4) {
-    return new Uint8Array(this.buffer, this.byteOffset + e4, t4);
+  getUint8Array(offset, length) {
+    return new Uint8Array(this.buffer, this.byteOffset + offset, length);
   }
-  getString(e4 = 0, t4 = this.byteLength) {
-    let s4 = this.getUint8Array(e4, t4);
-    return i4 = s4, d2 ? d2.decode(i4) : a2 ? Buffer.from(i4).toString("utf8") : decodeURIComponent(escape(u2(i4)));
-    var i4;
+  getString(offset = 0, length = this.byteLength) {
+    let arr = this.getUint8Array(offset, length);
+    return uint8ArrayToUtf8String(arr);
   }
-  getLatin1String(e4 = 0, t4 = this.byteLength) {
-    let s4 = this.getUint8Array(e4, t4);
-    return u2(s4);
+  getLatin1String(offset = 0, length = this.byteLength) {
+    let arr = this.getUint8Array(offset, length);
+    return arrayToCharCode(arr);
   }
-  getUnicodeString(e4 = 0, t4 = this.byteLength) {
-    const s4 = [];
-    for (let i4 = 0; i4 < t4 && e4 + i4 < this.byteLength; i4 += 2)
-      s4.push(this.getUint16(e4 + i4));
-    return u2(s4);
+  getUnicodeString(offset = 0, length = this.byteLength) {
+    const chars = [];
+    for (let i = 0; i < length && offset + i < this.byteLength; i += 2)
+      chars.push(this.getUint16(offset + i));
+    return arrayToCharCode(chars);
   }
-  getInt8(e4) {
-    return this.dataView.getInt8(e4);
+  getInt8(offset) {
+    return this.dataView.getInt8(offset);
   }
-  getUint8(e4) {
-    return this.dataView.getUint8(e4);
+  getUint8(offset) {
+    return this.dataView.getUint8(offset);
   }
-  getInt16(e4, t4 = this.le) {
-    return this.dataView.getInt16(e4, t4);
+  getInt16(offset, le = this.le) {
+    return this.dataView.getInt16(offset, le);
   }
-  getInt32(e4, t4 = this.le) {
-    return this.dataView.getInt32(e4, t4);
+  getInt32(offset, le = this.le) {
+    return this.dataView.getInt32(offset, le);
   }
-  getUint16(e4, t4 = this.le) {
-    return this.dataView.getUint16(e4, t4);
+  getUint16(offset, le = this.le) {
+    return this.dataView.getUint16(offset, le);
   }
-  getUint32(e4, t4 = this.le) {
-    return this.dataView.getUint32(e4, t4);
+  getUint32(offset, le = this.le) {
+    return this.dataView.getUint32(offset, le);
   }
-  getFloat32(e4, t4 = this.le) {
-    return this.dataView.getFloat32(e4, t4);
+  getFloat32(offset, le = this.le) {
+    return this.dataView.getFloat32(offset, le);
   }
-  getFloat64(e4, t4 = this.le) {
-    return this.dataView.getFloat64(e4, t4);
+  getFloat64(offset, le = this.le) {
+    return this.dataView.getFloat64(offset, le);
   }
-  getFloat(e4, t4 = this.le) {
-    return this.dataView.getFloat32(e4, t4);
+  getFloat(offset, le = this.le) {
+    return this.dataView.getFloat32(offset, le);
   }
-  getDouble(e4, t4 = this.le) {
-    return this.dataView.getFloat64(e4, t4);
+  getDouble(offset, le = this.le) {
+    return this.dataView.getFloat64(offset, le);
   }
-  getUintBytes(e4, t4, s4) {
-    switch (t4) {
+  getUintBytes(offset, bytes, le) {
+    switch (bytes) {
       case 1:
-        return this.getUint8(e4, s4);
+        return this.getUint8(offset, le);
       case 2:
-        return this.getUint16(e4, s4);
+        return this.getUint16(offset, le);
       case 4:
-        return this.getUint32(e4, s4);
+        return this.getUint32(offset, le);
       case 8:
-        return this.getUint64 && this.getUint64(e4, s4);
+        return this.getUint64 && this.getUint64(offset, le);
     }
   }
-  getUint(e4, t4, s4) {
-    switch (t4) {
+  getUint(offset, size, le) {
+    switch (size) {
       case 8:
-        return this.getUint8(e4, s4);
+        return this.getUint8(offset, le);
       case 16:
-        return this.getUint16(e4, s4);
+        return this.getUint16(offset, le);
       case 32:
-        return this.getUint32(e4, s4);
+        return this.getUint32(offset, le);
       case 64:
-        return this.getUint64 && this.getUint64(e4, s4);
+        return this.getUint64 && this.getUint64(offset, le);
     }
   }
-  toString(e4) {
-    return this.dataView.toString(e4, this.constructor.name);
+  toString(arg) {
+    return this.dataView.toString(arg, this.constructor.name);
   }
   ensureChunk() {
   }
 };
-function p2(e4, t4) {
-  l2(`${e4} '${t4}' was not loaded, try using full build of exifr.`);
+
+// node_modules/exifr/src/plugins.mjs
+function throwUnknown(kind, key) {
+  throwError(`Unknown ${kind} '${key}'.`);
 }
-var g2 = class extends Map {
-  constructor(e4) {
-    super(), this.kind = e4;
+function throwNotLoaded(kind, key) {
+  throwError(`${kind} '${key}' was not loaded, try using full build of exifr.`);
+}
+var PluginList = class extends Map {
+  constructor(kind) {
+    super();
+    this.kind = kind;
   }
-  get(e4, t4) {
-    return this.has(e4) || p2(this.kind, e4), t4 && (e4 in t4 || function(e5, t5) {
-      l2(`Unknown ${e5} '${t5}'.`);
-    }(this.kind, e4), t4[e4].enabled || p2(this.kind, e4)), super.get(e4);
+  get(key, options3) {
+    if (!this.has(key))
+      throwNotLoaded(this.kind, key);
+    if (options3) {
+      if (!(key in options3))
+        throwUnknown(this.kind, key);
+      if (!options3[key].enabled)
+        throwNotLoaded(this.kind, key);
+    }
+    return super.get(key);
   }
   keyList() {
     return Array.from(this.keys());
   }
 };
-var m2 = new g2("file parser");
-var y2 = new g2("segment parser");
-var b2 = new g2("file reader");
-var w2 = t2.fetch;
-function k2(e4, t4) {
-  return (i4 = e4).startsWith("data:") || i4.length > 1e4 ? v2(e4, t4, "base64") : n2 && e4.includes("://") ? O2(e4, t4, "url", S2) : n2 ? v2(e4, t4, "fs") : s2 ? O2(e4, t4, "url", S2) : void l2("Invalid input argument");
-  var i4;
-}
-async function O2(e4, t4, s4, i4) {
-  return b2.has(s4) ? v2(e4, t4, s4) : i4 ? async function(e5, t5) {
-    let s5 = await t5(e5);
-    return new c2(s5);
-  }(e4, i4) : void l2(`Parser ${s4} is not loaded`);
-}
-async function v2(e4, t4, s4) {
-  let i4 = new (b2.get(s4))(e4, t4);
-  return await i4.read(), i4;
-}
-var S2 = (e4) => w2(e4).then((e5) => e5.arrayBuffer());
-var A2 = (e4) => new Promise((t4, s4) => {
-  let i4 = new FileReader();
-  i4.onloadend = () => t4(i4.result || new ArrayBuffer()), i4.onerror = s4, i4.readAsArrayBuffer(e4);
-});
-var U = class extends Map {
-  get tagKeys() {
-    return this.allKeys || (this.allKeys = Array.from(this.keys())), this.allKeys;
-  }
-  get tagValues() {
-    return this.allValues || (this.allValues = Array.from(this.values())), this.allValues;
-  }
-};
-function x2(e4, t4, s4) {
-  let i4 = new U();
-  for (let [e5, t5] of s4)
-    i4.set(e5, t5);
-  if (Array.isArray(t4))
-    for (let s5 of t4)
-      e4.set(s5, i4);
+var fileParsers = new PluginList("file parser");
+var segmentParsers = new PluginList("segment parser");
+var fileReaders = new PluginList("file reader");
+
+// node_modules/exifr/src/polyfill/fetch.mjs
+var fetch2 = global_default.fetch;
+
+// node_modules/exifr/src/reader.mjs
+var INVALID_INPUT = "Invalid input argument";
+function read(arg, options3) {
+  if (typeof arg === "string")
+    return readString(arg, options3);
+  else if (browser && !worker && arg instanceof HTMLImageElement)
+    return readString(arg.src, options3);
+  else if (arg instanceof Uint8Array || arg instanceof ArrayBuffer || arg instanceof DataView)
+    return new BufferView(arg);
+  else if (browser && arg instanceof Blob)
+    return callReader(arg, options3, "blob", readBlobAsArrayBuffer);
   else
-    e4.set(t4, i4);
-  return i4;
+    throwError(INVALID_INPUT);
 }
-function C2(e4, t4, s4) {
-  let i4, n3 = e4.get(t4);
-  for (i4 of s4)
-    n3.set(i4[0], i4[1]);
+function readString(arg, options3) {
+  if (isBase64Url(arg))
+    return callReaderClass(arg, options3, "base64");
+  else if (node && arg.includes("://"))
+    return callReader(arg, options3, "url", fetchUrlAsArrayBuffer);
+  else if (node)
+    return callReaderClass(arg, options3, "fs");
+  else if (browser)
+    return callReader(arg, options3, "url", fetchUrlAsArrayBuffer);
+  else
+    throwError(INVALID_INPUT);
 }
-var B2 = /* @__PURE__ */ new Map();
-var V = /* @__PURE__ */ new Map();
-var I2 = /* @__PURE__ */ new Map();
-var L2 = ["chunked", "firstChunkSize", "firstChunkSizeNode", "firstChunkSizeBrowser", "chunkSize", "chunkLimit"];
-var T2 = ["jfif", "xmp", "icc", "iptc", "ihdr"];
-var z2 = ["tiff", ...T2];
-var P2 = ["ifd0", "ifd1", "exif", "gps", "interop"];
-var F2 = [...z2, ...P2];
-var j2 = ["makerNote", "userComment"];
-var E = ["translateKeys", "translateValues", "reviveValues", "multiSegment"];
-var M2 = [...E, "sanitize", "mergeOutput", "silentErrors"];
-var _4 = class {
+async function callReader(url2, options3, readerName, readerFn) {
+  if (fileReaders.has(readerName))
+    return callReaderClass(url2, options3, readerName);
+  else if (readerFn)
+    return callReaderFunction(url2, readerFn);
+  else
+    throwError(`Parser ${readerName} is not loaded`);
+}
+async function callReaderClass(input, options3, readerName) {
+  let Reader = fileReaders.get(readerName);
+  let file = new Reader(input, options3);
+  await file.read();
+  return file;
+}
+async function callReaderFunction(input, readerFn) {
+  let rawData = await readerFn(input);
+  return new BufferView(rawData);
+}
+var fetchUrlAsArrayBuffer = (url2) => fetch2(url2).then((res) => res.arrayBuffer());
+var readBlobAsArrayBuffer = (blob) => new Promise((resolve, reject) => {
+  let reader = new FileReader();
+  reader.onloadend = () => resolve(reader.result || new ArrayBuffer());
+  reader.onerror = reject;
+  reader.readAsArrayBuffer(blob);
+});
+function isBase64Url(string) {
+  return string.startsWith("data:") || string.length > 1e4;
+}
+
+// node_modules/exifr/src/tags.mjs
+var tagKeys = /* @__PURE__ */ new Map();
+var tagValues = /* @__PURE__ */ new Map();
+var tagRevivers = /* @__PURE__ */ new Map();
+var TAG_MAKERNOTE = 37500;
+var TAG_USERCOMMENT = 37510;
+var TAG_XMP = 700;
+var TAG_IPTC = 33723;
+var TAG_ICC = 34675;
+var TAG_IFD_EXIF = 34665;
+var TAG_IFD_GPS = 34853;
+var TAG_IFD_INTEROP = 40965;
+var TAG_GPS_LATREF = 1;
+var TAG_GPS_LAT = 2;
+var TAG_GPS_LONREF = 3;
+var TAG_GPS_LON = 4;
+var TAG_ORIENTATION = 274;
+
+// node_modules/exifr/src/options.mjs
+var chunkedProps = [
+  "chunked",
+  "firstChunkSize",
+  "firstChunkSizeNode",
+  "firstChunkSizeBrowser",
+  "chunkSize",
+  "chunkLimit"
+];
+var otherSegments = ["jfif", "xmp", "icc", "iptc", "ihdr"];
+var segments = ["tiff", ...otherSegments];
+var tiffBlocks = ["ifd0", "ifd1", "exif", "gps", "interop"];
+var segmentsAndBlocks = [...segments, ...tiffBlocks];
+var tiffExtractables = ["makerNote", "userComment"];
+var inheritables = ["translateKeys", "translateValues", "reviveValues", "multiSegment"];
+var allFormatters = [...inheritables, "sanitize", "mergeOutput", "silentErrors"];
+var SharedOptions = class {
   get translate() {
     return this.translateKeys || this.translateValues || this.reviveValues;
   }
 };
-var D2 = class extends _4 {
+var SubOptions = class extends SharedOptions {
+  enabled = false;
+  skip = /* @__PURE__ */ new Set();
+  pick = /* @__PURE__ */ new Set();
+  deps = /* @__PURE__ */ new Set();
+  translateKeys = false;
+  translateValues = false;
+  reviveValues = false;
   get needed() {
     return this.enabled || this.deps.size > 0;
   }
-  constructor(t4, s4, i4, n3) {
-    if (super(), e2(this, "enabled", false), e2(this, "skip", /* @__PURE__ */ new Set()), e2(this, "pick", /* @__PURE__ */ new Set()), e2(this, "deps", /* @__PURE__ */ new Set()), e2(this, "translateKeys", false), e2(this, "translateValues", false), e2(this, "reviveValues", false), this.key = t4, this.enabled = s4, this.parse = this.enabled, this.applyInheritables(n3), this.canBeFiltered = P2.includes(t4), this.canBeFiltered && (this.dict = B2.get(t4)), void 0 !== i4)
-      if (Array.isArray(i4))
-        this.parse = this.enabled = true, this.canBeFiltered && i4.length > 0 && this.translateTagSet(i4, this.pick);
-      else if ("object" == typeof i4) {
-        if (this.enabled = true, this.parse = false !== i4.parse, this.canBeFiltered) {
-          let { pick: e4, skip: t5 } = i4;
-          e4 && e4.length > 0 && this.translateTagSet(e4, this.pick), t5 && t5.length > 0 && this.translateTagSet(t5, this.skip);
+  constructor(key, defaultValue, userValue, parent) {
+    super();
+    this.key = key;
+    this.enabled = defaultValue;
+    this.parse = this.enabled;
+    this.applyInheritables(parent);
+    this.canBeFiltered = tiffBlocks.includes(key);
+    if (this.canBeFiltered)
+      this.dict = tagKeys.get(key);
+    if (userValue !== void 0) {
+      if (Array.isArray(userValue)) {
+        this.parse = this.enabled = true;
+        if (this.canBeFiltered && userValue.length > 0)
+          this.translateTagSet(userValue, this.pick);
+      } else if (typeof userValue === "object") {
+        this.enabled = true;
+        this.parse = userValue.parse !== false;
+        if (this.canBeFiltered) {
+          let { pick, skip } = userValue;
+          if (pick && pick.length > 0)
+            this.translateTagSet(pick, this.pick);
+          if (skip && skip.length > 0)
+            this.translateTagSet(skip, this.skip);
         }
-        this.applyInheritables(i4);
-      } else
-        true === i4 || false === i4 ? this.parse = this.enabled = i4 : l2(`Invalid options argument: ${i4}`);
-  }
-  applyInheritables(e4) {
-    let t4, s4;
-    for (t4 of E)
-      s4 = e4[t4], void 0 !== s4 && (this[t4] = s4);
-  }
-  translateTagSet(e4, t4) {
-    if (this.dict) {
-      let s4, i4, { tagKeys: n3, tagValues: r4 } = this.dict;
-      for (s4 of e4)
-        "string" == typeof s4 ? (i4 = r4.indexOf(s4), -1 === i4 && (i4 = n3.indexOf(Number(s4))), -1 !== i4 && t4.add(Number(n3[i4]))) : t4.add(s4);
-    } else
-      for (let s4 of e4)
-        t4.add(s4);
-  }
-  finalizeFilters() {
-    !this.enabled && this.deps.size > 0 ? (this.enabled = true, X(this.pick, this.deps)) : this.enabled && this.pick.size > 0 && X(this.pick, this.deps);
-  }
-};
-var N2 = { jfif: false, tiff: true, xmp: false, icc: false, iptc: false, ifd0: true, ifd1: false, exif: true, gps: true, interop: false, ihdr: void 0, makerNote: false, userComment: false, multiSegment: false, skip: [], pick: [], translateKeys: true, translateValues: true, reviveValues: true, sanitize: true, mergeOutput: true, silentErrors: true, chunked: true, firstChunkSize: void 0, firstChunkSizeNode: 512, firstChunkSizeBrowser: 65536, chunkSize: 65536, chunkLimit: 5 };
-var $3 = /* @__PURE__ */ new Map();
-var R = class extends _4 {
-  static useCached(e4) {
-    let t4 = $3.get(e4);
-    return void 0 !== t4 || (t4 = new this(e4), $3.set(e4, t4)), t4;
-  }
-  constructor(e4) {
-    super(), true === e4 ? this.setupFromTrue() : void 0 === e4 ? this.setupFromUndefined() : Array.isArray(e4) ? this.setupFromArray(e4) : "object" == typeof e4 ? this.setupFromObject(e4) : l2(`Invalid options argument ${e4}`), void 0 === this.firstChunkSize && (this.firstChunkSize = s2 ? this.firstChunkSizeBrowser : this.firstChunkSizeNode), this.mergeOutput && (this.ifd1.enabled = false), this.filterNestedSegmentTags(), this.traverseTiffDependencyTree(), this.checkLoadedPlugins();
-  }
-  setupFromUndefined() {
-    let e4;
-    for (e4 of L2)
-      this[e4] = N2[e4];
-    for (e4 of M2)
-      this[e4] = N2[e4];
-    for (e4 of j2)
-      this[e4] = N2[e4];
-    for (e4 of F2)
-      this[e4] = new D2(e4, N2[e4], void 0, this);
-  }
-  setupFromTrue() {
-    let e4;
-    for (e4 of L2)
-      this[e4] = N2[e4];
-    for (e4 of M2)
-      this[e4] = N2[e4];
-    for (e4 of j2)
-      this[e4] = true;
-    for (e4 of F2)
-      this[e4] = new D2(e4, true, void 0, this);
-  }
-  setupFromArray(e4) {
-    let t4;
-    for (t4 of L2)
-      this[t4] = N2[t4];
-    for (t4 of M2)
-      this[t4] = N2[t4];
-    for (t4 of j2)
-      this[t4] = N2[t4];
-    for (t4 of F2)
-      this[t4] = new D2(t4, false, void 0, this);
-    this.setupGlobalFilters(e4, void 0, P2);
-  }
-  setupFromObject(e4) {
-    let t4;
-    for (t4 of (P2.ifd0 = P2.ifd0 || P2.image, P2.ifd1 = P2.ifd1 || P2.thumbnail, Object.assign(this, e4), L2))
-      this[t4] = W(e4[t4], N2[t4]);
-    for (t4 of M2)
-      this[t4] = W(e4[t4], N2[t4]);
-    for (t4 of j2)
-      this[t4] = W(e4[t4], N2[t4]);
-    for (t4 of z2)
-      this[t4] = new D2(t4, N2[t4], e4[t4], this);
-    for (t4 of P2)
-      this[t4] = new D2(t4, N2[t4], e4[t4], this.tiff);
-    this.setupGlobalFilters(e4.pick, e4.skip, P2, F2), true === e4.tiff ? this.batchEnableWithBool(P2, true) : false === e4.tiff ? this.batchEnableWithUserValue(P2, e4) : Array.isArray(e4.tiff) ? this.setupGlobalFilters(e4.tiff, void 0, P2) : "object" == typeof e4.tiff && this.setupGlobalFilters(e4.tiff.pick, e4.tiff.skip, P2);
-  }
-  batchEnableWithBool(e4, t4) {
-    for (let s4 of e4)
-      this[s4].enabled = t4;
-  }
-  batchEnableWithUserValue(e4, t4) {
-    for (let s4 of e4) {
-      let e5 = t4[s4];
-      this[s4].enabled = false !== e5 && void 0 !== e5;
+        this.applyInheritables(userValue);
+      } else if (userValue === true || userValue === false) {
+        this.parse = this.enabled = userValue;
+      } else {
+        throwError(`Invalid options argument: ${userValue}`);
+      }
     }
   }
-  setupGlobalFilters(e4, t4, s4, i4 = s4) {
-    if (e4 && e4.length) {
-      for (let e5 of i4)
-        this[e5].enabled = false;
-      let t5 = K(e4, s4);
-      for (let [e5, s5] of t5)
-        X(this[e5].pick, s5), this[e5].enabled = true;
-    } else if (t4 && t4.length) {
-      let e5 = K(t4, s4);
-      for (let [t5, s5] of e5)
-        X(this[t5].skip, s5);
+  applyInheritables(origin) {
+    let key, val;
+    for (key of inheritables) {
+      val = origin[key];
+      if (val !== void 0)
+        this[key] = val;
+    }
+  }
+  translateTagSet(inputArray, outputSet) {
+    if (this.dict) {
+      let { tagKeys: tagKeys2, tagValues: tagValues2 } = this.dict;
+      let tag, index;
+      for (tag of inputArray) {
+        if (typeof tag === "string") {
+          index = tagValues2.indexOf(tag);
+          if (index === -1)
+            index = tagKeys2.indexOf(Number(tag));
+          if (index !== -1)
+            outputSet.add(Number(tagKeys2[index]));
+        } else {
+          outputSet.add(tag);
+        }
+      }
+    } else {
+      for (let tag of inputArray)
+        outputSet.add(tag);
+    }
+  }
+  finalizeFilters() {
+    if (!this.enabled && this.deps.size > 0) {
+      this.enabled = true;
+      addToSet(this.pick, this.deps);
+    } else if (this.enabled && this.pick.size > 0) {
+      addToSet(this.pick, this.deps);
+    }
+  }
+};
+var defaults = {
+  jfif: false,
+  tiff: true,
+  xmp: false,
+  icc: false,
+  iptc: false,
+  ifd0: true,
+  ifd1: false,
+  exif: true,
+  gps: true,
+  interop: false,
+  ihdr: void 0,
+  makerNote: false,
+  userComment: false,
+  multiSegment: false,
+  skip: [],
+  pick: [],
+  translateKeys: true,
+  translateValues: true,
+  reviveValues: true,
+  sanitize: true,
+  mergeOutput: true,
+  silentErrors: true,
+  chunked: true,
+  firstChunkSize: void 0,
+  firstChunkSizeNode: 512,
+  firstChunkSizeBrowser: 65536,
+  chunkSize: 65536,
+  chunkLimit: 5
+};
+var existingInstances = /* @__PURE__ */ new Map();
+var Options = class extends SharedOptions {
+  static useCached(userOptions) {
+    let options3 = existingInstances.get(userOptions);
+    if (options3 !== void 0)
+      return options3;
+    options3 = new this(userOptions);
+    existingInstances.set(userOptions, options3);
+    return options3;
+  }
+  constructor(userOptions) {
+    super();
+    if (userOptions === true)
+      this.setupFromTrue();
+    else if (userOptions === void 0)
+      this.setupFromUndefined();
+    else if (Array.isArray(userOptions))
+      this.setupFromArray(userOptions);
+    else if (typeof userOptions === "object")
+      this.setupFromObject(userOptions);
+    else
+      throwError(`Invalid options argument ${userOptions}`);
+    if (this.firstChunkSize === void 0)
+      this.firstChunkSize = browser ? this.firstChunkSizeBrowser : this.firstChunkSizeNode;
+    if (this.mergeOutput)
+      this.ifd1.enabled = false;
+    this.filterNestedSegmentTags();
+    this.traverseTiffDependencyTree();
+    this.checkLoadedPlugins();
+  }
+  setupFromUndefined() {
+    let key;
+    for (key of chunkedProps)
+      this[key] = defaults[key];
+    for (key of allFormatters)
+      this[key] = defaults[key];
+    for (key of tiffExtractables)
+      this[key] = defaults[key];
+    for (key of segmentsAndBlocks)
+      this[key] = new SubOptions(key, defaults[key], void 0, this);
+  }
+  setupFromTrue() {
+    let key;
+    for (key of chunkedProps)
+      this[key] = defaults[key];
+    for (key of allFormatters)
+      this[key] = defaults[key];
+    for (key of tiffExtractables)
+      this[key] = true;
+    for (key of segmentsAndBlocks)
+      this[key] = new SubOptions(key, true, void 0, this);
+  }
+  setupFromArray(userOptions) {
+    let key;
+    for (key of chunkedProps)
+      this[key] = defaults[key];
+    for (key of allFormatters)
+      this[key] = defaults[key];
+    for (key of tiffExtractables)
+      this[key] = defaults[key];
+    for (key of segmentsAndBlocks)
+      this[key] = new SubOptions(key, false, void 0, this);
+    this.setupGlobalFilters(userOptions, void 0, tiffBlocks);
+  }
+  setupFromObject(userOptions) {
+    tiffBlocks.ifd0 = tiffBlocks.ifd0 || tiffBlocks.image;
+    tiffBlocks.ifd1 = tiffBlocks.ifd1 || tiffBlocks.thumbnail;
+    let key;
+    Object.assign(this, userOptions);
+    for (key of chunkedProps)
+      this[key] = getDefined(userOptions[key], defaults[key]);
+    for (key of allFormatters)
+      this[key] = getDefined(userOptions[key], defaults[key]);
+    for (key of tiffExtractables)
+      this[key] = getDefined(userOptions[key], defaults[key]);
+    for (key of segments)
+      this[key] = new SubOptions(key, defaults[key], userOptions[key], this);
+    for (key of tiffBlocks)
+      this[key] = new SubOptions(key, defaults[key], userOptions[key], this.tiff);
+    this.setupGlobalFilters(userOptions.pick, userOptions.skip, tiffBlocks, segmentsAndBlocks);
+    if (userOptions.tiff === true)
+      this.batchEnableWithBool(tiffBlocks, true);
+    else if (userOptions.tiff === false)
+      this.batchEnableWithUserValue(tiffBlocks, userOptions);
+    else if (Array.isArray(userOptions.tiff))
+      this.setupGlobalFilters(userOptions.tiff, void 0, tiffBlocks);
+    else if (typeof userOptions.tiff === "object")
+      this.setupGlobalFilters(userOptions.tiff.pick, userOptions.tiff.skip, tiffBlocks);
+  }
+  batchEnableWithBool(keys, value) {
+    for (let key of keys)
+      this[key].enabled = value;
+  }
+  batchEnableWithUserValue(keys, userOptions) {
+    for (let key of keys) {
+      let userOption = userOptions[key];
+      this[key].enabled = userOption !== false && userOption !== void 0;
+    }
+  }
+  setupGlobalFilters(pick, skip, dictKeys, disableableSegsAndBlocks = dictKeys) {
+    if (pick && pick.length) {
+      for (let blockKey of disableableSegsAndBlocks)
+        this[blockKey].enabled = false;
+      let entries = findScopesForGlobalTagArray(pick, dictKeys);
+      for (let [blockKey, tags] of entries) {
+        addToSet(this[blockKey].pick, tags);
+        this[blockKey].enabled = true;
+      }
+    } else if (skip && skip.length) {
+      let entries = findScopesForGlobalTagArray(skip, dictKeys);
+      for (let [segKey, tags] of entries)
+        addToSet(this[segKey].skip, tags);
     }
   }
   filterNestedSegmentTags() {
-    let { ifd0: e4, exif: t4, xmp: s4, iptc: i4, icc: n3 } = this;
-    this.makerNote ? t4.deps.add(37500) : t4.skip.add(37500), this.userComment ? t4.deps.add(37510) : t4.skip.add(37510), s4.enabled || e4.skip.add(700), i4.enabled || e4.skip.add(33723), n3.enabled || e4.skip.add(34675);
+    let { ifd0, exif, xmp, iptc, icc } = this;
+    if (this.makerNote)
+      exif.deps.add(TAG_MAKERNOTE);
+    else
+      exif.skip.add(TAG_MAKERNOTE);
+    if (this.userComment)
+      exif.deps.add(TAG_USERCOMMENT);
+    else
+      exif.skip.add(TAG_USERCOMMENT);
+    if (!xmp.enabled)
+      ifd0.skip.add(TAG_XMP);
+    if (!iptc.enabled)
+      ifd0.skip.add(TAG_IPTC);
+    if (!icc.enabled)
+      ifd0.skip.add(TAG_ICC);
   }
   traverseTiffDependencyTree() {
-    let { ifd0: e4, exif: t4, gps: s4, interop: i4 } = this;
-    i4.needed && (t4.deps.add(40965), e4.deps.add(40965)), t4.needed && e4.deps.add(34665), s4.needed && e4.deps.add(34853), this.tiff.enabled = P2.some((e5) => true === this[e5].enabled) || this.makerNote || this.userComment;
-    for (let e5 of P2)
-      this[e5].finalizeFilters();
+    let { ifd0, exif, gps, interop } = this;
+    if (interop.needed) {
+      exif.deps.add(TAG_IFD_INTEROP);
+      ifd0.deps.add(TAG_IFD_INTEROP);
+    }
+    if (exif.needed)
+      ifd0.deps.add(TAG_IFD_EXIF);
+    if (gps.needed)
+      ifd0.deps.add(TAG_IFD_GPS);
+    this.tiff.enabled = tiffBlocks.some((key) => this[key].enabled === true) || this.makerNote || this.userComment;
+    for (let key of tiffBlocks)
+      this[key].finalizeFilters();
   }
   get onlyTiff() {
-    return !T2.map((e4) => this[e4].enabled).some((e4) => true === e4) && this.tiff.enabled;
+    let bools = otherSegments.map((key) => this[key].enabled);
+    if (bools.some((bool) => bool === true))
+      return false;
+    return this.tiff.enabled;
   }
   checkLoadedPlugins() {
-    for (let e4 of z2)
-      this[e4].enabled && !y2.has(e4) && p2("segment parser", e4);
+    for (let key of segments)
+      if (this[key].enabled && !segmentParsers.has(key))
+        throwNotLoaded("segment parser", key);
   }
 };
-function K(e4, t4) {
-  let s4, i4, n3, r4, a4 = [];
-  for (n3 of t4) {
-    for (r4 of (s4 = B2.get(n3), i4 = [], s4))
-      (e4.includes(r4[0]) || e4.includes(r4[1])) && i4.push(r4[0]);
-    i4.length && a4.push([n3, i4]);
+__publicField(Options, "default", defaults);
+function findScopesForGlobalTagArray(tagArray, dictKeys) {
+  let scopes = [];
+  let dict, scopedTags, blockKey, tagEntry;
+  for (blockKey of dictKeys) {
+    dict = tagKeys.get(blockKey);
+    scopedTags = [];
+    for (tagEntry of dict) {
+      if (tagArray.includes(tagEntry[0]) || tagArray.includes(tagEntry[1]))
+        scopedTags.push(tagEntry[0]);
+    }
+    if (scopedTags.length)
+      scopes.push([blockKey, scopedTags]);
   }
-  return a4;
+  return scopes;
 }
-function W(e4, t4) {
-  return void 0 !== e4 ? e4 : void 0 !== t4 ? t4 : void 0;
+function getDefined(arg1, arg2) {
+  if (arg1 !== void 0)
+    return arg1;
+  if (arg2 !== void 0)
+    return arg2;
 }
-function X(e4, t4) {
-  for (let s4 of t4)
-    e4.add(s4);
+function addToSet(target, source) {
+  for (let item of source)
+    target.add(item);
 }
-e2(R, "default", N2);
-var H2 = class {
-  constructor(t4) {
-    e2(this, "parsers", {}), e2(this, "output", {}), e2(this, "errors", []), e2(this, "pushToErrors", (e4) => this.errors.push(e4)), this.options = R.useCached(t4);
+
+// node_modules/exifr/src/Exifr.mjs
+var Exifr = class {
+  parsers = {};
+  output = {};
+  errors = [];
+  pushToErrors = (err) => this.errors.push(err);
+  constructor(options3) {
+    this.options = Options.useCached(options3);
   }
-  async read(e4) {
-    this.file = await function(e5, t4) {
-      return "string" == typeof e5 ? k2(e5, t4) : s2 && !i2 && e5 instanceof HTMLImageElement ? k2(e5.src, t4) : e5 instanceof Uint8Array || e5 instanceof ArrayBuffer || e5 instanceof DataView ? new c2(e5) : s2 && e5 instanceof Blob ? O2(e5, t4, "blob", A2) : void l2("Invalid input argument");
-    }(e4, this.options);
+  async read(arg) {
+    this.file = await read(arg, this.options);
   }
   setup() {
     if (this.fileParser)
       return;
-    let { file: e4 } = this, t4 = e4.getUint16(0);
-    for (let [s4, i4] of m2)
-      if (i4.canHandle(e4, t4))
-        return this.fileParser = new i4(this.options, this.file, this.parsers), e4[s4] = true;
-    this.file.close && this.file.close(), l2("Unknown file format");
+    let { file } = this;
+    let marker = file.getUint16(0);
+    for (let [type, FileParser] of fileParsers) {
+      if (FileParser.canHandle(file, marker)) {
+        this.fileParser = new FileParser(this.options, this.file, this.parsers);
+        return file[type] = true;
+      }
+    }
+    if (this.file.close)
+      this.file.close();
+    throwError(`Unknown file format`);
   }
   async parse() {
-    let { output: e4, errors: t4 } = this;
-    return this.setup(), this.options.silentErrors ? (await this.executeParsers().catch(this.pushToErrors), t4.push(...this.fileParser.errors)) : await this.executeParsers(), this.file.close && this.file.close(), this.options.silentErrors && t4.length > 0 && (e4.errors = t4), f2(s4 = e4) ? void 0 : s4;
-    var s4;
+    let { output, errors } = this;
+    this.setup();
+    if (this.options.silentErrors) {
+      await this.executeParsers().catch(this.pushToErrors);
+      errors.push(...this.fileParser.errors);
+    } else {
+      await this.executeParsers();
+    }
+    if (this.file.close)
+      this.file.close();
+    if (this.options.silentErrors && errors.length > 0)
+      output.errors = errors;
+    return undefinedIfEmpty(output);
   }
   async executeParsers() {
-    let { output: e4 } = this;
+    let { output } = this;
     await this.fileParser.parse();
-    let t4 = Object.values(this.parsers).map(async (t5) => {
-      let s4 = await t5.parse();
-      t5.assignToOutput(e4, s4);
+    let promises = Object.values(this.parsers).map(async (parser) => {
+      let parserOutput = await parser.parse();
+      parser.assignToOutput(output, parserOutput);
     });
-    this.options.silentErrors && (t4 = t4.map((e5) => e5.catch(this.pushToErrors))), await Promise.all(t4);
+    if (this.options.silentErrors) {
+      promises = promises.map((promise) => promise.catch(this.pushToErrors));
+    }
+    await Promise.all(promises);
   }
   async extractThumbnail() {
     this.setup();
-    let { options: e4, file: t4 } = this, s4 = y2.get("tiff", e4);
-    var i4;
-    if (t4.tiff ? i4 = { start: 0, type: "tiff" } : t4.jpeg && (i4 = await this.fileParser.getOrFindSegment("tiff")), void 0 === i4)
+    let { options: options3, file } = this;
+    let TiffParser = segmentParsers.get("tiff", options3);
+    var seg;
+    if (file.tiff)
+      seg = { start: 0, type: "tiff" };
+    else if (file.jpeg)
+      seg = await this.fileParser.getOrFindSegment("tiff");
+    if (seg === void 0)
       return;
-    let n3 = await this.fileParser.ensureSegmentChunk(i4), r4 = this.parsers.tiff = new s4(n3, e4, t4), a4 = await r4.extractThumbnail();
-    return t4.close && t4.close(), a4;
+    let chunk = await this.fileParser.ensureSegmentChunk(seg);
+    let parser = this.parsers.tiff = new TiffParser(chunk, options3, file);
+    let thumb = await parser.extractThumbnail();
+    if (file.close)
+      file.close();
+    return thumb;
   }
 };
-async function Y(e4, t4) {
-  let s4 = new H2(t4);
-  return await s4.read(e4), s4.parse();
-}
-var G = Object.freeze({ __proto__: null, parse: Y, Exifr: H2, fileParsers: m2, segmentParsers: y2, fileReaders: b2, tagKeys: B2, tagValues: V, tagRevivers: I2, createDictionary: x2, extendDictionary: C2, fetchUrlAsArrayBuffer: S2, readBlobAsArrayBuffer: A2, chunkedProps: L2, otherSegments: T2, segments: z2, tiffBlocks: P2, segmentsAndBlocks: F2, tiffExtractables: j2, inheritables: E, allFormatters: M2, Options: R });
-var J = class {
-  static findPosition(e4, t4) {
-    let s4 = e4.getUint16(t4 + 2) + 2, i4 = "function" == typeof this.headerLength ? this.headerLength(e4, t4, s4) : this.headerLength, n3 = t4 + i4, r4 = s4 - i4;
-    return { offset: t4, length: s4, headerLength: i4, start: n3, size: r4, end: n3 + r4 };
+
+// node_modules/exifr/src/parser.mjs
+var MAX_APP_SIZE = 65536;
+var DEFAULT = "DEFAULT";
+var FileParserBase = class {
+  constructor(options3, file, parsers) {
+    if (this.extendOptions)
+      this.extendOptions(options3);
+    this.options = options3;
+    this.file = file;
+    this.parsers = parsers;
   }
-  static parse(e4, t4 = {}) {
-    return new this(e4, new R({ [this.type]: t4 }), e4).parse();
+  errors = [];
+  injectSegment(type, chunk) {
+    if (this.options[type].enabled)
+      this.createParser(type, chunk);
   }
-  normalizeInput(e4) {
-    return e4 instanceof c2 ? e4 : new c2(e4);
+  createParser(type, chunk) {
+    let Parser = segmentParsers.get(type);
+    let parser = new Parser(chunk, this.options, this.file);
+    return this.parsers[type] = parser;
   }
-  constructor(t4, s4 = {}, i4) {
-    e2(this, "errors", []), e2(this, "raw", /* @__PURE__ */ new Map()), e2(this, "handleError", (e4) => {
-      if (!this.options.silentErrors)
-        throw e4;
-      this.errors.push(e4.message);
-    }), this.chunk = this.normalizeInput(t4), this.file = i4, this.type = this.constructor.type, this.globalOptions = this.options = s4, this.localOptions = s4[this.type], this.canTranslate = this.localOptions && this.localOptions.translate;
-  }
-  translate() {
-    this.canTranslate && (this.translated = this.translateBlock(this.raw, this.type));
-  }
-  get output() {
-    return this.translated ? this.translated : this.raw ? Object.fromEntries(this.raw) : void 0;
-  }
-  translateBlock(e4, t4) {
-    let s4 = I2.get(t4), i4 = V.get(t4), n3 = B2.get(t4), r4 = this.options[t4], a4 = r4.reviveValues && !!s4, h4 = r4.translateValues && !!i4, f4 = r4.translateKeys && !!n3, l4 = {};
-    for (let [t5, r5] of e4)
-      a4 && s4.has(t5) ? r5 = s4.get(t5)(r5) : h4 && i4.has(t5) && (r5 = this.translateValue(r5, i4.get(t5))), f4 && n3.has(t5) && (t5 = n3.get(t5) || t5), l4[t5] = r5;
-    return l4;
-  }
-  translateValue(e4, t4) {
-    return t4[e4] || t4.DEFAULT || e4;
-  }
-  assignToOutput(e4, t4) {
-    this.assignObjectToOutput(e4, this.constructor.type, t4);
-  }
-  assignObjectToOutput(e4, t4, s4) {
-    if (this.globalOptions.mergeOutput)
-      return Object.assign(e4, s4);
-    e4[t4] ? Object.assign(e4[t4], s4) : e4[t4] = s4;
-  }
-};
-e2(J, "headerLength", 4), e2(J, "type", void 0), e2(J, "multiSegment", false), e2(J, "canHandle", () => false);
-function q(e4) {
-  return 192 === e4 || 194 === e4 || 196 === e4 || 219 === e4 || 221 === e4 || 218 === e4 || 254 === e4;
-}
-function Q(e4) {
-  return e4 >= 224 && e4 <= 239;
-}
-function Z(e4, t4, s4) {
-  for (let [i4, n3] of y2)
-    if (n3.canHandle(e4, t4, s4))
-      return i4;
-}
-var ee2 = class extends class {
-  constructor(t4, s4, i4) {
-    e2(this, "errors", []), e2(this, "ensureSegmentChunk", async (e4) => {
-      let t5 = e4.start, s5 = e4.size || 65536;
-      if (this.file.chunked)
-        if (this.file.available(t5, s5))
-          e4.chunk = this.file.subarray(t5, s5);
-        else
-          try {
-            e4.chunk = await this.file.readChunk(t5, s5);
-          } catch (t6) {
-            l2(`Couldn't read segment: ${JSON.stringify(e4)}. ${t6.message}`);
-          }
-      else
-        this.file.byteLength > t5 + s5 ? e4.chunk = this.file.subarray(t5, s5) : void 0 === e4.size ? e4.chunk = this.file.subarray(t5) : l2("Segment unreachable: " + JSON.stringify(e4));
-      return e4.chunk;
-    }), this.extendOptions && this.extendOptions(t4), this.options = t4, this.file = s4, this.parsers = i4;
-  }
-  injectSegment(e4, t4) {
-    this.options[e4].enabled && this.createParser(e4, t4);
-  }
-  createParser(e4, t4) {
-    let s4 = new (y2.get(e4))(t4, this.options, this.file);
-    return this.parsers[e4] = s4;
-  }
-  createParsers(e4) {
-    for (let t4 of e4) {
-      let { type: e5, chunk: s4 } = t4, i4 = this.options[e5];
-      if (i4 && i4.enabled) {
-        let t5 = this.parsers[e5];
-        t5 && t5.append || t5 || this.createParser(e5, s4);
+  createParsers(segments2) {
+    for (let segment of segments2) {
+      let { type, chunk } = segment;
+      let segOpts = this.options[type];
+      if (segOpts && segOpts.enabled) {
+        let parser = this.parsers[type];
+        if (parser && parser.append) {
+        } else if (!parser) {
+          this.createParser(type, chunk);
+        }
       }
     }
   }
-  async readSegments(e4) {
-    let t4 = e4.map(this.ensureSegmentChunk);
-    await Promise.all(t4);
+  async readSegments(segments2) {
+    let promises = segments2.map(this.ensureSegmentChunk);
+    await Promise.all(promises);
   }
-} {
-  constructor(...t4) {
-    super(...t4), e2(this, "appSegments", []), e2(this, "jpegSegments", []), e2(this, "unknownSegments", []);
+  ensureSegmentChunk = async (seg) => {
+    let start = seg.start;
+    let size = seg.size || MAX_APP_SIZE;
+    if (this.file.chunked) {
+      if (this.file.available(start, size)) {
+        seg.chunk = this.file.subarray(start, size);
+      } else {
+        try {
+          seg.chunk = await this.file.readChunk(start, size);
+        } catch (err) {
+          throwError(`Couldn't read segment: ${JSON.stringify(seg)}. ${err.message}`);
+        }
+      }
+    } else if (this.file.byteLength > start + size) {
+      seg.chunk = this.file.subarray(start, size);
+    } else if (seg.size === void 0) {
+      seg.chunk = this.file.subarray(start);
+    } else {
+      throwError(`Segment unreachable: ` + JSON.stringify(seg));
+    }
+    return seg.chunk;
+  };
+};
+var AppSegmentParserBase = class {
+  static findPosition(buffer, offset) {
+    let length = buffer.getUint16(offset + 2) + 2;
+    let headerLength = typeof this.headerLength === "function" ? this.headerLength(buffer, offset, length) : this.headerLength;
+    let start = offset + headerLength;
+    let size = length - headerLength;
+    let end = start + size;
+    return { offset, length, headerLength, start, size, end };
   }
-  static canHandle(e4, t4) {
-    return 65496 === t4;
+  static parse(input, segOptions = {}) {
+    let options3 = new Options({ [this.type]: segOptions });
+    let instance = new this(input, options3, input);
+    return instance.parse();
   }
+  normalizeInput(input) {
+    return input instanceof BufferView ? input : new BufferView(input);
+  }
+  errors = [];
+  raw = /* @__PURE__ */ new Map();
+  constructor(chunk, options3 = {}, file) {
+    this.chunk = this.normalizeInput(chunk);
+    this.file = file;
+    this.type = this.constructor.type;
+    this.globalOptions = this.options = options3;
+    this.localOptions = options3[this.type];
+    this.canTranslate = this.localOptions && this.localOptions.translate;
+  }
+  translate() {
+    if (this.canTranslate)
+      this.translated = this.translateBlock(this.raw, this.type);
+  }
+  get output() {
+    if (this.translated)
+      return this.translated;
+    else if (this.raw)
+      return Object.fromEntries(this.raw);
+  }
+  translateBlock(rawTags, blockKey) {
+    let revivers = tagRevivers.get(blockKey);
+    let valDict = tagValues.get(blockKey);
+    let keyDict = tagKeys.get(blockKey);
+    let blockOptions = this.options[blockKey];
+    let canRevive = blockOptions.reviveValues && !!revivers;
+    let canTranslateVal = blockOptions.translateValues && !!valDict;
+    let canTranslateKey = blockOptions.translateKeys && !!keyDict;
+    let output = {};
+    for (let [key, val] of rawTags) {
+      if (canRevive && revivers.has(key))
+        val = revivers.get(key)(val);
+      else if (canTranslateVal && valDict.has(key))
+        val = this.translateValue(val, valDict.get(key));
+      if (canTranslateKey && keyDict.has(key))
+        key = keyDict.get(key) || key;
+      output[key] = val;
+    }
+    return output;
+  }
+  translateValue(val, tagEnum) {
+    return tagEnum[val] || tagEnum[DEFAULT] || val;
+  }
+  handleError = (error) => {
+    if (this.options.silentErrors)
+      this.errors.push(error.message);
+    else
+      throw error;
+  };
+  assignToOutput(root, parserOutput) {
+    this.assignObjectToOutput(root, this.constructor.type, parserOutput);
+  }
+  assignObjectToOutput(root, key, parserOutput) {
+    if (this.globalOptions.mergeOutput)
+      return Object.assign(root, parserOutput);
+    if (root[key])
+      Object.assign(root[key], parserOutput);
+    else
+      root[key] = parserOutput;
+  }
+};
+__publicField(AppSegmentParserBase, "headerLength", 4);
+__publicField(AppSegmentParserBase, "type");
+__publicField(AppSegmentParserBase, "multiSegment", false);
+__publicField(AppSegmentParserBase, "canHandle", () => false);
+
+// node_modules/exifr/src/file-parsers/jpeg.mjs
+var JPEG_SOI = 65496;
+var MARKER_1 = 255;
+var MARKER_2_APP0 = 224;
+var MARKER_2_APP15 = 239;
+var MARKER_2_SOF0 = 192;
+var MARKER_2_SOF2 = 194;
+var MARKER_2_DHT = 196;
+var MARKER_2_DQT = 219;
+var MARKER_2_DRI = 221;
+var MARKER_2_SOS = 218;
+var MARKER_2_COMMENT = 254;
+function isJpgMarker(marker2) {
+  return marker2 === MARKER_2_SOF0 || marker2 === MARKER_2_SOF2 || marker2 === MARKER_2_DHT || marker2 === MARKER_2_DQT || marker2 === MARKER_2_DRI || marker2 === MARKER_2_SOS || marker2 === MARKER_2_COMMENT;
+}
+function isAppMarker(marker2) {
+  return marker2 >= MARKER_2_APP0 && marker2 <= MARKER_2_APP15;
+}
+function getSegmentType(buffer, offset, length) {
+  for (let [type, Parser] of segmentParsers)
+    if (Parser.canHandle(buffer, offset, length))
+      return type;
+}
+var JpegFileParser = class extends FileParserBase {
+  static canHandle(file, firstTwoBytes) {
+    return firstTwoBytes === JPEG_SOI;
+  }
+  appSegments = [];
+  jpegSegments = [];
+  unknownSegments = [];
   async parse() {
-    await this.findAppSegments(), await this.readSegments(this.appSegments), this.mergeMultiSegments(), this.createParsers(this.mergedAppSegments || this.appSegments);
+    await this.findAppSegments();
+    await this.readSegments(this.appSegments);
+    this.mergeMultiSegments();
+    this.createParsers(this.mergedAppSegments || this.appSegments);
   }
-  setupSegmentFinderArgs(e4) {
-    true === e4 ? (this.findAll = true, this.wanted = new Set(y2.keyList())) : (e4 = void 0 === e4 ? y2.keyList().filter((e5) => this.options[e5].enabled) : e4.filter((e5) => this.options[e5].enabled && y2.has(e5)), this.findAll = false, this.remaining = new Set(e4), this.wanted = new Set(e4)), this.unfinishedMultiSegment = false;
+  setupSegmentFinderArgs(wanted) {
+    if (wanted === true) {
+      this.findAll = true;
+      this.wanted = new Set(segmentParsers.keyList());
+    } else {
+      if (wanted === void 0)
+        wanted = segmentParsers.keyList().filter((key) => this.options[key].enabled);
+      else
+        wanted = wanted.filter((key) => this.options[key].enabled && segmentParsers.has(key));
+      this.findAll = false;
+      this.remaining = new Set(wanted);
+      this.wanted = new Set(wanted);
+    }
+    this.unfinishedMultiSegment = false;
   }
-  async findAppSegments(e4 = 0, t4) {
-    this.setupSegmentFinderArgs(t4);
-    let { file: s4, findAll: i4, wanted: n3, remaining: r4 } = this;
-    if (!i4 && this.file.chunked && (i4 = Array.from(n3).some((e5) => {
-      let t5 = y2.get(e5), s5 = this.options[e5];
-      return t5.multiSegment && s5.multiSegment;
-    }), i4 && await this.file.readWhole()), e4 = this.findAppSegmentsInRange(e4, s4.byteLength), !this.options.onlyTiff && s4.chunked) {
-      let t5 = false;
-      for (; r4.size > 0 && !t5 && (s4.canReadNextChunk || this.unfinishedMultiSegment); ) {
-        let { nextChunkOffset: i5 } = s4, n4 = this.appSegments.some((e5) => !this.file.available(e5.offset || e5.start, e5.length || e5.size));
-        if (t5 = e4 > i5 && !n4 ? !await s4.readNextChunk(e4) : !await s4.readNextChunk(i5), void 0 === (e4 = this.findAppSegmentsInRange(e4, s4.byteLength)))
+  async findAppSegments(offset = 0, wantedArray) {
+    this.setupSegmentFinderArgs(wantedArray);
+    let { file, findAll, wanted, remaining } = this;
+    if (!findAll && this.file.chunked) {
+      findAll = Array.from(wanted).some((type) => {
+        let Parser = segmentParsers.get(type);
+        let segOpts = this.options[type];
+        return Parser.multiSegment && segOpts.multiSegment;
+      });
+      if (findAll)
+        await this.file.readWhole();
+    }
+    offset = this.findAppSegmentsInRange(offset, file.byteLength);
+    if (this.options.onlyTiff)
+      return;
+    if (file.chunked) {
+      let eof = false;
+      while (remaining.size > 0 && !eof && (file.canReadNextChunk || this.unfinishedMultiSegment)) {
+        let { nextChunkOffset } = file;
+        let hasIncompleteSegments = this.appSegments.some((seg) => !this.file.available(seg.offset || seg.start, seg.length || seg.size));
+        if (offset > nextChunkOffset && !hasIncompleteSegments)
+          eof = !await file.readNextChunk(offset);
+        else
+          eof = !await file.readNextChunk(nextChunkOffset);
+        offset = this.findAppSegmentsInRange(offset, file.byteLength);
+        if (offset === void 0)
           return;
       }
     }
   }
-  findAppSegmentsInRange(e4, t4) {
-    t4 -= 2;
-    let s4, i4, n3, r4, a4, h4, { file: f4, findAll: l4, wanted: o4, remaining: u4, options: d4 } = this;
-    for (; e4 < t4; e4++)
-      if (255 === f4.getUint8(e4)) {
-        if (s4 = f4.getUint8(e4 + 1), Q(s4)) {
-          if (i4 = f4.getUint16(e4 + 2), n3 = Z(f4, e4, i4), n3 && o4.has(n3) && (r4 = y2.get(n3), a4 = r4.findPosition(f4, e4), h4 = d4[n3], a4.type = n3, this.appSegments.push(a4), !l4 && (r4.multiSegment && h4.multiSegment ? (this.unfinishedMultiSegment = a4.chunkNumber < a4.chunkCount, this.unfinishedMultiSegment || u4.delete(n3)) : u4.delete(n3), 0 === u4.size)))
-            break;
-          d4.recordUnknownSegments && (a4 = J.findPosition(f4, e4), a4.marker = s4, this.unknownSegments.push(a4)), e4 += i4 + 1;
-        } else if (q(s4)) {
-          if (i4 = f4.getUint16(e4 + 2), 218 === s4 && false !== d4.stopAfterSos)
-            return;
-          d4.recordJpegSegments && this.jpegSegments.push({ offset: e4, length: i4, marker: s4 }), e4 += i4 + 1;
+  findAppSegmentsInRange(offset, end) {
+    end -= 2;
+    let { file, findAll, wanted, remaining, options: options3 } = this;
+    let marker2, length, type, Parser, seg, segOpts;
+    for (; offset < end; offset++) {
+      if (file.getUint8(offset) !== MARKER_1)
+        continue;
+      marker2 = file.getUint8(offset + 1);
+      if (isAppMarker(marker2)) {
+        length = file.getUint16(offset + 2);
+        type = getSegmentType(file, offset, length);
+        if (type && wanted.has(type)) {
+          Parser = segmentParsers.get(type);
+          seg = Parser.findPosition(file, offset);
+          segOpts = options3[type];
+          seg.type = type;
+          this.appSegments.push(seg);
+          if (!findAll) {
+            if (Parser.multiSegment && segOpts.multiSegment) {
+              this.unfinishedMultiSegment = seg.chunkNumber < seg.chunkCount;
+              if (!this.unfinishedMultiSegment)
+                remaining.delete(type);
+            } else {
+              remaining.delete(type);
+            }
+            if (remaining.size === 0)
+              break;
+          }
         }
+        if (options3.recordUnknownSegments) {
+          seg = AppSegmentParserBase.findPosition(file, offset);
+          seg.marker = marker2;
+          this.unknownSegments.push(seg);
+        }
+        offset += length + 1;
+      } else if (isJpgMarker(marker2)) {
+        length = file.getUint16(offset + 2);
+        if (marker2 === MARKER_2_SOS && options3.stopAfterSos !== false)
+          return void 0;
+        if (options3.recordJpegSegments)
+          this.jpegSegments.push({ offset, length, marker: marker2 });
+        offset += length + 1;
       }
-    return e4;
+    }
+    return offset;
   }
   mergeMultiSegments() {
-    if (!this.appSegments.some((e5) => e5.multiSegment))
+    let hasMultiSegments = this.appSegments.some((seg) => seg.multiSegment);
+    if (!hasMultiSegments)
       return;
-    let e4 = function(e5, t4) {
-      let s4, i4, n3, r4 = /* @__PURE__ */ new Map();
-      for (let a4 = 0; a4 < e5.length; a4++)
-        s4 = e5[a4], i4 = s4[t4], r4.has(i4) ? n3 = r4.get(i4) : r4.set(i4, n3 = []), n3.push(s4);
-      return Array.from(r4);
-    }(this.appSegments, "type");
-    this.mergedAppSegments = e4.map(([e5, t4]) => {
-      let s4 = y2.get(e5, this.options);
-      if (s4.handleMultiSegments) {
-        return { type: e5, chunk: s4.handleMultiSegments(t4) };
+    let grouped = groupBy(this.appSegments, "type");
+    this.mergedAppSegments = grouped.map(([type, typeSegments]) => {
+      let Parser = segmentParsers.get(type, this.options);
+      if (Parser.handleMultiSegments) {
+        let chunk = Parser.handleMultiSegments(typeSegments);
+        return { type, chunk };
+      } else {
+        return typeSegments[0];
       }
-      return t4[0];
     });
   }
-  getSegment(e4) {
-    return this.appSegments.find((t4) => t4.type === e4);
+  getSegment(type) {
+    return this.appSegments.find((seg) => seg.type === type);
   }
-  async getOrFindSegment(e4) {
-    let t4 = this.getSegment(e4);
-    return void 0 === t4 && (await this.findAppSegments(0, [e4]), t4 = this.getSegment(e4)), t4;
+  async getOrFindSegment(type) {
+    let seg = this.getSegment(type);
+    if (seg === void 0) {
+      await this.findAppSegments(0, [type]);
+      seg = this.getSegment(type);
+    }
+    return seg;
   }
 };
-e2(ee2, "type", "jpeg"), m2.set("jpeg", ee2);
-var te = [void 0, 1, 1, 2, 4, 8, 1, 1, 2, 4, 8, 4, 8, 4];
-var se = class extends J {
+__publicField(JpegFileParser, "type", "jpeg");
+function groupBy(array, key) {
+  let groups = /* @__PURE__ */ new Map();
+  let item, groupKey, group;
+  for (let i = 0; i < array.length; i++) {
+    item = array[i];
+    groupKey = item[key];
+    if (groups.has(groupKey))
+      group = groups.get(groupKey);
+    else
+      groups.set(groupKey, group = []);
+    group.push(item);
+  }
+  return Array.from(groups);
+}
+fileParsers.set("jpeg", JpegFileParser);
+
+// node_modules/exifr/src/segment-parsers/tiff-exif.mjs
+var MALFORMED = "Malformed EXIF data";
+var THUMB_OFFSET = 513;
+var THUMB_LENGTH = 514;
+var BYTE = 1;
+var ASCII = 2;
+var SHORT = 3;
+var LONG = 4;
+var RATIONAL = 5;
+var SBYTE = 6;
+var UNDEFINED = 7;
+var SSHORT = 8;
+var SLONG = 9;
+var SRATIONAL = 10;
+var FLOAT = 11;
+var DOUBLE = 12;
+var IFD = 13;
+var SIZE_LOOKUP = [
+  void 0,
+  1,
+  1,
+  2,
+  4,
+  8,
+  1,
+  1,
+  2,
+  4,
+  8,
+  4,
+  8,
+  4
+];
+function getTypedArray(type) {
+  switch (type) {
+    case BYTE:
+      return Uint8Array;
+    case SHORT:
+      return Uint16Array;
+    case LONG:
+      return Uint32Array;
+    case RATIONAL:
+      return Array;
+    case SBYTE:
+      return Int8Array;
+    case SSHORT:
+      return Int16Array;
+    case SLONG:
+      return Int32Array;
+    case SRATIONAL:
+      return Array;
+    case FLOAT:
+      return Float32Array;
+    case DOUBLE:
+      return Float64Array;
+    default:
+      return Array;
+  }
+}
+var TiffCore = class extends AppSegmentParserBase {
   parseHeader() {
-    var e4 = this.chunk.getUint16();
-    18761 === e4 ? this.le = true : 19789 === e4 && (this.le = false), this.chunk.le = this.le, this.headerParsed = true;
+    var byteOrder = this.chunk.getUint16();
+    if (byteOrder === TIFF_LITTLE_ENDIAN)
+      this.le = true;
+    else if (byteOrder === TIFF_BIG_ENDIAN)
+      this.le = false;
+    this.chunk.le = this.le;
+    this.headerParsed = true;
   }
-  parseTags(e4, t4, s4 = /* @__PURE__ */ new Map()) {
-    let { pick: i4, skip: n3 } = this.options[t4];
-    i4 = new Set(i4);
-    let r4 = i4.size > 0, a4 = 0 === n3.size, h4 = this.chunk.getUint16(e4);
-    e4 += 2;
-    for (let f4 = 0; f4 < h4; f4++) {
-      let h5 = this.chunk.getUint16(e4);
-      if (r4) {
-        if (i4.has(h5) && (s4.set(h5, this.parseTag(e4, h5, t4)), i4.delete(h5), 0 === i4.size))
-          break;
-      } else
-        !a4 && n3.has(h5) || s4.set(h5, this.parseTag(e4, h5, t4));
-      e4 += 12;
-    }
-    return s4;
-  }
-  parseTag(e4, t4, s4) {
-    let { chunk: i4 } = this, n3 = i4.getUint16(e4 + 2), r4 = i4.getUint32(e4 + 4), a4 = te[n3];
-    if (a4 * r4 <= 4 ? e4 += 8 : e4 = i4.getUint32(e4 + 8), (n3 < 1 || n3 > 13) && l2(`Invalid TIFF value type. block: ${s4.toUpperCase()}, tag: ${t4.toString(16)}, type: ${n3}, offset ${e4}`), e4 > i4.byteLength && l2(`Invalid TIFF value offset. block: ${s4.toUpperCase()}, tag: ${t4.toString(16)}, type: ${n3}, offset ${e4} is outside of chunk size ${i4.byteLength}`), 1 === n3)
-      return i4.getUint8Array(e4, r4);
-    if (2 === n3)
-      return "" === (h4 = function(e5) {
-        for (; e5.endsWith("\0"); )
-          e5 = e5.slice(0, -1);
-        return e5;
-      }(h4 = i4.getString(e4, r4)).trim()) ? void 0 : h4;
-    var h4;
-    if (7 === n3)
-      return i4.getUint8Array(e4, r4);
-    if (1 === r4)
-      return this.parseTagValue(n3, e4);
-    {
-      let t5 = new (function(e5) {
-        switch (e5) {
-          case 1:
-            return Uint8Array;
-          case 3:
-            return Uint16Array;
-          case 4:
-            return Uint32Array;
-          case 5:
-            return Array;
-          case 6:
-            return Int8Array;
-          case 8:
-            return Int16Array;
-          case 9:
-            return Int32Array;
-          case 10:
-            return Array;
-          case 11:
-            return Float32Array;
-          case 12:
-            return Float64Array;
-          default:
-            return Array;
+  parseTags(offset, blockKey, block = /* @__PURE__ */ new Map()) {
+    let { pick, skip } = this.options[blockKey];
+    pick = new Set(pick);
+    let onlyPick = pick.size > 0;
+    let nothingToSkip = skip.size === 0;
+    let entriesCount = this.chunk.getUint16(offset);
+    offset += 2;
+    for (let i = 0; i < entriesCount; i++) {
+      let tag = this.chunk.getUint16(offset);
+      if (onlyPick) {
+        if (pick.has(tag)) {
+          block.set(tag, this.parseTag(offset, tag, blockKey));
+          pick.delete(tag);
+          if (pick.size === 0)
+            break;
         }
-      }(n3))(r4), s5 = a4;
-      for (let i5 = 0; i5 < r4; i5++)
-        t5[i5] = this.parseTagValue(n3, e4), e4 += s5;
-      return t5;
+      } else if (nothingToSkip || !skip.has(tag)) {
+        block.set(tag, this.parseTag(offset, tag, blockKey));
+      }
+      offset += 12;
+    }
+    return block;
+  }
+  parseTag(offset, tag, blockKey) {
+    let { chunk } = this;
+    let type = chunk.getUint16(offset + 2);
+    let valueCount = chunk.getUint32(offset + 4);
+    let valueSize = SIZE_LOOKUP[type];
+    let totalSize = valueSize * valueCount;
+    if (totalSize <= 4)
+      offset = offset + 8;
+    else
+      offset = chunk.getUint32(offset + 8);
+    if (type < BYTE || type > IFD)
+      throwError(`Invalid TIFF value type. block: ${blockKey.toUpperCase()}, tag: ${tag.toString(16)}, type: ${type}, offset ${offset}`);
+    if (offset > chunk.byteLength) {
+      throwError(`Invalid TIFF value offset. block: ${blockKey.toUpperCase()}, tag: ${tag.toString(16)}, type: ${type}, offset ${offset} is outside of chunk size ${chunk.byteLength}`);
+    }
+    if (type === BYTE)
+      return chunk.getUint8Array(offset, valueCount);
+    if (type === ASCII)
+      return normalizeString(chunk.getString(offset, valueCount));
+    if (type === UNDEFINED)
+      return chunk.getUint8Array(offset, valueCount);
+    if (valueCount === 1) {
+      return this.parseTagValue(type, offset);
+    } else {
+      let ArrayType = getTypedArray(type);
+      let arr = new ArrayType(valueCount);
+      let offsetIncrement = valueSize;
+      for (let i = 0; i < valueCount; i++) {
+        arr[i] = this.parseTagValue(type, offset);
+        offset += offsetIncrement;
+      }
+      return arr;
     }
   }
-  parseTagValue(e4, t4) {
-    let { chunk: s4 } = this;
-    switch (e4) {
-      case 1:
-        return s4.getUint8(t4);
-      case 3:
-        return s4.getUint16(t4);
-      case 4:
-        return s4.getUint32(t4);
-      case 5:
-        return s4.getUint32(t4) / s4.getUint32(t4 + 4);
-      case 6:
-        return s4.getInt8(t4);
-      case 8:
-        return s4.getInt16(t4);
-      case 9:
-        return s4.getInt32(t4);
-      case 10:
-        return s4.getInt32(t4) / s4.getInt32(t4 + 4);
-      case 11:
-        return s4.getFloat(t4);
-      case 12:
-        return s4.getDouble(t4);
+  parseTagValue(type, offset) {
+    let { chunk } = this;
+    switch (type) {
+      case BYTE:
+        return chunk.getUint8(offset);
+      case SHORT:
+        return chunk.getUint16(offset);
+      case LONG:
+        return chunk.getUint32(offset);
+      case RATIONAL:
+        return chunk.getUint32(offset) / chunk.getUint32(offset + 4);
+      case SBYTE:
+        return chunk.getInt8(offset);
+      case SSHORT:
+        return chunk.getInt16(offset);
+      case SLONG:
+        return chunk.getInt32(offset);
+      case SRATIONAL:
+        return chunk.getInt32(offset) / chunk.getInt32(offset + 4);
+      case FLOAT:
+        return chunk.getFloat(offset);
+      case DOUBLE:
+        return chunk.getDouble(offset);
       case 13:
-        return s4.getUint32(t4);
+        return chunk.getUint32(offset);
       default:
-        l2(`Invalid tiff type ${e4}`);
+        throwError(`Invalid tiff type ${type}`);
     }
   }
 };
-var ie = class extends se {
-  static canHandle(e4, t4) {
-    return 225 === e4.getUint8(t4 + 1) && 1165519206 === e4.getUint32(t4 + 4) && 0 === e4.getUint16(t4 + 8);
+var TAG_FILESOURCE = 41728;
+var TAG_SCENETYPE = 41729;
+var TiffExif = class extends TiffCore {
+  static canHandle(view, offset) {
+    return view.getUint8(offset + 1) === 225 && view.getUint32(offset + 4) === 1165519206 && view.getUint16(offset + 8) === 0;
   }
   async parse() {
     this.parseHeader();
-    let { options: e4 } = this;
-    return e4.ifd0.enabled && await this.parseIfd0Block(), e4.exif.enabled && await this.safeParse("parseExifBlock"), e4.gps.enabled && await this.safeParse("parseGpsBlock"), e4.interop.enabled && await this.safeParse("parseInteropBlock"), e4.ifd1.enabled && await this.safeParse("parseThumbnailBlock"), this.createOutput();
+    let { options: options3 } = this;
+    if (options3.ifd0.enabled)
+      await this.parseIfd0Block();
+    if (options3.exif.enabled)
+      await this.safeParse("parseExifBlock");
+    if (options3.gps.enabled)
+      await this.safeParse("parseGpsBlock");
+    if (options3.interop.enabled)
+      await this.safeParse("parseInteropBlock");
+    if (options3.ifd1.enabled)
+      await this.safeParse("parseThumbnailBlock");
+    return this.createOutput();
   }
-  safeParse(e4) {
-    let t4 = this[e4]();
-    return void 0 !== t4.catch && (t4 = t4.catch(this.handleError)), t4;
+  safeParse(methodName) {
+    let result = this[methodName]();
+    if (result.catch !== void 0)
+      result = result.catch(this.handleError);
+    return result;
   }
   findIfd0Offset() {
-    void 0 === this.ifd0Offset && (this.ifd0Offset = this.chunk.getUint32(4));
+    if (this.ifd0Offset === void 0)
+      this.ifd0Offset = this.chunk.getUint32(4);
   }
   findIfd1Offset() {
-    if (void 0 === this.ifd1Offset) {
+    if (this.ifd1Offset === void 0) {
       this.findIfd0Offset();
-      let e4 = this.chunk.getUint16(this.ifd0Offset), t4 = this.ifd0Offset + 2 + 12 * e4;
-      this.ifd1Offset = this.chunk.getUint32(t4);
+      let ifd0Entries = this.chunk.getUint16(this.ifd0Offset);
+      let temp = this.ifd0Offset + 2 + ifd0Entries * 12;
+      this.ifd1Offset = this.chunk.getUint32(temp);
     }
   }
-  parseBlock(e4, t4) {
-    let s4 = /* @__PURE__ */ new Map();
-    return this[t4] = s4, this.parseTags(e4, t4, s4), s4;
+  parseBlock(offset, blockKey) {
+    let block = /* @__PURE__ */ new Map();
+    this[blockKey] = block;
+    this.parseTags(offset, blockKey, block);
+    return block;
   }
   async parseIfd0Block() {
     if (this.ifd0)
       return;
-    let { file: e4 } = this;
-    this.findIfd0Offset(), this.ifd0Offset < 8 && l2("Malformed EXIF data"), !e4.chunked && this.ifd0Offset > e4.byteLength && l2(`IFD0 offset points to outside of file.
-this.ifd0Offset: ${this.ifd0Offset}, file.byteLength: ${e4.byteLength}`), e4.tiff && await e4.ensureChunk(this.ifd0Offset, o2(this.options));
-    let t4 = this.parseBlock(this.ifd0Offset, "ifd0");
-    return 0 !== t4.size ? (this.exifOffset = t4.get(34665), this.interopOffset = t4.get(40965), this.gpsOffset = t4.get(34853), this.xmp = t4.get(700), this.iptc = t4.get(33723), this.icc = t4.get(34675), this.options.sanitize && (t4.delete(34665), t4.delete(40965), t4.delete(34853), t4.delete(700), t4.delete(33723), t4.delete(34675)), t4) : void 0;
+    let { file } = this;
+    this.findIfd0Offset();
+    if (this.ifd0Offset < 8)
+      throwError(MALFORMED);
+    if (!file.chunked && this.ifd0Offset > file.byteLength)
+      throwError(`IFD0 offset points to outside of file.
+this.ifd0Offset: ${this.ifd0Offset}, file.byteLength: ${file.byteLength}`);
+    if (file.tiff)
+      await file.ensureChunk(this.ifd0Offset, estimateMetadataSize(this.options));
+    let ifd0 = this.parseBlock(this.ifd0Offset, "ifd0");
+    if (ifd0.size === 0)
+      return;
+    this.exifOffset = ifd0.get(TAG_IFD_EXIF);
+    this.interopOffset = ifd0.get(TAG_IFD_INTEROP);
+    this.gpsOffset = ifd0.get(TAG_IFD_GPS);
+    this.xmp = ifd0.get(TAG_XMP);
+    this.iptc = ifd0.get(TAG_IPTC);
+    this.icc = ifd0.get(TAG_ICC);
+    if (this.options.sanitize) {
+      ifd0.delete(TAG_IFD_EXIF);
+      ifd0.delete(TAG_IFD_INTEROP);
+      ifd0.delete(TAG_IFD_GPS);
+      ifd0.delete(TAG_XMP);
+      ifd0.delete(TAG_IPTC);
+      ifd0.delete(TAG_ICC);
+    }
+    return ifd0;
   }
   async parseExifBlock() {
     if (this.exif)
       return;
-    if (this.ifd0 || await this.parseIfd0Block(), void 0 === this.exifOffset)
+    if (!this.ifd0)
+      await this.parseIfd0Block();
+    if (this.exifOffset === void 0)
       return;
-    this.file.tiff && await this.file.ensureChunk(this.exifOffset, o2(this.options));
-    let e4 = this.parseBlock(this.exifOffset, "exif");
-    return this.interopOffset || (this.interopOffset = e4.get(40965)), this.makerNote = e4.get(37500), this.userComment = e4.get(37510), this.options.sanitize && (e4.delete(40965), e4.delete(37500), e4.delete(37510)), this.unpack(e4, 41728), this.unpack(e4, 41729), e4;
+    if (this.file.tiff)
+      await this.file.ensureChunk(this.exifOffset, estimateMetadataSize(this.options));
+    let exif = this.parseBlock(this.exifOffset, "exif");
+    if (!this.interopOffset)
+      this.interopOffset = exif.get(TAG_IFD_INTEROP);
+    this.makerNote = exif.get(TAG_MAKERNOTE);
+    this.userComment = exif.get(TAG_USERCOMMENT);
+    if (this.options.sanitize) {
+      exif.delete(TAG_IFD_INTEROP);
+      exif.delete(TAG_MAKERNOTE);
+      exif.delete(TAG_USERCOMMENT);
+    }
+    this.unpack(exif, TAG_FILESOURCE);
+    this.unpack(exif, TAG_SCENETYPE);
+    return exif;
   }
-  unpack(e4, t4) {
-    let s4 = e4.get(t4);
-    s4 && 1 === s4.length && e4.set(t4, s4[0]);
+  unpack(map, key) {
+    let value = map.get(key);
+    if (value && value.length === 1)
+      map.set(key, value[0]);
   }
   async parseGpsBlock() {
     if (this.gps)
       return;
-    if (this.ifd0 || await this.parseIfd0Block(), void 0 === this.gpsOffset)
+    if (!this.ifd0)
+      await this.parseIfd0Block();
+    if (this.gpsOffset === void 0)
       return;
-    let e4 = this.parseBlock(this.gpsOffset, "gps");
-    return e4 && e4.has(2) && e4.has(4) && (e4.set("latitude", ne(...e4.get(2), e4.get(1))), e4.set("longitude", ne(...e4.get(4), e4.get(3)))), e4;
+    let gps = this.parseBlock(this.gpsOffset, "gps");
+    if (gps && gps.has(TAG_GPS_LAT) && gps.has(TAG_GPS_LON)) {
+      gps.set("latitude", ConvertDMSToDD(...gps.get(TAG_GPS_LAT), gps.get(TAG_GPS_LATREF)));
+      gps.set("longitude", ConvertDMSToDD(...gps.get(TAG_GPS_LON), gps.get(TAG_GPS_LONREF)));
+    }
+    return gps;
   }
   async parseInteropBlock() {
-    if (!this.interop && (this.ifd0 || await this.parseIfd0Block(), void 0 !== this.interopOffset || this.exif || await this.parseExifBlock(), void 0 !== this.interopOffset))
-      return this.parseBlock(this.interopOffset, "interop");
+    if (this.interop)
+      return;
+    if (!this.ifd0)
+      await this.parseIfd0Block();
+    if (this.interopOffset === void 0 && !this.exif)
+      await this.parseExifBlock();
+    if (this.interopOffset === void 0)
+      return;
+    return this.parseBlock(this.interopOffset, "interop");
   }
-  async parseThumbnailBlock(e4 = false) {
-    if (!this.ifd1 && !this.ifd1Parsed && (!this.options.mergeOutput || e4))
-      return this.findIfd1Offset(), this.ifd1Offset > 0 && (this.parseBlock(this.ifd1Offset, "ifd1"), this.ifd1Parsed = true), this.ifd1;
+  async parseThumbnailBlock(force = false) {
+    if (this.ifd1 || this.ifd1Parsed)
+      return;
+    if (this.options.mergeOutput && !force)
+      return;
+    this.findIfd1Offset();
+    if (this.ifd1Offset > 0) {
+      this.parseBlock(this.ifd1Offset, "ifd1");
+      this.ifd1Parsed = true;
+    }
+    return this.ifd1;
   }
   async extractThumbnail() {
-    if (this.headerParsed || this.parseHeader(), this.ifd1Parsed || await this.parseThumbnailBlock(true), void 0 === this.ifd1)
+    if (!this.headerParsed)
+      this.parseHeader();
+    if (!this.ifd1Parsed)
+      await this.parseThumbnailBlock(true);
+    if (this.ifd1 === void 0)
       return;
-    let e4 = this.ifd1.get(513), t4 = this.ifd1.get(514);
-    return this.chunk.getUint8Array(e4, t4);
+    let offset = this.ifd1.get(THUMB_OFFSET);
+    let length = this.ifd1.get(THUMB_LENGTH);
+    return this.chunk.getUint8Array(offset, length);
   }
   get image() {
     return this.ifd0;
@@ -20717,183 +21972,297 @@ this.ifd0Offset: ${this.ifd0Offset}, file.byteLength: ${e4.byteLength}`), e4.tif
     return this.ifd1;
   }
   createOutput() {
-    let e4, t4, s4, i4 = {};
-    for (t4 of P2)
-      if (e4 = this[t4], !f2(e4))
-        if (s4 = this.canTranslate ? this.translateBlock(e4, t4) : Object.fromEntries(e4), this.options.mergeOutput) {
-          if ("ifd1" === t4)
-            continue;
-          Object.assign(i4, s4);
-        } else
-          i4[t4] = s4;
-    return this.makerNote && (i4.makerNote = this.makerNote), this.userComment && (i4.userComment = this.userComment), i4;
+    let tiff = {};
+    let block, blockKey, blockOutput;
+    for (blockKey of tiffBlocks) {
+      block = this[blockKey];
+      if (isEmpty(block))
+        continue;
+      if (this.canTranslate)
+        blockOutput = this.translateBlock(block, blockKey);
+      else
+        blockOutput = Object.fromEntries(block);
+      if (this.options.mergeOutput) {
+        if (blockKey === "ifd1")
+          continue;
+        Object.assign(tiff, blockOutput);
+      } else {
+        tiff[blockKey] = blockOutput;
+      }
+    }
+    if (this.makerNote)
+      tiff.makerNote = this.makerNote;
+    if (this.userComment)
+      tiff.userComment = this.userComment;
+    return tiff;
   }
-  assignToOutput(e4, t4) {
-    if (this.globalOptions.mergeOutput)
-      Object.assign(e4, t4);
-    else
-      for (let [s4, i4] of Object.entries(t4))
-        this.assignObjectToOutput(e4, s4, i4);
+  assignToOutput(root, tiff) {
+    if (this.globalOptions.mergeOutput) {
+      Object.assign(root, tiff);
+    } else {
+      for (let [blockKey, block] of Object.entries(tiff))
+        this.assignObjectToOutput(root, blockKey, block);
+    }
   }
 };
-function ne(e4, t4, s4, i4) {
-  var n3 = e4 + t4 / 60 + s4 / 3600;
-  return "S" !== i4 && "W" !== i4 || (n3 *= -1), n3;
+__publicField(TiffExif, "type", "tiff");
+__publicField(TiffExif, "headerLength", 10);
+function ConvertDMSToDD(degrees, minutes, seconds, direction) {
+  var dd = degrees + minutes / 60 + seconds / (60 * 60);
+  if (direction === "S" || direction === "W")
+    dd *= -1;
+  return dd;
 }
-e2(ie, "type", "tiff"), e2(ie, "headerLength", 10), y2.set("tiff", ie);
-var re = Object.freeze({ __proto__: null, default: G, Exifr: H2, fileParsers: m2, segmentParsers: y2, fileReaders: b2, tagKeys: B2, tagValues: V, tagRevivers: I2, createDictionary: x2, extendDictionary: C2, fetchUrlAsArrayBuffer: S2, readBlobAsArrayBuffer: A2, chunkedProps: L2, otherSegments: T2, segments: z2, tiffBlocks: P2, segmentsAndBlocks: F2, tiffExtractables: j2, inheritables: E, allFormatters: M2, Options: R, parse: Y });
-var ae = { ifd0: false, ifd1: false, exif: false, gps: false, interop: false, sanitize: false, reviveValues: true, translateKeys: false, translateValues: false, mergeOutput: false };
-var he = Object.assign({}, ae, { firstChunkSize: 4e4, gps: [1, 2, 3, 4] });
-var le = Object.assign({}, ae, { tiff: false, ifd1: true, mergeOutput: false });
-var de = Object.assign({}, ae, { firstChunkSize: 4e4, ifd0: [274] });
-async function ce(e4) {
-  let t4 = new H2(de);
-  await t4.read(e4);
-  let s4 = await t4.parse();
-  if (s4 && s4.ifd0)
-    return s4.ifd0[274];
+segmentParsers.set("tiff", TiffExif);
+
+// node_modules/exifr/src/highlevel/disableAllOptions.mjs
+var disableAllOptions = {
+  ifd0: false,
+  ifd1: false,
+  exif: false,
+  gps: false,
+  interop: false,
+  sanitize: false,
+  reviveValues: true,
+  translateKeys: false,
+  translateValues: false,
+  mergeOutput: false
+};
+
+// node_modules/exifr/src/highlevel/gps.mjs
+var gpsOnlyOptions = Object.assign({}, disableAllOptions, {
+  firstChunkSize: 4e4,
+  gps: [TAG_GPS_LATREF, TAG_GPS_LAT, TAG_GPS_LONREF, TAG_GPS_LON]
+});
+
+// node_modules/exifr/src/highlevel/thumb.mjs
+var thumbnailOnlyOptions = Object.assign({}, disableAllOptions, {
+  tiff: false,
+  ifd1: true,
+  mergeOutput: false
+});
+
+// node_modules/exifr/src/highlevel/orientation.mjs
+var orientationOnlyOptions = Object.assign({}, disableAllOptions, {
+  firstChunkSize: 4e4,
+  ifd0: [TAG_ORIENTATION]
+});
+async function orientation(input) {
+  let exr = new Exifr(orientationOnlyOptions);
+  await exr.read(input);
+  let output = await exr.parse();
+  if (output && output.ifd0) {
+    return output.ifd0[TAG_ORIENTATION];
+  }
 }
-var pe = Object.freeze({ 1: { dimensionSwapped: false, scaleX: 1, scaleY: 1, deg: 0, rad: 0 }, 2: { dimensionSwapped: false, scaleX: -1, scaleY: 1, deg: 0, rad: 0 }, 3: { dimensionSwapped: false, scaleX: 1, scaleY: 1, deg: 180, rad: 180 * Math.PI / 180 }, 4: { dimensionSwapped: false, scaleX: -1, scaleY: 1, deg: 180, rad: 180 * Math.PI / 180 }, 5: { dimensionSwapped: true, scaleX: 1, scaleY: -1, deg: 90, rad: 90 * Math.PI / 180 }, 6: { dimensionSwapped: true, scaleX: 1, scaleY: 1, deg: 90, rad: 90 * Math.PI / 180 }, 7: { dimensionSwapped: true, scaleX: 1, scaleY: -1, deg: 270, rad: 270 * Math.PI / 180 }, 8: { dimensionSwapped: true, scaleX: 1, scaleY: 1, deg: 270, rad: 270 * Math.PI / 180 } });
-var ge = true;
-var me = true;
-if ("object" == typeof navigator) {
-  let e4 = navigator.userAgent;
-  if (e4.includes("iPad") || e4.includes("iPhone")) {
-    let t4 = e4.match(/OS (\d+)_(\d+)/);
-    if (t4) {
-      let [, e5, s4] = t4, i4 = Number(e5) + 0.1 * Number(s4);
-      ge = i4 < 13.4, me = false;
+var rotations = Object.freeze({
+  1: { dimensionSwapped: false, scaleX: 1, scaleY: 1, deg: 0, rad: 0 },
+  2: { dimensionSwapped: false, scaleX: -1, scaleY: 1, deg: 0, rad: 0 },
+  3: { dimensionSwapped: false, scaleX: 1, scaleY: 1, deg: 180, rad: 180 * Math.PI / 180 },
+  4: { dimensionSwapped: false, scaleX: -1, scaleY: 1, deg: 180, rad: 180 * Math.PI / 180 },
+  5: { dimensionSwapped: true, scaleX: 1, scaleY: -1, deg: 90, rad: 90 * Math.PI / 180 },
+  6: { dimensionSwapped: true, scaleX: 1, scaleY: 1, deg: 90, rad: 90 * Math.PI / 180 },
+  7: { dimensionSwapped: true, scaleX: 1, scaleY: -1, deg: 270, rad: 270 * Math.PI / 180 },
+  8: { dimensionSwapped: true, scaleX: 1, scaleY: 1, deg: 270, rad: 270 * Math.PI / 180 }
+});
+var rotateCanvas = true;
+var rotateCss = true;
+if (typeof navigator === "object") {
+  let ua = navigator.userAgent;
+  if (ua.includes("iPad") || ua.includes("iPhone")) {
+    let matchArray = ua.match(/OS (\d+)_(\d+)/);
+    if (matchArray) {
+      let [, major, minor] = matchArray;
+      let version = Number(major) + Number(minor) * 0.1;
+      rotateCanvas = version < 13.4;
+      rotateCss = false;
     }
-  } else if (e4.includes("OS X 10")) {
-    let [, t4] = e4.match(/OS X 10[_.](\d+)/);
-    ge = me = Number(t4) < 15;
+  } else if (ua.includes("OS X 10")) {
+    let [, version] = ua.match(/OS X 10[_.](\d+)/);
+    rotateCanvas = rotateCss = Number(version) < 15;
   }
-  if (e4.includes("Chrome/")) {
-    let [, t4] = e4.match(/Chrome\/(\d+)/);
-    ge = me = Number(t4) < 81;
-  } else if (e4.includes("Firefox/")) {
-    let [, t4] = e4.match(/Firefox\/(\d+)/);
-    ge = me = Number(t4) < 77;
+  if (ua.includes("Chrome/")) {
+    let [, version] = ua.match(/Chrome\/(\d+)/);
+    rotateCanvas = rotateCss = Number(version) < 81;
+  } else if (ua.includes("Firefox/")) {
+    let [, version] = ua.match(/Firefox\/(\d+)/);
+    rotateCanvas = rotateCss = Number(version) < 77;
   }
 }
-async function ye(e4) {
-  let t4 = await ce(e4);
-  return Object.assign({ canvas: ge, css: me }, pe[t4]);
+async function rotation(input) {
+  let or = await orientation(input);
+  return Object.assign({
+    canvas: rotateCanvas,
+    css: rotateCss
+  }, rotations[or]);
 }
-var be = class extends c2 {
-  constructor(...t4) {
-    super(...t4), e2(this, "ranges", new we()), 0 !== this.byteLength && this.ranges.add(0, this.byteLength);
+
+// node_modules/exifr/src/util/DynamicBufferView.mjs
+var DynamicBufferView = class extends BufferView {
+  ranges = new Ranges();
+  constructor(...args) {
+    super(...args);
+    if (this.byteLength !== 0)
+      this.ranges.add(0, this.byteLength);
   }
-  _tryExtend(e4, t4, s4) {
-    if (0 === e4 && 0 === this.byteLength && s4) {
-      let e5 = new DataView(s4.buffer || s4, s4.byteOffset, s4.byteLength);
-      this._swapDataView(e5);
+  _tryExtend(offset, length, abChunk) {
+    if (offset === 0 && this.byteLength === 0 && abChunk) {
+      let dataView = new DataView(abChunk.buffer || abChunk, abChunk.byteOffset, abChunk.byteLength);
+      this._swapDataView(dataView);
     } else {
-      let s5 = e4 + t4;
-      if (s5 > this.byteLength) {
-        let { dataView: e5 } = this._extend(s5);
-        this._swapDataView(e5);
+      let end = offset + length;
+      if (end > this.byteLength) {
+        let { dataView } = this._extend(end);
+        this._swapDataView(dataView);
       }
     }
   }
-  _extend(e4) {
-    let t4;
-    t4 = a2 ? r2.allocUnsafe(e4) : new Uint8Array(e4);
-    let s4 = new DataView(t4.buffer, t4.byteOffset, t4.byteLength);
-    return t4.set(new Uint8Array(this.buffer, this.byteOffset, this.byteLength), 0), { uintView: t4, dataView: s4 };
+  _extend(newLength) {
+    let uintView;
+    if (hasBuffer)
+      uintView = Buffer2.allocUnsafe(newLength);
+    else
+      uintView = new Uint8Array(newLength);
+    let dataView = new DataView(uintView.buffer, uintView.byteOffset, uintView.byteLength);
+    uintView.set(new Uint8Array(this.buffer, this.byteOffset, this.byteLength), 0);
+    return { uintView, dataView };
   }
-  subarray(e4, t4, s4 = false) {
-    return t4 = t4 || this._lengthToEnd(e4), s4 && this._tryExtend(e4, t4), this.ranges.add(e4, t4), super.subarray(e4, t4);
+  subarray(offset, length, canExtend = false) {
+    length = length || this._lengthToEnd(offset);
+    if (canExtend)
+      this._tryExtend(offset, length);
+    this.ranges.add(offset, length);
+    return super.subarray(offset, length);
   }
-  set(e4, t4, s4 = false) {
-    s4 && this._tryExtend(t4, e4.byteLength, e4);
-    let i4 = super.set(e4, t4);
-    return this.ranges.add(t4, i4.byteLength), i4;
+  set(arg, offset, canExtend = false) {
+    if (canExtend)
+      this._tryExtend(offset, arg.byteLength, arg);
+    let chunk = super.set(arg, offset);
+    this.ranges.add(offset, chunk.byteLength);
+    return chunk;
   }
-  async ensureChunk(e4, t4) {
-    this.chunked && (this.ranges.available(e4, t4) || await this.readChunk(e4, t4));
+  async ensureChunk(offset, length) {
+    if (!this.chunked)
+      return;
+    if (this.ranges.available(offset, length))
+      return;
+    await this.readChunk(offset, length);
   }
-  available(e4, t4) {
-    return this.ranges.available(e4, t4);
+  available(offset, length) {
+    return this.ranges.available(offset, length);
   }
 };
-var we = class {
-  constructor() {
-    e2(this, "list", []);
-  }
+var Ranges = class {
+  list = [];
   get length() {
     return this.list.length;
   }
-  add(e4, t4, s4 = 0) {
-    let i4 = e4 + t4, n3 = this.list.filter((t5) => ke(e4, t5.offset, i4) || ke(e4, t5.end, i4));
-    if (n3.length > 0) {
-      e4 = Math.min(e4, ...n3.map((e5) => e5.offset)), i4 = Math.max(i4, ...n3.map((e5) => e5.end)), t4 = i4 - e4;
-      let s5 = n3.shift();
-      s5.offset = e4, s5.length = t4, s5.end = i4, this.list = this.list.filter((e5) => !n3.includes(e5));
-    } else
-      this.list.push({ offset: e4, length: t4, end: i4 });
+  add(offset, length, padding = 0) {
+    let end = offset + length;
+    let within = this.list.filter((range) => isBetween(offset, range.offset, end) || isBetween(offset, range.end, end));
+    if (within.length > 0) {
+      offset = Math.min(offset, ...within.map((range2) => range2.offset));
+      end = Math.max(end, ...within.map((range2) => range2.end));
+      length = end - offset;
+      let range = within.shift();
+      range.offset = offset;
+      range.length = length;
+      range.end = end;
+      this.list = this.list.filter((range2) => !within.includes(range2));
+    } else {
+      this.list.push({ offset, length, end });
+    }
   }
-  available(e4, t4) {
-    let s4 = e4 + t4;
-    return this.list.some((t5) => t5.offset <= e4 && s4 <= t5.end);
+  available(offset, length) {
+    let end = offset + length;
+    return this.list.some((range) => range.offset <= offset && end <= range.end);
   }
 };
-function ke(e4, t4, s4) {
-  return e4 <= t4 && t4 <= s4;
+function isBetween(min, val, max) {
+  return min <= val && val <= max;
 }
-var Oe = class extends be {
-  constructor(t4, s4) {
-    super(0), e2(this, "chunksRead", 0), this.input = t4, this.options = s4;
+
+// node_modules/exifr/src/file-readers/ChunkedReader.mjs
+var ChunkedReader = class extends DynamicBufferView {
+  constructor(input, options3) {
+    super(0);
+    this.input = input;
+    this.options = options3;
   }
+  chunksRead = 0;
   async readWhole() {
-    this.chunked = false, await this.readChunk(this.nextChunkOffset);
+    this.chunked = false;
+    await this.readChunk(this.nextChunkOffset);
   }
   async readChunked() {
-    this.chunked = true, await this.readChunk(0, this.options.firstChunkSize);
+    this.chunked = true;
+    await this.readChunk(0, this.options.firstChunkSize);
   }
-  async readNextChunk(e4 = this.nextChunkOffset) {
-    if (this.fullyRead)
-      return this.chunksRead++, false;
-    let t4 = this.options.chunkSize, s4 = await this.readChunk(e4, t4);
-    return !!s4 && s4.byteLength === t4;
+  async readNextChunk(offset = this.nextChunkOffset) {
+    if (this.fullyRead) {
+      this.chunksRead++;
+      return false;
+    }
+    let sizeToRead = this.options.chunkSize;
+    let chunk = await this.readChunk(offset, sizeToRead);
+    if (chunk)
+      return chunk.byteLength === sizeToRead;
+    return false;
   }
-  async readChunk(e4, t4) {
-    if (this.chunksRead++, 0 !== (t4 = this.safeWrapAddress(e4, t4)))
-      return this._readChunk(e4, t4);
+  async readChunk(offset, length) {
+    this.chunksRead++;
+    length = this.safeWrapAddress(offset, length);
+    if (length === 0)
+      return void 0;
+    return this._readChunk(offset, length);
   }
-  safeWrapAddress(e4, t4) {
-    return void 0 !== this.size && e4 + t4 > this.size ? Math.max(0, this.size - e4) : t4;
+  safeWrapAddress(offset, length) {
+    if (this.size !== void 0 && offset + length > this.size)
+      return Math.max(0, this.size - offset);
+    return length;
   }
   get nextChunkOffset() {
-    if (0 !== this.ranges.list.length)
+    if (this.ranges.list.length !== 0)
       return this.ranges.list[0].length;
   }
   get canReadNextChunk() {
     return this.chunksRead < this.options.chunkLimit;
   }
   get fullyRead() {
-    return void 0 !== this.size && this.nextChunkOffset === this.size;
+    if (this.size === void 0)
+      return false;
+    return this.nextChunkOffset === this.size;
   }
   read() {
-    return this.options.chunked ? this.readChunked() : this.readWhole();
+    if (this.options.chunked)
+      return this.readChunked();
+    else
+      return this.readWhole();
   }
   close() {
   }
 };
-b2.set("blob", class extends Oe {
+
+// node_modules/exifr/src/file-readers/BlobReader.mjs
+var BlobReader = class extends ChunkedReader {
   async readWhole() {
     this.chunked = false;
-    let e4 = await A2(this.input);
-    this._swapArrayBuffer(e4);
+    let arrayBuffer = await readBlobAsArrayBuffer(this.input);
+    this._swapArrayBuffer(arrayBuffer);
   }
   readChunked() {
-    return this.chunked = true, this.size = this.input.size, super.readChunked();
+    this.chunked = true;
+    this.size = this.input.size;
+    return super.readChunked();
   }
-  async _readChunk(e4, t4) {
-    let s4 = t4 ? e4 + t4 : void 0, i4 = this.input.slice(e4, s4), n3 = await A2(i4);
-    return this.set(n3, e4, true);
+  async _readChunk(offset, length) {
+    let end = length ? offset + length : void 0;
+    let blob = this.input.slice(offset, end);
+    let abChunk = await readBlobAsArrayBuffer(blob);
+    return this.set(abChunk, offset, true);
   }
-});
+};
+fileReaders.set("blob", BlobReader);
 
 // node_modules/@uppy/thumbnail-generator/lib/locale.js
 var locale_default3 = {
@@ -20904,7 +22273,7 @@ var locale_default3 = {
 
 // node_modules/@uppy/thumbnail-generator/lib/index.js
 var packageJson5 = {
-  "version": "3.1.0"
+  "version": "4.0.0"
 };
 function canvasToBlob(canvas, type, quality) {
   try {
@@ -20934,17 +22303,17 @@ function canvasToBlob(canvas, type, quality) {
   });
 }
 function rotateImage(image, translate) {
-  let w4 = image.width;
-  let h4 = image.height;
+  let w = image.width;
+  let h = image.height;
   if (translate.deg === 90 || translate.deg === 270) {
-    w4 = image.height;
-    h4 = image.width;
+    w = image.height;
+    h = image.width;
   }
   const canvas = document.createElement("canvas");
-  canvas.width = w4;
-  canvas.height = h4;
+  canvas.width = w;
+  canvas.height = h;
   const context = canvas.getContext("2d");
-  context.translate(w4 / 2, h4 / 2);
+  context.translate(w / 2, h / 2);
   if (translate.canvas) {
     context.rotate(translate.rad);
     context.scale(translate.scaleX, translate.scaleY);
@@ -21072,11 +22441,11 @@ var ThumbnailGenerator = class extends UIPlugin_default {
         reject(event2.error || new Error("Could not create thumbnail"));
       });
     });
-    const orientationPromise = ye(file.data).catch(() => 1);
+    const orientationPromise = rotation(file.data).catch(() => 1);
     return Promise.all([onload, orientationPromise]).then((_ref) => {
-      let [image, orientation] = _ref;
-      const dimensions = this.getProportionalDimensions(image, targetWidth, targetHeight, orientation.deg);
-      const rotatedImage = rotateImage(image, orientation);
+      let [image, orientation2] = _ref;
+      const dimensions = this.getProportionalDimensions(image, targetWidth, targetHeight, orientation2.deg);
+      const rotatedImage = rotateImage(image, orientation2);
       const resizedImage = this.resizeImage(rotatedImage, dimensions.width, dimensions.height);
       return canvasToBlob(resizedImage, this.thumbnailType, 80);
     }).then((blob) => {
@@ -21113,15 +22482,15 @@ var ThumbnailGenerator = class extends UIPlugin_default {
     }
     let sW = targetWidth * 2 ** (steps - 1);
     let sH = targetHeight * 2 ** (steps - 1);
-    const x4 = 2;
+    const x = 2;
     while (steps--) {
       const canvas = document.createElement("canvas");
       canvas.width = sW;
       canvas.height = sH;
       canvas.getContext("2d").drawImage(img, 0, 0, sW, sH);
       img = canvas;
-      sW = Math.round(sW / x4);
-      sH = Math.round(sH / x4);
+      sW = Math.round(sW / x);
+      sH = Math.round(sH / x);
     }
     return img;
   }
@@ -21284,8 +22653,8 @@ function createPromiseToAddFileOrParseDirectory(entry, relativePath, lastResortF
       } else if (lastResortFile != null)
         yield lastResortFile;
     }();
-  } catch (e4) {
-    return Promise.reject(e4);
+  } catch (e) {
+    return Promise.reject(e);
   }
 }
 async function* getFilesFromDataTransfer(dataTransfer, logDropError) {
@@ -21325,9 +22694,9 @@ function fallbackApi(dataTransfer) {
 }
 
 // node_modules/@uppy/utils/lib/getDroppedFiles/index.js
-async function getDroppedFiles(dataTransfer, options) {
+async function getDroppedFiles(dataTransfer, options3) {
   var _options$logDropError;
-  const logDropError = (_options$logDropError = options == null ? void 0 : options.logDropError) != null ? _options$logDropError : Function.prototype;
+  const logDropError = (_options$logDropError = options3 == null ? void 0 : options3.logDropError) != null ? _options$logDropError : Function.prototype;
   try {
     const accumulator = [];
     for await (const file of getFilesFromDataTransfer(dataTransfer, logDropError)) {
@@ -21339,615 +22708,310 @@ async function getDroppedFiles(dataTransfer, options) {
   }
 }
 
-// node_modules/eventemitter3/index.mjs
-var import_index = __toESM(require_eventemitter3(), 1);
+// node_modules/@uppy/provider-views/lib/ProviderView/ProviderView.js
+var import_classnames6 = __toESM(require_classnames(), 1);
 
-// node_modules/p-timeout/index.js
-var TimeoutError = class extends Error {
-  constructor(message) {
-    super(message);
-    this.name = "TimeoutError";
-  }
-};
-var AbortError = class extends Error {
-  constructor(message) {
-    super();
-    this.name = "AbortError";
-    this.message = message;
-  }
-};
-var getDOMException = (errorMessage) => globalThis.DOMException === void 0 ? new AbortError(errorMessage) : new DOMException(errorMessage);
-var getAbortedReason = (signal) => {
-  const reason = signal.reason === void 0 ? getDOMException("This operation was aborted.") : signal.reason;
-  return reason instanceof Error ? reason : getDOMException(reason);
-};
-function pTimeout(promise, milliseconds, fallback, options) {
-  let timer;
-  const cancelablePromise = new Promise((resolve, reject) => {
-    if (typeof milliseconds !== "number" || Math.sign(milliseconds) !== 1) {
-      throw new TypeError(`Expected \`milliseconds\` to be a positive number, got \`${milliseconds}\``);
-    }
-    if (milliseconds === Number.POSITIVE_INFINITY) {
-      resolve(promise);
-      return;
-    }
-    options = {
-      customTimers: { setTimeout, clearTimeout },
-      ...options
-    };
-    if (options.signal) {
-      const { signal } = options;
-      if (signal.aborted) {
-        reject(getAbortedReason(signal));
-      }
-      signal.addEventListener("abort", () => {
-        reject(getAbortedReason(signal));
-      });
-    }
-    timer = options.customTimers.setTimeout.call(void 0, () => {
-      if (typeof fallback === "function") {
-        try {
-          resolve(fallback());
-        } catch (error) {
-          reject(error);
-        }
-        return;
-      }
-      const message = typeof fallback === "string" ? fallback : `Promise timed out after ${milliseconds} milliseconds`;
-      const timeoutError = fallback instanceof Error ? fallback : new TimeoutError(message);
-      if (typeof promise.cancel === "function") {
-        promise.cancel();
-      }
-      reject(timeoutError);
-    }, milliseconds);
-    (async () => {
-      try {
-        resolve(await promise);
-      } catch (error) {
-        reject(error);
-      } finally {
-        options.customTimers.clearTimeout.call(void 0, timer);
-      }
-    })();
-  });
-  cancelablePromise.clear = () => {
-    clearTimeout(timer);
-    timer = void 0;
+// node_modules/@uppy/utils/lib/remoteFileObjToLocal.js
+function remoteFileObjToLocal(file) {
+  return {
+    ...file,
+    type: file.mimeType,
+    extension: file.name ? getFileNameAndExtension(file.name).extension : null
   };
-  return cancelablePromise;
 }
 
-// node_modules/p-queue/dist/lower-bound.js
-function lowerBound(array, value, comparator) {
-  let first = 0;
-  let count = array.length;
-  while (count > 0) {
-    const step = Math.trunc(count / 2);
-    let it = first + step;
-    if (comparator(array[it], value) <= 0) {
-      first = ++it;
-      count -= step + 1;
-    } else {
-      count = step;
-    }
-  }
-  return first;
-}
-
-// node_modules/p-queue/dist/priority-queue.js
-var __classPrivateFieldGet = function(receiver, state, kind, f4) {
-  if (kind === "a" && !f4)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f4 : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f4 : kind === "a" ? f4.call(receiver) : f4 ? f4.value : state.get(receiver);
+// node_modules/preact/hooks/src/index.js
+var currentIndex;
+var currentComponent;
+var previousComponent;
+var currentHook = 0;
+var afterPaintEffects = [];
+var options2 = options_default;
+var oldBeforeDiff = options2._diff;
+var oldBeforeRender = options2._render;
+var oldAfterDiff = options2.diffed;
+var oldCommit = options2._commit;
+var oldBeforeUnmount = options2.unmount;
+var oldRoot = options2._root;
+var RAF_TIMEOUT = 100;
+var prevRaf;
+options2._diff = (vnode) => {
+  currentComponent = null;
+  if (oldBeforeDiff)
+    oldBeforeDiff(vnode);
 };
-var _PriorityQueue_queue;
-var PriorityQueue = class {
-  constructor() {
-    _PriorityQueue_queue.set(this, []);
+options2._root = (vnode, parentDom) => {
+  if (vnode && parentDom._children && parentDom._children._mask) {
+    vnode._mask = parentDom._children._mask;
   }
-  enqueue(run, options) {
-    options = {
-      priority: 0,
-      ...options
-    };
-    const element = {
-      priority: options.priority,
-      run
-    };
-    if (this.size && __classPrivateFieldGet(this, _PriorityQueue_queue, "f")[this.size - 1].priority >= options.priority) {
-      __classPrivateFieldGet(this, _PriorityQueue_queue, "f").push(element);
-      return;
-    }
-    const index = lowerBound(__classPrivateFieldGet(this, _PriorityQueue_queue, "f"), element, (a4, b3) => b3.priority - a4.priority);
-    __classPrivateFieldGet(this, _PriorityQueue_queue, "f").splice(index, 0, element);
-  }
-  dequeue() {
-    const item = __classPrivateFieldGet(this, _PriorityQueue_queue, "f").shift();
-    return item === null || item === void 0 ? void 0 : item.run;
-  }
-  filter(options) {
-    return __classPrivateFieldGet(this, _PriorityQueue_queue, "f").filter((element) => element.priority === options.priority).map((element) => element.run);
-  }
-  get size() {
-    return __classPrivateFieldGet(this, _PriorityQueue_queue, "f").length;
-  }
+  if (oldRoot)
+    oldRoot(vnode, parentDom);
 };
-_PriorityQueue_queue = /* @__PURE__ */ new WeakMap();
-var priority_queue_default = PriorityQueue;
-
-// node_modules/p-queue/dist/index.js
-var __classPrivateFieldSet = function(receiver, state, value, kind, f4) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f4)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f4 : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f4.call(receiver, value) : f4 ? f4.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet2 = function(receiver, state, kind, f4) {
-  if (kind === "a" && !f4)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f4 : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f4 : kind === "a" ? f4.call(receiver) : f4 ? f4.value : state.get(receiver);
-};
-var _PQueue_instances;
-var _PQueue_carryoverConcurrencyCount;
-var _PQueue_isIntervalIgnored;
-var _PQueue_intervalCount;
-var _PQueue_intervalCap;
-var _PQueue_interval;
-var _PQueue_intervalEnd;
-var _PQueue_intervalId;
-var _PQueue_timeoutId;
-var _PQueue_queue;
-var _PQueue_queueClass;
-var _PQueue_pending;
-var _PQueue_concurrency;
-var _PQueue_isPaused;
-var _PQueue_throwOnTimeout;
-var _PQueue_doesIntervalAllowAnother_get;
-var _PQueue_doesConcurrentAllowAnother_get;
-var _PQueue_next;
-var _PQueue_onResumeInterval;
-var _PQueue_isIntervalPaused_get;
-var _PQueue_tryToStartAnother;
-var _PQueue_initializeIntervalIfNeeded;
-var _PQueue_onInterval;
-var _PQueue_processQueue;
-var _PQueue_throwOnAbort;
-var _PQueue_onEvent;
-var AbortError2 = class extends Error {
-};
-var PQueue = class extends import_index.default {
-  constructor(options) {
-    var _a, _b, _c, _d;
-    super();
-    _PQueue_instances.add(this);
-    _PQueue_carryoverConcurrencyCount.set(this, void 0);
-    _PQueue_isIntervalIgnored.set(this, void 0);
-    _PQueue_intervalCount.set(this, 0);
-    _PQueue_intervalCap.set(this, void 0);
-    _PQueue_interval.set(this, void 0);
-    _PQueue_intervalEnd.set(this, 0);
-    _PQueue_intervalId.set(this, void 0);
-    _PQueue_timeoutId.set(this, void 0);
-    _PQueue_queue.set(this, void 0);
-    _PQueue_queueClass.set(this, void 0);
-    _PQueue_pending.set(this, 0);
-    _PQueue_concurrency.set(this, void 0);
-    _PQueue_isPaused.set(this, void 0);
-    _PQueue_throwOnTimeout.set(this, void 0);
-    Object.defineProperty(this, "timeout", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    options = {
-      carryoverConcurrencyCount: false,
-      intervalCap: Number.POSITIVE_INFINITY,
-      interval: 0,
-      concurrency: Number.POSITIVE_INFINITY,
-      autoStart: true,
-      queueClass: priority_queue_default,
-      ...options
-    };
-    if (!(typeof options.intervalCap === "number" && options.intervalCap >= 1)) {
-      throw new TypeError(`Expected \`intervalCap\` to be a number from 1 and up, got \`${(_b = (_a = options.intervalCap) === null || _a === void 0 ? void 0 : _a.toString()) !== null && _b !== void 0 ? _b : ""}\` (${typeof options.intervalCap})`);
-    }
-    if (options.interval === void 0 || !(Number.isFinite(options.interval) && options.interval >= 0)) {
-      throw new TypeError(`Expected \`interval\` to be a finite number >= 0, got \`${(_d = (_c = options.interval) === null || _c === void 0 ? void 0 : _c.toString()) !== null && _d !== void 0 ? _d : ""}\` (${typeof options.interval})`);
-    }
-    __classPrivateFieldSet(this, _PQueue_carryoverConcurrencyCount, options.carryoverConcurrencyCount, "f");
-    __classPrivateFieldSet(this, _PQueue_isIntervalIgnored, options.intervalCap === Number.POSITIVE_INFINITY || options.interval === 0, "f");
-    __classPrivateFieldSet(this, _PQueue_intervalCap, options.intervalCap, "f");
-    __classPrivateFieldSet(this, _PQueue_interval, options.interval, "f");
-    __classPrivateFieldSet(this, _PQueue_queue, new options.queueClass(), "f");
-    __classPrivateFieldSet(this, _PQueue_queueClass, options.queueClass, "f");
-    this.concurrency = options.concurrency;
-    this.timeout = options.timeout;
-    __classPrivateFieldSet(this, _PQueue_throwOnTimeout, options.throwOnTimeout === true, "f");
-    __classPrivateFieldSet(this, _PQueue_isPaused, options.autoStart === false, "f");
-  }
-  get concurrency() {
-    return __classPrivateFieldGet2(this, _PQueue_concurrency, "f");
-  }
-  set concurrency(newConcurrency) {
-    if (!(typeof newConcurrency === "number" && newConcurrency >= 1)) {
-      throw new TypeError(`Expected \`concurrency\` to be a number from 1 and up, got \`${newConcurrency}\` (${typeof newConcurrency})`);
-    }
-    __classPrivateFieldSet(this, _PQueue_concurrency, newConcurrency, "f");
-    __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_processQueue).call(this);
-  }
-  async add(function_, options = {}) {
-    options = {
-      timeout: this.timeout,
-      throwOnTimeout: __classPrivateFieldGet2(this, _PQueue_throwOnTimeout, "f"),
-      ...options
-    };
-    return new Promise((resolve, reject) => {
-      __classPrivateFieldGet2(this, _PQueue_queue, "f").enqueue(async () => {
-        var _a;
-        var _b, _c;
-        __classPrivateFieldSet(this, _PQueue_pending, (_b = __classPrivateFieldGet2(this, _PQueue_pending, "f"), _b++, _b), "f");
-        __classPrivateFieldSet(this, _PQueue_intervalCount, (_c = __classPrivateFieldGet2(this, _PQueue_intervalCount, "f"), _c++, _c), "f");
-        try {
-          if ((_a = options.signal) === null || _a === void 0 ? void 0 : _a.aborted) {
-            throw new AbortError2("The task was aborted.");
-          }
-          let operation = function_({ signal: options.signal });
-          if (options.timeout) {
-            operation = pTimeout(Promise.resolve(operation), options.timeout);
-          }
-          if (options.signal) {
-            operation = Promise.race([operation, __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_throwOnAbort).call(this, options.signal)]);
-          }
-          const result = await operation;
-          resolve(result);
-          this.emit("completed", result);
-        } catch (error) {
-          if (error instanceof TimeoutError && !options.throwOnTimeout) {
-            resolve();
-            return;
-          }
-          reject(error);
-          this.emit("error", error);
-        } finally {
-          __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_next).call(this);
+options2._render = (vnode) => {
+  if (oldBeforeRender)
+    oldBeforeRender(vnode);
+  currentComponent = vnode._component;
+  currentIndex = 0;
+  const hooks = currentComponent.__hooks;
+  if (hooks) {
+    if (previousComponent === currentComponent) {
+      hooks._pendingEffects = [];
+      currentComponent._renderCallbacks = [];
+      hooks._list.forEach((hookItem) => {
+        if (hookItem._nextValue) {
+          hookItem._value = hookItem._nextValue;
         }
-      }, options);
-      this.emit("add");
-      __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_tryToStartAnother).call(this);
-    });
-  }
-  async addAll(functions, options) {
-    return Promise.all(functions.map(async (function_) => this.add(function_, options)));
-  }
-  start() {
-    if (!__classPrivateFieldGet2(this, _PQueue_isPaused, "f")) {
-      return this;
-    }
-    __classPrivateFieldSet(this, _PQueue_isPaused, false, "f");
-    __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_processQueue).call(this);
-    return this;
-  }
-  pause() {
-    __classPrivateFieldSet(this, _PQueue_isPaused, true, "f");
-  }
-  clear() {
-    __classPrivateFieldSet(this, _PQueue_queue, new (__classPrivateFieldGet2(this, _PQueue_queueClass, "f"))(), "f");
-  }
-  async onEmpty() {
-    if (__classPrivateFieldGet2(this, _PQueue_queue, "f").size === 0) {
-      return;
-    }
-    await __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_onEvent).call(this, "empty");
-  }
-  async onSizeLessThan(limit) {
-    if (__classPrivateFieldGet2(this, _PQueue_queue, "f").size < limit) {
-      return;
-    }
-    await __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_onEvent).call(this, "next", () => __classPrivateFieldGet2(this, _PQueue_queue, "f").size < limit);
-  }
-  async onIdle() {
-    if (__classPrivateFieldGet2(this, _PQueue_pending, "f") === 0 && __classPrivateFieldGet2(this, _PQueue_queue, "f").size === 0) {
-      return;
-    }
-    await __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_onEvent).call(this, "idle");
-  }
-  get size() {
-    return __classPrivateFieldGet2(this, _PQueue_queue, "f").size;
-  }
-  sizeBy(options) {
-    return __classPrivateFieldGet2(this, _PQueue_queue, "f").filter(options).length;
-  }
-  get pending() {
-    return __classPrivateFieldGet2(this, _PQueue_pending, "f");
-  }
-  get isPaused() {
-    return __classPrivateFieldGet2(this, _PQueue_isPaused, "f");
-  }
-};
-_PQueue_carryoverConcurrencyCount = /* @__PURE__ */ new WeakMap(), _PQueue_isIntervalIgnored = /* @__PURE__ */ new WeakMap(), _PQueue_intervalCount = /* @__PURE__ */ new WeakMap(), _PQueue_intervalCap = /* @__PURE__ */ new WeakMap(), _PQueue_interval = /* @__PURE__ */ new WeakMap(), _PQueue_intervalEnd = /* @__PURE__ */ new WeakMap(), _PQueue_intervalId = /* @__PURE__ */ new WeakMap(), _PQueue_timeoutId = /* @__PURE__ */ new WeakMap(), _PQueue_queue = /* @__PURE__ */ new WeakMap(), _PQueue_queueClass = /* @__PURE__ */ new WeakMap(), _PQueue_pending = /* @__PURE__ */ new WeakMap(), _PQueue_concurrency = /* @__PURE__ */ new WeakMap(), _PQueue_isPaused = /* @__PURE__ */ new WeakMap(), _PQueue_throwOnTimeout = /* @__PURE__ */ new WeakMap(), _PQueue_instances = /* @__PURE__ */ new WeakSet(), _PQueue_doesIntervalAllowAnother_get = function _PQueue_doesIntervalAllowAnother_get2() {
-  return __classPrivateFieldGet2(this, _PQueue_isIntervalIgnored, "f") || __classPrivateFieldGet2(this, _PQueue_intervalCount, "f") < __classPrivateFieldGet2(this, _PQueue_intervalCap, "f");
-}, _PQueue_doesConcurrentAllowAnother_get = function _PQueue_doesConcurrentAllowAnother_get2() {
-  return __classPrivateFieldGet2(this, _PQueue_pending, "f") < __classPrivateFieldGet2(this, _PQueue_concurrency, "f");
-}, _PQueue_next = function _PQueue_next2() {
-  var _a;
-  __classPrivateFieldSet(this, _PQueue_pending, (_a = __classPrivateFieldGet2(this, _PQueue_pending, "f"), _a--, _a), "f");
-  __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_tryToStartAnother).call(this);
-  this.emit("next");
-}, _PQueue_onResumeInterval = function _PQueue_onResumeInterval2() {
-  __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_onInterval).call(this);
-  __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_initializeIntervalIfNeeded).call(this);
-  __classPrivateFieldSet(this, _PQueue_timeoutId, void 0, "f");
-}, _PQueue_isIntervalPaused_get = function _PQueue_isIntervalPaused_get2() {
-  const now = Date.now();
-  if (__classPrivateFieldGet2(this, _PQueue_intervalId, "f") === void 0) {
-    const delay = __classPrivateFieldGet2(this, _PQueue_intervalEnd, "f") - now;
-    if (delay < 0) {
-      __classPrivateFieldSet(this, _PQueue_intervalCount, __classPrivateFieldGet2(this, _PQueue_carryoverConcurrencyCount, "f") ? __classPrivateFieldGet2(this, _PQueue_pending, "f") : 0, "f");
-    } else {
-      if (__classPrivateFieldGet2(this, _PQueue_timeoutId, "f") === void 0) {
-        __classPrivateFieldSet(this, _PQueue_timeoutId, setTimeout(() => {
-          __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_onResumeInterval).call(this);
-        }, delay), "f");
-      }
-      return true;
-    }
-  }
-  return false;
-}, _PQueue_tryToStartAnother = function _PQueue_tryToStartAnother2() {
-  if (__classPrivateFieldGet2(this, _PQueue_queue, "f").size === 0) {
-    if (__classPrivateFieldGet2(this, _PQueue_intervalId, "f")) {
-      clearInterval(__classPrivateFieldGet2(this, _PQueue_intervalId, "f"));
-    }
-    __classPrivateFieldSet(this, _PQueue_intervalId, void 0, "f");
-    this.emit("empty");
-    if (__classPrivateFieldGet2(this, _PQueue_pending, "f") === 0) {
-      this.emit("idle");
-    }
-    return false;
-  }
-  if (!__classPrivateFieldGet2(this, _PQueue_isPaused, "f")) {
-    const canInitializeInterval = !__classPrivateFieldGet2(this, _PQueue_instances, "a", _PQueue_isIntervalPaused_get);
-    if (__classPrivateFieldGet2(this, _PQueue_instances, "a", _PQueue_doesIntervalAllowAnother_get) && __classPrivateFieldGet2(this, _PQueue_instances, "a", _PQueue_doesConcurrentAllowAnother_get)) {
-      const job = __classPrivateFieldGet2(this, _PQueue_queue, "f").dequeue();
-      if (!job) {
-        return false;
-      }
-      this.emit("active");
-      job();
-      if (canInitializeInterval) {
-        __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_initializeIntervalIfNeeded).call(this);
-      }
-      return true;
-    }
-  }
-  return false;
-}, _PQueue_initializeIntervalIfNeeded = function _PQueue_initializeIntervalIfNeeded2() {
-  if (__classPrivateFieldGet2(this, _PQueue_isIntervalIgnored, "f") || __classPrivateFieldGet2(this, _PQueue_intervalId, "f") !== void 0) {
-    return;
-  }
-  __classPrivateFieldSet(this, _PQueue_intervalId, setInterval(() => {
-    __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_onInterval).call(this);
-  }, __classPrivateFieldGet2(this, _PQueue_interval, "f")), "f");
-  __classPrivateFieldSet(this, _PQueue_intervalEnd, Date.now() + __classPrivateFieldGet2(this, _PQueue_interval, "f"), "f");
-}, _PQueue_onInterval = function _PQueue_onInterval2() {
-  if (__classPrivateFieldGet2(this, _PQueue_intervalCount, "f") === 0 && __classPrivateFieldGet2(this, _PQueue_pending, "f") === 0 && __classPrivateFieldGet2(this, _PQueue_intervalId, "f")) {
-    clearInterval(__classPrivateFieldGet2(this, _PQueue_intervalId, "f"));
-    __classPrivateFieldSet(this, _PQueue_intervalId, void 0, "f");
-  }
-  __classPrivateFieldSet(this, _PQueue_intervalCount, __classPrivateFieldGet2(this, _PQueue_carryoverConcurrencyCount, "f") ? __classPrivateFieldGet2(this, _PQueue_pending, "f") : 0, "f");
-  __classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_processQueue).call(this);
-}, _PQueue_processQueue = function _PQueue_processQueue2() {
-  while (__classPrivateFieldGet2(this, _PQueue_instances, "m", _PQueue_tryToStartAnother).call(this)) {
-  }
-}, _PQueue_throwOnAbort = async function _PQueue_throwOnAbort2(signal) {
-  return new Promise((_resolve, reject) => {
-    signal.addEventListener("abort", () => {
-      reject(new AbortError2("The task was aborted."));
-    }, { once: true });
-  });
-}, _PQueue_onEvent = async function _PQueue_onEvent2(event2, filter) {
-  return new Promise((resolve) => {
-    const listener = () => {
-      if (filter && !filter()) {
-        return;
-      }
-      this.off(event2, listener);
-      resolve();
-    };
-    this.on(event2, listener);
-  });
-};
-var dist_default = PQueue;
-
-// node_modules/preact/hooks/dist/hooks.module.js
-var t3;
-var r3;
-var u3;
-var i3;
-var o3 = 0;
-var f3 = [];
-var c3 = [];
-var e3 = l;
-var a3 = e3.__b;
-var v3 = e3.__r;
-var l3 = e3.diffed;
-var m3 = e3.__c;
-var s3 = e3.unmount;
-var d3 = e3.__;
-function h3(n3, t4) {
-  e3.__h && e3.__h(r3, n3, o3 || t4), o3 = 0;
-  var u4 = r3.__H || (r3.__H = { __: [], __h: [] });
-  return n3 >= u4.__.length && u4.__.push({ __V: c3 }), u4.__[n3];
-}
-function p3(n3) {
-  return o3 = 1, y3(D3, n3);
-}
-function y3(n3, u4, i4) {
-  var o4 = h3(t3++, 2);
-  if (o4.t = n3, !o4.__c && (o4.__ = [i4 ? i4(u4) : D3(void 0, u4), function(n4) {
-    var t4 = o4.__N ? o4.__N[0] : o4.__[0], r4 = o4.t(t4, n4);
-    t4 !== r4 && (o4.__N = [r4, o4.__[1]], o4.__c.setState({}));
-  }], o4.__c = r3, !r3.u)) {
-    var f4 = function(n4, t4, r4) {
-      if (!o4.__c.__H)
-        return true;
-      var u5 = o4.__c.__H.__.filter(function(n5) {
-        return !!n5.__c;
+        hookItem._pendingArgs = hookItem._nextValue = void 0;
       });
-      if (u5.every(function(n5) {
-        return !n5.__N;
-      }))
-        return !c4 || c4.call(this, n4, t4, r4);
-      var i5 = false;
-      return u5.forEach(function(n5) {
-        if (n5.__N) {
-          var t5 = n5.__[0];
-          n5.__ = n5.__N, n5.__N = void 0, t5 !== n5.__[0] && (i5 = true);
-        }
-      }), !(!i5 && o4.__c.props === n4) && (!c4 || c4.call(this, n4, t4, r4));
-    };
-    r3.u = true;
-    var c4 = r3.shouldComponentUpdate, e4 = r3.componentWillUpdate;
-    r3.componentWillUpdate = function(n4, t4, r4) {
-      if (this.__e) {
-        var u5 = c4;
-        c4 = void 0, f4(n4, t4, r4), c4 = u5;
-      }
-      e4 && e4.call(this, n4, t4, r4);
-    }, r3.shouldComponentUpdate = f4;
+    } else {
+      hooks._pendingEffects.forEach(invokeCleanup);
+      hooks._pendingEffects.forEach(invokeEffect);
+      hooks._pendingEffects = [];
+      currentIndex = 0;
+    }
   }
-  return o4.__N || o4.__;
-}
-function _5(n3, u4) {
-  var i4 = h3(t3++, 3);
-  !e3.__s && C3(i4.__H, u4) && (i4.__ = n3, i4.i = u4, r3.__H.__h.push(i4));
-}
-function F3(n3) {
-  return o3 = 5, q2(function() {
-    return { current: n3 };
-  }, []);
-}
-function q2(n3, r4) {
-  var u4 = h3(t3++, 7);
-  return C3(u4.__H, r4) ? (u4.__V = n3(), u4.i = r4, u4.__h = n3, u4.__V) : u4.__;
-}
-function x3(n3, t4) {
-  return o3 = 8, q2(function() {
-    return n3;
-  }, t4);
-}
-function j3() {
-  for (var n3; n3 = f3.shift(); )
-    if (n3.__P && n3.__H)
+  previousComponent = currentComponent;
+};
+options2.diffed = (vnode) => {
+  if (oldAfterDiff)
+    oldAfterDiff(vnode);
+  const c = vnode._component;
+  if (c && c.__hooks) {
+    if (c.__hooks._pendingEffects.length)
+      afterPaint(afterPaintEffects.push(c));
+    c.__hooks._list.forEach((hookItem) => {
+      if (hookItem._pendingArgs) {
+        hookItem._args = hookItem._pendingArgs;
+      }
+      hookItem._pendingArgs = void 0;
+    });
+  }
+  previousComponent = currentComponent = null;
+};
+options2._commit = (vnode, commitQueue) => {
+  commitQueue.some((component) => {
+    try {
+      component._renderCallbacks.forEach(invokeCleanup);
+      component._renderCallbacks = component._renderCallbacks.filter(
+        (cb) => cb._value ? invokeEffect(cb) : true
+      );
+    } catch (e) {
+      commitQueue.some((c) => {
+        if (c._renderCallbacks)
+          c._renderCallbacks = [];
+      });
+      commitQueue = [];
+      options2._catchError(e, component._vnode);
+    }
+  });
+  if (oldCommit)
+    oldCommit(vnode, commitQueue);
+};
+options2.unmount = (vnode) => {
+  if (oldBeforeUnmount)
+    oldBeforeUnmount(vnode);
+  const c = vnode._component;
+  if (c && c.__hooks) {
+    let hasErrored;
+    c.__hooks._list.forEach((s) => {
       try {
-        n3.__H.__h.forEach(z3), n3.__H.__h.forEach(B3), n3.__H.__h = [];
-      } catch (t4) {
-        n3.__H.__h = [], e3.__e(t4, n3.__v);
+        invokeCleanup(s);
+      } catch (e) {
+        hasErrored = e;
       }
-}
-e3.__b = function(n3) {
-  r3 = null, a3 && a3(n3);
-}, e3.__ = function(n3, t4) {
-  n3 && t4.__k && t4.__k.__m && (n3.__m = t4.__k.__m), d3 && d3(n3, t4);
-}, e3.__r = function(n3) {
-  v3 && v3(n3), t3 = 0;
-  var i4 = (r3 = n3.__c).__H;
-  i4 && (u3 === r3 ? (i4.__h = [], r3.__h = [], i4.__.forEach(function(n4) {
-    n4.__N && (n4.__ = n4.__N), n4.__V = c3, n4.__N = n4.i = void 0;
-  })) : (i4.__h.forEach(z3), i4.__h.forEach(B3), i4.__h = [], t3 = 0)), u3 = r3;
-}, e3.diffed = function(n3) {
-  l3 && l3(n3);
-  var t4 = n3.__c;
-  t4 && t4.__H && (t4.__H.__h.length && (1 !== f3.push(t4) && i3 === e3.requestAnimationFrame || ((i3 = e3.requestAnimationFrame) || w3)(j3)), t4.__H.__.forEach(function(n4) {
-    n4.i && (n4.__H = n4.i), n4.__V !== c3 && (n4.__ = n4.__V), n4.i = void 0, n4.__V = c3;
-  })), u3 = r3 = null;
-}, e3.__c = function(n3, t4) {
-  t4.some(function(n4) {
-    try {
-      n4.__h.forEach(z3), n4.__h = n4.__h.filter(function(n5) {
-        return !n5.__ || B3(n5);
-      });
-    } catch (r4) {
-      t4.some(function(n5) {
-        n5.__h && (n5.__h = []);
-      }), t4 = [], e3.__e(r4, n4.__v);
-    }
-  }), m3 && m3(n3, t4);
-}, e3.unmount = function(n3) {
-  s3 && s3(n3);
-  var t4, r4 = n3.__c;
-  r4 && r4.__H && (r4.__H.__.forEach(function(n4) {
-    try {
-      z3(n4);
-    } catch (n5) {
-      t4 = n5;
-    }
-  }), r4.__H = void 0, t4 && e3.__e(t4, r4.__v));
+    });
+    c.__hooks = void 0;
+    if (hasErrored)
+      options2._catchError(hasErrored, c._vnode);
+  }
 };
-var k3 = "function" == typeof requestAnimationFrame;
-function w3(n3) {
-  var t4, r4 = function() {
-    clearTimeout(u4), k3 && cancelAnimationFrame(t4), setTimeout(n3);
-  }, u4 = setTimeout(r4, 100);
-  k3 && (t4 = requestAnimationFrame(r4));
-}
-function z3(n3) {
-  var t4 = r3, u4 = n3.__c;
-  "function" == typeof u4 && (n3.__c = void 0, u4()), r3 = t4;
-}
-function B3(n3) {
-  var t4 = r3;
-  n3.__c = n3.__(), r3 = t4;
-}
-function C3(n3, t4) {
-  return !n3 || n3.length !== t4.length || t4.some(function(t5, r4) {
-    return t5 !== n3[r4];
+function getHookState(index, type) {
+  if (options2._hook) {
+    options2._hook(currentComponent, index, currentHook || type);
+  }
+  currentHook = 0;
+  const hooks = currentComponent.__hooks || (currentComponent.__hooks = {
+    _list: [],
+    _pendingEffects: []
   });
+  if (index >= hooks._list.length) {
+    hooks._list.push({});
+  }
+  return hooks._list[index];
 }
-function D3(n3, t4) {
-  return "function" == typeof t4 ? t4(n3) : t4;
+function useState(initialState) {
+  currentHook = 1;
+  return useReducer(invokeOrReturn, initialState);
+}
+function useReducer(reducer, initialState, init) {
+  const hookState = getHookState(currentIndex++, 2);
+  hookState._reducer = reducer;
+  if (!hookState._component) {
+    hookState._value = [
+      !init ? invokeOrReturn(void 0, initialState) : init(initialState),
+      (action) => {
+        const currentValue = hookState._nextValue ? hookState._nextValue[0] : hookState._value[0];
+        const nextValue = hookState._reducer(currentValue, action);
+        if (currentValue !== nextValue) {
+          hookState._nextValue = [nextValue, hookState._value[1]];
+          hookState._component.setState({});
+        }
+      }
+    ];
+    hookState._component = currentComponent;
+    if (!currentComponent._hasScuFromHooks) {
+      let updateHookState = function(p, s, c) {
+        if (!hookState._component.__hooks)
+          return true;
+        const isStateHook = (x) => !!x._component;
+        const stateHooks = hookState._component.__hooks._list.filter(isStateHook);
+        const allHooksEmpty = stateHooks.every((x) => !x._nextValue);
+        if (allHooksEmpty) {
+          return prevScu ? prevScu.call(this, p, s, c) : true;
+        }
+        let shouldUpdate = false;
+        stateHooks.forEach((hookItem) => {
+          if (hookItem._nextValue) {
+            const currentValue = hookItem._value[0];
+            hookItem._value = hookItem._nextValue;
+            hookItem._nextValue = void 0;
+            if (currentValue !== hookItem._value[0])
+              shouldUpdate = true;
+          }
+        });
+        return shouldUpdate || hookState._component.props !== p ? prevScu ? prevScu.call(this, p, s, c) : true : false;
+      };
+      currentComponent._hasScuFromHooks = true;
+      let prevScu = currentComponent.shouldComponentUpdate;
+      const prevCWU = currentComponent.componentWillUpdate;
+      currentComponent.componentWillUpdate = function(p, s, c) {
+        if (this._force) {
+          let tmp = prevScu;
+          prevScu = void 0;
+          updateHookState(p, s, c);
+          prevScu = tmp;
+        }
+        if (prevCWU)
+          prevCWU.call(this, p, s, c);
+      };
+      currentComponent.shouldComponentUpdate = updateHookState;
+    }
+  }
+  return hookState._nextValue || hookState._value;
+}
+function useEffect(callback, args) {
+  const state = getHookState(currentIndex++, 3);
+  if (!options2._skipEffects && argsChanged(state._args, args)) {
+    state._value = callback;
+    state._pendingArgs = args;
+    currentComponent.__hooks._pendingEffects.push(state);
+  }
+}
+function useRef(initialValue) {
+  currentHook = 5;
+  return useMemo(() => ({ current: initialValue }), []);
+}
+function useMemo(factory, args) {
+  const state = getHookState(currentIndex++, 7);
+  if (argsChanged(state._args, args)) {
+    state._value = factory();
+    state._args = args;
+    state._factory = factory;
+  }
+  return state._value;
+}
+function useCallback(callback, args) {
+  currentHook = 8;
+  return useMemo(() => callback, args);
+}
+function flushAfterPaintEffects() {
+  let component;
+  while (component = afterPaintEffects.shift()) {
+    if (!component._parentDom || !component.__hooks)
+      continue;
+    try {
+      component.__hooks._pendingEffects.forEach(invokeCleanup);
+      component.__hooks._pendingEffects.forEach(invokeEffect);
+      component.__hooks._pendingEffects = [];
+    } catch (e) {
+      component.__hooks._pendingEffects = [];
+      options2._catchError(e, component._vnode);
+    }
+  }
+}
+var HAS_RAF = typeof requestAnimationFrame == "function";
+function afterNextFrame(callback) {
+  const done = () => {
+    clearTimeout(timeout);
+    if (HAS_RAF)
+      cancelAnimationFrame(raf);
+    setTimeout(callback);
+  };
+  const timeout = setTimeout(done, RAF_TIMEOUT);
+  let raf;
+  if (HAS_RAF) {
+    raf = requestAnimationFrame(done);
+  }
+}
+function afterPaint(newQueueLength) {
+  if (newQueueLength === 1 || prevRaf !== options2.requestAnimationFrame) {
+    prevRaf = options2.requestAnimationFrame;
+    (prevRaf || afterNextFrame)(flushAfterPaintEffects);
+  }
+}
+function invokeCleanup(hook) {
+  const comp = currentComponent;
+  let cleanup = hook._cleanup;
+  if (typeof cleanup == "function") {
+    hook._cleanup = void 0;
+    cleanup();
+  }
+  currentComponent = comp;
+}
+function invokeEffect(hook) {
+  const comp = currentComponent;
+  hook._cleanup = hook._value();
+  currentComponent = comp;
+}
+function argsChanged(oldArgs, newArgs) {
+  return !oldArgs || oldArgs.length !== newArgs.length || newArgs.some((arg, index) => arg !== oldArgs[index]);
+}
+function invokeOrReturn(arg, f) {
+  return typeof f == "function" ? f(arg) : f;
 }
 
 // node_modules/@uppy/provider-views/lib/ProviderView/AuthView.js
 function GoogleIcon() {
-  return y("svg", {
+  return createElement("svg", {
     width: "26",
     height: "26",
     viewBox: "0 0 26 26",
     xmlns: "http://www.w3.org/2000/svg"
-  }, y("g", {
+  }, createElement("g", {
     fill: "none",
     "fill-rule": "evenodd"
-  }, y("circle", {
+  }, createElement("circle", {
     fill: "#FFF",
     cx: "13",
     cy: "13",
     r: "13"
-  }), y("path", {
+  }), createElement("path", {
     d: "M21.64 13.205c0-.639-.057-1.252-.164-1.841H13v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z",
     fill: "#4285F4",
     "fill-rule": "nonzero"
-  }), y("path", {
+  }), createElement("path", {
     d: "M13 22c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H4.957v2.332A8.997 8.997 0 0013 22z",
     fill: "#34A853",
     "fill-rule": "nonzero"
-  }), y("path", {
+  }), createElement("path", {
     d: "M7.964 14.71A5.41 5.41 0 017.682 13c0-.593.102-1.17.282-1.71V8.958H4.957A8.996 8.996 0 004 13c0 1.452.348 2.827.957 4.042l3.007-2.332z",
     fill: "#FBBC05",
     "fill-rule": "nonzero"
-  }), y("path", {
+  }), createElement("path", {
     d: "M13 7.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C17.463 4.891 15.426 4 13 4a8.997 8.997 0 00-8.043 4.958l3.007 2.332C8.672 9.163 10.656 7.58 13 7.58z",
     fill: "#EA4335",
     "fill-rule": "nonzero"
-  }), y("path", {
+  }), createElement("path", {
     d: "M4 4h18v18H4z"
   })));
 }
@@ -21958,17 +23022,17 @@ function DefaultForm(_ref) {
     onAuth
   } = _ref;
   const isGoogleDrive = pluginName === "Google Drive";
-  const onSubmit = x3((e4) => {
-    e4.preventDefault();
+  const onSubmit = useCallback((e) => {
+    e.preventDefault();
     onAuth();
   }, [onAuth]);
-  return y("form", {
+  return createElement("form", {
     onSubmit
-  }, isGoogleDrive ? y("button", {
+  }, isGoogleDrive ? createElement("button", {
     type: "submit",
     className: "uppy-u-reset uppy-c-btn uppy-c-btn-primary uppy-Provider-authBtn uppy-Provider-btn-google",
     "data-uppy-super-focusable": true
-  }, y(GoogleIcon, null), i18n("signInWithGoogle")) : y("button", {
+  }, createElement(GoogleIcon, null), i18n("signInWithGoogle")) : createElement("button", {
     type: "submit",
     className: "uppy-u-reset uppy-c-btn uppy-c-btn-primary uppy-Provider-authBtn",
     "data-uppy-super-focusable": true
@@ -21982,30 +23046,30 @@ var defaultRenderForm = (_ref2) => {
     i18n,
     onAuth
   } = _ref2;
-  return y(DefaultForm, {
+  return createElement(DefaultForm, {
     pluginName,
     i18n,
     onAuth
   });
 };
-function AuthView(props) {
-  const {
+function AuthView(_ref3) {
+  let {
     loading,
     pluginName,
     pluginIcon,
     i18n,
     handleAuth,
     renderForm = defaultRenderForm
-  } = props;
-  return y("div", {
+  } = _ref3;
+  return createElement("div", {
     className: "uppy-Provider-auth"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-Provider-authIcon"
-  }, pluginIcon()), y("div", {
+  }, pluginIcon()), createElement("div", {
     className: "uppy-Provider-authTitle"
   }, i18n("authenticateWithTitle", {
     pluginName
-  })), y("div", {
+  })), createElement("div", {
     className: "uppy-Provider-authForm"
   }, renderForm({
     pluginName,
@@ -22015,6 +23079,9 @@ function AuthView(props) {
   })));
 }
 
+// node_modules/@uppy/provider-views/lib/ProviderView/Header.js
+var import_classnames3 = __toESM(require_classnames(), 1);
+
 // node_modules/@uppy/provider-views/lib/ProviderView/User.js
 function User(_ref) {
   let {
@@ -22022,10 +23089,10 @@ function User(_ref) {
     logout,
     username
   } = _ref;
-  return y(g, null, y("span", {
+  return createElement(Fragment2, null, username && createElement("span", {
     className: "uppy-ProviderBrowser-user",
     key: "username"
-  }, username), y("button", {
+  }, username), createElement("button", {
     type: "button",
     onClick: logout,
     className: "uppy-u-reset uppy-c-btn uppy-ProviderBrowser-userLogout",
@@ -22034,77 +23101,58 @@ function User(_ref) {
 }
 
 // node_modules/@uppy/provider-views/lib/Breadcrumbs.js
-var Breadcrumb = (props) => {
-  const {
-    getFolder,
-    title,
-    isLast
-  } = props;
-  return y(g, null, y("button", {
-    type: "button",
-    className: "uppy-u-reset uppy-c-btn",
-    onClick: getFolder
-  }, title), !isLast ? " / " : "");
-};
 function Breadcrumbs(props) {
   const {
-    getFolder,
+    openFolder,
     title,
     breadcrumbsIcon,
-    breadcrumbs
+    breadcrumbs,
+    i18n
   } = props;
-  return y("div", {
+  return createElement("div", {
     className: "uppy-Provider-breadcrumbs"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-Provider-breadcrumbsIcon"
-  }, breadcrumbsIcon), breadcrumbs.map((directory, i4) => y(Breadcrumb, {
-    key: directory.id,
-    getFolder: () => getFolder(directory.requestPath, directory.name),
-    title: i4 === 0 ? title : directory.name,
-    isLast: i4 + 1 === breadcrumbs.length
-  })));
+  }, breadcrumbsIcon), breadcrumbs.map((folder, index) => {
+    var _folder$data$name;
+    return createElement(Fragment2, null, createElement("button", {
+      key: folder.id,
+      type: "button",
+      className: "uppy-u-reset uppy-c-btn",
+      onClick: () => openFolder(folder.id)
+    }, folder.type === "root" ? title : (_folder$data$name = folder.data.name) != null ? _folder$data$name : i18n("unnamed")), breadcrumbs.length === index + 1 ? "" : " / ");
+  }));
 }
 
 // node_modules/@uppy/provider-views/lib/ProviderView/Header.js
 function Header(props) {
-  return y(g, null, props.showBreadcrumbs && y(Breadcrumbs, {
-    getFolder: props.getFolder,
+  return createElement("div", {
+    className: "uppy-ProviderBrowser-header"
+  }, createElement("div", {
+    className: (0, import_classnames3.default)("uppy-ProviderBrowser-headerBar", !props.showBreadcrumbs && "uppy-ProviderBrowser-headerBar--simple")
+  }, props.showBreadcrumbs && createElement(Breadcrumbs, {
+    openFolder: props.openFolder,
     breadcrumbs: props.breadcrumbs,
     breadcrumbsIcon: props.pluginIcon && props.pluginIcon(),
-    title: props.title
-  }), y(User, {
+    title: props.title,
+    i18n: props.i18n
+  }), createElement(User, {
     logout: props.logout,
     username: props.username,
     i18n: props.i18n
-  }));
-}
-
-// node_modules/@uppy/provider-views/lib/Browser.js
-var import_classnames5 = __toESM(require_classnames(), 1);
-
-// node_modules/@uppy/utils/lib/remoteFileObjToLocal.js
-function remoteFileObjToLocal(file) {
-  return {
-    ...file,
-    type: file.mimeType,
-    extension: file.name ? getFileNameAndExtension(file.name).extension : null
-  };
+  })));
 }
 
 // node_modules/@uppy/utils/lib/VirtualList.js
 function _extends() {
-  _extends = Object.assign ? Object.assign.bind() : function(target) {
-    for (var i4 = 1; i4 < arguments.length; i4++) {
-      var source = arguments[i4];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
+  return _extends = Object.assign ? Object.assign.bind() : function(n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t)
+        ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
     }
-    return target;
-  };
-  return _extends.apply(this, arguments);
+    return n;
+  }, _extends.apply(null, arguments);
 }
 var STYLE_INNER = {
   position: "relative",
@@ -22118,7 +23166,7 @@ var STYLE_CONTENT = {
   width: "100%",
   overflow: "visible"
 };
-var VirtualList = class extends b {
+var VirtualList = class extends BaseComponent {
   constructor(props) {
     super(props);
     this.handleScroll = () => {
@@ -22192,12 +23240,12 @@ var VirtualList = class extends b {
       ...STYLE_CONTENT,
       top: start * rowHeight
     };
-    return y("div", _extends({
+    return createElement("div", _extends({
       onScroll: this.handleScroll
-    }, props), y("div", {
+    }, props), createElement("div", {
       role: "presentation",
       style: styleInner
-    }, y("div", {
+    }, createElement("div", {
       role: "presentation",
       style: styleContent
     }, selection.map(renderRow))));
@@ -22205,129 +23253,24 @@ var VirtualList = class extends b {
 };
 var VirtualList_default = VirtualList;
 
-// node_modules/@uppy/provider-views/lib/SearchFilterInput.js
-function SearchFilterInput(props) {
-  const {
-    search,
-    searchOnInput,
-    searchTerm,
-    showButton,
-    inputLabel,
-    clearSearchLabel,
-    buttonLabel,
-    clearSearch,
-    inputClassName,
-    buttonCSSClassName
-  } = props;
-  const [searchText, setSearchText] = p3(searchTerm != null ? searchTerm : "");
-  const validateAndSearch = x3((ev) => {
-    ev.preventDefault();
-    search(searchText);
-  }, [search, searchText]);
-  const handleInput = x3((ev) => {
-    const inputValue = ev.target.value;
-    setSearchText(inputValue);
-    if (searchOnInput)
-      search(inputValue);
-  }, [setSearchText, searchOnInput, search]);
-  const handleReset = () => {
-    setSearchText("");
-    if (clearSearch)
-      clearSearch();
-  };
-  const [form] = p3(() => {
-    const formEl = document.createElement("form");
-    formEl.setAttribute("tabindex", "-1");
-    formEl.id = nanoid();
-    return formEl;
-  });
-  _5(() => {
-    document.body.appendChild(form);
-    form.addEventListener("submit", validateAndSearch);
-    return () => {
-      form.removeEventListener("submit", validateAndSearch);
-      document.body.removeChild(form);
-    };
-  }, [form, validateAndSearch]);
-  return y(g, null, y("input", {
-    className: `uppy-u-reset ${inputClassName}`,
-    type: "search",
-    "aria-label": inputLabel,
-    placeholder: inputLabel,
-    value: searchText,
-    onInput: handleInput,
-    form: form.id,
-    "data-uppy-super-focusable": true
-  }), !showButton && y("svg", {
-    "aria-hidden": "true",
-    focusable: "false",
-    className: "uppy-c-icon uppy-ProviderBrowser-searchFilterIcon",
-    width: "12",
-    height: "12",
-    viewBox: "0 0 12 12"
-  }, y("path", {
-    d: "M8.638 7.99l3.172 3.172a.492.492 0 1 1-.697.697L7.91 8.656a4.977 4.977 0 0 1-2.983.983C2.206 9.639 0 7.481 0 4.819 0 2.158 2.206 0 4.927 0c2.721 0 4.927 2.158 4.927 4.82a4.74 4.74 0 0 1-1.216 3.17zm-3.71.685c2.176 0 3.94-1.726 3.94-3.856 0-2.129-1.764-3.855-3.94-3.855C2.75.964.984 2.69.984 4.819c0 2.13 1.765 3.856 3.942 3.856z"
-  })), !showButton && searchText && y("button", {
-    className: "uppy-u-reset uppy-ProviderBrowser-searchFilterReset",
-    type: "button",
-    "aria-label": clearSearchLabel,
-    title: clearSearchLabel,
-    onClick: handleReset
-  }, y("svg", {
-    "aria-hidden": "true",
-    focusable: "false",
-    className: "uppy-c-icon",
-    viewBox: "0 0 19 19"
-  }, y("path", {
-    d: "M17.318 17.232L9.94 9.854 9.586 9.5l-.354.354-7.378 7.378h.707l-.62-.62v.706L9.318 9.94l.354-.354-.354-.354L1.94 1.854v.707l.62-.62h-.706l7.378 7.378.354.354.354-.354 7.378-7.378h-.707l.622.62v-.706L9.854 9.232l-.354.354.354.354 7.378 7.378.708-.707-7.38-7.378v.708l7.38-7.38.353-.353-.353-.353-.622-.622-.353-.353-.354.352-7.378 7.38h.708L2.56 1.23 2.208.88l-.353.353-.622.62-.353.355.352.353 7.38 7.38v-.708l-7.38 7.38-.353.353.352.353.622.622.353.353.354-.353 7.38-7.38h-.708l7.38 7.38z"
-  }))), showButton && y("button", {
-    className: `uppy-u-reset uppy-c-btn uppy-c-btn-primary ${buttonCSSClassName}`,
-    type: "submit",
-    form: form.id
-  }, buttonLabel));
-}
-
-// node_modules/@uppy/provider-views/lib/FooterActions.js
-function FooterActions(_ref) {
-  let {
-    cancel,
-    done,
-    i18n,
-    selected
-  } = _ref;
-  return y("div", {
-    className: "uppy-ProviderBrowser-footer"
-  }, y("button", {
-    className: "uppy-u-reset uppy-c-btn uppy-c-btn-primary",
-    onClick: done,
-    type: "button"
-  }, i18n("selectX", {
-    smart_count: selected
-  })), y("button", {
-    className: "uppy-u-reset uppy-c-btn uppy-c-btn-link",
-    onClick: cancel,
-    type: "button"
-  }, i18n("cancel")));
-}
-
 // node_modules/@uppy/provider-views/lib/Item/index.js
 var import_classnames4 = __toESM(require_classnames(), 1);
 
 // node_modules/@uppy/provider-views/lib/Item/components/ItemIcon.js
 function FileIcon() {
-  return y("svg", {
+  return createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-c-icon",
     width: 11,
     height: 14.5,
     viewBox: "0 0 44 58"
-  }, y("path", {
+  }, createElement("path", {
     d: "M27.437.517a1 1 0 0 0-.094.03H4.25C2.037.548.217 2.368.217 4.58v48.405c0 2.212 1.82 4.03 4.03 4.03H39.03c2.21 0 4.03-1.818 4.03-4.03V15.61a1 1 0 0 0-.03-.28 1 1 0 0 0 0-.093 1 1 0 0 0-.03-.032 1 1 0 0 0 0-.03 1 1 0 0 0-.032-.063 1 1 0 0 0-.03-.063 1 1 0 0 0-.032 0 1 1 0 0 0-.03-.063 1 1 0 0 0-.032-.03 1 1 0 0 0-.03-.063 1 1 0 0 0-.063-.062l-14.593-14a1 1 0 0 0-.062-.062A1 1 0 0 0 28 .708a1 1 0 0 0-.374-.157 1 1 0 0 0-.156 0 1 1 0 0 0-.03-.03l-.003-.003zM4.25 2.547h22.218v9.97c0 2.21 1.82 4.03 4.03 4.03h10.564v36.438a2.02 2.02 0 0 1-2.032 2.032H4.25c-1.13 0-2.032-.9-2.032-2.032V4.58c0-1.13.902-2.032 2.03-2.032zm24.218 1.345l10.375 9.937.75.718H30.5c-1.13 0-2.032-.9-2.032-2.03V3.89z"
   }));
 }
 function FolderIcon() {
-  return y("svg", {
+  return createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-c-icon",
@@ -22336,12 +23279,12 @@ function FolderIcon() {
       marginRight: 3
     },
     viewBox: "0 0 276.157 276.157"
-  }, y("path", {
+  }, createElement("path", {
     d: "M273.08 101.378c-3.3-4.65-8.86-7.32-15.254-7.32h-24.34V67.59c0-10.2-8.3-18.5-18.5-18.5h-85.322c-3.63 0-9.295-2.875-11.436-5.805l-6.386-8.735c-4.982-6.814-15.104-11.954-23.546-11.954H58.73c-9.292 0-18.638 6.608-21.737 15.372l-2.033 5.752c-.958 2.71-4.72 5.37-7.596 5.37H18.5C8.3 49.09 0 57.39 0 67.59v167.07c0 .886.16 1.73.443 2.52.152 3.306 1.18 6.424 3.053 9.064 3.3 4.652 8.86 7.32 15.255 7.32h188.487c11.395 0 23.27-8.425 27.035-19.18l40.677-116.188c2.11-6.035 1.43-12.164-1.87-16.816zM18.5 64.088h8.864c9.295 0 18.64-6.607 21.738-15.37l2.032-5.75c.96-2.712 4.722-5.373 7.597-5.373h29.565c3.63 0 9.295 2.876 11.437 5.806l6.386 8.735c4.982 6.815 15.104 11.954 23.546 11.954h85.322c1.898 0 3.5 1.602 3.5 3.5v26.47H69.34c-11.395 0-23.27 8.423-27.035 19.178L15 191.23V67.59c0-1.898 1.603-3.5 3.5-3.5zm242.29 49.15l-40.676 116.188c-1.674 4.78-7.812 9.135-12.877 9.135H18.75c-1.447 0-2.576-.372-3.02-.997-.442-.625-.422-1.814.057-3.18l40.677-116.19c1.674-4.78 7.812-9.134 12.877-9.134h188.487c1.448 0 2.577.372 3.02.997.443.625.423 1.814-.056 3.18z"
   }));
 }
 function VideoIcon() {
-  return y("svg", {
+  return createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     style: {
@@ -22349,30 +23292,28 @@ function VideoIcon() {
       marginRight: 4
     },
     viewBox: "0 0 58 58"
-  }, y("path", {
+  }, createElement("path", {
     d: "M36.537 28.156l-11-7a1.005 1.005 0 0 0-1.02-.033C24.2 21.3 24 21.635 24 22v14a1 1 0 0 0 1.537.844l11-7a1.002 1.002 0 0 0 0-1.688zM26 34.18V23.82L34.137 29 26 34.18z"
-  }), y("path", {
+  }), createElement("path", {
     d: "M57 6H1a1 1 0 0 0-1 1v44a1 1 0 0 0 1 1h56a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1zM10 28H2v-9h8v9zm-8 2h8v9H2v-9zm10 10V8h34v42H12V40zm44-12h-8v-9h8v9zm-8 2h8v9h-8v-9zm8-22v9h-8V8h8zM2 8h8v9H2V8zm0 42v-9h8v9H2zm54 0h-8v-9h8v9z"
   }));
 }
-function ItemIcon(props) {
-  const {
-    itemIconString
-  } = props;
+function ItemIcon(_ref) {
+  let {
+    itemIconString,
+    alt = void 0
+  } = _ref;
   if (itemIconString === null)
     return null;
   switch (itemIconString) {
     case "file":
-      return y(FileIcon, null);
+      return createElement(FileIcon, null);
     case "folder":
-      return y(FolderIcon, null);
+      return createElement(FolderIcon, null);
     case "video":
-      return y(VideoIcon, null);
+      return createElement(VideoIcon, null);
     default: {
-      const {
-        alt
-      } = props;
-      return y("img", {
+      return createElement("img", {
         src: itemIconString,
         alt,
         referrerPolicy: "no-referrer",
@@ -22384,924 +23325,1415 @@ function ItemIcon(props) {
   }
 }
 
-// node_modules/@uppy/provider-views/lib/Item/components/GridLi.js
-var import_classnames3 = __toESM(require_classnames(), 1);
-function GridListItem(props) {
-  const {
+// node_modules/@uppy/provider-views/lib/Item/components/GridItem.js
+function GridItem(_ref) {
+  var _file$data$name, _file$data$name2;
+  let {
+    file,
+    toggleCheckbox,
     className,
     isDisabled,
     restrictionError,
-    isChecked,
-    title,
-    itemIconEl,
     showTitles,
-    toggleCheckbox,
-    recordShiftKeyPress,
-    id: id13,
-    children
-  } = props;
-  const checkBoxClassName = (0, import_classnames3.default)("uppy-u-reset", "uppy-ProviderBrowserItem-checkbox", "uppy-ProviderBrowserItem-checkbox--grid", {
-    "uppy-ProviderBrowserItem-checkbox--is-checked": isChecked
-  });
-  return y("li", {
+    children = null,
+    i18n
+  } = _ref;
+  return createElement("li", {
     className,
-    title: isDisabled ? restrictionError == null ? void 0 : restrictionError.message : void 0
-  }, y("input", {
+    title: isDisabled && restrictionError ? restrictionError : void 0
+  }, createElement("input", {
     type: "checkbox",
-    className: checkBoxClassName,
+    className: "uppy-u-reset uppy-ProviderBrowserItem-checkbox uppy-ProviderBrowserItem-checkbox--grid",
     onChange: toggleCheckbox,
-    onKeyDown: recordShiftKeyPress,
-    onMouseDown: recordShiftKeyPress,
     name: "listitem",
-    id: id13,
-    checked: isChecked,
+    id: file.id,
+    checked: file.status === "checked",
     disabled: isDisabled,
     "data-uppy-super-focusable": true
-  }), y("label", {
-    htmlFor: id13,
-    "aria-label": title,
+  }), createElement("label", {
+    htmlFor: file.id,
+    "aria-label": (_file$data$name = file.data.name) != null ? _file$data$name : i18n("unnamed"),
     className: "uppy-u-reset uppy-ProviderBrowserItem-inner"
-  }, itemIconEl, showTitles && title, children));
+  }, createElement(ItemIcon, {
+    itemIconString: file.data.thumbnail || file.data.icon
+  }), showTitles && ((_file$data$name2 = file.data.name) != null ? _file$data$name2 : i18n("unnamed")), children));
 }
-var GridLi_default = GridListItem;
+var GridItem_default = GridItem;
 
-// node_modules/@uppy/provider-views/lib/Item/components/ListLi.js
-function ListItem(props) {
-  const {
+// node_modules/@uppy/provider-views/lib/Item/components/ListItem.js
+function ListItem(_ref) {
+  var _file$data$name, _file$data$name2, _file$data$name3;
+  let {
+    file,
+    openFolder,
     className,
     isDisabled,
     restrictionError,
-    isCheckboxDisabled,
-    isChecked,
     toggleCheckbox,
-    recordShiftKeyPress,
-    type,
-    id: id13,
-    itemIconEl,
-    title,
-    handleFolderClick,
     showTitles,
     i18n
-  } = props;
-  return y("li", {
+  } = _ref;
+  return createElement("li", {
     className,
-    title: isDisabled ? restrictionError == null ? void 0 : restrictionError.message : void 0
-  }, !isCheckboxDisabled ? y("input", {
+    title: file.status !== "checked" && restrictionError ? restrictionError : void 0
+  }, createElement("input", {
     type: "checkbox",
-    className: `uppy-u-reset uppy-ProviderBrowserItem-checkbox ${isChecked ? "uppy-ProviderBrowserItem-checkbox--is-checked" : ""}`,
+    className: "uppy-u-reset uppy-ProviderBrowserItem-checkbox",
     onChange: toggleCheckbox,
-    onKeyDown: recordShiftKeyPress,
-    onMouseDown: recordShiftKeyPress,
     name: "listitem",
-    id: id13,
-    checked: isChecked,
-    "aria-label": type === "file" ? null : i18n("allFilesFromFolderNamed", {
-      name: title
-    }),
+    id: file.id,
+    checked: file.status === "checked",
+    "aria-label": file.data.isFolder ? i18n("allFilesFromFolderNamed", {
+      name: (_file$data$name = file.data.name) != null ? _file$data$name : i18n("unnamed")
+    }) : null,
     disabled: isDisabled,
     "data-uppy-super-focusable": true
-  }) : null, type === "file" ? y("label", {
-    htmlFor: id13,
-    className: "uppy-u-reset uppy-ProviderBrowserItem-inner"
-  }, y("div", {
-    className: "uppy-ProviderBrowserItem-iconWrap"
-  }, itemIconEl), showTitles && title) : y("button", {
+  }), file.data.isFolder ? createElement("button", {
     type: "button",
     className: "uppy-u-reset uppy-c-btn uppy-ProviderBrowserItem-inner",
-    onClick: handleFolderClick,
+    onClick: () => openFolder(file.id),
     "aria-label": i18n("openFolderNamed", {
-      name: title
+      name: (_file$data$name2 = file.data.name) != null ? _file$data$name2 : i18n("unnamed")
     })
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-ProviderBrowserItem-iconWrap"
-  }, itemIconEl), showTitles && title ? y("span", null, title) : i18n("unnamed")));
+  }, createElement(ItemIcon, {
+    itemIconString: file.data.icon
+  })), showTitles && file.data.name ? createElement("span", null, file.data.name) : i18n("unnamed")) : createElement("label", {
+    htmlFor: file.id,
+    className: "uppy-u-reset uppy-ProviderBrowserItem-inner"
+  }, createElement("div", {
+    className: "uppy-ProviderBrowserItem-iconWrap"
+  }, createElement(ItemIcon, {
+    itemIconString: file.data.icon
+  })), showTitles && ((_file$data$name3 = file.data.name) != null ? _file$data$name3 : i18n("unnamed"))));
 }
 
 // node_modules/@uppy/provider-views/lib/Item/index.js
-function _extends2() {
-  _extends2 = Object.assign ? Object.assign.bind() : function(target) {
-    for (var i4 = 1; i4 < arguments.length; i4++) {
-      var source = arguments[i4];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends2.apply(this, arguments);
-}
 function Item(props) {
   const {
-    author,
-    getItemIcon,
-    isChecked,
-    isDisabled,
-    viewType
+    viewType,
+    toggleCheckbox,
+    showTitles,
+    i18n,
+    openFolder,
+    file
   } = props;
-  const itemIconString = getItemIcon();
-  const className = (0, import_classnames4.default)("uppy-ProviderBrowserItem", {
-    "uppy-ProviderBrowserItem--selected": isChecked
-  }, {
-    "uppy-ProviderBrowserItem--disabled": isDisabled
-  }, {
-    "uppy-ProviderBrowserItem--noPreview": itemIconString === "video"
-  });
-  const itemIconEl = y(ItemIcon, {
-    itemIconString
-  });
+  const restrictionError = file.type === "folder" ? null : file.restrictionError;
+  const isDisabled = !!restrictionError && file.status !== "checked";
+  const ourProps = {
+    file,
+    openFolder,
+    toggleCheckbox,
+    i18n,
+    viewType,
+    showTitles,
+    className: (0, import_classnames4.default)("uppy-ProviderBrowserItem", {
+      "uppy-ProviderBrowserItem--disabled": isDisabled
+    }, {
+      "uppy-ProviderBrowserItem--noPreview": file.data.icon === "video"
+    }, {
+      "uppy-ProviderBrowserItem--is-checked": file.status === "checked"
+    }, {
+      "uppy-ProviderBrowserItem--is-partial": file.status === "partial"
+    }),
+    isDisabled,
+    restrictionError
+  };
   switch (viewType) {
     case "grid":
-      return y(GridLi_default, _extends2({}, props, {
-        className,
-        itemIconEl
-      }));
+      return createElement(GridItem_default, ourProps);
     case "list":
-      return y(ListItem, _extends2({}, props, {
-        className,
-        itemIconEl
-      }));
+      return createElement(ListItem, ourProps);
     case "unsplash":
-      return y(GridLi_default, _extends2({}, props, {
-        className,
-        itemIconEl
-      }), y("a", {
-        href: `${author.url}?utm_source=Companion&utm_medium=referral`,
+      return createElement(GridItem_default, ourProps, createElement("a", {
+        href: `${file.data.author.url}?utm_source=Companion&utm_medium=referral`,
         target: "_blank",
         rel: "noopener noreferrer",
         className: "uppy-ProviderBrowserItem-author",
         tabIndex: -1
-      }, author.name));
+      }, file.data.author.name));
     default:
       throw new Error(`There is no such type ${viewType}`);
   }
 }
 
 // node_modules/@uppy/provider-views/lib/Browser.js
-var VIRTUAL_SHARED_DIR = "shared-with-me";
-function ListItem2(props) {
-  const {
-    currentSelection,
-    uppyFiles,
-    viewType,
-    isChecked,
-    toggleCheckbox,
-    recordShiftKeyPress,
-    showTitles,
-    i18n,
-    validateRestrictions,
-    getNextFolder,
-    f: f4
-  } = props;
-  if (f4.isFolder) {
-    return Item({
-      showTitles,
-      viewType,
-      i18n,
-      id: f4.id,
-      title: f4.name,
-      getItemIcon: () => f4.icon,
-      isChecked: isChecked(f4),
-      toggleCheckbox: (event2) => toggleCheckbox(event2, f4),
-      recordShiftKeyPress,
-      type: "folder",
-      isDisabled: false,
-      isCheckboxDisabled: f4.id === VIRTUAL_SHARED_DIR,
-      handleFolderClick: () => getNextFolder(f4)
-    });
-  }
-  const restrictionError = validateRestrictions(remoteFileObjToLocal(f4), [...uppyFiles, ...currentSelection]);
-  return Item({
-    id: f4.id,
-    title: f4.name,
-    author: f4.author,
-    getItemIcon: () => viewType === "grid" && f4.thumbnail ? f4.thumbnail : f4.icon,
-    isChecked: isChecked(f4),
-    toggleCheckbox: (event2) => toggleCheckbox(event2, f4),
-    isCheckboxDisabled: false,
-    recordShiftKeyPress,
-    showTitles,
-    viewType,
-    i18n,
-    type: "file",
-    isDisabled: Boolean(restrictionError) && !isChecked(f4),
-    restrictionError
-  });
-}
 function Browser(props) {
   const {
-    currentSelection,
-    folders,
-    files,
-    uppyFiles,
+    displayedPartialTree,
     viewType,
-    headerComponent,
-    showBreadcrumbs,
-    isChecked,
     toggleCheckbox,
-    recordShiftKeyPress,
     handleScroll,
     showTitles,
     i18n,
-    validateRestrictions,
     isLoading,
-    showSearchFilter,
-    search,
-    searchTerm,
-    clearSearch,
-    searchOnInput,
-    searchInputLabel,
-    clearSearchLabel,
-    getNextFolder,
-    cancel,
-    done,
+    openFolder,
     noResultsLabel,
     virtualList
   } = props;
-  const selected = currentSelection.length;
-  const rows = q2(() => [...folders, ...files], [folders, files]);
-  return y("div", {
-    className: (0, import_classnames5.default)("uppy-ProviderBrowser", `uppy-ProviderBrowser-viewType--${viewType}`)
-  }, headerComponent && y("div", {
-    className: "uppy-ProviderBrowser-header"
-  }, y("div", {
-    className: (0, import_classnames5.default)("uppy-ProviderBrowser-headerBar", !showBreadcrumbs && "uppy-ProviderBrowser-headerBar--simple")
-  }, headerComponent)), showSearchFilter && y("div", {
-    class: "uppy-ProviderBrowser-searchFilter"
-  }, y(SearchFilterInput, {
-    search,
-    searchTerm,
-    clearSearch,
-    inputLabel: searchInputLabel,
-    clearSearchLabel,
-    inputClassName: "uppy-ProviderBrowser-searchFilterInput",
-    searchOnInput
-  })), (() => {
-    if (isLoading) {
-      return y("div", {
-        className: "uppy-Provider-loading"
-      }, y("span", null, typeof isLoading === "string" ? isLoading : i18n("loading")));
-    }
-    if (!folders.length && !files.length) {
-      return y("div", {
-        className: "uppy-Provider-empty"
-      }, noResultsLabel);
-    }
-    if (virtualList) {
-      return y("div", {
-        className: "uppy-ProviderBrowser-body"
-      }, y("ul", {
-        className: "uppy-ProviderBrowser-list"
-      }, y(VirtualList_default, {
-        data: rows,
-        renderRow: (f4) => y(ListItem2, {
-          currentSelection,
-          uppyFiles,
-          viewType,
-          isChecked,
-          toggleCheckbox,
-          recordShiftKeyPress,
-          showTitles,
-          i18n,
-          validateRestrictions,
-          getNextFolder,
-          f: f4
-        }),
-        rowHeight: 31
-      })));
-    }
-    return y("div", {
+  const [isShiftKeyPressed, setIsShiftKeyPressed] = useState(false);
+  useEffect(() => {
+    const handleKeyUp = (e) => {
+      if (e.key === "Shift")
+        setIsShiftKeyPressed(false);
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === "Shift")
+        setIsShiftKeyPressed(true);
+    };
+    document.addEventListener("keyup", handleKeyUp);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keyup", handleKeyUp);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+  if (isLoading) {
+    return createElement("div", {
+      className: "uppy-Provider-loading"
+    }, typeof isLoading === "string" ? isLoading : i18n("loading"));
+  }
+  if (displayedPartialTree.length === 0) {
+    return createElement("div", {
+      className: "uppy-Provider-empty"
+    }, noResultsLabel);
+  }
+  const renderItem = (item) => createElement(Item, {
+    viewType,
+    toggleCheckbox: (event2) => {
+      var _document$getSelectio;
+      event2.stopPropagation();
+      event2.preventDefault();
+      (_document$getSelectio = document.getSelection()) == null || _document$getSelectio.removeAllRanges();
+      toggleCheckbox(item, isShiftKeyPressed);
+    },
+    showTitles,
+    i18n,
+    openFolder,
+    file: item
+  });
+  if (virtualList) {
+    return createElement("div", {
       className: "uppy-ProviderBrowser-body"
-    }, y("ul", {
-      className: "uppy-ProviderBrowser-list",
-      onScroll: handleScroll,
-      role: "listbox",
-      tabIndex: -1
-    }, rows.map((f4) => y(ListItem2, {
-      currentSelection,
-      uppyFiles,
-      viewType,
-      isChecked,
-      toggleCheckbox,
-      recordShiftKeyPress,
-      showTitles,
-      i18n,
-      validateRestrictions,
-      getNextFolder,
-      f: f4
-    }))));
-  })(), selected > 0 && y(FooterActions, {
-    selected,
-    done,
-    cancel,
-    i18n
-  }));
+    }, createElement("ul", {
+      className: "uppy-ProviderBrowser-list"
+    }, createElement(VirtualList_default, {
+      data: displayedPartialTree,
+      renderRow: renderItem,
+      rowHeight: 31
+    })));
+  }
+  return createElement("div", {
+    className: "uppy-ProviderBrowser-body"
+  }, createElement("ul", {
+    className: "uppy-ProviderBrowser-list",
+    onScroll: handleScroll,
+    role: "listbox",
+    tabIndex: -1
+  }, displayedPartialTree.map(renderItem)));
 }
 var Browser_default = Browser;
 
-// node_modules/@uppy/provider-views/lib/CloseWrapper.js
-var CloseWrapper = class extends b {
-  componentWillUnmount() {
-    const {
-      onUnmount
-    } = this.props;
-    onUnmount();
+// node_modules/@uppy/provider-views/lib/utils/PartialTreeUtils/afterOpenFolder.js
+var afterOpenFolder = (oldPartialTree, discoveredItems, clickedFolder, currentPagePath, validateSingleFile) => {
+  const discoveredFolders = discoveredItems.filter((i) => i.isFolder === true);
+  const discoveredFiles = discoveredItems.filter((i) => i.isFolder === false);
+  const isParentFolderChecked = clickedFolder.type === "folder" && clickedFolder.status === "checked";
+  const folders = discoveredFolders.map((folder) => ({
+    type: "folder",
+    id: folder.requestPath,
+    cached: false,
+    nextPagePath: null,
+    status: isParentFolderChecked ? "checked" : "unchecked",
+    parentId: clickedFolder.id,
+    data: folder
+  }));
+  const files = discoveredFiles.map((file) => {
+    const restrictionError = validateSingleFile(file);
+    return {
+      type: "file",
+      id: file.requestPath,
+      restrictionError,
+      status: isParentFolderChecked && !restrictionError ? "checked" : "unchecked",
+      parentId: clickedFolder.id,
+      data: file
+    };
+  });
+  const updatedClickedFolder = {
+    ...clickedFolder,
+    cached: true,
+    nextPagePath: currentPagePath
+  };
+  const partialTreeWithUpdatedClickedFolder = oldPartialTree.map((folder) => folder.id === updatedClickedFolder.id ? updatedClickedFolder : folder);
+  const newPartialTree = [...partialTreeWithUpdatedClickedFolder, ...folders, ...files];
+  return newPartialTree;
+};
+var afterOpenFolder_default = afterOpenFolder;
+
+// node_modules/@uppy/provider-views/lib/utils/PartialTreeUtils/afterScrollFolder.js
+var afterScrollFolder = (oldPartialTree, currentFolderId, items, nextPagePath, validateSingleFile) => {
+  const currentFolder = oldPartialTree.find((i) => i.id === currentFolderId);
+  const newFolders = items.filter((i) => i.isFolder === true);
+  const newFiles = items.filter((i) => i.isFolder === false);
+  const scrolledFolder = {
+    ...currentFolder,
+    nextPagePath
+  };
+  const partialTreeWithUpdatedScrolledFolder = oldPartialTree.map((folder) => folder.id === scrolledFolder.id ? scrolledFolder : folder);
+  const isParentFolderChecked = scrolledFolder.type === "folder" && scrolledFolder.status === "checked";
+  const folders = newFolders.map((folder) => ({
+    type: "folder",
+    id: folder.requestPath,
+    cached: false,
+    nextPagePath: null,
+    status: isParentFolderChecked ? "checked" : "unchecked",
+    parentId: scrolledFolder.id,
+    data: folder
+  }));
+  const files = newFiles.map((file) => {
+    const restrictionError = validateSingleFile(file);
+    return {
+      type: "file",
+      id: file.requestPath,
+      restrictionError,
+      status: isParentFolderChecked && !restrictionError ? "checked" : "unchecked",
+      parentId: scrolledFolder.id,
+      data: file
+    };
+  });
+  const newPartialTree = [...partialTreeWithUpdatedScrolledFolder, ...folders, ...files];
+  return newPartialTree;
+};
+var afterScrollFolder_default = afterScrollFolder;
+
+// node_modules/@uppy/provider-views/lib/utils/PartialTreeUtils/shallowClone.js
+var shallowClone = (partialTree) => {
+  return partialTree.map((item) => ({
+    ...item
+  }));
+};
+var shallowClone_default = shallowClone;
+
+// node_modules/@uppy/provider-views/lib/utils/PartialTreeUtils/afterToggleCheckbox.js
+var percolateDown = (tree, id12, shouldMarkAsChecked) => {
+  const children = tree.filter((item) => item.type !== "root" && item.parentId === id12);
+  children.forEach((item) => {
+    item.status = shouldMarkAsChecked && !(item.type === "file" && item.restrictionError) ? "checked" : "unchecked";
+    percolateDown(tree, item.id, shouldMarkAsChecked);
+  });
+};
+var percolateUp = (tree, id12) => {
+  const folder = tree.find((item) => item.id === id12);
+  if (folder.type === "root")
+    return;
+  const validChildren = tree.filter((item) => item.type !== "root" && item.parentId === folder.id && !(item.type === "file" && item.restrictionError));
+  const areAllChildrenChecked = validChildren.every((item) => item.status === "checked");
+  const areAllChildrenUnchecked = validChildren.every((item) => item.status === "unchecked");
+  if (areAllChildrenChecked) {
+    folder.status = "checked";
+  } else if (areAllChildrenUnchecked) {
+    folder.status = "unchecked";
+  } else {
+    folder.status = "partial";
   }
-  render() {
-    const {
-      children
-    } = this.props;
-    return $2(children)[0];
+  percolateUp(tree, folder.parentId);
+};
+var afterToggleCheckbox = (oldTree, clickedRange) => {
+  const tree = shallowClone_default(oldTree);
+  if (clickedRange.length >= 2) {
+    const newlyCheckedItems = tree.filter((item) => item.type !== "root" && clickedRange.includes(item.id));
+    newlyCheckedItems.forEach((item) => {
+      if (item.type === "file") {
+        item.status = item.restrictionError ? "unchecked" : "checked";
+      } else {
+        item.status = "checked";
+      }
+    });
+    newlyCheckedItems.forEach((item) => {
+      percolateDown(tree, item.id, true);
+    });
+    percolateUp(tree, newlyCheckedItems[0].parentId);
+  } else {
+    const clickedItem = tree.find((item) => item.id === clickedRange[0]);
+    clickedItem.status = clickedItem.status === "checked" ? "unchecked" : "checked";
+    percolateDown(tree, clickedItem.id, clickedItem.status === "checked");
+    percolateUp(tree, clickedItem.parentId);
+  }
+  return tree;
+};
+var afterToggleCheckbox_default = afterToggleCheckbox;
+
+// node_modules/eventemitter3/index.mjs
+var import_index2 = __toESM(require_eventemitter3(), 1);
+
+// node_modules/p-timeout/index.js
+var TimeoutError = class extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "TimeoutError";
+  }
+};
+var AbortError = class extends Error {
+  constructor(message) {
+    super();
+    this.name = "AbortError";
+    this.message = message;
+  }
+};
+var getDOMException = (errorMessage) => globalThis.DOMException === void 0 ? new AbortError(errorMessage) : new DOMException(errorMessage);
+var getAbortedReason = (signal) => {
+  const reason = signal.reason === void 0 ? getDOMException("This operation was aborted.") : signal.reason;
+  return reason instanceof Error ? reason : getDOMException(reason);
+};
+function pTimeout(promise, options3) {
+  const {
+    milliseconds,
+    fallback,
+    message,
+    customTimers = { setTimeout, clearTimeout }
+  } = options3;
+  let timer;
+  const wrappedPromise = new Promise((resolve, reject) => {
+    if (typeof milliseconds !== "number" || Math.sign(milliseconds) !== 1) {
+      throw new TypeError(`Expected \`milliseconds\` to be a positive number, got \`${milliseconds}\``);
+    }
+    if (options3.signal) {
+      const { signal } = options3;
+      if (signal.aborted) {
+        reject(getAbortedReason(signal));
+      }
+      signal.addEventListener("abort", () => {
+        reject(getAbortedReason(signal));
+      });
+    }
+    if (milliseconds === Number.POSITIVE_INFINITY) {
+      promise.then(resolve, reject);
+      return;
+    }
+    const timeoutError = new TimeoutError();
+    timer = customTimers.setTimeout.call(void 0, () => {
+      if (fallback) {
+        try {
+          resolve(fallback());
+        } catch (error) {
+          reject(error);
+        }
+        return;
+      }
+      if (typeof promise.cancel === "function") {
+        promise.cancel();
+      }
+      if (message === false) {
+        resolve();
+      } else if (message instanceof Error) {
+        reject(message);
+      } else {
+        timeoutError.message = message ?? `Promise timed out after ${milliseconds} milliseconds`;
+        reject(timeoutError);
+      }
+    }, milliseconds);
+    (async () => {
+      try {
+        resolve(await promise);
+      } catch (error) {
+        reject(error);
+      }
+    })();
+  });
+  const cancelablePromise = wrappedPromise.finally(() => {
+    cancelablePromise.clear();
+  });
+  cancelablePromise.clear = () => {
+    customTimers.clearTimeout.call(void 0, timer);
+    timer = void 0;
+  };
+  return cancelablePromise;
+}
+
+// node_modules/p-queue/dist/lower-bound.js
+function lowerBound(array, value, comparator) {
+  let first = 0;
+  let count = array.length;
+  while (count > 0) {
+    const step = Math.trunc(count / 2);
+    let it = first + step;
+    if (comparator(array[it], value) <= 0) {
+      first = ++it;
+      count -= step + 1;
+    } else {
+      count = step;
+    }
+  }
+  return first;
+}
+
+// node_modules/p-queue/dist/priority-queue.js
+var PriorityQueue = class {
+  #queue = [];
+  enqueue(run, options3) {
+    options3 = {
+      priority: 0,
+      ...options3
+    };
+    const element = {
+      priority: options3.priority,
+      run
+    };
+    if (this.size && this.#queue[this.size - 1].priority >= options3.priority) {
+      this.#queue.push(element);
+      return;
+    }
+    const index = lowerBound(this.#queue, element, (a, b) => b.priority - a.priority);
+    this.#queue.splice(index, 0, element);
+  }
+  dequeue() {
+    const item = this.#queue.shift();
+    return item?.run;
+  }
+  filter(options3) {
+    return this.#queue.filter((element) => element.priority === options3.priority).map((element) => element.run);
+  }
+  get size() {
+    return this.#queue.length;
   }
 };
 
-// node_modules/@uppy/provider-views/lib/View.js
-var View = class {
-  constructor(plugin, opts) {
-    this.filterItems = (items) => {
-      const state = this.plugin.getPluginState();
-      if (!state.filterInput || state.filterInput === "") {
-        return items;
-      }
-      return items.filter((folder) => {
-        return folder.name.toLowerCase().indexOf(state.filterInput.toLowerCase()) !== -1;
-      });
+// node_modules/p-queue/dist/index.js
+var PQueue = class extends import_index2.default {
+  #carryoverConcurrencyCount;
+  #isIntervalIgnored;
+  #intervalCount = 0;
+  #intervalCap;
+  #interval;
+  #intervalEnd = 0;
+  #intervalId;
+  #timeoutId;
+  #queue;
+  #queueClass;
+  #pending = 0;
+  #concurrency;
+  #isPaused;
+  #throwOnTimeout;
+  timeout;
+  constructor(options3) {
+    super();
+    options3 = {
+      carryoverConcurrencyCount: false,
+      intervalCap: Number.POSITIVE_INFINITY,
+      interval: 0,
+      concurrency: Number.POSITIVE_INFINITY,
+      autoStart: true,
+      queueClass: PriorityQueue,
+      ...options3
     };
-    this.recordShiftKeyPress = (e4) => {
-      this.isShiftKeyPressed = e4.shiftKey;
-    };
-    this.isChecked = (file) => {
-      const {
-        currentSelection
-      } = this.plugin.getPluginState();
-      return currentSelection.some((item) => item.id === file.id);
-    };
-    this.plugin = plugin;
-    this.provider = opts.provider;
-    this.opts = opts;
-    this.isHandlingScroll = false;
-    this.preFirstRender = this.preFirstRender.bind(this);
-    this.handleError = this.handleError.bind(this);
-    this.clearSelection = this.clearSelection.bind(this);
-    this.cancelPicking = this.cancelPicking.bind(this);
-  }
-  preFirstRender() {
-    this.plugin.setPluginState({
-      didFirstRender: true
-    });
-    this.plugin.onFirstRender();
-  }
-  shouldHandleScroll(event2) {
-    const {
-      scrollHeight,
-      scrollTop,
-      offsetHeight
-    } = event2.target;
-    const scrollPosition = scrollHeight - (scrollTop + offsetHeight);
-    return scrollPosition < 50 && !this.isHandlingScroll;
-  }
-  clearSelection() {
-    this.plugin.setPluginState({
-      currentSelection: [],
-      filterInput: ""
-    });
-  }
-  cancelPicking() {
-    this.clearSelection();
-    const dashboard = this.plugin.uppy.getPlugin("Dashboard");
-    if (dashboard) {
-      dashboard.hideAllPanels();
+    if (!(typeof options3.intervalCap === "number" && options3.intervalCap >= 1)) {
+      throw new TypeError(`Expected \`intervalCap\` to be a number from 1 and up, got \`${options3.intervalCap?.toString() ?? ""}\` (${typeof options3.intervalCap})`);
     }
+    if (options3.interval === void 0 || !(Number.isFinite(options3.interval) && options3.interval >= 0)) {
+      throw new TypeError(`Expected \`interval\` to be a finite number >= 0, got \`${options3.interval?.toString() ?? ""}\` (${typeof options3.interval})`);
+    }
+    this.#carryoverConcurrencyCount = options3.carryoverConcurrencyCount;
+    this.#isIntervalIgnored = options3.intervalCap === Number.POSITIVE_INFINITY || options3.interval === 0;
+    this.#intervalCap = options3.intervalCap;
+    this.#interval = options3.interval;
+    this.#queue = new options3.queueClass();
+    this.#queueClass = options3.queueClass;
+    this.concurrency = options3.concurrency;
+    this.timeout = options3.timeout;
+    this.#throwOnTimeout = options3.throwOnTimeout === true;
+    this.#isPaused = options3.autoStart === false;
   }
-  handleError(error) {
-    var _error$cause;
-    const {
-      uppy: uppy2
-    } = this.plugin;
-    const message = uppy2.i18n("companionError");
-    uppy2.log(error.toString());
-    if (error.isAuthError || ((_error$cause = error.cause) == null ? void 0 : _error$cause.name) === "AbortError") {
+  get #doesIntervalAllowAnother() {
+    return this.#isIntervalIgnored || this.#intervalCount < this.#intervalCap;
+  }
+  get #doesConcurrentAllowAnother() {
+    return this.#pending < this.#concurrency;
+  }
+  #next() {
+    this.#pending--;
+    this.#tryToStartAnother();
+    this.emit("next");
+  }
+  #onResumeInterval() {
+    this.#onInterval();
+    this.#initializeIntervalIfNeeded();
+    this.#timeoutId = void 0;
+  }
+  get #isIntervalPaused() {
+    const now = Date.now();
+    if (this.#intervalId === void 0) {
+      const delay = this.#intervalEnd - now;
+      if (delay < 0) {
+        this.#intervalCount = this.#carryoverConcurrencyCount ? this.#pending : 0;
+      } else {
+        if (this.#timeoutId === void 0) {
+          this.#timeoutId = setTimeout(() => {
+            this.#onResumeInterval();
+          }, delay);
+        }
+        return true;
+      }
+    }
+    return false;
+  }
+  #tryToStartAnother() {
+    if (this.#queue.size === 0) {
+      if (this.#intervalId) {
+        clearInterval(this.#intervalId);
+      }
+      this.#intervalId = void 0;
+      this.emit("empty");
+      if (this.#pending === 0) {
+        this.emit("idle");
+      }
+      return false;
+    }
+    if (!this.#isPaused) {
+      const canInitializeInterval = !this.#isIntervalPaused;
+      if (this.#doesIntervalAllowAnother && this.#doesConcurrentAllowAnother) {
+        const job = this.#queue.dequeue();
+        if (!job) {
+          return false;
+        }
+        this.emit("active");
+        job();
+        if (canInitializeInterval) {
+          this.#initializeIntervalIfNeeded();
+        }
+        return true;
+      }
+    }
+    return false;
+  }
+  #initializeIntervalIfNeeded() {
+    if (this.#isIntervalIgnored || this.#intervalId !== void 0) {
       return;
     }
+    this.#intervalId = setInterval(() => {
+      this.#onInterval();
+    }, this.#interval);
+    this.#intervalEnd = Date.now() + this.#interval;
+  }
+  #onInterval() {
+    if (this.#intervalCount === 0 && this.#pending === 0 && this.#intervalId) {
+      clearInterval(this.#intervalId);
+      this.#intervalId = void 0;
+    }
+    this.#intervalCount = this.#carryoverConcurrencyCount ? this.#pending : 0;
+    this.#processQueue();
+  }
+  #processQueue() {
+    while (this.#tryToStartAnother()) {
+    }
+  }
+  get concurrency() {
+    return this.#concurrency;
+  }
+  set concurrency(newConcurrency) {
+    if (!(typeof newConcurrency === "number" && newConcurrency >= 1)) {
+      throw new TypeError(`Expected \`concurrency\` to be a number from 1 and up, got \`${newConcurrency}\` (${typeof newConcurrency})`);
+    }
+    this.#concurrency = newConcurrency;
+    this.#processQueue();
+  }
+  async #throwOnAbort(signal) {
+    return new Promise((_resolve, reject) => {
+      signal.addEventListener("abort", () => {
+        reject(signal.reason);
+      }, { once: true });
+    });
+  }
+  async add(function_, options3 = {}) {
+    options3 = {
+      timeout: this.timeout,
+      throwOnTimeout: this.#throwOnTimeout,
+      ...options3
+    };
+    return new Promise((resolve, reject) => {
+      this.#queue.enqueue(async () => {
+        this.#pending++;
+        this.#intervalCount++;
+        try {
+          options3.signal?.throwIfAborted();
+          let operation = function_({ signal: options3.signal });
+          if (options3.timeout) {
+            operation = pTimeout(Promise.resolve(operation), { milliseconds: options3.timeout });
+          }
+          if (options3.signal) {
+            operation = Promise.race([operation, this.#throwOnAbort(options3.signal)]);
+          }
+          const result = await operation;
+          resolve(result);
+          this.emit("completed", result);
+        } catch (error) {
+          if (error instanceof TimeoutError && !options3.throwOnTimeout) {
+            resolve();
+            return;
+          }
+          reject(error);
+          this.emit("error", error);
+        } finally {
+          this.#next();
+        }
+      }, options3);
+      this.emit("add");
+      this.#tryToStartAnother();
+    });
+  }
+  async addAll(functions, options3) {
+    return Promise.all(functions.map(async (function_) => this.add(function_, options3)));
+  }
+  start() {
+    if (!this.#isPaused) {
+      return this;
+    }
+    this.#isPaused = false;
+    this.#processQueue();
+    return this;
+  }
+  pause() {
+    this.#isPaused = true;
+  }
+  clear() {
+    this.#queue = new this.#queueClass();
+  }
+  async onEmpty() {
+    if (this.#queue.size === 0) {
+      return;
+    }
+    await this.#onEvent("empty");
+  }
+  async onSizeLessThan(limit) {
+    if (this.#queue.size < limit) {
+      return;
+    }
+    await this.#onEvent("next", () => this.#queue.size < limit);
+  }
+  async onIdle() {
+    if (this.#pending === 0 && this.#queue.size === 0) {
+      return;
+    }
+    await this.#onEvent("idle");
+  }
+  async #onEvent(event2, filter) {
+    return new Promise((resolve) => {
+      const listener = () => {
+        if (filter && !filter()) {
+          return;
+        }
+        this.off(event2, listener);
+        resolve();
+      };
+      this.on(event2, listener);
+    });
+  }
+  get size() {
+    return this.#queue.size;
+  }
+  sizeBy(options3) {
+    return this.#queue.filter(options3).length;
+  }
+  get pending() {
+    return this.#pending;
+  }
+  get isPaused() {
+    return this.#isPaused;
+  }
+};
+
+// node_modules/@uppy/provider-views/lib/utils/PartialTreeUtils/afterFill.js
+var recursivelyFetch = async (queue, poorTree, poorFolder, apiList, validateSingleFile) => {
+  let items = [];
+  let currentPath = poorFolder.cached ? poorFolder.nextPagePath : poorFolder.id;
+  while (currentPath) {
+    const response = await apiList(currentPath);
+    items = items.concat(response.items);
+    currentPath = response.nextPagePath;
+  }
+  const newFolders = items.filter((i) => i.isFolder === true);
+  const newFiles = items.filter((i) => i.isFolder === false);
+  const folders = newFolders.map((folder) => ({
+    type: "folder",
+    id: folder.requestPath,
+    cached: false,
+    nextPagePath: null,
+    status: "checked",
+    parentId: poorFolder.id,
+    data: folder
+  }));
+  const files = newFiles.map((file) => {
+    const restrictionError = validateSingleFile(file);
+    return {
+      type: "file",
+      id: file.requestPath,
+      restrictionError,
+      status: restrictionError ? "unchecked" : "checked",
+      parentId: poorFolder.id,
+      data: file
+    };
+  });
+  poorFolder.cached = true;
+  poorFolder.nextPagePath = null;
+  poorTree.push(...files, ...folders);
+  folders.forEach(async (folder) => {
+    queue.add(() => recursivelyFetch(queue, poorTree, folder, apiList, validateSingleFile));
+  });
+};
+var afterFill = async (partialTree, apiList, validateSingleFile, reportProgress) => {
+  const queue = new PQueue({
+    concurrency: 6
+  });
+  const poorTree = shallowClone_default(partialTree);
+  const poorFolders = poorTree.filter((item) => item.type === "folder" && item.status === "checked" && (item.cached === false || item.nextPagePath));
+  poorFolders.forEach((poorFolder) => {
+    queue.add(() => recursivelyFetch(queue, poorTree, poorFolder, apiList, validateSingleFile));
+  });
+  queue.on("completed", () => {
+    const nOfFilesChecked = poorTree.filter((i) => i.type === "file" && i.status === "checked").length;
+    reportProgress(nOfFilesChecked);
+  });
+  await queue.onIdle();
+  return poorTree;
+};
+var afterFill_default = afterFill;
+
+// node_modules/@uppy/provider-views/lib/utils/PartialTreeUtils/index.js
+var PartialTreeUtils_default = {
+  afterOpenFolder: afterOpenFolder_default,
+  afterScrollFolder: afterScrollFolder_default,
+  afterToggleCheckbox: afterToggleCheckbox_default,
+  afterFill: afterFill_default
+};
+
+// node_modules/@uppy/provider-views/lib/utils/shouldHandleScroll.js
+var shouldHandleScroll = (event2) => {
+  const {
+    scrollHeight,
+    scrollTop,
+    offsetHeight
+  } = event2.target;
+  const scrollPosition = scrollHeight - (scrollTop + offsetHeight);
+  return scrollPosition < 50;
+};
+var shouldHandleScroll_default = shouldHandleScroll;
+
+// node_modules/@uppy/provider-views/lib/utils/handleError.js
+var handleError = (uppy2) => (error) => {
+  if (error.isAuthError) {
+    return;
+  }
+  if (error.name === "AbortError") {
+    uppy2.log("Aborting request", "warning");
+    return;
+  }
+  uppy2.log(error, "error");
+  if (error.name === "UserFacingApiError") {
     uppy2.info({
-      message,
-      details: error.toString()
-    }, "error", 5e3);
+      message: uppy2.i18n("companionError"),
+      details: uppy2.i18n(error.message)
+    }, "warning", 5e3);
   }
-  registerRequestClient() {
-    this.requestClientId = this.provider.provider;
-    this.plugin.uppy.registerRequestClient(this.requestClientId, this.provider);
+};
+var handleError_default = handleError;
+
+// node_modules/@uppy/provider-views/lib/utils/getClickedRange.js
+var getClickedRange = (clickedId, displayedPartialTree, isShiftKeyPressed, lastCheckbox) => {
+  const lastCheckboxIndex = displayedPartialTree.findIndex((item) => item.id === lastCheckbox);
+  if (lastCheckboxIndex !== -1 && isShiftKeyPressed) {
+    const newCheckboxIndex = displayedPartialTree.findIndex((item) => item.id === clickedId);
+    const clickedRange = displayedPartialTree.slice(Math.min(lastCheckboxIndex, newCheckboxIndex), Math.max(lastCheckboxIndex, newCheckboxIndex) + 1);
+    return clickedRange.map((item) => item.id);
   }
-  getTagFile(file) {
-    const tagFile = {
-      id: file.id,
-      source: this.plugin.id,
-      name: file.name || file.id,
-      type: file.mimeType,
-      isRemote: true,
-      data: file,
-      meta: {},
+  return [clickedId];
+};
+var getClickedRange_default = getClickedRange;
+
+// node_modules/@uppy/provider-views/lib/SearchInput.js
+function SearchInput(_ref) {
+  let {
+    searchString,
+    setSearchString,
+    submitSearchString,
+    wrapperClassName,
+    inputClassName,
+    inputLabel,
+    clearSearchLabel = "",
+    showButton = false,
+    buttonLabel = "",
+    buttonCSSClassName = ""
+  } = _ref;
+  const onInput = (e) => {
+    setSearchString(e.target.value);
+  };
+  const submit = useCallback((ev) => {
+    ev.preventDefault();
+    submitSearchString();
+  }, [submitSearchString]);
+  const [form] = useState(() => {
+    const formEl = document.createElement("form");
+    formEl.setAttribute("tabindex", "-1");
+    formEl.id = nanoid();
+    return formEl;
+  });
+  useEffect(() => {
+    document.body.appendChild(form);
+    form.addEventListener("submit", submit);
+    return () => {
+      form.removeEventListener("submit", submit);
+      document.body.removeChild(form);
+    };
+  }, [form, submit]);
+  return createElement("section", {
+    className: wrapperClassName
+  }, createElement("input", {
+    className: `uppy-u-reset ${inputClassName}`,
+    type: "search",
+    "aria-label": inputLabel,
+    placeholder: inputLabel,
+    value: searchString,
+    onInput,
+    form: form.id,
+    "data-uppy-super-focusable": true
+  }), !showButton && createElement("svg", {
+    "aria-hidden": "true",
+    focusable: "false",
+    className: "uppy-c-icon uppy-ProviderBrowser-searchFilterIcon",
+    width: "12",
+    height: "12",
+    viewBox: "0 0 12 12"
+  }, createElement("path", {
+    d: "M8.638 7.99l3.172 3.172a.492.492 0 1 1-.697.697L7.91 8.656a4.977 4.977 0 0 1-2.983.983C2.206 9.639 0 7.481 0 4.819 0 2.158 2.206 0 4.927 0c2.721 0 4.927 2.158 4.927 4.82a4.74 4.74 0 0 1-1.216 3.17zm-3.71.685c2.176 0 3.94-1.726 3.94-3.856 0-2.129-1.764-3.855-3.94-3.855C2.75.964.984 2.69.984 4.819c0 2.13 1.765 3.856 3.942 3.856z"
+  })), !showButton && searchString && createElement("button", {
+    className: "uppy-u-reset uppy-ProviderBrowser-searchFilterReset",
+    type: "button",
+    "aria-label": clearSearchLabel,
+    title: clearSearchLabel,
+    onClick: () => setSearchString("")
+  }, createElement("svg", {
+    "aria-hidden": "true",
+    focusable: "false",
+    className: "uppy-c-icon",
+    viewBox: "0 0 19 19"
+  }, createElement("path", {
+    d: "M17.318 17.232L9.94 9.854 9.586 9.5l-.354.354-7.378 7.378h.707l-.62-.62v.706L9.318 9.94l.354-.354-.354-.354L1.94 1.854v.707l.62-.62h-.706l7.378 7.378.354.354.354-.354 7.378-7.378h-.707l.622.62v-.706L9.854 9.232l-.354.354.354.354 7.378 7.378.708-.707-7.38-7.378v.708l7.38-7.38.353-.353-.353-.353-.622-.622-.353-.353-.354.352-7.378 7.38h.708L2.56 1.23 2.208.88l-.353.353-.622.62-.353.355.352.353 7.38 7.38v-.708l-7.38 7.38-.353.353.352.353.622.622.353.353.354-.353 7.38-7.38h-.708l7.38 7.38z"
+  }))), showButton && createElement("button", {
+    className: `uppy-u-reset uppy-c-btn uppy-c-btn-primary ${buttonCSSClassName}`,
+    type: "submit",
+    form: form.id
+  }, buttonLabel));
+}
+var SearchInput_default = SearchInput;
+
+// node_modules/@uppy/provider-views/lib/FooterActions.js
+var import_classnames5 = __toESM(require_classnames(), 1);
+
+// node_modules/@uppy/provider-views/lib/utils/PartialTreeUtils/getNumberOfSelectedFiles.js
+var getNumberOfSelectedFiles = (partialTree) => {
+  const checkedLeaves = partialTree.filter((item) => {
+    if (item.type === "file" && item.status === "checked") {
+      return true;
+    }
+    if (item.type === "folder" && item.status === "checked") {
+      const doesItHaveChildren = partialTree.some((i) => i.type !== "root" && i.parentId === item.id);
+      return !doesItHaveChildren;
+    }
+    return false;
+  });
+  return checkedLeaves.length;
+};
+var getNumberOfSelectedFiles_default = getNumberOfSelectedFiles;
+
+// node_modules/@uppy/provider-views/lib/FooterActions.js
+function FooterActions(_ref) {
+  let {
+    cancelSelection,
+    donePicking,
+    i18n,
+    partialTree,
+    validateAggregateRestrictions
+  } = _ref;
+  const aggregateRestrictionError = useMemo(() => {
+    return validateAggregateRestrictions(partialTree);
+  }, [partialTree, validateAggregateRestrictions]);
+  const nOfSelectedFiles = useMemo(() => {
+    return getNumberOfSelectedFiles_default(partialTree);
+  }, [partialTree]);
+  if (nOfSelectedFiles === 0) {
+    return null;
+  }
+  return createElement("div", {
+    className: "uppy-ProviderBrowser-footer"
+  }, createElement("div", {
+    className: "uppy-ProviderBrowser-footer-buttons"
+  }, createElement("button", {
+    className: (0, import_classnames5.default)("uppy-u-reset uppy-c-btn uppy-c-btn-primary", {
+      "uppy-c-btn--disabled": aggregateRestrictionError
+    }),
+    disabled: !!aggregateRestrictionError,
+    onClick: donePicking,
+    type: "button"
+  }, i18n("selectX", {
+    smart_count: nOfSelectedFiles
+  })), createElement("button", {
+    className: "uppy-u-reset uppy-c-btn uppy-c-btn-link",
+    onClick: cancelSelection,
+    type: "button"
+  }, i18n("cancel"))), aggregateRestrictionError && createElement("div", {
+    className: "uppy-ProviderBrowser-footer-error"
+  }, aggregateRestrictionError));
+}
+
+// node_modules/@uppy/provider-views/lib/utils/getTagFile.js
+var getTagFile = (file, plugin, provider) => {
+  var _file$author, _file$author2;
+  const tagFile = {
+    id: file.id,
+    source: plugin.id,
+    name: file.name || file.id,
+    type: file.mimeType,
+    isRemote: true,
+    data: file,
+    preview: file.thumbnail || void 0,
+    meta: {
+      authorName: (_file$author = file.author) == null ? void 0 : _file$author.name,
+      authorUrl: (_file$author2 = file.author) == null ? void 0 : _file$author2.url,
+      relativePath: file.relDirPath || null,
+      absolutePath: file.absDirPath
+    },
+    body: {
+      fileId: file.id
+    },
+    remote: {
+      companionUrl: plugin.opts.companionUrl,
+      url: `${provider.fileUrl(file.requestPath)}`,
       body: {
         fileId: file.id
       },
-      remote: {
-        companionUrl: this.plugin.opts.companionUrl,
-        url: `${this.provider.fileUrl(file.requestPath)}`,
-        body: {
-          fileId: file.id
-        },
-        providerName: this.provider.name,
-        provider: this.provider.provider,
-        requestClientId: this.requestClientId
-      }
-    };
-    if (file.thumbnail) {
-      tagFile.preview = file.thumbnail;
+      providerName: provider.name,
+      provider: provider.provider,
+      requestClientId: provider.provider
     }
-    if (file.author) {
-      if (file.author.name != null)
-        tagFile.meta.authorName = String(file.author.name);
-      if (file.author.url)
-        tagFile.meta.authorUrl = file.author.url;
-    }
-    if (file.relDirPath != null)
-      tagFile.meta.relativePath = file.relDirPath ? `${file.relDirPath}/${tagFile.name}` : null;
-    if (file.absDirPath != null)
-      tagFile.meta.absolutePath = file.absDirPath ? `/${file.absDirPath}/${tagFile.name}` : `/${tagFile.name}`;
-    return tagFile;
-  }
-  toggleCheckbox(e4, file) {
-    e4.stopPropagation();
-    e4.preventDefault();
-    e4.currentTarget.focus();
-    const {
-      folders,
-      files
-    } = this.plugin.getPluginState();
-    const items = this.filterItems(folders.concat(files));
-    if (this.lastCheckbox && this.isShiftKeyPressed) {
-      const {
-        currentSelection: currentSelection2
-      } = this.plugin.getPluginState();
-      const prevIndex = items.indexOf(this.lastCheckbox);
-      const currentIndex = items.indexOf(file);
-      const newSelection = prevIndex < currentIndex ? items.slice(prevIndex, currentIndex + 1) : items.slice(currentIndex, prevIndex + 1);
-      const reducedNewSelection = [];
-      for (const item of newSelection) {
-        const {
-          uppy: uppy2
-        } = this.plugin;
-        const restrictionError = uppy2.validateRestrictions(remoteFileObjToLocal(item), [...uppy2.getFiles(), ...reducedNewSelection]);
-        if (!restrictionError) {
-          reducedNewSelection.push(item);
-        } else {
-          uppy2.info({
-            message: restrictionError.message
-          }, "error", uppy2.opts.infoTimeout);
-        }
-      }
-      this.plugin.setPluginState({
-        currentSelection: [.../* @__PURE__ */ new Set([...currentSelection2, ...reducedNewSelection])]
-      });
-      return;
-    }
-    this.lastCheckbox = file;
-    const {
-      currentSelection
-    } = this.plugin.getPluginState();
-    if (this.isChecked(file)) {
-      this.plugin.setPluginState({
-        currentSelection: currentSelection.filter((item) => item.id !== file.id)
-      });
+  };
+  return tagFile;
+};
+var getTagFile_default = getTagFile;
+
+// node_modules/@uppy/provider-views/lib/utils/addFiles.js
+var addFiles = (companionFiles, plugin, provider) => {
+  const tagFiles = companionFiles.map((f) => getTagFile_default(f, plugin, provider));
+  const filesToAdd = [];
+  const filesAlreadyAdded = [];
+  tagFiles.forEach((tagFile) => {
+    if (plugin.uppy.checkIfFileAlreadyExists(getSafeFileId(tagFile, plugin.uppy.getID()))) {
+      filesAlreadyAdded.push(tagFile);
     } else {
-      this.plugin.setPluginState({
-        currentSelection: currentSelection.concat([file])
-      });
+      filesToAdd.push(tagFile);
     }
+  });
+  if (filesToAdd.length > 0) {
+    plugin.uppy.info(plugin.uppy.i18n("addedNumFiles", {
+      numFiles: filesToAdd.length
+    }));
+  }
+  if (filesAlreadyAdded.length > 0) {
+    plugin.uppy.info(`Not adding ${filesAlreadyAdded.length} files because they already exist`);
+  }
+  plugin.uppy.addFiles(filesToAdd);
+};
+var addFiles_default = addFiles;
+
+// node_modules/@uppy/provider-views/lib/utils/PartialTreeUtils/getCheckedFilesWithPaths.js
+var getPath = (partialTree, id12, cache) => {
+  const sId = id12 === null ? "null" : id12;
+  if (cache[sId])
+    return cache[sId];
+  const file = partialTree.find((f) => f.id === id12);
+  if (file.type === "root")
+    return [];
+  const meAndParentPath = [...getPath(partialTree, file.parentId, cache), file];
+  cache[sId] = meAndParentPath;
+  return meAndParentPath;
+};
+var getCheckedFilesWithPaths = (partialTree) => {
+  const cache = /* @__PURE__ */ Object.create(null);
+  const checkedFiles = partialTree.filter((item) => item.type === "file" && item.status === "checked");
+  const companionFilesWithInjectedPaths = checkedFiles.map((file) => {
+    const absFolders = getPath(partialTree, file.id, cache);
+    const firstCheckedFolderIndex = absFolders.findIndex((i) => i.type === "folder" && i.status === "checked");
+    const relFolders = absFolders.slice(firstCheckedFolderIndex);
+    const absDirPath = `/${absFolders.map((i) => i.data.name).join("/")}`;
+    const relDirPath = relFolders.length === 1 ? void 0 : relFolders.map((i) => i.data.name).join("/");
+    return {
+      ...file.data,
+      absDirPath,
+      relDirPath
+    };
+  });
+  return companionFilesWithInjectedPaths;
+};
+var getCheckedFilesWithPaths_default = getCheckedFilesWithPaths;
+
+// node_modules/@uppy/provider-views/lib/utils/PartialTreeUtils/getBreadcrumbs.js
+var getBreadcrumbs = (partialTree, currentFolderId) => {
+  let folder = partialTree.find((f) => f.id === currentFolderId);
+  let breadcrumbs = [];
+  while (true) {
+    breadcrumbs = [folder, ...breadcrumbs];
+    if (folder.type === "root")
+      break;
+    const currentParentId = folder.parentId;
+    folder = partialTree.find((f) => f.id === currentParentId);
+  }
+  return breadcrumbs;
+};
+var getBreadcrumbs_default = getBreadcrumbs;
+
+// node_modules/@uppy/provider-views/lib/ProviderView/ProviderView.js
+function _classPrivateFieldLooseBase6(e, t) {
+  if (!{}.hasOwnProperty.call(e, t))
+    throw new TypeError("attempted to use private field on non-instance");
+  return e;
+}
+var id6 = 0;
+function _classPrivateFieldLooseKey6(e) {
+  return "__private_" + id6++ + "_" + e;
+}
+var packageJson6 = {
+  "version": "4.0.1"
+};
+function defaultPickerIcon() {
+  return createElement("svg", {
+    "aria-hidden": "true",
+    focusable: "false",
+    width: "30",
+    height: "30",
+    viewBox: "0 0 30 30"
+  }, createElement("path", {
+    d: "M15 30c8.284 0 15-6.716 15-15 0-8.284-6.716-15-15-15C6.716 0 0 6.716 0 15c0 8.284 6.716 15 15 15zm4.258-12.676v6.846h-8.426v-6.846H5.204l9.82-12.364 9.82 12.364H19.26z"
+  }));
+}
+var getDefaultState = (rootFolderId) => ({
+  authenticated: void 0,
+  partialTree: [{
+    type: "root",
+    id: rootFolderId,
+    cached: false,
+    nextPagePath: null
+  }],
+  currentFolderId: rootFolderId,
+  searchString: "",
+  didFirstRender: false,
+  username: null,
+  loading: false
+});
+var _abortController = /* @__PURE__ */ _classPrivateFieldLooseKey6("abortController");
+var _withAbort = /* @__PURE__ */ _classPrivateFieldLooseKey6("withAbort");
+var ProviderView = class {
+  constructor(plugin, opts) {
+    Object.defineProperty(this, _withAbort, {
+      value: _withAbort2
+    });
+    this.isHandlingScroll = false;
+    this.lastCheckbox = null;
+    Object.defineProperty(this, _abortController, {
+      writable: true,
+      value: void 0
+    });
+    this.validateSingleFile = (file) => {
+      const companionFile = remoteFileObjToLocal(file);
+      const result = this.plugin.uppy.validateSingleFile(companionFile);
+      return result;
+    };
+    this.getDisplayedPartialTree = () => {
+      const {
+        partialTree,
+        currentFolderId,
+        searchString
+      } = this.plugin.getPluginState();
+      const inThisFolder = partialTree.filter((item) => item.type !== "root" && item.parentId === currentFolderId);
+      const filtered = searchString === "" ? inThisFolder : inThisFolder.filter((item) => {
+        var _item$data$name;
+        return ((_item$data$name = item.data.name) != null ? _item$data$name : this.plugin.uppy.i18n("unnamed")).toLowerCase().indexOf(searchString.toLowerCase()) !== -1;
+      });
+      return filtered;
+    };
+    this.validateAggregateRestrictions = (partialTree) => {
+      const checkedFiles = partialTree.filter((item) => item.type === "file" && item.status === "checked");
+      const uppyFiles = checkedFiles.map((file) => file.data);
+      return this.plugin.uppy.validateAggregateRestrictions(uppyFiles);
+    };
+    this.plugin = plugin;
+    this.provider = opts.provider;
+    const defaultOptions6 = {
+      viewType: "list",
+      showTitles: true,
+      showFilter: true,
+      showBreadcrumbs: true,
+      loadAllFiles: false,
+      virtualList: false
+    };
+    this.opts = {
+      ...defaultOptions6,
+      ...opts
+    };
+    this.openFolder = this.openFolder.bind(this);
+    this.logout = this.logout.bind(this);
+    this.handleAuth = this.handleAuth.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+    this.resetPluginState = this.resetPluginState.bind(this);
+    this.donePicking = this.donePicking.bind(this);
+    this.render = this.render.bind(this);
+    this.cancelSelection = this.cancelSelection.bind(this);
+    this.toggleCheckbox = this.toggleCheckbox.bind(this);
+    this.resetPluginState();
+    this.plugin.uppy.on("dashboard:close-panel", this.resetPluginState);
+    this.plugin.uppy.registerRequestClient(this.provider.provider, this.provider);
+  }
+  resetPluginState() {
+    this.plugin.setPluginState(getDefaultState(this.plugin.rootFolderId));
+  }
+  tearDown() {
   }
   setLoading(loading) {
     this.plugin.setPluginState({
       loading
     });
   }
-};
-
-// node_modules/@uppy/provider-views/lib/ProviderView/ProviderView.js
-function _classPrivateFieldLooseBase6(receiver, privateKey) {
-  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
-    throw new TypeError("attempted to use private field on non-instance");
-  }
-  return receiver;
-}
-var id6 = 0;
-function _classPrivateFieldLooseKey6(name) {
-  return "__private_" + id6++ + "_" + name;
-}
-var packageJson6 = {
-  "version": "3.13.0"
-};
-function formatBreadcrumbs(breadcrumbs) {
-  return breadcrumbs.slice(1).map((directory) => directory.name).join("/");
-}
-function prependPath(path, component) {
-  if (!path)
-    return component;
-  return `${path}/${component}`;
-}
-function defaultPickerIcon() {
-  return y("svg", {
-    "aria-hidden": "true",
-    focusable: "false",
-    width: "30",
-    height: "30",
-    viewBox: "0 0 30 30"
-  }, y("path", {
-    d: "M15 30c8.284 0 15-6.716 15-15 0-8.284-6.716-15-15-15C6.716 0 0 6.716 0 15c0 8.284 6.716 15 15 15zm4.258-12.676v6.846h-8.426v-6.846H5.204l9.82-12.364 9.82 12.364H19.26z"
-  }));
-}
-var defaultOptions4 = {
-  viewType: "list",
-  showTitles: true,
-  showFilter: true,
-  showBreadcrumbs: true,
-  loadAllFiles: false,
-  virtualList: false
-};
-var _abortController = /* @__PURE__ */ _classPrivateFieldLooseKey6("abortController");
-var _withAbort = /* @__PURE__ */ _classPrivateFieldLooseKey6("withAbort");
-var _list = /* @__PURE__ */ _classPrivateFieldLooseKey6("list");
-var _listFilesAndFolders = /* @__PURE__ */ _classPrivateFieldLooseKey6("listFilesAndFolders");
-var _recursivelyListAllFiles = /* @__PURE__ */ _classPrivateFieldLooseKey6("recursivelyListAllFiles");
-var ProviderView = class extends View {
-  constructor(plugin, opts) {
-    super(plugin, {
-      ...defaultOptions4,
-      ...opts
+  cancelSelection() {
+    const {
+      partialTree
+    } = this.plugin.getPluginState();
+    const newPartialTree = partialTree.map((item) => item.type === "root" ? item : {
+      ...item,
+      status: "unchecked"
     });
-    Object.defineProperty(this, _recursivelyListAllFiles, {
-      value: _recursivelyListAllFiles2
-    });
-    Object.defineProperty(this, _listFilesAndFolders, {
-      value: _listFilesAndFolders2
-    });
-    Object.defineProperty(this, _list, {
-      value: _list2
-    });
-    Object.defineProperty(this, _withAbort, {
-      value: _withAbort2
-    });
-    Object.defineProperty(this, _abortController, {
-      writable: true,
-      value: void 0
-    });
-    this.filterQuery = this.filterQuery.bind(this);
-    this.clearFilter = this.clearFilter.bind(this);
-    this.getFolder = this.getFolder.bind(this);
-    this.getNextFolder = this.getNextFolder.bind(this);
-    this.logout = this.logout.bind(this);
-    this.handleAuth = this.handleAuth.bind(this);
-    this.handleScroll = this.handleScroll.bind(this);
-    this.donePicking = this.donePicking.bind(this);
-    this.render = this.render.bind(this);
     this.plugin.setPluginState({
-      authenticated: void 0,
-      files: [],
-      folders: [],
-      breadcrumbs: [],
-      filterInput: "",
-      isSearchVisible: false,
-      currentSelection: []
+      partialTree: newPartialTree
     });
-    this.registerRequestClient();
   }
-  tearDown() {
-  }
-  async getFolder(requestPath, name) {
-    this.setLoading(true);
-    try {
-      await _classPrivateFieldLooseBase6(this, _withAbort)[_withAbort](async (signal) => {
-        this.lastCheckbox = void 0;
-        let {
-          breadcrumbs
-        } = this.plugin.getPluginState();
-        const index = breadcrumbs.findIndex((dir) => requestPath === dir.requestPath);
-        if (index !== -1) {
-          breadcrumbs = breadcrumbs.slice(0, index + 1);
-        } else {
-          breadcrumbs = [...breadcrumbs, {
-            requestPath,
-            name
-          }];
-        }
-        this.nextPagePath = requestPath;
-        let files = [];
-        let folders = [];
-        do {
-          const {
-            files: newFiles,
-            folders: newFolders
-          } = await _classPrivateFieldLooseBase6(this, _listFilesAndFolders)[_listFilesAndFolders]({
-            breadcrumbs,
-            signal
-          });
-          files = files.concat(newFiles);
-          folders = folders.concat(newFolders);
-          this.setLoading(this.plugin.uppy.i18n("loadedXFiles", {
-            numFiles: files.length + folders.length
-          }));
-        } while (this.opts.loadAllFiles && this.nextPagePath);
-        this.plugin.setPluginState({
-          folders,
-          files,
-          breadcrumbs,
-          filterInput: ""
-        });
+  async openFolder(folderId) {
+    this.lastCheckbox = null;
+    const {
+      partialTree
+    } = this.plugin.getPluginState();
+    const clickedFolder = partialTree.find((folder) => folder.id === folderId);
+    if (clickedFolder.cached) {
+      this.plugin.setPluginState({
+        currentFolderId: folderId,
+        searchString: ""
       });
-    } catch (err) {
-      if ((err == null ? void 0 : err.name) === "UserFacingApiError") {
-        this.plugin.uppy.info({
-          message: this.plugin.uppy.i18n(err.message)
-        }, "warning", 5e3);
-        return;
-      }
-      this.handleError(err);
-    } finally {
-      this.setLoading(false);
+      return;
     }
-  }
-  getNextFolder(folder) {
-    this.getFolder(folder.requestPath, folder.name);
-    this.lastCheckbox = void 0;
+    this.setLoading(true);
+    await _classPrivateFieldLooseBase6(this, _withAbort)[_withAbort](async (signal) => {
+      let currentPagePath = folderId;
+      let currentItems = [];
+      do {
+        const {
+          username,
+          nextPagePath,
+          items
+        } = await this.provider.list(currentPagePath, {
+          signal
+        });
+        this.plugin.setPluginState({
+          username
+        });
+        currentPagePath = nextPagePath;
+        currentItems = currentItems.concat(items);
+        this.setLoading(this.plugin.uppy.i18n("loadedXFiles", {
+          numFiles: currentItems.length
+        }));
+      } while (this.opts.loadAllFiles && currentPagePath);
+      const newPartialTree = PartialTreeUtils_default.afterOpenFolder(partialTree, currentItems, clickedFolder, currentPagePath, this.validateSingleFile);
+      this.plugin.setPluginState({
+        partialTree: newPartialTree,
+        currentFolderId: folderId,
+        searchString: ""
+      });
+    }).catch(handleError_default(this.plugin.uppy));
+    this.setLoading(false);
   }
   async logout() {
-    try {
-      await _classPrivateFieldLooseBase6(this, _withAbort)[_withAbort](async (signal) => {
-        const res = await this.provider.logout({
-          signal
-        });
-        if (res.ok) {
-          if (!res.revoked) {
-            const message = this.plugin.uppy.i18n("companionUnauthorizeHint", {
-              provider: this.plugin.title,
-              url: res.manual_revoke_url
-            });
-            this.plugin.uppy.info(message, "info", 7e3);
-          }
-          const newState = {
-            authenticated: false,
-            files: [],
-            folders: [],
-            breadcrumbs: [],
-            filterInput: ""
-          };
-          this.plugin.setPluginState(newState);
-        }
+    await _classPrivateFieldLooseBase6(this, _withAbort)[_withAbort](async (signal) => {
+      const res = await this.provider.logout({
+        signal
       });
-    } catch (err) {
-      this.handleError(err);
-    }
-  }
-  filterQuery(input) {
-    this.plugin.setPluginState({
-      filterInput: input
-    });
-  }
-  clearFilter() {
-    this.plugin.setPluginState({
-      filterInput: ""
-    });
+      if (res.ok) {
+        if (!res.revoked) {
+          const message = this.plugin.uppy.i18n("companionUnauthorizeHint", {
+            provider: this.plugin.title,
+            url: res.manual_revoke_url
+          });
+          this.plugin.uppy.info(message, "info", 7e3);
+        }
+        this.plugin.setPluginState({
+          ...getDefaultState(this.plugin.rootFolderId),
+          authenticated: false
+        });
+      }
+    }).catch(handleError_default(this.plugin.uppy));
   }
   async handleAuth(authFormData) {
-    try {
-      await _classPrivateFieldLooseBase6(this, _withAbort)[_withAbort](async (signal) => {
-        this.setLoading(true);
-        await this.provider.login({
-          authFormData,
-          signal
-        });
-        this.plugin.setPluginState({
-          authenticated: true
-        });
-        this.preFirstRender();
+    await _classPrivateFieldLooseBase6(this, _withAbort)[_withAbort](async (signal) => {
+      this.setLoading(true);
+      await this.provider.login({
+        authFormData,
+        signal
       });
-    } catch (err) {
-      if (err.name === "UserFacingApiError") {
-        this.plugin.uppy.info({
-          message: this.plugin.uppy.i18n(err.message)
-        }, "warning", 5e3);
-        return;
-      }
-      this.plugin.uppy.log(`login failed: ${err.message}`);
-    } finally {
-      this.setLoading(false);
-    }
+      this.plugin.setPluginState({
+        authenticated: true
+      });
+      await Promise.all([this.provider.fetchPreAuthToken(), this.openFolder(this.plugin.rootFolderId)]);
+    }).catch(handleError_default(this.plugin.uppy));
+    this.setLoading(false);
   }
   async handleScroll(event2) {
-    if (this.shouldHandleScroll(event2) && this.nextPagePath) {
+    const {
+      partialTree,
+      currentFolderId
+    } = this.plugin.getPluginState();
+    const currentFolder = partialTree.find((i) => i.id === currentFolderId);
+    if (shouldHandleScroll_default(event2) && !this.isHandlingScroll && currentFolder.nextPagePath) {
       this.isHandlingScroll = true;
-      try {
-        await _classPrivateFieldLooseBase6(this, _withAbort)[_withAbort](async (signal) => {
-          const {
-            files,
-            folders,
-            breadcrumbs
-          } = this.plugin.getPluginState();
-          const {
-            files: newFiles,
-            folders: newFolders
-          } = await _classPrivateFieldLooseBase6(this, _listFilesAndFolders)[_listFilesAndFolders]({
-            breadcrumbs,
-            signal
-          });
-          const combinedFiles = files.concat(newFiles);
-          const combinedFolders = folders.concat(newFolders);
-          this.plugin.setPluginState({
-            folders: combinedFolders,
-            files: combinedFiles
-          });
+      await _classPrivateFieldLooseBase6(this, _withAbort)[_withAbort](async (signal) => {
+        const {
+          nextPagePath,
+          items
+        } = await this.provider.list(currentFolder.nextPagePath, {
+          signal
         });
-      } catch (error) {
-        this.handleError(error);
-      } finally {
-        this.isHandlingScroll = false;
-      }
+        const newPartialTree = PartialTreeUtils_default.afterScrollFolder(partialTree, currentFolderId, items, nextPagePath, this.validateSingleFile);
+        this.plugin.setPluginState({
+          partialTree: newPartialTree
+        });
+      }).catch(handleError_default(this.plugin.uppy));
+      this.isHandlingScroll = false;
     }
   }
   async donePicking() {
+    const {
+      partialTree
+    } = this.plugin.getPluginState();
     this.setLoading(true);
-    try {
-      await _classPrivateFieldLooseBase6(this, _withAbort)[_withAbort](async (signal) => {
-        const {
-          currentSelection
-        } = this.plugin.getPluginState();
-        const messages = [];
-        const newFiles = [];
-        for (const selectedItem of currentSelection) {
-          const {
-            requestPath
-          } = selectedItem;
-          const withRelDirPath = (newItem) => ({
-            ...newItem,
-            relDirPath: newItem.absDirPath.replace(selectedItem.absDirPath, "").replace(/^\//, "")
-          });
-          if (selectedItem.isFolder) {
-            let isEmpty = true;
-            let numNewFiles = 0;
-            const queue = new dist_default({
-              concurrency: 6
-            });
-            const onFiles = (files) => {
-              for (const newFile of files) {
-                const tagFile = this.getTagFile(newFile);
-                const id13 = getSafeFileId(tagFile, this.plugin.uppy.getID());
-                if (!this.plugin.uppy.checkIfFileAlreadyExists(id13)) {
-                  newFiles.push(withRelDirPath(newFile));
-                  numNewFiles++;
-                  this.setLoading(this.plugin.uppy.i18n("addedNumFiles", {
-                    numFiles: numNewFiles
-                  }));
-                }
-                isEmpty = false;
-              }
-            };
-            await _classPrivateFieldLooseBase6(this, _recursivelyListAllFiles)[_recursivelyListAllFiles]({
-              requestPath,
-              absDirPath: prependPath(selectedItem.absDirPath, selectedItem.name),
-              relDirPath: selectedItem.name,
-              queue,
-              onFiles,
-              signal
-            });
-            await queue.onIdle();
-            let message;
-            if (isEmpty) {
-              message = this.plugin.uppy.i18n("emptyFolderAdded");
-            } else if (numNewFiles === 0) {
-              message = this.plugin.uppy.i18n("folderAlreadyAdded", {
-                folder: selectedItem.name
-              });
-            } else {
-              message = this.plugin.uppy.i18n("folderAdded", {
-                smart_count: numNewFiles,
-                folder: selectedItem.name
-              });
-            }
-            messages.push(message);
-          } else {
-            newFiles.push(withRelDirPath(selectedItem));
-          }
-        }
-        this.plugin.uppy.log("Adding files from a remote provider");
-        this.plugin.uppy.addFiles(
-          newFiles.map((file) => this.getTagFile(file, this.requestClientId))
-        );
-        this.plugin.setPluginState({
-          filterInput: ""
-        });
-        messages.forEach((message) => this.plugin.uppy.info(message));
-        this.clearSelection();
+    await _classPrivateFieldLooseBase6(this, _withAbort)[_withAbort](async (signal) => {
+      const enrichedTree = await PartialTreeUtils_default.afterFill(partialTree, (path) => this.provider.list(path, {
+        signal
+      }), this.validateSingleFile, (n) => {
+        this.setLoading(this.plugin.uppy.i18n("addedNumFiles", {
+          numFiles: n
+        }));
       });
-    } catch (err) {
-      this.handleError(err);
-    } finally {
-      this.setLoading(false);
-    }
+      const aggregateRestrictionError = this.validateAggregateRestrictions(enrichedTree);
+      if (aggregateRestrictionError) {
+        this.plugin.setPluginState({
+          partialTree: enrichedTree
+        });
+        return;
+      }
+      const companionFiles = getCheckedFilesWithPaths_default(enrichedTree);
+      addFiles_default(companionFiles, this.plugin, this.provider);
+      this.resetPluginState();
+    }).catch(handleError_default(this.plugin.uppy));
+    this.setLoading(false);
+  }
+  toggleCheckbox(ourItem, isShiftKeyPressed) {
+    const {
+      partialTree
+    } = this.plugin.getPluginState();
+    const clickedRange = getClickedRange_default(ourItem.id, this.getDisplayedPartialTree(), isShiftKeyPressed, this.lastCheckbox);
+    const newPartialTree = PartialTreeUtils_default.afterToggleCheckbox(partialTree, clickedRange);
+    this.plugin.setPluginState({
+      partialTree: newPartialTree
+    });
+    this.lastCheckbox = ourItem.id;
   }
   render(state, viewOptions) {
-    var _this = this;
     if (viewOptions === void 0) {
       viewOptions = {};
     }
     const {
-      authenticated,
       didFirstRender
     } = this.plugin.getPluginState();
     const {
       i18n
     } = this.plugin.uppy;
     if (!didFirstRender) {
-      this.preFirstRender();
+      this.plugin.setPluginState({
+        didFirstRender: true
+      });
+      this.provider.fetchPreAuthToken();
+      this.openFolder(this.plugin.rootFolderId);
     }
-    const targetViewOptions = {
+    const opts = {
       ...this.opts,
       ...viewOptions
     };
     const {
-      files,
-      folders,
-      filterInput,
-      loading,
-      currentSelection
+      authenticated,
+      loading
     } = this.plugin.getPluginState();
-    const {
-      isChecked,
-      recordShiftKeyPress,
-      filterItems
-    } = this;
-    const hasInput = filterInput !== "";
     const pluginIcon = this.plugin.icon || defaultPickerIcon;
-    const headerProps = {
-      showBreadcrumbs: targetViewOptions.showBreadcrumbs,
-      getFolder: this.getFolder,
-      breadcrumbs: this.plugin.getPluginState().breadcrumbs,
-      pluginIcon,
-      title: this.plugin.title,
-      logout: this.logout,
-      username: this.username,
-      i18n
-    };
-    const browserProps = {
-      isChecked,
-      toggleCheckbox: this.toggleCheckbox.bind(this),
-      recordShiftKeyPress,
-      currentSelection,
-      files: hasInput ? filterItems(files) : files,
-      folders: hasInput ? filterItems(folders) : folders,
-      getNextFolder: this.getNextFolder,
-      getFolder: this.getFolder,
-      loadAllFiles: this.opts.loadAllFiles,
-      virtualList: this.opts.virtualList,
-      showSearchFilter: targetViewOptions.showFilter,
-      search: this.filterQuery,
-      clearSearch: this.clearFilter,
-      searchTerm: filterInput,
-      searchOnInput: true,
-      searchInputLabel: i18n("filter"),
-      clearSearchLabel: i18n("resetFilter"),
-      noResultsLabel: i18n("noFilesFound"),
-      logout: this.logout,
-      handleScroll: this.handleScroll,
-      done: this.donePicking,
-      cancel: this.cancelPicking,
-      headerComponent: y(Header, headerProps),
-      title: this.plugin.title,
-      viewType: targetViewOptions.viewType,
-      showTitles: targetViewOptions.showTitles,
-      showBreadcrumbs: targetViewOptions.showBreadcrumbs,
-      pluginIcon,
-      i18n: this.plugin.uppy.i18n,
-      uppyFiles: this.plugin.uppy.getFiles(),
-      validateRestrictions: function() {
-        return _this.plugin.uppy.validateRestrictions(...arguments);
-      },
-      isLoading: loading
-    };
     if (authenticated === false) {
-      return y(CloseWrapper, {
-        onUnmount: this.clearSelection
-      }, y(AuthView, {
+      return createElement(AuthView, {
         pluginName: this.plugin.title,
         pluginIcon,
         handleAuth: this.handleAuth,
         i18n: this.plugin.uppy.i18nArray,
-        renderForm: this.opts.renderAuthForm,
+        renderForm: opts.renderAuthForm,
         loading
-      }));
+      });
     }
-    return y(CloseWrapper, {
-      onUnmount: this.clearSelection
-    }, y(Browser_default, browserProps));
+    const {
+      partialTree,
+      currentFolderId,
+      username,
+      searchString
+    } = this.plugin.getPluginState();
+    const breadcrumbs = getBreadcrumbs_default(partialTree, currentFolderId);
+    return createElement("div", {
+      className: (0, import_classnames6.default)("uppy-ProviderBrowser", `uppy-ProviderBrowser-viewType--${opts.viewType}`)
+    }, createElement(Header, {
+      showBreadcrumbs: opts.showBreadcrumbs,
+      openFolder: this.openFolder,
+      breadcrumbs,
+      pluginIcon,
+      title: this.plugin.title,
+      logout: this.logout,
+      username,
+      i18n
+    }), opts.showFilter && createElement(SearchInput_default, {
+      searchString,
+      setSearchString: (s) => {
+        this.plugin.setPluginState({
+          searchString: s
+        });
+      },
+      submitSearchString: () => {
+      },
+      inputLabel: i18n("filter"),
+      clearSearchLabel: i18n("resetFilter"),
+      wrapperClassName: "uppy-ProviderBrowser-searchFilter",
+      inputClassName: "uppy-ProviderBrowser-searchFilterInput"
+    }), createElement(Browser_default, {
+      toggleCheckbox: this.toggleCheckbox,
+      displayedPartialTree: this.getDisplayedPartialTree(),
+      openFolder: this.openFolder,
+      virtualList: opts.virtualList,
+      noResultsLabel: i18n("noFilesFound"),
+      handleScroll: this.handleScroll,
+      viewType: opts.viewType,
+      showTitles: opts.showTitles,
+      i18n: this.plugin.uppy.i18n,
+      isLoading: loading
+    }), createElement(FooterActions, {
+      partialTree,
+      donePicking: this.donePicking,
+      cancelSelection: this.cancelSelection,
+      i18n,
+      validateAggregateRestrictions: this.validateAggregateRestrictions
+    }));
   }
 };
 async function _withAbort2(op) {
@@ -23311,7 +24743,6 @@ async function _withAbort2(op) {
   _classPrivateFieldLooseBase6(this, _abortController)[_abortController] = abortController;
   const cancelRequest = () => {
     abortController.abort();
-    this.clearSelection();
   };
   try {
     this.plugin.uppy.on("dashboard:close-panel", cancelRequest);
@@ -23323,289 +24754,241 @@ async function _withAbort2(op) {
     _classPrivateFieldLooseBase6(this, _abortController)[_abortController] = void 0;
   }
 }
-async function _list2(_ref) {
-  let {
-    requestPath,
-    absDirPath,
-    signal
-  } = _ref;
-  const {
-    username,
-    nextPagePath,
-    items
-  } = await this.provider.list(requestPath, {
-    signal
-  });
-  this.username = username || this.username;
-  return {
-    items: items.map((item) => ({
-      ...item,
-      absDirPath
-    })),
-    nextPagePath
-  };
-}
-async function _listFilesAndFolders2(_ref2) {
-  let {
-    breadcrumbs,
-    signal
-  } = _ref2;
-  const absDirPath = formatBreadcrumbs(breadcrumbs);
-  const {
-    items,
-    nextPagePath
-  } = await _classPrivateFieldLooseBase6(this, _list)[_list]({
-    requestPath: this.nextPagePath,
-    absDirPath,
-    signal
-  });
-  this.nextPagePath = nextPagePath;
-  const files = [];
-  const folders = [];
-  items.forEach((item) => {
-    if (item.isFolder) {
-      folders.push(item);
-    } else {
-      files.push(item);
-    }
-  });
-  return {
-    files,
-    folders
-  };
-}
-async function _recursivelyListAllFiles2(_ref3) {
-  let {
-    requestPath,
-    absDirPath,
-    relDirPath,
-    queue,
-    onFiles,
-    signal
-  } = _ref3;
-  let curPath = requestPath;
-  while (curPath) {
-    const res = await _classPrivateFieldLooseBase6(this, _list)[_list]({
-      requestPath: curPath,
-      absDirPath,
-      signal
-    });
-    curPath = res.nextPagePath;
-    const files = res.items.filter((item) => !item.isFolder);
-    const folders = res.items.filter((item) => item.isFolder);
-    onFiles(files);
-    const promises = folders.map(async (folder) => queue.add(async () => _classPrivateFieldLooseBase6(this, _recursivelyListAllFiles)[_recursivelyListAllFiles]({
-      requestPath: folder.requestPath,
-      absDirPath: prependPath(absDirPath, folder.name),
-      relDirPath: prependPath(relDirPath, folder.name),
-      queue,
-      onFiles,
-      signal
-    })));
-    await Promise.all(promises);
-  }
-}
 ProviderView.VERSION = packageJson6.version;
 
 // node_modules/@uppy/provider-views/lib/SearchProviderView/SearchProviderView.js
-function _classPrivateFieldLooseBase7(receiver, privateKey) {
-  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
-    throw new TypeError("attempted to use private field on non-instance");
-  }
-  return receiver;
-}
-var id7 = 0;
-function _classPrivateFieldLooseKey7(name) {
-  return "__private_" + id7++ + "_" + name;
-}
+var import_classnames7 = __toESM(require_classnames(), 1);
 var packageJson7 = {
-  "version": "3.13.0"
+  "version": "4.0.1"
 };
 var defaultState = {
-  isInputMode: true,
-  files: [],
-  folders: [],
-  breadcrumbs: [],
-  filterInput: "",
-  currentSelection: [],
-  searchTerm: null
+  loading: false,
+  searchString: "",
+  partialTree: [{
+    type: "root",
+    id: null,
+    cached: false,
+    nextPagePath: null
+  }],
+  currentFolderId: null,
+  isInputMode: true
 };
-var defaultOptions5 = {
-  viewType: "grid",
-  showTitles: true,
-  showFilter: true,
-  showBreadcrumbs: true
-};
-var _updateFilesAndInputMode = /* @__PURE__ */ _classPrivateFieldLooseKey7("updateFilesAndInputMode");
-var SearchProviderView = class extends View {
+var SearchProviderView = class {
   constructor(plugin, opts) {
-    super(plugin, {
-      ...defaultOptions5,
+    this.isHandlingScroll = false;
+    this.lastCheckbox = null;
+    this.validateSingleFile = (file) => {
+      const companionFile = remoteFileObjToLocal(file);
+      const result = this.plugin.uppy.validateSingleFile(companionFile);
+      return result;
+    };
+    this.getDisplayedPartialTree = () => {
+      const {
+        partialTree
+      } = this.plugin.getPluginState();
+      return partialTree.filter((item) => item.type !== "root");
+    };
+    this.setSearchString = (searchString) => {
+      this.plugin.setPluginState({
+        searchString
+      });
+      if (searchString === "") {
+        this.plugin.setPluginState({
+          partialTree: []
+        });
+      }
+    };
+    this.validateAggregateRestrictions = (partialTree) => {
+      const checkedFiles = partialTree.filter((item) => item.type === "file" && item.status === "checked");
+      const uppyFiles = checkedFiles.map((file) => file.data);
+      return this.plugin.uppy.validateAggregateRestrictions(uppyFiles);
+    };
+    this.plugin = plugin;
+    this.provider = opts.provider;
+    const defaultOptions6 = {
+      viewType: "grid",
+      showTitles: true,
+      showFilter: true
+    };
+    this.opts = {
+      ...defaultOptions6,
       ...opts
-    });
-    Object.defineProperty(this, _updateFilesAndInputMode, {
-      value: _updateFilesAndInputMode2
-    });
-    this.nextPageQuery = null;
+    };
+    this.setSearchString = this.setSearchString.bind(this);
     this.search = this.search.bind(this);
-    this.clearSearch = this.clearSearch.bind(this);
     this.resetPluginState = this.resetPluginState.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
     this.donePicking = this.donePicking.bind(this);
+    this.cancelSelection = this.cancelSelection.bind(this);
+    this.toggleCheckbox = this.toggleCheckbox.bind(this);
     this.render = this.render.bind(this);
-    this.plugin.setPluginState(defaultState);
-    this.registerRequestClient();
+    this.resetPluginState();
+    this.plugin.uppy.on("dashboard:close-panel", this.resetPluginState);
+    this.plugin.uppy.registerRequestClient(this.provider.provider, this.provider);
   }
   tearDown() {
+  }
+  setLoading(loading) {
+    this.plugin.setPluginState({
+      loading
+    });
   }
   resetPluginState() {
     this.plugin.setPluginState(defaultState);
   }
-  async search(query) {
+  cancelSelection() {
     const {
-      searchTerm
+      partialTree
     } = this.plugin.getPluginState();
-    if (query && query === searchTerm) {
-      return;
-    }
-    this.setLoading(true);
-    try {
-      const res = await this.provider.search(query);
-      _classPrivateFieldLooseBase7(this, _updateFilesAndInputMode)[_updateFilesAndInputMode](res, []);
-    } catch (err) {
-      this.handleError(err);
-    } finally {
-      this.setLoading(false);
-    }
-  }
-  clearSearch() {
+    const newPartialTree = partialTree.map((item) => item.type === "root" ? item : {
+      ...item,
+      status: "unchecked"
+    });
     this.plugin.setPluginState({
-      currentSelection: [],
-      files: [],
-      searchTerm: null
+      partialTree: newPartialTree
     });
   }
+  async search() {
+    const {
+      searchString
+    } = this.plugin.getPluginState();
+    if (searchString === "")
+      return;
+    this.setLoading(true);
+    try {
+      const response = await this.provider.search(searchString);
+      const newPartialTree = [{
+        type: "root",
+        id: null,
+        cached: false,
+        nextPagePath: response.nextPageQuery
+      }, ...response.items.map((item) => ({
+        type: "file",
+        id: item.requestPath,
+        status: "unchecked",
+        parentId: null,
+        data: item
+      }))];
+      this.plugin.setPluginState({
+        partialTree: newPartialTree,
+        isInputMode: false
+      });
+    } catch (error) {
+      handleError_default(this.plugin.uppy)(error);
+    }
+    this.setLoading(false);
+  }
   async handleScroll(event2) {
-    const query = this.nextPageQuery || null;
-    if (this.shouldHandleScroll(event2) && query) {
+    const {
+      partialTree,
+      searchString
+    } = this.plugin.getPluginState();
+    const root = partialTree.find((i) => i.type === "root");
+    if (shouldHandleScroll_default(event2) && !this.isHandlingScroll && root.nextPagePath) {
       this.isHandlingScroll = true;
       try {
-        const {
-          files,
-          searchTerm
-        } = this.plugin.getPluginState();
-        const response = await this.provider.search(searchTerm, query);
-        _classPrivateFieldLooseBase7(this, _updateFilesAndInputMode)[_updateFilesAndInputMode](response, files);
+        const response = await this.provider.search(searchString, root.nextPagePath);
+        const newRoot = {
+          ...root,
+          nextPagePath: response.nextPageQuery
+        };
+        const oldItems = partialTree.filter((i) => i.type !== "root");
+        const newPartialTree = [newRoot, ...oldItems, ...response.items.map((item) => ({
+          type: "file",
+          id: item.requestPath,
+          status: "unchecked",
+          parentId: null,
+          data: item
+        }))];
+        this.plugin.setPluginState({
+          partialTree: newPartialTree
+        });
       } catch (error) {
-        this.handleError(error);
-      } finally {
-        this.isHandlingScroll = false;
+        handleError_default(this.plugin.uppy)(error);
       }
+      this.isHandlingScroll = false;
     }
   }
-  donePicking() {
+  async donePicking() {
     const {
-      currentSelection
+      partialTree
     } = this.plugin.getPluginState();
-    this.plugin.uppy.log("Adding remote search provider files");
-    this.plugin.uppy.addFiles(currentSelection.map((file) => this.getTagFile(file)));
+    const companionFiles = getCheckedFilesWithPaths_default(partialTree);
+    addFiles_default(companionFiles, this.plugin, this.provider);
     this.resetPluginState();
   }
+  toggleCheckbox(ourItem, isShiftKeyPressed) {
+    const {
+      partialTree
+    } = this.plugin.getPluginState();
+    const clickedRange = getClickedRange_default(ourItem.id, this.getDisplayedPartialTree(), isShiftKeyPressed, this.lastCheckbox);
+    const newPartialTree = PartialTreeUtils_default.afterToggleCheckbox(partialTree, clickedRange);
+    this.plugin.setPluginState({
+      partialTree: newPartialTree
+    });
+    this.lastCheckbox = ourItem.id;
+  }
   render(state, viewOptions) {
-    var _this = this;
     if (viewOptions === void 0) {
       viewOptions = {};
     }
     const {
-      didFirstRender,
       isInputMode,
-      searchTerm
+      searchString,
+      loading,
+      partialTree
     } = this.plugin.getPluginState();
     const {
       i18n
     } = this.plugin.uppy;
-    if (!didFirstRender) {
-      this.preFirstRender();
-    }
-    const targetViewOptions = {
+    const opts = {
       ...this.opts,
       ...viewOptions
     };
-    const {
-      files,
-      folders,
-      filterInput,
-      loading,
-      currentSelection
-    } = this.plugin.getPluginState();
-    const {
-      isChecked,
-      filterItems,
-      recordShiftKeyPress
-    } = this;
-    const hasInput = filterInput !== "";
-    const browserProps = {
-      isChecked,
-      toggleCheckbox: this.toggleCheckbox.bind(this),
-      recordShiftKeyPress,
-      currentSelection,
-      files: hasInput ? filterItems(files) : files,
-      folders: hasInput ? filterItems(folders) : folders,
-      handleScroll: this.handleScroll,
-      done: this.donePicking,
-      cancel: this.cancelPicking,
-      showSearchFilter: targetViewOptions.showFilter,
-      search: this.search,
-      clearSearch: this.clearSearch,
-      searchTerm,
-      searchOnInput: false,
-      searchInputLabel: i18n("search"),
-      clearSearchLabel: i18n("resetSearch"),
-      noResultsLabel: i18n("noSearchResults"),
-      title: this.plugin.title,
-      viewType: targetViewOptions.viewType,
-      showTitles: targetViewOptions.showTitles,
-      showFilter: targetViewOptions.showFilter,
-      isLoading: loading,
-      showBreadcrumbs: targetViewOptions.showBreadcrumbs,
-      pluginIcon: this.plugin.icon,
-      i18n,
-      uppyFiles: this.plugin.uppy.getFiles(),
-      validateRestrictions: function() {
-        return _this.plugin.uppy.validateRestrictions(...arguments);
-      }
-    };
     if (isInputMode) {
-      return y(CloseWrapper, {
-        onUnmount: this.resetPluginState
-      }, y("div", {
-        className: "uppy-SearchProvider"
-      }, y(SearchFilterInput, {
-        search: this.search,
+      return createElement(SearchInput_default, {
+        searchString,
+        setSearchString: this.setSearchString,
+        submitSearchString: this.search,
         inputLabel: i18n("enterTextToSearch"),
         buttonLabel: i18n("searchImages"),
+        wrapperClassName: "uppy-SearchProvider",
         inputClassName: "uppy-c-textInput uppy-SearchProvider-input",
-        buttonCSSClassName: "uppy-SearchProvider-searchButton",
-        showButton: true
-      })));
+        showButton: true,
+        buttonCSSClassName: "uppy-SearchProvider-searchButton"
+      });
     }
-    return y(CloseWrapper, {
-      onUnmount: this.resetPluginState
-    }, y(Browser_default, browserProps));
+    return createElement("div", {
+      className: (0, import_classnames7.default)("uppy-ProviderBrowser", `uppy-ProviderBrowser-viewType--${opts.viewType}`)
+    }, opts.showFilter && createElement(SearchInput_default, {
+      searchString,
+      setSearchString: this.setSearchString,
+      submitSearchString: this.search,
+      inputLabel: i18n("search"),
+      clearSearchLabel: i18n("resetSearch"),
+      wrapperClassName: "uppy-ProviderBrowser-searchFilter",
+      inputClassName: "uppy-ProviderBrowser-searchFilterInput"
+    }), createElement(Browser_default, {
+      toggleCheckbox: this.toggleCheckbox,
+      displayedPartialTree: this.getDisplayedPartialTree(),
+      handleScroll: this.handleScroll,
+      openFolder: async () => {
+      },
+      noResultsLabel: i18n("noSearchResults"),
+      viewType: opts.viewType,
+      showTitles: opts.showTitles,
+      isLoading: loading,
+      i18n,
+      virtualList: false
+    }), createElement(FooterActions, {
+      partialTree,
+      donePicking: this.donePicking,
+      cancelSelection: this.cancelSelection,
+      i18n,
+      validateAggregateRestrictions: this.validateAggregateRestrictions
+    }));
   }
 };
-function _updateFilesAndInputMode2(res, files) {
-  this.nextPageQuery = res.nextPageQuery;
-  res.items.forEach((item) => {
-    files.push(item);
-  });
-  this.plugin.setPluginState({
-    currentSelection: [],
-    isInputMode: false,
-    files,
-    searchTerm: res.searchedFor
-  });
-}
 SearchProviderView.VERSION = packageJson7.version;
 
 // node_modules/memoize-one/dist/memoize-one.esm.js
@@ -23625,8 +25008,8 @@ function areInputsEqual(newInputs, lastInputs) {
   if (newInputs.length !== lastInputs.length) {
     return false;
   }
-  for (var i4 = 0; i4 < newInputs.length; i4++) {
-    if (!isEqual(newInputs[i4], lastInputs[i4])) {
+  for (var i = 0; i < newInputs.length; i++) {
+    if (!isEqual(newInputs[i], lastInputs[i])) {
       return false;
     }
   }
@@ -23674,16 +25057,16 @@ function getActiveOverlayEl(dashboardEl, activeOverlayType) {
 
 // node_modules/@uppy/dashboard/lib/utils/trapFocus.js
 function focusOnFirstNode(event2, nodes) {
-  const node = nodes[0];
-  if (node) {
-    node.focus();
+  const node2 = nodes[0];
+  if (node2) {
+    node2.focus();
     event2.preventDefault();
   }
 }
 function focusOnLastNode(event2, nodes) {
-  const node = nodes[nodes.length - 1];
-  if (node) {
-    node.focus();
+  const node2 = nodes[nodes.length - 1];
+  if (node2) {
+    node2.focus();
     event2.preventDefault();
   }
 }
@@ -23738,7 +25121,7 @@ function createSuperFocus() {
 }
 
 // node_modules/@uppy/dashboard/lib/components/Dashboard.js
-var import_classnames12 = __toESM(require_classnames(), 1);
+var import_classnames14 = __toESM(require_classnames(), 1);
 
 // node_modules/@uppy/utils/lib/isDragDropSupported.js
 function isDragDropSupported() {
@@ -23756,113 +25139,135 @@ function isDragDropSupported() {
 }
 
 // node_modules/@uppy/dashboard/lib/components/FileItem/index.js
-var import_classnames6 = __toESM(require_classnames(), 1);
-var import_is_shallow_equal = __toESM(require_is_shallow_equal(), 1);
+var import_classnames8 = __toESM(require_classnames(), 1);
+
+// node_modules/shallow-equal/dist/index.modern.mjs
+function shallowEqualObjects(objA, objB) {
+  if (objA === objB) {
+    return true;
+  }
+  if (!objA || !objB) {
+    return false;
+  }
+  const aKeys = Object.keys(objA);
+  const bKeys = Object.keys(objB);
+  const len = aKeys.length;
+  if (bKeys.length !== len) {
+    return false;
+  }
+  for (let i = 0; i < len; i++) {
+    const key = aKeys[i];
+    if (objA[key] !== objB[key] || !Object.prototype.hasOwnProperty.call(objB, key)) {
+      return false;
+    }
+  }
+  return true;
+}
 
 // node_modules/@uppy/dashboard/lib/utils/getFileTypeIcon.js
 function iconImage() {
-  return y("svg", {
+  return createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     width: "25",
     height: "25",
     viewBox: "0 0 25 25"
-  }, y("g", {
+  }, createElement("g", {
     fill: "#686DE0",
     fillRule: "evenodd"
-  }, y("path", {
+  }, createElement("path", {
     d: "M5 7v10h15V7H5zm0-1h15a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z",
     fillRule: "nonzero"
-  }), y("path", {
+  }), createElement("path", {
     d: "M6.35 17.172l4.994-5.026a.5.5 0 0 1 .707 0l2.16 2.16 3.505-3.505a.5.5 0 0 1 .707 0l2.336 2.31-.707.72-1.983-1.97-3.505 3.505a.5.5 0 0 1-.707 0l-2.16-2.159-3.938 3.939-1.409.026z",
     fillRule: "nonzero"
-  }), y("circle", {
+  }), createElement("circle", {
     cx: "7.5",
     cy: "9.5",
     r: "1.5"
   })));
 }
 function iconAudio() {
-  return y("svg", {
+  return createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-c-icon",
     width: "25",
     height: "25",
     viewBox: "0 0 25 25"
-  }, y("path", {
+  }, createElement("path", {
     d: "M9.5 18.64c0 1.14-1.145 2-2.5 2s-2.5-.86-2.5-2c0-1.14 1.145-2 2.5-2 .557 0 1.079.145 1.5.396V7.25a.5.5 0 0 1 .379-.485l9-2.25A.5.5 0 0 1 18.5 5v11.64c0 1.14-1.145 2-2.5 2s-2.5-.86-2.5-2c0-1.14 1.145-2 2.5-2 .557 0 1.079.145 1.5.396V8.67l-8 2v7.97zm8-11v-2l-8 2v2l8-2zM7 19.64c.855 0 1.5-.484 1.5-1s-.645-1-1.5-1-1.5.484-1.5 1 .645 1 1.5 1zm9-2c.855 0 1.5-.484 1.5-1s-.645-1-1.5-1-1.5.484-1.5 1 .645 1 1.5 1z",
     fill: "#049BCF",
     fillRule: "nonzero"
   }));
 }
 function iconVideo() {
-  return y("svg", {
+  return createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-c-icon",
     width: "25",
     height: "25",
     viewBox: "0 0 25 25"
-  }, y("path", {
+  }, createElement("path", {
     d: "M16 11.834l4.486-2.691A1 1 0 0 1 22 10v6a1 1 0 0 1-1.514.857L16 14.167V17a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v2.834zM15 9H5v8h10V9zm1 4l5 3v-6l-5 3z",
     fill: "#19AF67",
     fillRule: "nonzero"
   }));
 }
 function iconPDF() {
-  return y("svg", {
+  return createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-c-icon",
     width: "25",
     height: "25",
     viewBox: "0 0 25 25"
-  }, y("path", {
+  }, createElement("path", {
     d: "M9.766 8.295c-.691-1.843-.539-3.401.747-3.726 1.643-.414 2.505.938 2.39 3.299-.039.79-.194 1.662-.537 3.148.324.49.66.967 1.055 1.51.17.231.382.488.629.757 1.866-.128 3.653.114 4.918.655 1.487.635 2.192 1.685 1.614 2.84-.566 1.133-1.839 1.084-3.416.249-1.141-.604-2.457-1.634-3.51-2.707a13.467 13.467 0 0 0-2.238.426c-1.392 4.051-4.534 6.453-5.707 4.572-.986-1.58 1.38-4.206 4.914-5.375.097-.322.185-.656.264-1.001.08-.353.306-1.31.407-1.737-.678-1.059-1.2-2.031-1.53-2.91zm2.098 4.87c-.033.144-.068.287-.104.427l.033-.01-.012.038a14.065 14.065 0 0 1 1.02-.197l-.032-.033.052-.004a7.902 7.902 0 0 1-.208-.271c-.197-.27-.38-.526-.555-.775l-.006.028-.002-.003c-.076.323-.148.632-.186.8zm5.77 2.978c1.143.605 1.832.632 2.054.187.26-.519-.087-1.034-1.113-1.473-.911-.39-2.175-.608-3.55-.608.845.766 1.787 1.459 2.609 1.894zM6.559 18.789c.14.223.693.16 1.425-.413.827-.648 1.61-1.747 2.208-3.206-2.563 1.064-4.102 2.867-3.633 3.62zm5.345-10.97c.088-1.793-.351-2.48-1.146-2.28-.473.119-.564 1.05-.056 2.405.213.566.52 1.188.908 1.859.18-.858.268-1.453.294-1.984z",
     fill: "#E2514A",
     fillRule: "nonzero"
   }));
 }
 function iconArchive() {
-  return y("svg", {
+  return createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     width: "25",
     height: "25",
     viewBox: "0 0 25 25"
-  }, y("path", {
+  }, createElement("path", {
     d: "M10.45 2.05h1.05a.5.5 0 0 1 .5.5v.024a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5V2.55a.5.5 0 0 1 .5-.5zm2.05 1.024h1.05a.5.5 0 0 1 .5.5V3.6a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5v-.001zM10.45 0h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5V.5a.5.5 0 0 1 .5-.5zm2.05 1.025h1.05a.5.5 0 0 1 .5.5v.024a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.024a.5.5 0 0 1 .5-.5zm-2.05 3.074h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5zm2.05 1.025h1.05a.5.5 0 0 1 .5.5v.024a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.024a.5.5 0 0 1 .5-.5zm-2.05 1.024h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5zm2.05 1.025h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5zm-2.05 1.025h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5zm2.05 1.025h1.05a.5.5 0 0 1 .5.5v.024a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.024a.5.5 0 0 1 .5-.5zm-1.656 3.074l-.82 5.946c.52.302 1.174.458 1.976.458.803 0 1.455-.156 1.975-.458l-.82-5.946h-2.311zm0-1.025h2.312c.512 0 .946.378 1.015.885l.82 5.946c.056.412-.142.817-.501 1.026-.686.398-1.515.597-2.49.597-.974 0-1.804-.199-2.49-.597a1.025 1.025 0 0 1-.5-1.026l.819-5.946c.07-.507.503-.885 1.015-.885zm.545 6.6a.5.5 0 0 1-.397-.561l.143-.999a.5.5 0 0 1 .495-.429h.74a.5.5 0 0 1 .495.43l.143.998a.5.5 0 0 1-.397.561c-.404.08-.819.08-1.222 0z",
     fill: "#00C469",
     fillRule: "nonzero"
   }));
 }
 function iconFile() {
-  return y("svg", {
+  return createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-c-icon",
     width: "25",
     height: "25",
     viewBox: "0 0 25 25"
-  }, y("g", {
+  }, createElement("g", {
     fill: "#A7AFB7",
     fillRule: "nonzero"
-  }, y("path", {
+  }, createElement("path", {
     d: "M5.5 22a.5.5 0 0 1-.5-.5v-18a.5.5 0 0 1 .5-.5h10.719a.5.5 0 0 1 .367.16l3.281 3.556a.5.5 0 0 1 .133.339V21.5a.5.5 0 0 1-.5.5h-14zm.5-1h13V7.25L16 4H6v17z"
-  }), y("path", {
+  }), createElement("path", {
     d: "M15 4v3a1 1 0 0 0 1 1h3V7h-3V4h-1z"
   })));
 }
 function iconText() {
-  return y("svg", {
+  return createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-c-icon",
     width: "25",
     height: "25",
     viewBox: "0 0 25 25"
-  }, y("path", {
+  }, createElement("path", {
     d: "M4.5 7h13a.5.5 0 1 1 0 1h-13a.5.5 0 0 1 0-1zm0 3h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 3h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 3h10a.5.5 0 1 1 0 1h-10a.5.5 0 1 1 0-1z",
     fill: "#5A5E69",
     fillRule: "nonzero"
@@ -23923,7 +25328,7 @@ function FilePreview(props) {
     file
   } = props;
   if (file.preview) {
-    return y("img", {
+    return createElement("img", {
       className: "uppy-Dashboard-Item-previewImg",
       alt: file.name,
       src: file.preview
@@ -23933,21 +25338,21 @@ function FilePreview(props) {
     color,
     icon
   } = getIconByMime(file.type);
-  return y("div", {
+  return createElement("div", {
     className: "uppy-Dashboard-Item-previewIconWrap"
-  }, y("span", {
+  }, createElement("span", {
     className: "uppy-Dashboard-Item-previewIcon",
     style: {
       color
     }
-  }, icon), y("svg", {
+  }, icon), createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-Dashboard-Item-previewIconBg",
     width: "58",
     height: "76",
     viewBox: "0 0 58 76"
-  }, y("rect", {
+  }, createElement("rect", {
     fill: "#FFF",
     width: "58",
     height: "76",
@@ -23959,7 +25364,7 @@ function FilePreview(props) {
 // node_modules/@uppy/dashboard/lib/components/FileItem/MetaErrorMessage.js
 var metaFieldIdToName = (metaFieldId, metaFields) => {
   const fields = typeof metaFields === "function" ? metaFields() : metaFields;
-  const field = fields.filter((f4) => f4.id === metaFieldId);
+  const field = fields.filter((f) => f.id === metaFieldId);
   return field[0].name;
 };
 function MetaErrorMessage(props) {
@@ -23976,12 +25381,12 @@ function MetaErrorMessage(props) {
     return null;
   }
   const metaFieldsString = missingRequiredMetaFields.map((missingMetaField) => metaFieldIdToName(missingMetaField, metaFields)).join(", ");
-  return y("div", {
+  return createElement("div", {
     className: "uppy-Dashboard-Item-errorMessage"
   }, i18n("missingRequiredMetaFields", {
     smart_count: missingRequiredMetaFields.length,
     fields: metaFieldsString
-  }), " ", y("button", {
+  }), " ", createElement("button", {
     type: "button",
     class: "uppy-u-reset uppy-Dashboard-Item-errorMessageBtn",
     onClick: () => toggleFileCard(true, file.id)
@@ -23999,22 +25404,22 @@ function FilePreviewAndLink(props) {
   } = props;
   const white = "rgba(255, 255, 255, 0.5)";
   const previewBackgroundColor = file.preview ? white : getIconByMime(file.type).color;
-  return y("div", {
+  return createElement("div", {
     className: "uppy-Dashboard-Item-previewInnerWrap",
     style: {
       backgroundColor: previewBackgroundColor
     }
-  }, showLinkToFileUploadResult && file.uploadURL && y("a", {
+  }, showLinkToFileUploadResult && file.uploadURL && createElement("a", {
     className: "uppy-Dashboard-Item-previewLink",
     href: file.uploadURL,
     rel: "noreferrer noopener",
     target: "_blank",
     "aria-label": file.meta.name
-  }, y("span", {
+  }, createElement("span", {
     hidden: true
-  }, file.meta.name)), y(FilePreview, {
+  }, file.meta.name)), createElement(FilePreview, {
     file
-  }), y(MetaErrorMessage, {
+  }), createElement(MetaErrorMessage, {
     file,
     i18n,
     toggleFileCard,
@@ -24055,9 +25460,9 @@ function progressIndicatorTitle(props) {
   return "";
 }
 function ProgressIndicatorButton(props) {
-  return y("div", {
+  return createElement("div", {
     className: "uppy-Dashboard-Item-progress"
-  }, y("button", {
+  }, createElement("button", {
     className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-progressIndicator",
     type: "button",
     "aria-label": progressIndicatorTitle(props),
@@ -24069,7 +25474,7 @@ function ProgressCircleContainer(_ref) {
   let {
     children
   } = _ref;
-  return y("svg", {
+  return createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     width: "70",
@@ -24083,14 +25488,14 @@ function ProgressCircle(_ref2) {
     progress
   } = _ref2;
   const circleLength = 2 * Math.PI * 15;
-  return y("g", null, y("circle", {
+  return createElement("g", null, createElement("circle", {
     className: "uppy-Dashboard-Item-progressIcon--bg",
     r: "15",
     cx: "18",
     cy: "18",
     "stroke-width": "2",
     fill: "none"
-  }), y("circle", {
+  }), createElement("circle", {
     className: "uppy-Dashboard-Item-progressIcon--progress",
     r: "15",
     cx: "18",
@@ -24106,60 +25511,63 @@ function FileProgress(props) {
   if (!props.file.progress.uploadStarted) {
     return null;
   }
+  if (props.file.progress.percentage === void 0) {
+    return null;
+  }
   if (props.isUploaded) {
-    return y("div", {
+    return createElement("div", {
       className: "uppy-Dashboard-Item-progress"
-    }, y("div", {
+    }, createElement("div", {
       className: "uppy-Dashboard-Item-progressIndicator"
-    }, y(ProgressCircleContainer, null, y("circle", {
+    }, createElement(ProgressCircleContainer, null, createElement("circle", {
       r: "15",
       cx: "18",
       cy: "18",
       fill: "#1bb240"
-    }), y("polygon", {
+    }), createElement("polygon", {
       className: "uppy-Dashboard-Item-progressIcon--check",
       transform: "translate(2, 3)",
       points: "14 22.5 7 15.2457065 8.99985857 13.1732815 14 18.3547104 22.9729883 9 25 11.1005634"
     }))));
   }
   if (props.recoveredState) {
-    return void 0;
+    return null;
   }
   if (props.error && !props.hideRetryButton) {
-    return y(ProgressIndicatorButton, props, y("svg", {
+    return createElement(ProgressIndicatorButton, props, createElement("svg", {
       "aria-hidden": "true",
       focusable: "false",
       className: "uppy-c-icon uppy-Dashboard-Item-progressIcon--retry",
       width: "28",
       height: "31",
       viewBox: "0 0 16 19"
-    }, y("path", {
+    }, createElement("path", {
       d: "M16 11a8 8 0 1 1-8-8v2a6 6 0 1 0 6 6h2z"
-    }), y("path", {
+    }), createElement("path", {
       d: "M7.9 3H10v2H7.9z"
-    }), y("path", {
+    }), createElement("path", {
       d: "M8.536.5l3.535 3.536-1.414 1.414L7.12 1.914z"
-    }), y("path", {
+    }), createElement("path", {
       d: "M10.657 2.621l1.414 1.415L8.536 7.57 7.12 6.157z"
     })));
   }
   if (props.resumableUploads && !props.hidePauseResumeButton) {
-    return y(ProgressIndicatorButton, props, y(ProgressCircleContainer, null, y(ProgressCircle, {
+    return createElement(ProgressIndicatorButton, props, createElement(ProgressCircleContainer, null, createElement(ProgressCircle, {
       progress: props.file.progress.percentage
-    }), props.file.isPaused ? y("polygon", {
+    }), props.file.isPaused ? createElement("polygon", {
       className: "uppy-Dashboard-Item-progressIcon--play",
       transform: "translate(3, 3)",
       points: "12 20 12 10 20 15"
-    }) : y("g", {
+    }) : createElement("g", {
       className: "uppy-Dashboard-Item-progressIcon--pause",
       transform: "translate(14.5, 13)"
-    }, y("rect", {
+    }, createElement("rect", {
       x: "0",
       y: "0",
       width: "2",
       height: "10",
       rx: "0"
-    }), y("rect", {
+    }), createElement("rect", {
       x: "5",
       y: "0",
       width: "2",
@@ -24168,19 +25576,19 @@ function FileProgress(props) {
     }))));
   }
   if (!props.resumableUploads && props.individualCancellation && !props.hideCancelButton) {
-    return y(ProgressIndicatorButton, props, y(ProgressCircleContainer, null, y(ProgressCircle, {
+    return createElement(ProgressIndicatorButton, props, createElement(ProgressCircleContainer, null, createElement(ProgressCircle, {
       progress: props.file.progress.percentage
-    }), y("polygon", {
+    }), createElement("polygon", {
       className: "cancel",
       transform: "translate(2, 2)",
       points: "19.8856516 11.0625 16 14.9481516 12.1019737 11.0625 11.0625 12.1143484 14.9481516 16 11.0625 19.8980263 12.1019737 20.9375 16 17.0518484 19.8856516 20.9375 20.9375 19.8980263 17.0518484 16 20.9375 12"
     })));
   }
-  return y("div", {
+  return createElement("div", {
     className: "uppy-Dashboard-Item-progress"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-Dashboard-Item-progressIndicator"
-  }, y(ProgressCircleContainer, null, y(ProgressCircle, {
+  }, createElement(ProgressCircleContainer, null, createElement(ProgressCircle, {
     progress: props.file.progress.percentage
   }))));
 }
@@ -24221,7 +25629,7 @@ var renderFileName = (props) => {
     }
     return author ? 20 : 30;
   }
-  return y("div", {
+  return createElement("div", {
     className: "uppy-Dashboard-Item-name",
     title: name
   }, truncateString(name, getMaxNameLength()));
@@ -24236,21 +25644,21 @@ var renderAuthor = (props) => {
   if (!author) {
     return null;
   }
-  return y("div", {
+  return createElement("div", {
     className: "uppy-Dashboard-Item-author"
-  }, y("a", {
+  }, createElement("a", {
     href: `${author.url}?utm_source=Companion&utm_medium=referral`,
     target: "_blank",
     rel: "noopener noreferrer"
-  }, truncateString(author.name, 13)), providerName ? y(g, null, ` ${dot} `, providerName, ` ${dot} `) : null);
+  }, truncateString(author.name, 13)), providerName ? createElement(Fragment, null, ` ${dot} `, providerName, ` ${dot} `) : null);
 };
-var renderFileSize = (props) => props.file.size && y("div", {
+var renderFileSize = (props) => props.file.size && createElement("div", {
   className: "uppy-Dashboard-Item-statusSize"
 }, (0, import_prettier_bytes3.default)(props.file.size));
-var ReSelectButton = (props) => props.file.isGhost && y("span", null, " \u2022 ", y("button", {
+var ReSelectButton = (props) => props.file.isGhost && createElement("span", null, " \u2022 ", createElement("button", {
   className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-reSelect",
   type: "button",
-  onClick: props.toggleAddFilesPanel
+  onClick: () => props.toggleAddFilesPanel(true)
 }, props.i18n("reSelect")));
 var ErrorButton = (_ref) => {
   let {
@@ -24258,7 +25666,7 @@ var ErrorButton = (_ref) => {
     onClick
   } = _ref;
   if (file.error) {
-    return y("button", {
+    return createElement("button", {
       className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-errorDetails",
       "aria-label": file.error,
       "data-microtip-position": "bottom",
@@ -24271,23 +25679,43 @@ var ErrorButton = (_ref) => {
 };
 function FileInfo(props) {
   const {
-    file
+    file,
+    i18n,
+    toggleFileCard,
+    metaFields,
+    toggleAddFilesPanel,
+    isSingleFile,
+    containerHeight,
+    containerWidth
   } = props;
-  return y("div", {
+  return createElement("div", {
     className: "uppy-Dashboard-Item-fileInfo",
     "data-uppy-file-source": file.source
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-Dashboard-Item-fileName"
-  }, renderFileName(props), y(ErrorButton, {
-    file: props.file,
-    onClick: () => alert(props.file.error)
-  })), y("div", {
+  }, renderFileName({
+    file,
+    isSingleFile,
+    containerHeight,
+    containerWidth
+  }), createElement(ErrorButton, {
+    file,
+    onClick: () => alert(file.error)
+  })), createElement("div", {
     className: "uppy-Dashboard-Item-status"
-  }, renderAuthor(props), renderFileSize(props), ReSelectButton(props)), y(MetaErrorMessage, {
-    file: props.file,
-    i18n: props.i18n,
-    toggleFileCard: props.toggleFileCard,
-    metaFields: props.metaFields
+  }, renderAuthor({
+    file
+  }), renderFileSize({
+    file
+  }), ReSelectButton({
+    file,
+    toggleAddFilesPanel,
+    i18n
+  })), createElement(MetaErrorMessage, {
+    file,
+    i18n,
+    toggleFileCard,
+    metaFields
   }));
 }
 
@@ -24343,7 +25771,7 @@ function EditButton(_ref) {
     onClick
   } = _ref;
   if (!uploadInProgressOrComplete && metaFields && metaFields.length > 0 || !uploadInProgressOrComplete && canEditFile(file)) {
-    return y("button", {
+    return createElement("button", {
       className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-action uppy-Dashboard-Item-action--edit",
       type: "button",
       "aria-label": i18n("editFileWithFilename", {
@@ -24353,25 +25781,25 @@ function EditButton(_ref) {
         file: file.meta.name
       }),
       onClick: () => onClick()
-    }, y("svg", {
+    }, createElement("svg", {
       "aria-hidden": "true",
       focusable: "false",
       className: "uppy-c-icon",
       width: "14",
       height: "14",
       viewBox: "0 0 14 14"
-    }, y("g", {
+    }, createElement("g", {
       fillRule: "evenodd"
-    }, y("path", {
+    }, createElement("path", {
       d: "M1.5 10.793h2.793A1 1 0 0 0 5 10.5L11.5 4a1 1 0 0 0 0-1.414L9.707.793a1 1 0 0 0-1.414 0l-6.5 6.5A1 1 0 0 0 1.5 8v2.793zm1-1V8L9 1.5l1.793 1.793-6.5 6.5H2.5z",
       fillRule: "nonzero"
-    }), y("rect", {
+    }), createElement("rect", {
       x: "1",
       y: "12.293",
       width: "11",
       height: "1",
       rx: ".5"
-    }), y("path", {
+    }), createElement("path", {
       fillRule: "nonzero",
       d: "M6.793 2.5L9.5 5.207l.707-.707L7.5 1.793z"
     }))));
@@ -24384,7 +25812,7 @@ function RemoveButton(_ref2) {
     onClick,
     file
   } = _ref2;
-  return y("button", {
+  return createElement("button", {
     className: "uppy-u-reset uppy-Dashboard-Item-action uppy-Dashboard-Item-action--remove",
     type: "button",
     "aria-label": i18n("removeFile", {
@@ -24394,46 +25822,48 @@ function RemoveButton(_ref2) {
       file: file.meta.name
     }),
     onClick: () => onClick()
-  }, y("svg", {
+  }, createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-c-icon",
     width: "18",
     height: "18",
     viewBox: "0 0 18 18"
-  }, y("path", {
+  }, createElement("path", {
     d: "M9 0C4.034 0 0 4.034 0 9s4.034 9 9 9 9-4.034 9-9-4.034-9-9-9z"
-  }), y("path", {
+  }), createElement("path", {
     fill: "#FFF",
     d: "M13 12.222l-.778.778L9 9.778 5.778 13 5 12.222 8.222 9 5 5.778 5.778 5 9 8.222 12.222 5l.778.778L9.778 9z"
   })));
 }
-var copyLinkToClipboard = (event2, props) => {
-  copyToClipboard(props.file.uploadURL, props.i18n("copyLinkToClipboardFallback")).then(() => {
-    props.uppy.log("Link copied to clipboard.");
-    props.uppy.info(props.i18n("copyLinkToClipboardSuccess"), "info", 3e3);
-  }).catch(props.uppy.log).then(() => event2.target.focus({
-    preventScroll: true
-  }));
-};
-function CopyLinkButton(props) {
-  const {
+function CopyLinkButton(_ref3) {
+  let {
+    file,
+    uppy: uppy2,
     i18n
-  } = props;
-  return y("button", {
+  } = _ref3;
+  const copyLinkToClipboard = (event2) => {
+    copyToClipboard(file.uploadURL, i18n("copyLinkToClipboardFallback")).then(() => {
+      uppy2.log("Link copied to clipboard.");
+      uppy2.info(i18n("copyLinkToClipboardSuccess"), "info", 3e3);
+    }).catch(uppy2.log).then(() => event2.target.focus({
+      preventScroll: true
+    }));
+  };
+  return createElement("button", {
     className: "uppy-u-reset uppy-Dashboard-Item-action uppy-Dashboard-Item-action--copyLink",
     type: "button",
     "aria-label": i18n("copyLink"),
     title: i18n("copyLink"),
-    onClick: (event2) => copyLinkToClipboard(event2, props)
-  }, y("svg", {
+    onClick: (event2) => copyLinkToClipboard(event2)
+  }, createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-c-icon",
     width: "14",
     height: "14",
     viewBox: "0 0 14 12"
-  }, y("path", {
+  }, createElement("path", {
     d: "M7.94 7.703a2.613 2.613 0 0 1-.626 2.681l-.852.851a2.597 2.597 0 0 1-1.849.766A2.616 2.616 0 0 1 2.764 7.54l.852-.852a2.596 2.596 0 0 1 2.69-.625L5.267 7.099a1.44 1.44 0 0 0-.833.407l-.852.851a1.458 1.458 0 0 0 1.03 2.486c.39 0 .755-.152 1.03-.426l.852-.852c.231-.231.363-.522.406-.824l1.04-1.038zm4.295-5.937A2.596 2.596 0 0 0 10.387 1c-.698 0-1.355.272-1.849.766l-.852.851a2.614 2.614 0 0 0-.624 2.688l1.036-1.036c.041-.304.173-.6.407-.833l.852-.852c.275-.275.64-.426 1.03-.426a1.458 1.458 0 0 1 1.03 2.486l-.852.851a1.442 1.442 0 0 1-.824.406l-1.04 1.04a2.596 2.596 0 0 0 2.683-.628l.851-.85a2.616 2.616 0 0 0 0-3.697zm-6.88 6.883a.577.577 0 0 0 .82 0l3.474-3.474a.579.579 0 1 0-.819-.82L5.355 7.83a.579.579 0 0 0 0 .819z"
   })));
 }
@@ -24457,29 +25887,28 @@ function Buttons(props) {
       openFileEditor(file);
     }
   };
-  return y("div", {
+  return createElement("div", {
     className: "uppy-Dashboard-Item-actionWrapper"
-  }, y(EditButton, {
+  }, createElement(EditButton, {
     i18n,
     file,
     uploadInProgressOrComplete,
     canEditFile,
     metaFields,
     onClick: editAction
-  }), showLinkToFileUploadResult && file.uploadURL ? y(CopyLinkButton, {
+  }), showLinkToFileUploadResult && file.uploadURL ? createElement(CopyLinkButton, {
     file,
     uppy: uppy2,
     i18n
-  }) : null, showRemoveButton ? y(RemoveButton, {
+  }) : null, showRemoveButton ? createElement(RemoveButton, {
     i18n,
     file,
-    uppy: uppy2,
-    onClick: () => uppy2.removeFile(file.id, "removed-by-user")
+    onClick: () => uppy2.removeFile(file.id)
   }) : null);
 }
 
 // node_modules/@uppy/dashboard/lib/components/FileItem/index.js
-var FileItem = class extends b {
+var FileItem = class extends BaseComponent {
   componentDidMount() {
     const {
       file
@@ -24489,7 +25918,7 @@ var FileItem = class extends b {
     }
   }
   shouldComponentUpdate(nextProps) {
-    return !(0, import_is_shallow_equal.default)(this.props, nextProps);
+    return !shallowEqualObjects(this.props, nextProps);
   }
   componentDidUpdate() {
     const {
@@ -24512,8 +25941,8 @@ var FileItem = class extends b {
       file
     } = this.props;
     const isProcessing = file.progress.preprocess || file.progress.postprocess;
-    const isUploaded = file.progress.uploadComplete && !isProcessing && !file.error;
-    const uploadInProgressOrComplete = file.progress.uploadStarted || isProcessing;
+    const isUploaded = !!file.progress.uploadComplete && !isProcessing && !file.error;
+    const uploadInProgressOrComplete = !!file.progress.uploadStarted || !!isProcessing;
     const uploadInProgress = file.progress.uploadStarted && !file.progress.uploadComplete || isProcessing;
     const error = file.error || false;
     const {
@@ -24523,7 +25952,7 @@ var FileItem = class extends b {
     if (isUploaded && this.props.showRemoveButtonAfterComplete) {
       showRemoveButton = true;
     }
-    const dashboardItemClass = (0, import_classnames6.default)({
+    const dashboardItemClass = (0, import_classnames8.default)({
       "uppy-Dashboard-Item": true,
       "is-inprogress": uploadInProgress && !this.props.recoveredState,
       "is-processing": isProcessing,
@@ -24533,19 +25962,19 @@ var FileItem = class extends b {
       "is-noIndividualCancellation": !this.props.individualCancellation,
       "is-ghost": isGhost
     });
-    return y("div", {
+    return createElement("div", {
       className: dashboardItemClass,
       id: `uppy_${file.id}`,
       role: this.props.role
-    }, y("div", {
+    }, createElement("div", {
       className: "uppy-Dashboard-Item-preview"
-    }, y(FilePreviewAndLink, {
+    }, createElement(FilePreviewAndLink, {
       file,
       showLinkToFileUploadResult: this.props.showLinkToFileUploadResult,
       i18n: this.props.i18n,
       toggleFileCard: this.props.toggleFileCard,
       metaFields: this.props.metaFields
-    }), y(FileProgress, {
+    }), createElement(FileProgress, {
       uppy: this.props.uppy,
       file,
       error,
@@ -24554,16 +25983,13 @@ var FileItem = class extends b {
       hideCancelButton: this.props.hideCancelButton,
       hidePauseResumeButton: this.props.hidePauseResumeButton,
       recoveredState: this.props.recoveredState,
-      showRemoveButtonAfterComplete: this.props.showRemoveButtonAfterComplete,
       resumableUploads: this.props.resumableUploads,
       individualCancellation: this.props.individualCancellation,
       i18n: this.props.i18n
-    })), y("div", {
+    })), createElement("div", {
       className: "uppy-Dashboard-Item-fileInfoAndButtons"
-    }, y(FileInfo, {
+    }, createElement(FileInfo, {
       file,
-      id: this.props.id,
-      acquirers: this.props.acquirers,
       containerWidth: this.props.containerWidth,
       containerHeight: this.props.containerHeight,
       i18n: this.props.i18n,
@@ -24571,7 +25997,7 @@ var FileItem = class extends b {
       toggleFileCard: this.props.toggleFileCard,
       metaFields: this.props.metaFields,
       isSingleFile: this.props.isSingleFile
-    }), y(Buttons, {
+    }), createElement(Buttons, {
       file,
       metaFields: this.props.metaFields,
       showLinkToFileUploadResult: this.props.showLinkToFileUploadResult,
@@ -24604,19 +26030,16 @@ function chunks(list, size) {
 }
 function FileList(_ref) {
   let {
-    id: id13,
-    error,
+    id: id12,
     i18n,
     uppy: uppy2,
     files,
-    acquirers,
     resumableUploads,
     hideRetryButton,
     hidePauseResumeButton,
     hideCancelButton,
     showLinkToFileUploadResult,
     showRemoveButtonAfterComplete,
-    isWide,
     metaFields,
     isSingleFile,
     toggleFileCard,
@@ -24632,24 +26055,22 @@ function FileList(_ref) {
     containerHeight
   } = _ref;
   const rowHeight = itemsPerRow === 1 ? 71 : 200;
-  const rows = q2(() => {
-    const sortByGhostComesFirst = (file1, file2) => files[file2].isGhost - files[file1].isGhost;
+  const rows = useMemo(() => {
+    const sortByGhostComesFirst = (file1, file2) => Number(files[file2].isGhost) - Number(files[file1].isGhost);
     const fileIds = Object.keys(files);
     if (recoveredState)
       fileIds.sort(sortByGhostComesFirst);
     return chunks(fileIds, itemsPerRow);
   }, [files, itemsPerRow, recoveredState]);
-  const renderRow = (row) => y("div", {
+  const renderRow = (row) => createElement("div", {
     class: "uppy-Dashboard-filesInner",
     role: "presentation",
     key: row[0]
-  }, row.map((fileID) => y(FileItem, {
+  }, row.map((fileID) => createElement(FileItem, {
     key: fileID,
     uppy: uppy2,
-    id: id13,
-    error,
+    id: id12,
     i18n,
-    acquirers,
     resumableUploads,
     individualCancellation,
     hideRetryButton,
@@ -24657,7 +26078,6 @@ function FileList(_ref) {
     hideCancelButton,
     showLinkToFileUploadResult,
     showRemoveButtonAfterComplete,
-    isWide,
     metaFields,
     recoveredState,
     isSingleFile,
@@ -24673,11 +26093,11 @@ function FileList(_ref) {
     file: files[fileID]
   })));
   if (isSingleFile) {
-    return y("div", {
+    return createElement("div", {
       class: "uppy-Dashboard-files"
     }, renderRow(rows[0]));
   }
-  return y(VirtualList_default, {
+  return createElement(VirtualList_default, {
     class: "uppy-Dashboard-files",
     role: "list",
     data: rows,
@@ -24687,9 +26107,7 @@ function FileList(_ref) {
 }
 
 // node_modules/@uppy/dashboard/lib/components/AddFiles.js
-var _Symbol$for3;
-_Symbol$for3 = Symbol.for("uppy test: disable unused locale key warning");
-var AddFiles = class extends b {
+var AddFiles = class extends BaseComponent {
   constructor() {
     super(...arguments);
     this.triggerFileInputClick = () => {
@@ -24709,7 +26127,8 @@ var AddFiles = class extends b {
       event2.target.value = null;
     };
     this.renderHiddenInput = (isFolder, refCallback) => {
-      return y("input", {
+      var _this$props$allowedFi;
+      return createElement("input", {
         className: "uppy-Dashboard-input",
         hidden: true,
         "aria-hidden": "true",
@@ -24719,7 +26138,7 @@ var AddFiles = class extends b {
         name: "files[]",
         multiple: this.props.maxNumberOfFiles !== 1,
         onChange: this.onFileInputChange,
-        accept: this.props.allowedFileTypes,
+        accept: (_this$props$allowedFi = this.props.allowedFileTypes) == null ? void 0 : _this$props$allowedFi.join(", "),
         ref: refCallback
       });
     };
@@ -24729,7 +26148,7 @@ var AddFiles = class extends b {
         video: "video/*"
       };
       const accept = typeToAccept[type];
-      return y("input", {
+      return createElement("input", {
         className: "uppy-Dashboard-input",
         hidden: true,
         "aria-hidden": "true",
@@ -24743,92 +26162,92 @@ var AddFiles = class extends b {
       });
     };
     this.renderMyDeviceAcquirer = () => {
-      return y("div", {
+      return createElement("div", {
         className: "uppy-DashboardTab",
         role: "presentation",
         "data-uppy-acquirer-id": "MyDevice"
-      }, y("button", {
+      }, createElement("button", {
         type: "button",
         className: "uppy-u-reset uppy-c-btn uppy-DashboardTab-btn",
         role: "tab",
         tabIndex: 0,
         "data-uppy-super-focusable": true,
         onClick: this.triggerFileInputClick
-      }, y("div", {
+      }, createElement("div", {
         className: "uppy-DashboardTab-inner"
-      }, y("svg", {
+      }, createElement("svg", {
         className: "uppy-DashboardTab-iconMyDevice",
         "aria-hidden": "true",
         focusable: "false",
         width: "32",
         height: "32",
         viewBox: "0 0 32 32"
-      }, y("path", {
+      }, createElement("path", {
         d: "M8.45 22.087l-1.305-6.674h17.678l-1.572 6.674H8.45zm4.975-12.412l1.083 1.765a.823.823 0 00.715.386h7.951V13.5H8.587V9.675h4.838zM26.043 13.5h-1.195v-2.598c0-.463-.336-.75-.798-.75h-8.356l-1.082-1.766A.823.823 0 0013.897 8H7.728c-.462 0-.815.256-.815.718V13.5h-.956a.97.97 0 00-.746.37.972.972 0 00-.19.81l1.724 8.565c.095.44.484.755.933.755H24c.44 0 .824-.3.929-.727l2.043-8.568a.972.972 0 00-.176-.825.967.967 0 00-.753-.38z",
         fill: "currentcolor",
         "fill-rule": "evenodd"
-      }))), y("div", {
+      }))), createElement("div", {
         className: "uppy-DashboardTab-name"
       }, this.props.i18n("myDevice"))));
     };
     this.renderPhotoCamera = () => {
-      return y("div", {
+      return createElement("div", {
         className: "uppy-DashboardTab",
         role: "presentation",
         "data-uppy-acquirer-id": "MobilePhotoCamera"
-      }, y("button", {
+      }, createElement("button", {
         type: "button",
         className: "uppy-u-reset uppy-c-btn uppy-DashboardTab-btn",
         role: "tab",
         tabIndex: 0,
         "data-uppy-super-focusable": true,
         onClick: this.triggerPhotoCameraInputClick
-      }, y("div", {
+      }, createElement("div", {
         className: "uppy-DashboardTab-inner"
-      }, y("svg", {
+      }, createElement("svg", {
         "aria-hidden": "true",
         focusable: "false",
         width: "32",
         height: "32",
         viewBox: "0 0 32 32"
-      }, y("path", {
+      }, createElement("path", {
         d: "M23.5 9.5c1.417 0 2.5 1.083 2.5 2.5v9.167c0 1.416-1.083 2.5-2.5 2.5h-15c-1.417 0-2.5-1.084-2.5-2.5V12c0-1.417 1.083-2.5 2.5-2.5h2.917l1.416-2.167C13 7.167 13.25 7 13.5 7h5c.25 0 .5.167.667.333L20.583 9.5H23.5zM16 11.417a4.706 4.706 0 00-4.75 4.75 4.704 4.704 0 004.75 4.75 4.703 4.703 0 004.75-4.75c0-2.663-2.09-4.75-4.75-4.75zm0 7.825c-1.744 0-3.076-1.332-3.076-3.074 0-1.745 1.333-3.077 3.076-3.077 1.744 0 3.074 1.333 3.074 3.076s-1.33 3.075-3.074 3.075z",
         fill: "#02B383",
         "fill-rule": "nonzero"
-      }))), y("div", {
+      }))), createElement("div", {
         className: "uppy-DashboardTab-name"
       }, this.props.i18n("takePictureBtn"))));
     };
     this.renderVideoCamera = () => {
-      return y("div", {
+      return createElement("div", {
         className: "uppy-DashboardTab",
         role: "presentation",
         "data-uppy-acquirer-id": "MobileVideoCamera"
-      }, y("button", {
+      }, createElement("button", {
         type: "button",
         className: "uppy-u-reset uppy-c-btn uppy-DashboardTab-btn",
         role: "tab",
         tabIndex: 0,
         "data-uppy-super-focusable": true,
         onClick: this.triggerVideoCameraInputClick
-      }, y("div", {
+      }, createElement("div", {
         className: "uppy-DashboardTab-inner"
-      }, y("svg", {
+      }, createElement("svg", {
         "aria-hidden": "true",
         width: "32",
         height: "32",
         viewBox: "0 0 32 32"
-      }, y("path", {
+      }, createElement("path", {
         fill: "#FF675E",
         fillRule: "nonzero",
         d: "m21.254 14.277 2.941-2.588c.797-.313 1.243.818 1.09 1.554-.01 2.094.02 4.189-.017 6.282-.126.915-1.145 1.08-1.58.34l-2.434-2.142c-.192.287-.504 1.305-.738.468-.104-1.293-.028-2.596-.05-3.894.047-.312.381.823.426 1.069.063-.384.206-.744.362-1.09zm-12.939-3.73c3.858.013 7.717-.025 11.574.02.912.129 1.492 1.237 1.351 2.217-.019 2.412.04 4.83-.03 7.239-.17 1.025-1.166 1.59-2.029 1.429-3.705-.012-7.41.025-11.114-.019-.913-.129-1.492-1.237-1.352-2.217.018-2.404-.036-4.813.029-7.214.136-.82.83-1.473 1.571-1.454z "
-      }))), y("div", {
+      }))), createElement("div", {
         className: "uppy-DashboardTab-name"
       }, this.props.i18n("recordVideoBtn"))));
     };
     this.renderBrowseButton = (text, onClickFn) => {
       const numberOfAcquirers = this.props.acquirers.length;
-      return y("button", {
+      return createElement("button", {
         type: "button",
         className: "uppy-u-reset uppy-c-btn uppy-Dashboard-browse",
         onClick: onClickFn,
@@ -24840,7 +26259,7 @@ var AddFiles = class extends b {
       const browseFolders = this.renderBrowseButton(this.props.i18n("browseFolders"), this.triggerFolderInputClick);
       const lowerFMSelectionType = this.props.fileManagerSelectionType;
       const camelFMSelectionType = lowerFMSelectionType.charAt(0).toUpperCase() + lowerFMSelectionType.slice(1);
-      return y(
+      return createElement(
         "div",
         {
           class: "uppy-Dashboard-AddFiles-title"
@@ -24858,11 +26277,11 @@ var AddFiles = class extends b {
     };
     this.renderAcquirer = (acquirer) => {
       var _this$props$activePic;
-      return y("div", {
+      return createElement("div", {
         className: "uppy-DashboardTab",
         role: "presentation",
         "data-uppy-acquirer-id": acquirer.id
-      }, y("button", {
+      }, createElement("button", {
         type: "button",
         className: "uppy-u-reset uppy-c-btn uppy-DashboardTab-btn",
         role: "tab",
@@ -24872,16 +26291,16 @@ var AddFiles = class extends b {
         "aria-selected": ((_this$props$activePic = this.props.activePickerPanel) == null ? void 0 : _this$props$activePic.id) === acquirer.id,
         "data-uppy-super-focusable": true,
         onClick: () => this.props.showPanel(acquirer.id)
-      }, y("div", {
+      }, createElement("div", {
         className: "uppy-DashboardTab-inner"
-      }, acquirer.icon()), y("div", {
+      }, acquirer.icon()), createElement("div", {
         className: "uppy-DashboardTab-name"
       }, acquirer.name)));
     };
     this.renderAcquirers = (acquirers) => {
       const acquirersWithoutLastTwo = [...acquirers];
       const lastTwoAcquirers = acquirersWithoutLastTwo.splice(acquirers.length - 2, acquirers.length);
-      return y(g, null, acquirersWithoutLastTwo.map((acquirer) => this.renderAcquirer(acquirer)), y("span", {
+      return createElement(Fragment2, null, acquirersWithoutLastTwo.map((acquirer) => this.renderAcquirer(acquirer)), createElement("span", {
         role: "presentation",
         style: {
           "white-space": "nowrap"
@@ -24919,19 +26338,19 @@ var AddFiles = class extends b {
         list = [];
       const listWithoutLastTwo = [...list];
       const lastTwo = listWithoutLastTwo.splice(list.length - 2, list.length);
-      const renderList = (l4) => l4.map((_ref) => {
+      const renderList = (l) => l.map((_ref) => {
         let {
           key,
           elements
         } = _ref;
-        return y(g, {
+        return createElement(Fragment2, {
           key
         }, elements);
       });
-      return y(g, null, this.renderDropPasteBrowseTagline(list.length), y("div", {
+      return createElement(Fragment2, null, this.renderDropPasteBrowseTagline(list.length), createElement("div", {
         className: "uppy-Dashboard-AddFiles-list",
         role: "tablist"
-      }, renderList(listWithoutLastTwo), y("span", {
+      }, renderList(listWithoutLastTwo), createElement("span", {
         role: "presentation",
         style: {
           "white-space": "nowrap"
@@ -24939,7 +26358,7 @@ var AddFiles = class extends b {
       }, renderList(lastTwo))));
     };
   }
-  [_Symbol$for3]() {
+  [Symbol.for("uppy test: disable unused locale key warning")]() {
     this.props.i18nArray("dropPasteBoth");
     this.props.i18nArray("dropPasteFiles");
     this.props.i18nArray("dropPasteFolders");
@@ -24951,23 +26370,23 @@ var AddFiles = class extends b {
     const {
       i18nArray
     } = this.props;
-    const uppyBranding = y("span", null, y("svg", {
+    const uppyBranding = createElement("span", null, createElement("svg", {
       "aria-hidden": "true",
       focusable: "false",
       className: "uppy-c-icon uppy-Dashboard-poweredByIcon",
       width: "11",
       height: "11",
       viewBox: "0 0 11 11"
-    }, y("path", {
+    }, createElement("path", {
       d: "M7.365 10.5l-.01-4.045h2.612L5.5.806l-4.467 5.65h2.604l.01 4.044h3.718z",
       fillRule: "evenodd"
-    })), y("span", {
+    })), createElement("span", {
       className: "uppy-Dashboard-poweredByUppy"
     }, "Uppy"));
     const linkText = i18nArray("poweredBy", {
       uppy: uppyBranding
     });
-    return y("a", {
+    return createElement("a", {
       tabIndex: -1,
       href: "https://uppy.io",
       rel: "noreferrer noopener",
@@ -24981,7 +26400,7 @@ var AddFiles = class extends b {
       showNativeVideoCameraButton,
       nativeCameraFacingMode
     } = this.props;
-    return y("div", {
+    return createElement("div", {
       className: "uppy-Dashboard-AddFiles"
     }, this.renderHiddenInput(false, (ref) => {
       this.fileInput = ref;
@@ -24991,9 +26410,9 @@ var AddFiles = class extends b {
       this.mobilePhotoFileInput = ref;
     }), showNativeVideoCameraButton && this.renderHiddenCameraInput("video", nativeCameraFacingMode, (ref) => {
       this.mobileVideoFileInput = ref;
-    }), this.renderSourcesList(this.props.acquirers, this.props.disableLocalFiles), y("div", {
+    }), this.renderSourcesList(this.props.acquirers, this.props.disableLocalFiles), createElement("div", {
       className: "uppy-Dashboard-AddFiles-info"
-    }, this.props.note && y("div", {
+    }, this.props.note && createElement("div", {
       className: "uppy-Dashboard-note"
     }, this.props.note), this.props.proudlyDisplayPoweredByUppy && this.renderPoweredByUppy(this.props)));
   }
@@ -25001,28 +26420,28 @@ var AddFiles = class extends b {
 var AddFiles_default = AddFiles;
 
 // node_modules/@uppy/dashboard/lib/components/AddFilesPanel.js
-var import_classnames7 = __toESM(require_classnames(), 1);
+var import_classnames9 = __toESM(require_classnames(), 1);
 var AddFilesPanel = (props) => {
-  return y("div", {
-    className: (0, import_classnames7.default)("uppy-Dashboard-AddFilesPanel", props.className),
+  return createElement("div", {
+    className: (0, import_classnames9.default)("uppy-Dashboard-AddFilesPanel", props.className),
     "data-uppy-panelType": "AddFiles",
     "aria-hidden": !props.showAddFilesPanel
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-DashboardContent-bar"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-DashboardContent-title",
     role: "heading",
     "aria-level": "1"
-  }, props.i18n("addingMoreFiles")), y("button", {
+  }, props.i18n("addingMoreFiles")), createElement("button", {
     className: "uppy-DashboardContent-back",
     type: "button",
     onClick: () => props.toggleAddFilesPanel(false)
-  }, props.i18n("back"))), y(AddFiles_default, props));
+  }, props.i18n("back"))), createElement(AddFiles_default, props));
 };
 var AddFilesPanel_default = AddFilesPanel;
 
 // node_modules/@uppy/dashboard/lib/components/PickerPanelContent.js
-var import_classnames8 = __toESM(require_classnames(), 1);
+var import_classnames10 = __toESM(require_classnames(), 1);
 
 // node_modules/@uppy/dashboard/lib/utils/ignoreEvent.js
 function ignoreEvent(ev) {
@@ -25048,8 +26467,9 @@ function PickerPanelContent(_ref) {
     state,
     uppy: uppy2
   } = _ref;
-  return y("div", {
-    className: (0, import_classnames8.default)("uppy-DashboardContent-panel", className),
+  const ref = useRef(null);
+  return createElement("div", {
+    className: (0, import_classnames10.default)("uppy-DashboardContent-panel", className),
     role: "tabpanel",
     "data-uppy-panelType": "PickerPanel",
     id: `uppy-DashboardContent-panel--${activePickerPanel.id}`,
@@ -25057,56 +26477,57 @@ function PickerPanelContent(_ref) {
     onDragLeave: ignoreEvent_default,
     onDrop: ignoreEvent_default,
     onPaste: ignoreEvent_default
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-DashboardContent-bar"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-DashboardContent-title",
     role: "heading",
     "aria-level": "1"
   }, i18n("importFrom", {
     name: activePickerPanel.name
-  })), y("button", {
+  })), createElement("button", {
     className: "uppy-DashboardContent-back",
     type: "button",
     onClick: hideAllPanels
-  }, i18n("cancel"))), y("div", {
+  }, i18n("cancel"))), createElement("div", {
+    ref,
     className: "uppy-DashboardContent-panelBody"
-  }, uppy2.getPlugin(activePickerPanel.id).render(state)));
+  }, uppy2.getPlugin(activePickerPanel.id).render(state, ref.current)));
 }
 var PickerPanelContent_default = PickerPanelContent;
 
 // node_modules/@uppy/dashboard/lib/components/EditorPanel.js
-var import_classnames9 = __toESM(require_classnames(), 1);
+var import_classnames11 = __toESM(require_classnames(), 1);
 function EditorPanel(props) {
   const file = props.files[props.fileCardFor];
   const handleCancel = () => {
     props.uppy.emit("file-editor:cancel", file);
     props.closeFileEditor();
   };
-  return y("div", {
-    className: (0, import_classnames9.default)("uppy-DashboardContent-panel", props.className),
+  return createElement("div", {
+    className: (0, import_classnames11.default)("uppy-DashboardContent-panel", props.className),
     role: "tabpanel",
     "data-uppy-panelType": "FileEditor",
     id: "uppy-DashboardContent-panel--editor"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-DashboardContent-bar"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-DashboardContent-title",
     role: "heading",
     "aria-level": "1"
   }, props.i18nArray("editing", {
-    file: y("span", {
+    file: createElement("span", {
       className: "uppy-DashboardContent-titleFile"
     }, file.meta ? file.meta.name : file.name)
-  })), y("button", {
+  })), createElement("button", {
     className: "uppy-DashboardContent-back",
     type: "button",
     onClick: handleCancel
-  }, props.i18n("cancel")), y("button", {
+  }, props.i18n("cancel")), createElement("button", {
     className: "uppy-DashboardContent-save",
     type: "button",
     onClick: props.saveFileEditor
-  }, props.i18n("save"))), y("div", {
+  }, props.i18n("save"))), createElement("div", {
     className: "uppy-DashboardContent-panelBody"
   }, props.editors.map((target) => {
     return props.uppy.getPlugin(target.id).render(props.state);
@@ -25139,10 +26560,10 @@ function getUploadingState2(isAllErrored, isAllComplete, isAllPaused, files) {
   }
   let state = uploadStates.STATE_WAITING;
   const fileIDs = Object.keys(files);
-  for (let i4 = 0; i4 < fileIDs.length; i4++) {
+  for (let i = 0; i < fileIDs.length; i++) {
     const {
       progress
-    } = files[fileIDs[i4]];
+    } = files[fileIDs[i]];
     if (progress.uploadStarted && !progress.uploadComplete) {
       return uploadStates.STATE_UPLOADING;
     }
@@ -25205,39 +26626,39 @@ function PanelTopBar(props) {
   if (allowNewUpload && maxNumberOfFiles) {
     allowNewUpload = props.totalFileCount < props.maxNumberOfFiles;
   }
-  return y("div", {
+  return createElement("div", {
     className: "uppy-DashboardContent-bar"
-  }, !isAllComplete && !hideCancelButton ? y("button", {
+  }, !isAllComplete && !hideCancelButton ? createElement("button", {
     className: "uppy-DashboardContent-back",
     type: "button",
     onClick: () => uppy2.cancelAll()
-  }, i18n("cancel")) : y("div", null), y("div", {
+  }, i18n("cancel")) : createElement("div", null), createElement("div", {
     className: "uppy-DashboardContent-title",
     role: "heading",
     "aria-level": "1"
-  }, y(UploadStatus, props)), allowNewUpload ? y("button", {
+  }, createElement(UploadStatus, props)), allowNewUpload ? createElement("button", {
     className: "uppy-DashboardContent-addMore",
     type: "button",
     "aria-label": i18n("addMoreFiles"),
     title: i18n("addMoreFiles"),
     onClick: () => toggleAddFilesPanel(true)
-  }, y("svg", {
+  }, createElement("svg", {
     "aria-hidden": "true",
     focusable: "false",
     className: "uppy-c-icon",
     width: "15",
     height: "15",
     viewBox: "0 0 15 15"
-  }, y("path", {
+  }, createElement("path", {
     d: "M8 6.5h6a.5.5 0 0 1 .5.5v.5a.5.5 0 0 1-.5.5H8v6a.5.5 0 0 1-.5.5H7a.5.5 0 0 1-.5-.5V8h-6a.5.5 0 0 1-.5-.5V7a.5.5 0 0 1 .5-.5h6v-6A.5.5 0 0 1 7 0h.5a.5.5 0 0 1 .5.5v6z"
-  })), y("span", {
+  })), createElement("span", {
     className: "uppy-DashboardContent-addMoreCaption"
-  }, i18n("addMore"))) : y("div", null));
+  }, i18n("addMore"))) : createElement("div", null));
 }
 var PickerPanelTopBar_default = PanelTopBar;
 
 // node_modules/@uppy/dashboard/lib/components/FileCard/index.js
-var import_classnames10 = __toESM(require_classnames(), 1);
+var import_classnames12 = __toESM(require_classnames(), 1);
 
 // node_modules/@uppy/dashboard/lib/components/FileCard/RenderMetaFields.js
 function RenderMetaFields(props) {
@@ -25252,23 +26673,23 @@ function RenderMetaFields(props) {
     text: "uppy-u-reset uppy-c-textInput uppy-Dashboard-FileCard-input"
   };
   return computedMetaFields.map((field) => {
-    const id13 = `uppy-Dashboard-FileCard-input-${field.id}`;
+    const id12 = `uppy-Dashboard-FileCard-input-${field.id}`;
     const required = requiredMetaFields.includes(field.id);
-    return y("fieldset", {
+    return createElement("fieldset", {
       key: field.id,
       className: "uppy-Dashboard-FileCard-fieldset"
-    }, y("label", {
+    }, createElement("label", {
       className: "uppy-Dashboard-FileCard-label",
-      htmlFor: id13
+      htmlFor: id12
     }, field.name), field.render !== void 0 ? field.render({
       value: formState[field.id],
       onChange: (newVal) => updateMeta(newVal, field.id),
       fieldCSSClasses,
       required,
       form: form.id
-    }, y) : y("input", {
+    }, createElement) : createElement("input", {
       className: fieldCSSClasses.text,
-      id: id13,
+      id: id12,
       form: form.id,
       type: field.type || "text",
       required,
@@ -25307,8 +26728,8 @@ function FileCard(props) {
     var _file$meta$field$id;
     storedMetaData[field.id] = (_file$meta$field$id = file.meta[field.id]) != null ? _file$meta$field$id : "";
   });
-  const [formState, setFormState] = p3(storedMetaData);
-  const handleSave = x3((ev) => {
+  const [formState, setFormState] = useState(storedMetaData);
+  const handleSave = useCallback((ev) => {
     ev.preventDefault();
     saveFileCard(formState, fileCardFor);
   }, [saveFileCard, formState, fileCardFor]);
@@ -25321,13 +26742,13 @@ function FileCard(props) {
   const handleCancel = () => {
     toggleFileCard(false);
   };
-  const [form] = p3(() => {
+  const [form] = useState(() => {
     const formEl = document.createElement("form");
     formEl.setAttribute("tabindex", "-1");
     formEl.id = nanoid();
     return formEl;
   });
-  _5(() => {
+  useEffect(() => {
     document.body.appendChild(form);
     form.addEventListener("submit", handleSave);
     return () => {
@@ -25335,60 +26756,60 @@ function FileCard(props) {
       document.body.removeChild(form);
     };
   }, [form, handleSave]);
-  return y("div", {
-    className: (0, import_classnames10.default)("uppy-Dashboard-FileCard", className),
+  return createElement("div", {
+    className: (0, import_classnames12.default)("uppy-Dashboard-FileCard", className),
     "data-uppy-panelType": "FileCard",
     onDragOver: ignoreEvent_default,
     onDragLeave: ignoreEvent_default,
     onDrop: ignoreEvent_default,
     onPaste: ignoreEvent_default
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-DashboardContent-bar"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-DashboardContent-title",
     role: "heading",
     "aria-level": "1"
   }, i18nArray("editing", {
-    file: y("span", {
+    file: createElement("span", {
       className: "uppy-DashboardContent-titleFile"
     }, file.meta ? file.meta.name : file.name)
-  })), y("button", {
+  })), createElement("button", {
     className: "uppy-DashboardContent-back",
     type: "button",
     form: form.id,
     title: i18n("finishEditingFile"),
     onClick: handleCancel
-  }, i18n("cancel"))), y("div", {
+  }, i18n("cancel"))), createElement("div", {
     className: "uppy-Dashboard-FileCard-inner"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-Dashboard-FileCard-preview",
     style: {
       backgroundColor: getIconByMime(file.type).color
     }
-  }, y(FilePreview, {
+  }, createElement(FilePreview, {
     file
-  }), showEditButton && y("button", {
+  }), showEditButton && createElement("button", {
     type: "button",
     className: "uppy-u-reset uppy-c-btn uppy-Dashboard-FileCard-edit",
     onClick: (event2) => {
       handleSave(event2);
       openFileEditor(file);
     }
-  }, i18n("editImage"))), y("div", {
+  }, i18n("editImage"))), createElement("div", {
     className: "uppy-Dashboard-FileCard-info"
-  }, y(RenderMetaFields, {
+  }, createElement(RenderMetaFields, {
     computedMetaFields,
     requiredMetaFields,
     updateMeta,
     form,
     formState
-  })), y("div", {
+  })), createElement("div", {
     className: "uppy-Dashboard-FileCard-actions"
-  }, y("button", {
+  }, createElement("button", {
     className: "uppy-u-reset uppy-c-btn uppy-c-btn-primary uppy-Dashboard-FileCard-actionsBtn",
     type: "submit",
     form: form.id
-  }, i18n("saveChanges")), y("button", {
+  }, i18n("saveChanges")), createElement("button", {
     className: "uppy-u-reset uppy-c-btn uppy-c-btn-link uppy-Dashboard-FileCard-actionsBtn",
     type: "button",
     onClick: handleCancel,
@@ -25397,18 +26818,18 @@ function FileCard(props) {
 }
 
 // node_modules/@uppy/dashboard/lib/components/Slide.js
-var import_classnames11 = __toESM(require_classnames(), 1);
+var import_classnames13 = __toESM(require_classnames(), 1);
 var transitionName = "uppy-transition-slideDownUp";
 var duration = 250;
 function Slide(_ref) {
   let {
     children
   } = _ref;
-  const [cachedChildren, setCachedChildren] = p3(null);
-  const [className, setClassName] = p3("");
-  const enterTimeoutRef = F3();
-  const leaveTimeoutRef = F3();
-  const animationFrameRef = F3();
+  const [cachedChildren, setCachedChildren] = useState(null);
+  const [className, setClassName] = useState("");
+  const enterTimeoutRef = useRef();
+  const leaveTimeoutRef = useRef();
+  const animationFrameRef = useRef();
   const handleEnterTransition = () => {
     setClassName(`${transitionName}-enter`);
     cancelAnimationFrame(animationFrameRef.current);
@@ -25434,8 +26855,8 @@ function Slide(_ref) {
       }, duration);
     });
   };
-  _5(() => {
-    const child = $2(children)[0];
+  useEffect(() => {
+    const child = toChildArray(children)[0];
     if (cachedChildren === child)
       return;
     if (child && !cachedChildren) {
@@ -25445,7 +26866,7 @@ function Slide(_ref) {
     }
     setCachedChildren(child);
   }, [children, cachedChildren]);
-  _5(() => {
+  useEffect(() => {
     return () => {
       clearTimeout(enterTimeoutRef.current);
       clearTimeout(leaveTimeoutRef.current);
@@ -25454,26 +26875,22 @@ function Slide(_ref) {
   }, []);
   if (!cachedChildren)
     return null;
-  return B(cachedChildren, {
-    className: (0, import_classnames11.default)(className, cachedChildren.props.className)
+  return cloneElement(cachedChildren, {
+    className: (0, import_classnames13.default)(className, cachedChildren.props.className)
   });
 }
 var Slide_default = Slide;
 
 // node_modules/@uppy/dashboard/lib/components/Dashboard.js
-function _extends3() {
-  _extends3 = Object.assign ? Object.assign.bind() : function(target) {
-    for (var i4 = 1; i4 < arguments.length; i4++) {
-      var source = arguments[i4];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
+function _extends2() {
+  return _extends2 = Object.assign ? Object.assign.bind() : function(n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t)
+        ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
     }
-    return target;
-  };
-  return _extends3.apply(this, arguments);
+    return n;
+  }, _extends2.apply(null, arguments);
 }
 var WIDTH_XL = 900;
 var WIDTH_LG = 700;
@@ -25484,7 +26901,7 @@ function Dashboard(props) {
   const isSingleFile = props.totalFileCount === 1;
   const isSizeMD = props.containerWidth > WIDTH_MD;
   const isSizeHeightMD = props.containerHeight > HEIGHT_MD;
-  const dashboardClassName = (0, import_classnames12.default)({
+  const dashboardClassName = (0, import_classnames14.default)({
     "uppy-Dashboard": true,
     "uppy-Dashboard--isDisabled": props.disabled,
     "uppy-Dashboard--animateOpenClose": props.animateOpenClose,
@@ -25518,7 +26935,7 @@ function Dashboard(props) {
     }
     return props.i18n("recoveredAllFiles");
   };
-  const dashboard = y("div", {
+  const dashboard = createElement("div", {
     className: dashboardClassName,
     "data-uppy-theme": props.theme,
     "data-uppy-num-acquirers": props.acquirers.length,
@@ -25530,12 +26947,12 @@ function Dashboard(props) {
     onDragOver: props.handleDragOver,
     onDragLeave: props.handleDragLeave,
     onDrop: props.handleDrop
-  }, y("div", {
+  }, createElement("div", {
     "aria-hidden": "true",
     className: "uppy-Dashboard-overlay",
     tabIndex: -1,
     onClick: props.handleClickOutside
-  }), y("div", {
+  }), createElement("div", {
     className: "uppy-Dashboard-inner",
     "aria-modal": !props.inline && "true",
     role: props.inline ? void 0 : "dialog",
@@ -25543,60 +26960,57 @@ function Dashboard(props) {
       width: props.inline && props.width ? props.width : "",
       height: props.inline && props.height ? props.height : ""
     }
-  }, !props.inline ? y("button", {
+  }, !props.inline ? createElement("button", {
     className: "uppy-u-reset uppy-Dashboard-close",
     type: "button",
     "aria-label": props.i18n("closeModal"),
     title: props.i18n("closeModal"),
     onClick: props.closeModal
-  }, y("span", {
+  }, createElement("span", {
     "aria-hidden": "true"
-  }, "\xD7")) : null, y("div", {
+  }, "\xD7")) : null, createElement("div", {
     className: "uppy-Dashboard-innerWrap"
-  }, y("div", {
+  }, createElement("div", {
     className: "uppy-Dashboard-dropFilesHereHint"
-  }, props.i18n("dropHint")), showFileList && y(PickerPanelTopBar_default, props), numberOfFilesForRecovery && y("div", {
+  }, props.i18n("dropHint")), showFileList && createElement(PickerPanelTopBar_default, props), numberOfFilesForRecovery && createElement("div", {
     className: "uppy-Dashboard-serviceMsg"
-  }, y("svg", {
+  }, createElement("svg", {
     className: "uppy-Dashboard-serviceMsg-icon",
     "aria-hidden": "true",
     focusable: "false",
     width: "21",
     height: "16",
     viewBox: "0 0 24 19"
-  }, y("g", {
+  }, createElement("g", {
     transform: "translate(0 -1)",
     fill: "none",
     fillRule: "evenodd"
-  }, y("path", {
+  }, createElement("path", {
     d: "M12.857 1.43l10.234 17.056A1 1 0 0122.234 20H1.766a1 1 0 01-.857-1.514L11.143 1.429a1 1 0 011.714 0z",
     fill: "#FFD300"
-  }), y("path", {
+  }), createElement("path", {
     fill: "#000",
     d: "M11 6h2l-.3 8h-1.4z"
-  }), y("circle", {
+  }), createElement("circle", {
     fill: "#000",
     cx: "12",
     cy: "17",
     r: "1"
-  }))), y("strong", {
+  }))), createElement("strong", {
     className: "uppy-Dashboard-serviceMsg-title"
-  }, props.i18n("sessionRestored")), y("div", {
+  }, props.i18n("sessionRestored")), createElement("div", {
     className: "uppy-Dashboard-serviceMsg-text"
-  }, renderRestoredText())), showFileList ? y(FileList, {
+  }, renderRestoredText())), showFileList ? createElement(FileList, {
     id: props.id,
-    error: props.error,
     i18n: props.i18n,
     uppy: props.uppy,
     files: props.files,
-    acquirers: props.acquirers,
     resumableUploads: props.resumableUploads,
     hideRetryButton: props.hideRetryButton,
     hidePauseResumeButton: props.hidePauseResumeButton,
     hideCancelButton: props.hideCancelButton,
     showLinkToFileUploadResult: props.showLinkToFileUploadResult,
     showRemoveButtonAfterComplete: props.showRemoveButtonAfterComplete,
-    isWide: props.isWide,
     metaFields: props.metaFields,
     toggleFileCard: props.toggleFileCard,
     handleRequestThumbnail: props.handleRequestThumbnail,
@@ -25607,20 +27021,22 @@ function Dashboard(props) {
     canEditFile: props.canEditFile,
     toggleAddFilesPanel: props.toggleAddFilesPanel,
     isSingleFile,
-    itemsPerRow
-  }) : y(AddFiles_default, _extends3({}, props, {
+    itemsPerRow,
+    containerWidth: props.containerWidth,
+    containerHeight: props.containerHeight
+  }) : createElement(AddFiles_default, _extends2({}, props, {
     isSizeMD
-  })), y(Slide_default, null, props.showAddFilesPanel ? y(AddFilesPanel_default, _extends3({
+  })), createElement(Slide_default, null, props.showAddFilesPanel ? createElement(AddFilesPanel_default, _extends2({
     key: "AddFiles"
   }, props, {
     isSizeMD
-  })) : null), y(Slide_default, null, props.fileCardFor ? y(FileCard, _extends3({
+  })) : null), createElement(Slide_default, null, props.fileCardFor ? createElement(FileCard, _extends2({
     key: "FileCard"
-  }, props)) : null), y(Slide_default, null, props.activePickerPanel ? y(PickerPanelContent_default, _extends3({
+  }, props)) : null), createElement(Slide_default, null, props.activePickerPanel ? createElement(PickerPanelContent_default, _extends2({
     key: "Picker"
-  }, props)) : null), y(Slide_default, null, props.showFileEditor ? y(EditorPanel_default, _extends3({
+  }, props)) : null), createElement(Slide_default, null, props.showFileEditor ? createElement(EditorPanel_default, _extends2({
     key: "Editor"
-  }, props)) : null), y("div", {
+  }, props)) : null), createElement("div", {
     className: "uppy-Dashboard-progressindicators"
   }, props.progressindicators.map((target) => {
     return props.uppy.getPlugin(target.id).render(props.state);
@@ -25699,31 +27115,30 @@ var locale_default4 = {
 };
 
 // node_modules/@uppy/dashboard/lib/Dashboard.js
-function _classPrivateFieldLooseBase8(receiver, privateKey) {
-  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
+function _classPrivateFieldLooseBase7(e, t) {
+  if (!{}.hasOwnProperty.call(e, t))
     throw new TypeError("attempted to use private field on non-instance");
-  }
-  return receiver;
+  return e;
 }
-var id8 = 0;
-function _classPrivateFieldLooseKey8(name) {
-  return "__private_" + id8++ + "_" + name;
+var id7 = 0;
+function _classPrivateFieldLooseKey7(e) {
+  return "__private_" + id7++ + "_" + e;
 }
 var packageJson8 = {
-  "version": "3.9.0"
+  "version": "4.1.0"
 };
 var memoize = memoizeOne.default || memoizeOne;
 var TAB_KEY = 9;
 var ESC_KEY = 27;
 function createPromise() {
-  const o4 = {};
-  o4.promise = new Promise((resolve, reject) => {
-    o4.resolve = resolve;
-    o4.reject = reject;
+  const o = {};
+  o.promise = new Promise((resolve, reject) => {
+    o.resolve = resolve;
+    o.reject = reject;
   });
-  return o4;
+  return o;
 }
-var defaultOptions6 = {
+var defaultOptions4 = {
   target: "body",
   metaFields: [],
   inline: false,
@@ -25758,38 +27173,54 @@ var defaultOptions6 = {
   showNativeVideoCameraButton: false,
   theme: "light",
   autoOpen: null,
-  autoOpenFileEditor: false,
   disabled: false,
   disableLocalFiles: false,
-  doneButtonHandler: null,
+  doneButtonHandler: void 0,
   onRequestCloseModal: null
 };
-var _disabledNodes = /* @__PURE__ */ _classPrivateFieldLooseKey8("disabledNodes");
-var _generateLargeThumbnailIfSingleFile = /* @__PURE__ */ _classPrivateFieldLooseKey8("generateLargeThumbnailIfSingleFile");
-var _openFileEditorWhenFilesAdded = /* @__PURE__ */ _classPrivateFieldLooseKey8("openFileEditorWhenFilesAdded");
-var _attachRenderFunctionToTarget = /* @__PURE__ */ _classPrivateFieldLooseKey8("attachRenderFunctionToTarget");
-var _isTargetSupported = /* @__PURE__ */ _classPrivateFieldLooseKey8("isTargetSupported");
-var _getAcquirers = /* @__PURE__ */ _classPrivateFieldLooseKey8("getAcquirers");
-var _getProgressIndicators = /* @__PURE__ */ _classPrivateFieldLooseKey8("getProgressIndicators");
-var _getEditors = /* @__PURE__ */ _classPrivateFieldLooseKey8("getEditors");
-var _addSpecifiedPluginsFromOptions = /* @__PURE__ */ _classPrivateFieldLooseKey8("addSpecifiedPluginsFromOptions");
-var _autoDiscoverPlugins = /* @__PURE__ */ _classPrivateFieldLooseKey8("autoDiscoverPlugins");
-var _addSupportedPluginIfNoTarget = /* @__PURE__ */ _classPrivateFieldLooseKey8("addSupportedPluginIfNoTarget");
+var _disabledNodes = /* @__PURE__ */ _classPrivateFieldLooseKey7("disabledNodes");
+var _generateLargeThumbnailIfSingleFile = /* @__PURE__ */ _classPrivateFieldLooseKey7("generateLargeThumbnailIfSingleFile");
+var _openFileEditorWhenFilesAdded = /* @__PURE__ */ _classPrivateFieldLooseKey7("openFileEditorWhenFilesAdded");
+var _attachRenderFunctionToTarget = /* @__PURE__ */ _classPrivateFieldLooseKey7("attachRenderFunctionToTarget");
+var _isTargetSupported = /* @__PURE__ */ _classPrivateFieldLooseKey7("isTargetSupported");
+var _getAcquirers = /* @__PURE__ */ _classPrivateFieldLooseKey7("getAcquirers");
+var _getProgressIndicators = /* @__PURE__ */ _classPrivateFieldLooseKey7("getProgressIndicators");
+var _getEditors = /* @__PURE__ */ _classPrivateFieldLooseKey7("getEditors");
+var _addSpecifiedPluginsFromOptions = /* @__PURE__ */ _classPrivateFieldLooseKey7("addSpecifiedPluginsFromOptions");
+var _autoDiscoverPlugins = /* @__PURE__ */ _classPrivateFieldLooseKey7("autoDiscoverPlugins");
+var _addSupportedPluginIfNoTarget = /* @__PURE__ */ _classPrivateFieldLooseKey7("addSupportedPluginIfNoTarget");
+var _getStatusBarOpts = /* @__PURE__ */ _classPrivateFieldLooseKey7("getStatusBarOpts");
+var _getThumbnailGeneratorOpts = /* @__PURE__ */ _classPrivateFieldLooseKey7("getThumbnailGeneratorOpts");
+var _getInformerOpts = /* @__PURE__ */ _classPrivateFieldLooseKey7("getInformerOpts");
+var _getStatusBarId = /* @__PURE__ */ _classPrivateFieldLooseKey7("getStatusBarId");
+var _getThumbnailGeneratorId = /* @__PURE__ */ _classPrivateFieldLooseKey7("getThumbnailGeneratorId");
+var _getInformerId = /* @__PURE__ */ _classPrivateFieldLooseKey7("getInformerId");
 var Dashboard2 = class extends UIPlugin_default {
   constructor(uppy2, _opts) {
-    var _this$opts4, _this$opts4$doneButto, _this$opts5, _this$opts5$onRequest;
-    let autoOpen;
-    if (!_opts) {
-      autoOpen = null;
-    } else if (_opts.autoOpen === void 0) {
-      autoOpen = _opts.autoOpenFileEditor ? "imageEditor" : null;
-    } else {
-      autoOpen = _opts.autoOpen;
-    }
+    var _opts$autoOpen, _this$opts4, _this$opts4$onRequest;
+    const autoOpen = (_opts$autoOpen = _opts == null ? void 0 : _opts.autoOpen) != null ? _opts$autoOpen : null;
     super(uppy2, {
-      ...defaultOptions6,
+      ...defaultOptions4,
       ..._opts,
       autoOpen
+    });
+    Object.defineProperty(this, _getInformerId, {
+      value: _getInformerId2
+    });
+    Object.defineProperty(this, _getThumbnailGeneratorId, {
+      value: _getThumbnailGeneratorId2
+    });
+    Object.defineProperty(this, _getStatusBarId, {
+      value: _getStatusBarId2
+    });
+    Object.defineProperty(this, _getInformerOpts, {
+      value: _getInformerOpts2
+    });
+    Object.defineProperty(this, _getThumbnailGeneratorOpts, {
+      value: _getThumbnailGeneratorOpts2
+    });
+    Object.defineProperty(this, _getStatusBarOpts, {
+      value: _getStatusBarOpts2
     });
     Object.defineProperty(this, _disabledNodes, {
       writable: true,
@@ -25843,31 +27274,31 @@ var Dashboard2 = class extends UIPlugin_default {
       this.setPluginState(update);
       this.uppy.emit("dashboard:close-panel", (_state$activePickerPa = state.activePickerPanel) == null ? void 0 : _state$activePickerPa.id);
     };
-    this.showPanel = (id13) => {
+    this.showPanel = (id12) => {
       const {
         targets
       } = this.getPluginState();
       const activePickerPanel = targets.find((target) => {
-        return target.type === "acquirer" && target.id === id13;
+        return target.type === "acquirer" && target.id === id12;
       });
       this.setPluginState({
         activePickerPanel,
         activeOverlayType: "PickerPanel"
       });
-      this.uppy.emit("dashboard:show-panel", id13);
+      this.uppy.emit("dashboard:show-panel", id12);
     };
     this.canEditFile = (file) => {
       const {
         targets
       } = this.getPluginState();
-      const editors = _classPrivateFieldLooseBase8(this, _getEditors)[_getEditors](targets);
+      const editors = _classPrivateFieldLooseBase7(this, _getEditors)[_getEditors](targets);
       return editors.some((target) => this.uppy.getPlugin(target.id).canEditFile(file));
     };
     this.openFileEditor = (file) => {
       const {
         targets
       } = this.getPluginState();
-      const editors = _classPrivateFieldLooseBase8(this, _getEditors)[_getEditors](targets);
+      const editors = _classPrivateFieldLooseBase7(this, _getEditors)[_getEditors](targets);
       this.setPluginState({
         showFileEditor: true,
         fileCardFor: file.id || null,
@@ -25900,7 +27331,7 @@ var Dashboard2 = class extends UIPlugin_default {
       const {
         targets
       } = this.getPluginState();
-      const editors = _classPrivateFieldLooseBase8(this, _getEditors)[_getEditors](targets);
+      const editors = _classPrivateFieldLooseBase7(this, _getEditors)[_getEditors](targets);
       editors.forEach((editor) => {
         ;
         this.uppy.getPlugin(editor.id).save();
@@ -26090,18 +27521,18 @@ var Dashboard2 = class extends UIPlugin_default {
     this.disableInteractiveElements = (disable) => {
       var _classPrivateFieldLoo;
       const NODES_TO_DISABLE = ["a[href]", "input:not([disabled])", "select:not([disabled])", "textarea:not([disabled])", "button:not([disabled])", '[role="button"]:not([disabled])'];
-      const nodesToDisable = (_classPrivateFieldLoo = _classPrivateFieldLooseBase8(this, _disabledNodes)[_disabledNodes]) != null ? _classPrivateFieldLoo : toArray_default(this.el.querySelectorAll(NODES_TO_DISABLE)).filter((node) => !node.classList.contains("uppy-Dashboard-close"));
-      for (const node of nodesToDisable) {
-        if (node.tagName === "A") {
-          node.setAttribute("aria-disabled", disable);
+      const nodesToDisable = (_classPrivateFieldLoo = _classPrivateFieldLooseBase7(this, _disabledNodes)[_disabledNodes]) != null ? _classPrivateFieldLoo : toArray_default(this.el.querySelectorAll(NODES_TO_DISABLE)).filter((node2) => !node2.classList.contains("uppy-Dashboard-close"));
+      for (const node2 of nodesToDisable) {
+        if (node2.tagName === "A") {
+          node2.setAttribute("aria-disabled", disable);
         } else {
-          node.disabled = disable;
+          node2.disabled = disable;
         }
       }
       if (disable) {
-        _classPrivateFieldLooseBase8(this, _disabledNodes)[_disabledNodes] = nodesToDisable;
+        _classPrivateFieldLooseBase7(this, _disabledNodes)[_disabledNodes] = nodesToDisable;
       } else {
-        _classPrivateFieldLooseBase8(this, _disabledNodes)[_disabledNodes] = null;
+        _classPrivateFieldLooseBase7(this, _disabledNodes)[_disabledNodes] = null;
       }
       this.dashboardIsDisabled = disable;
     };
@@ -26180,11 +27611,9 @@ var Dashboard2 = class extends UIPlugin_default {
       const hasFiles = doesEventHaveFiles();
       if (!somePluginCanHandleRootDrop && !hasFiles || this.opts.disabled || this.opts.disableLocalFiles && (hasFiles || !somePluginCanHandleRootDrop) || !this.uppy.getState().allowNewUpload) {
         event2.dataTransfer.dropEffect = "none";
-        clearTimeout(this.removeDragOverClassTimeout);
         return;
       }
       event2.dataTransfer.dropEffect = "copy";
-      clearTimeout(this.removeDragOverClassTimeout);
       this.setPluginState({
         isDraggingOver: true
       });
@@ -26194,19 +27623,15 @@ var Dashboard2 = class extends UIPlugin_default {
       var _this$opts$onDragLeav, _this$opts2;
       event2.preventDefault();
       event2.stopPropagation();
-      clearTimeout(this.removeDragOverClassTimeout);
-      this.removeDragOverClassTimeout = setTimeout(() => {
-        this.setPluginState({
-          isDraggingOver: false
-        });
-      }, 50);
+      this.setPluginState({
+        isDraggingOver: false
+      });
       (_this$opts$onDragLeav = (_this$opts2 = this.opts).onDragLeave) == null || _this$opts$onDragLeav.call(_this$opts2, event2);
     };
     this.handleDrop = async (event2) => {
       var _this$opts$onDrop, _this$opts3;
       event2.preventDefault();
       event2.stopPropagation();
-      clearTimeout(this.removeDragOverClassTimeout);
       this.setPluginState({
         isDraggingOver: false
       });
@@ -26317,20 +27742,20 @@ var Dashboard2 = class extends UIPlugin_default {
       }
       this.startListeningToResize();
       document.addEventListener("paste", this.handlePasteOnBody);
-      this.uppy.on("plugin-added", _classPrivateFieldLooseBase8(this, _addSupportedPluginIfNoTarget)[_addSupportedPluginIfNoTarget]);
+      this.uppy.on("plugin-added", _classPrivateFieldLooseBase7(this, _addSupportedPluginIfNoTarget)[_addSupportedPluginIfNoTarget]);
       this.uppy.on("plugin-remove", this.removeTarget);
       this.uppy.on("file-added", this.hideAllPanels);
       this.uppy.on("dashboard:modal-closed", this.hideAllPanels);
       this.uppy.on("complete", this.handleComplete);
-      this.uppy.on("files-added", _classPrivateFieldLooseBase8(this, _generateLargeThumbnailIfSingleFile)[_generateLargeThumbnailIfSingleFile]);
-      this.uppy.on("file-removed", _classPrivateFieldLooseBase8(this, _generateLargeThumbnailIfSingleFile)[_generateLargeThumbnailIfSingleFile]);
+      this.uppy.on("files-added", _classPrivateFieldLooseBase7(this, _generateLargeThumbnailIfSingleFile)[_generateLargeThumbnailIfSingleFile]);
+      this.uppy.on("file-removed", _classPrivateFieldLooseBase7(this, _generateLargeThumbnailIfSingleFile)[_generateLargeThumbnailIfSingleFile]);
       document.addEventListener("focus", this.recordIfFocusedOnUppyRecently, true);
       document.addEventListener("click", this.recordIfFocusedOnUppyRecently, true);
       if (this.opts.inline) {
         this.el.addEventListener("keydown", this.handleKeyDownInInline);
       }
       if (this.opts.autoOpen) {
-        this.uppy.on("files-added", _classPrivateFieldLooseBase8(this, _openFileEditorWhenFilesAdded)[_openFileEditorWhenFilesAdded]);
+        this.uppy.on("files-added", _classPrivateFieldLooseBase7(this, _openFileEditorWhenFilesAdded)[_openFileEditorWhenFilesAdded]);
       }
     };
     this.removeEvents = () => {
@@ -26341,20 +27766,20 @@ var Dashboard2 = class extends UIPlugin_default {
       this.stopListeningToResize();
       document.removeEventListener("paste", this.handlePasteOnBody);
       window.removeEventListener("popstate", this.handlePopState, false);
-      this.uppy.off("plugin-added", _classPrivateFieldLooseBase8(this, _addSupportedPluginIfNoTarget)[_addSupportedPluginIfNoTarget]);
+      this.uppy.off("plugin-added", _classPrivateFieldLooseBase7(this, _addSupportedPluginIfNoTarget)[_addSupportedPluginIfNoTarget]);
       this.uppy.off("plugin-remove", this.removeTarget);
       this.uppy.off("file-added", this.hideAllPanels);
       this.uppy.off("dashboard:modal-closed", this.hideAllPanels);
       this.uppy.off("complete", this.handleComplete);
-      this.uppy.off("files-added", _classPrivateFieldLooseBase8(this, _generateLargeThumbnailIfSingleFile)[_generateLargeThumbnailIfSingleFile]);
-      this.uppy.off("file-removed", _classPrivateFieldLooseBase8(this, _generateLargeThumbnailIfSingleFile)[_generateLargeThumbnailIfSingleFile]);
+      this.uppy.off("files-added", _classPrivateFieldLooseBase7(this, _generateLargeThumbnailIfSingleFile)[_generateLargeThumbnailIfSingleFile]);
+      this.uppy.off("file-removed", _classPrivateFieldLooseBase7(this, _generateLargeThumbnailIfSingleFile)[_generateLargeThumbnailIfSingleFile]);
       document.removeEventListener("focus", this.recordIfFocusedOnUppyRecently);
       document.removeEventListener("click", this.recordIfFocusedOnUppyRecently);
       if (this.opts.inline) {
         this.el.removeEventListener("keydown", this.handleKeyDownInInline);
       }
       if (this.opts.autoOpen) {
-        this.uppy.off("files-added", _classPrivateFieldLooseBase8(this, _openFileEditorWhenFilesAdded)[_openFileEditorWhenFilesAdded]);
+        this.uppy.off("files-added", _classPrivateFieldLooseBase7(this, _openFileEditorWhenFilesAdded)[_openFileEditorWhenFilesAdded]);
       }
     };
     this.superFocusOnEachUpdate = () => {
@@ -26406,19 +27831,19 @@ var Dashboard2 = class extends UIPlugin_default {
     Object.defineProperty(this, _getAcquirers, {
       writable: true,
       value: memoize((targets) => {
-        return targets.filter((target) => target.type === "acquirer" && _classPrivateFieldLooseBase8(this, _isTargetSupported)[_isTargetSupported](target)).map(_classPrivateFieldLooseBase8(this, _attachRenderFunctionToTarget)[_attachRenderFunctionToTarget]);
+        return targets.filter((target) => target.type === "acquirer" && _classPrivateFieldLooseBase7(this, _isTargetSupported)[_isTargetSupported](target)).map(_classPrivateFieldLooseBase7(this, _attachRenderFunctionToTarget)[_attachRenderFunctionToTarget]);
       })
     });
     Object.defineProperty(this, _getProgressIndicators, {
       writable: true,
       value: memoize((targets) => {
-        return targets.filter((target) => target.type === "progressindicator").map(_classPrivateFieldLooseBase8(this, _attachRenderFunctionToTarget)[_attachRenderFunctionToTarget]);
+        return targets.filter((target) => target.type === "progressindicator").map(_classPrivateFieldLooseBase7(this, _attachRenderFunctionToTarget)[_attachRenderFunctionToTarget]);
       })
     });
     Object.defineProperty(this, _getEditors, {
       writable: true,
       value: memoize((targets) => {
-        return targets.filter((target) => target.type === "editor").map(_classPrivateFieldLooseBase8(this, _attachRenderFunctionToTarget)[_attachRenderFunctionToTarget]);
+        return targets.filter((target) => target.type === "editor").map(_classPrivateFieldLooseBase7(this, _attachRenderFunctionToTarget)[_attachRenderFunctionToTarget]);
       })
     });
     this.render = (state) => {
@@ -26438,12 +27863,11 @@ var Dashboard2 = class extends UIPlugin_default {
         processingFiles,
         isUploadStarted,
         isAllComplete,
-        isAllErrored,
         isAllPaused
       } = this.uppy.getObjectOfFilesPerState();
-      const acquirers = _classPrivateFieldLooseBase8(this, _getAcquirers)[_getAcquirers](pluginState.targets);
-      const progressindicators = _classPrivateFieldLooseBase8(this, _getProgressIndicators)[_getProgressIndicators](pluginState.targets);
-      const editors = _classPrivateFieldLooseBase8(this, _getEditors)[_getEditors](pluginState.targets);
+      const acquirers = _classPrivateFieldLooseBase7(this, _getAcquirers)[_getAcquirers](pluginState.targets);
+      const progressindicators = _classPrivateFieldLooseBase7(this, _getProgressIndicators)[_getProgressIndicators](pluginState.targets);
+      const editors = _classPrivateFieldLooseBase7(this, _getEditors)[_getEditors](pluginState.targets);
       let theme;
       if (this.opts.theme === "auto") {
         theme = capabilities.darkMode ? "dark" : "light";
@@ -26467,7 +27891,6 @@ var Dashboard2 = class extends UIPlugin_default {
         processingFiles,
         isUploadStarted,
         isAllComplete,
-        isAllErrored,
         isAllPaused,
         totalFileCount: Object.keys(files).length,
         totalProgress: state.totalProgress,
@@ -26523,7 +27946,6 @@ var Dashboard2 = class extends UIPlugin_default {
         containerWidth: pluginState.containerWidth,
         containerHeight: pluginState.containerHeight,
         areInsidesReadyToBeVisible: pluginState.areInsidesReadyToBeVisible,
-        isTargetDOMEl: this.isTargetDOMEl,
         parentElement: this.el,
         allowedFileTypes: this.uppy.opts.restrictions.allowedFileTypes,
         maxNumberOfFiles: this.uppy.opts.restrictions.maxNumberOfFiles,
@@ -26560,7 +27982,7 @@ var Dashboard2 = class extends UIPlugin_default {
     Object.defineProperty(this, _autoDiscoverPlugins, {
       writable: true,
       value: () => {
-        this.uppy.iteratePlugins(_classPrivateFieldLooseBase8(this, _addSupportedPluginIfNoTarget)[_addSupportedPluginIfNoTarget]);
+        this.uppy.iteratePlugins(_classPrivateFieldLooseBase7(this, _addSupportedPluginIfNoTarget)[_addSupportedPluginIfNoTarget]);
       }
     });
     Object.defineProperty(this, _addSupportedPluginIfNoTarget, {
@@ -26611,33 +28033,23 @@ var Dashboard2 = class extends UIPlugin_default {
         this.mount(target, this);
       }
       if (!this.opts.disableStatusBar) {
-        this.uppy.use(StatusBar2, {
-          id: `${this.id}:StatusBar`,
+        this.uppy.use(StatusBar, {
+          id: _classPrivateFieldLooseBase7(this, _getStatusBarId)[_getStatusBarId](),
           target: this,
-          hideUploadButton: this.opts.hideUploadButton,
-          hideRetryButton: this.opts.hideRetryButton,
-          hidePauseResumeButton: this.opts.hidePauseResumeButton,
-          hideCancelButton: this.opts.hideCancelButton,
-          showProgressDetails: this.opts.showProgressDetails,
-          hideAfterFinish: this.opts.hideProgressAfterFinish,
-          locale: this.opts.locale,
-          doneButtonHandler: this.opts.doneButtonHandler
+          ..._classPrivateFieldLooseBase7(this, _getStatusBarOpts)[_getStatusBarOpts]()
         });
       }
       if (!this.opts.disableInformer) {
         this.uppy.use(Informer, {
-          id: `${this.id}:Informer`,
-          target: this
+          id: _classPrivateFieldLooseBase7(this, _getInformerId)[_getInformerId](),
+          target: this,
+          ..._classPrivateFieldLooseBase7(this, _getInformerOpts)[_getInformerOpts]()
         });
       }
       if (!this.opts.disableThumbnailGenerator) {
         this.uppy.use(ThumbnailGenerator, {
-          id: `${this.id}:ThumbnailGenerator`,
-          thumbnailWidth: this.opts.thumbnailWidth,
-          thumbnailHeight: this.opts.thumbnailHeight,
-          thumbnailType: this.opts.thumbnailType,
-          waitForThumbnailsBeforeUpload: this.opts.waitForThumbnailsBeforeUpload,
-          lazy: !this.opts.waitForThumbnailsBeforeUpload
+          id: _classPrivateFieldLooseBase7(this, _getThumbnailGeneratorId)[_getThumbnailGeneratorId](),
+          ..._classPrivateFieldLooseBase7(this, _getThumbnailGeneratorOpts)[_getThumbnailGeneratorOpts]()
         });
       }
       this.darkModeMediaQuery = typeof window !== "undefined" && window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
@@ -26648,8 +28060,8 @@ var Dashboard2 = class extends UIPlugin_default {
         var _this$darkModeMediaQu;
         (_this$darkModeMediaQu = this.darkModeMediaQuery) == null || _this$darkModeMediaQu.addListener(this.handleSystemDarkModeChange);
       }
-      _classPrivateFieldLooseBase8(this, _addSpecifiedPluginsFromOptions)[_addSpecifiedPluginsFromOptions]();
-      _classPrivateFieldLooseBase8(this, _autoDiscoverPlugins)[_autoDiscoverPlugins]();
+      _classPrivateFieldLooseBase7(this, _addSpecifiedPluginsFromOptions)[_addSpecifiedPluginsFromOptions]();
+      _classPrivateFieldLooseBase7(this, _autoDiscoverPlugins)[_autoDiscoverPlugins]();
       this.initEvents();
     };
     this.uninstall = () => {
@@ -26688,29 +28100,85 @@ var Dashboard2 = class extends UIPlugin_default {
     this.title = "Dashboard";
     this.type = "orchestrator";
     this.defaultLocale = locale_default4;
-    (_this$opts4$doneButto = (_this$opts4 = this.opts).doneButtonHandler) != null ? _this$opts4$doneButto : _this$opts4.doneButtonHandler = () => {
-      this.uppy.clearUploadedFiles();
-      this.requestCloseModal();
-    };
-    (_this$opts5$onRequest = (_this$opts5 = this.opts).onRequestCloseModal) != null ? _this$opts5$onRequest : _this$opts5.onRequestCloseModal = () => this.closeModal();
+    if (this.opts.doneButtonHandler === void 0) {
+      this.opts.doneButtonHandler = () => {
+        this.uppy.clear();
+        this.requestCloseModal();
+      };
+    }
+    (_this$opts4$onRequest = (_this$opts4 = this.opts).onRequestCloseModal) != null ? _this$opts4$onRequest : _this$opts4.onRequestCloseModal = () => this.closeModal();
     this.i18nInit();
   }
+  setOptions(opts) {
+    var _this$uppy$getPlugin, _this$uppy$getPlugin2;
+    super.setOptions(opts);
+    (_this$uppy$getPlugin = this.uppy.getPlugin(_classPrivateFieldLooseBase7(this, _getStatusBarId)[_getStatusBarId]())) == null || _this$uppy$getPlugin.setOptions(_classPrivateFieldLooseBase7(this, _getStatusBarOpts)[_getStatusBarOpts]());
+    (_this$uppy$getPlugin2 = this.uppy.getPlugin(_classPrivateFieldLooseBase7(this, _getThumbnailGeneratorId)[_getThumbnailGeneratorId]())) == null || _this$uppy$getPlugin2.setOptions(_classPrivateFieldLooseBase7(this, _getThumbnailGeneratorOpts)[_getThumbnailGeneratorOpts]());
+  }
 };
+function _getStatusBarOpts2() {
+  const {
+    hideUploadButton,
+    hideRetryButton,
+    hidePauseResumeButton,
+    hideCancelButton,
+    showProgressDetails,
+    hideProgressAfterFinish,
+    locale: l,
+    doneButtonHandler
+  } = this.opts;
+  return {
+    hideUploadButton,
+    hideRetryButton,
+    hidePauseResumeButton,
+    hideCancelButton,
+    showProgressDetails,
+    hideAfterFinish: hideProgressAfterFinish,
+    locale: l,
+    doneButtonHandler
+  };
+}
+function _getThumbnailGeneratorOpts2() {
+  const {
+    thumbnailWidth,
+    thumbnailHeight,
+    thumbnailType,
+    waitForThumbnailsBeforeUpload
+  } = this.opts;
+  return {
+    thumbnailWidth,
+    thumbnailHeight,
+    thumbnailType,
+    waitForThumbnailsBeforeUpload,
+    lazy: !waitForThumbnailsBeforeUpload
+  };
+}
+function _getInformerOpts2() {
+  return {};
+}
+function _getStatusBarId2() {
+  return `${this.id}:StatusBar`;
+}
+function _getThumbnailGeneratorId2() {
+  return `${this.id}:ThumbnailGenerator`;
+}
+function _getInformerId2() {
+  return `${this.id}:Informer`;
+}
 Dashboard2.VERSION = packageJson8.version;
 
 // node_modules/@uppy/core/lib/EventManager.js
-function _classPrivateFieldLooseBase9(receiver, privateKey) {
-  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
+function _classPrivateFieldLooseBase8(e, t) {
+  if (!{}.hasOwnProperty.call(e, t))
     throw new TypeError("attempted to use private field on non-instance");
-  }
-  return receiver;
+  return e;
 }
-var id9 = 0;
-function _classPrivateFieldLooseKey9(name) {
-  return "__private_" + id9++ + "_" + name;
+var id8 = 0;
+function _classPrivateFieldLooseKey8(e) {
+  return "__private_" + id8++ + "_" + e;
 }
-var _uppy = /* @__PURE__ */ _classPrivateFieldLooseKey9("uppy");
-var _events = /* @__PURE__ */ _classPrivateFieldLooseKey9("events");
+var _uppy = /* @__PURE__ */ _classPrivateFieldLooseKey8("uppy");
+var _events = /* @__PURE__ */ _classPrivateFieldLooseKey8("events");
 var EventManager = class {
   constructor(uppy2) {
     Object.defineProperty(this, _uppy, {
@@ -26721,20 +28189,20 @@ var EventManager = class {
       writable: true,
       value: []
     });
-    _classPrivateFieldLooseBase9(this, _uppy)[_uppy] = uppy2;
+    _classPrivateFieldLooseBase8(this, _uppy)[_uppy] = uppy2;
   }
   on(event2, fn) {
-    _classPrivateFieldLooseBase9(this, _events)[_events].push([event2, fn]);
-    return _classPrivateFieldLooseBase9(this, _uppy)[_uppy].on(event2, fn);
+    _classPrivateFieldLooseBase8(this, _events)[_events].push([event2, fn]);
+    return _classPrivateFieldLooseBase8(this, _uppy)[_uppy].on(event2, fn);
   }
   remove() {
-    for (const [event2, fn] of _classPrivateFieldLooseBase9(this, _events)[_events].splice(0)) {
-      _classPrivateFieldLooseBase9(this, _uppy)[_uppy].off(event2, fn);
+    for (const [event2, fn] of _classPrivateFieldLooseBase8(this, _events)[_events].splice(0)) {
+      _classPrivateFieldLooseBase8(this, _uppy)[_uppy].off(event2, fn);
     }
   }
   onFilePause(fileID, cb) {
-    this.on("upload-pause", (targetFileID, isPaused) => {
-      if (fileID === targetFileID) {
+    this.on("upload-pause", (file, isPaused) => {
+      if (fileID === (file == null ? void 0 : file.id)) {
         cb(isPaused);
       }
     });
@@ -26746,29 +28214,29 @@ var EventManager = class {
     });
   }
   onPause(fileID, cb) {
-    this.on("upload-pause", (targetFileID, isPaused) => {
-      if (fileID === targetFileID) {
+    this.on("upload-pause", (file, isPaused) => {
+      if (fileID === (file == null ? void 0 : file.id)) {
         cb(isPaused);
       }
     });
   }
   onRetry(fileID, cb) {
-    this.on("upload-retry", (targetFileID) => {
-      if (fileID === targetFileID) {
+    this.on("upload-retry", (file) => {
+      if (fileID === (file == null ? void 0 : file.id)) {
         cb();
       }
     });
   }
   onRetryAll(fileID, cb) {
     this.on("retry-all", () => {
-      if (!_classPrivateFieldLooseBase9(this, _uppy)[_uppy].getFile(fileID))
+      if (!_classPrivateFieldLooseBase8(this, _uppy)[_uppy].getFile(fileID))
         return;
       cb();
     });
   }
   onPauseAll(fileID, cb) {
     this.on("pause-all", () => {
-      if (!_classPrivateFieldLooseBase9(this, _uppy)[_uppy].getFile(fileID))
+      if (!_classPrivateFieldLooseBase8(this, _uppy)[_uppy].getFile(fileID))
         return;
       cb();
     });
@@ -26776,14 +28244,14 @@ var EventManager = class {
   onCancelAll(fileID, eventHandler) {
     var _this = this;
     this.on("cancel-all", function() {
-      if (!_classPrivateFieldLooseBase9(_this, _uppy)[_uppy].getFile(fileID))
+      if (!_classPrivateFieldLooseBase8(_this, _uppy)[_uppy].getFile(fileID))
         return;
       eventHandler(...arguments);
     });
   }
   onResumeAll(fileID, cb) {
     this.on("resume-all", () => {
-      if (!_classPrivateFieldLooseBase9(this, _uppy)[_uppy].getFile(fileID))
+      if (!_classPrivateFieldLooseBase8(this, _uppy)[_uppy].getFile(fileID))
         return;
       cb();
     });
@@ -26791,15 +28259,14 @@ var EventManager = class {
 };
 
 // node_modules/@uppy/utils/lib/RateLimitedQueue.js
-function _classPrivateFieldLooseBase10(receiver, privateKey) {
-  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
+function _classPrivateFieldLooseBase9(e, t) {
+  if (!{}.hasOwnProperty.call(e, t))
     throw new TypeError("attempted to use private field on non-instance");
-  }
-  return receiver;
+  return e;
 }
-var id10 = 0;
-function _classPrivateFieldLooseKey10(name) {
-  return "__private_" + id10++ + "_" + name;
+var id9 = 0;
+function _classPrivateFieldLooseKey9(e) {
+  return "__private_" + id9++ + "_" + e;
 }
 function createCancelError(cause) {
   return new Error("Cancelled", {
@@ -26820,20 +28287,20 @@ function abortOn(signal) {
   }
   return this;
 }
-var _activeRequests = /* @__PURE__ */ _classPrivateFieldLooseKey10("activeRequests");
-var _queuedHandlers = /* @__PURE__ */ _classPrivateFieldLooseKey10("queuedHandlers");
-var _paused = /* @__PURE__ */ _classPrivateFieldLooseKey10("paused");
-var _pauseTimer = /* @__PURE__ */ _classPrivateFieldLooseKey10("pauseTimer");
-var _downLimit = /* @__PURE__ */ _classPrivateFieldLooseKey10("downLimit");
-var _upperLimit = /* @__PURE__ */ _classPrivateFieldLooseKey10("upperLimit");
-var _rateLimitingTimer = /* @__PURE__ */ _classPrivateFieldLooseKey10("rateLimitingTimer");
-var _call = /* @__PURE__ */ _classPrivateFieldLooseKey10("call");
-var _queueNext = /* @__PURE__ */ _classPrivateFieldLooseKey10("queueNext");
-var _next = /* @__PURE__ */ _classPrivateFieldLooseKey10("next");
-var _queue = /* @__PURE__ */ _classPrivateFieldLooseKey10("queue");
-var _dequeue = /* @__PURE__ */ _classPrivateFieldLooseKey10("dequeue");
-var _resume = /* @__PURE__ */ _classPrivateFieldLooseKey10("resume");
-var _increaseLimit = /* @__PURE__ */ _classPrivateFieldLooseKey10("increaseLimit");
+var _activeRequests = /* @__PURE__ */ _classPrivateFieldLooseKey9("activeRequests");
+var _queuedHandlers = /* @__PURE__ */ _classPrivateFieldLooseKey9("queuedHandlers");
+var _paused = /* @__PURE__ */ _classPrivateFieldLooseKey9("paused");
+var _pauseTimer = /* @__PURE__ */ _classPrivateFieldLooseKey9("pauseTimer");
+var _downLimit = /* @__PURE__ */ _classPrivateFieldLooseKey9("downLimit");
+var _upperLimit = /* @__PURE__ */ _classPrivateFieldLooseKey9("upperLimit");
+var _rateLimitingTimer = /* @__PURE__ */ _classPrivateFieldLooseKey9("rateLimitingTimer");
+var _call = /* @__PURE__ */ _classPrivateFieldLooseKey9("call");
+var _queueNext = /* @__PURE__ */ _classPrivateFieldLooseKey9("queueNext");
+var _next = /* @__PURE__ */ _classPrivateFieldLooseKey9("next");
+var _queue = /* @__PURE__ */ _classPrivateFieldLooseKey9("queue");
+var _dequeue = /* @__PURE__ */ _classPrivateFieldLooseKey9("dequeue");
+var _resume = /* @__PURE__ */ _classPrivateFieldLooseKey9("resume");
+var _increaseLimit = /* @__PURE__ */ _classPrivateFieldLooseKey9("increaseLimit");
 var RateLimitedQueue = class {
   constructor(limit) {
     Object.defineProperty(this, _dequeue, {
@@ -26886,19 +28353,19 @@ var RateLimitedQueue = class {
     Object.defineProperty(this, _increaseLimit, {
       writable: true,
       value: () => {
-        if (_classPrivateFieldLooseBase10(this, _paused)[_paused]) {
-          _classPrivateFieldLooseBase10(this, _rateLimitingTimer)[_rateLimitingTimer] = setTimeout(_classPrivateFieldLooseBase10(this, _increaseLimit)[_increaseLimit], 0);
+        if (_classPrivateFieldLooseBase9(this, _paused)[_paused]) {
+          _classPrivateFieldLooseBase9(this, _rateLimitingTimer)[_rateLimitingTimer] = setTimeout(_classPrivateFieldLooseBase9(this, _increaseLimit)[_increaseLimit], 0);
           return;
         }
-        _classPrivateFieldLooseBase10(this, _downLimit)[_downLimit] = this.limit;
-        this.limit = Math.ceil((_classPrivateFieldLooseBase10(this, _upperLimit)[_upperLimit] + _classPrivateFieldLooseBase10(this, _downLimit)[_downLimit]) / 2);
-        for (let i4 = _classPrivateFieldLooseBase10(this, _downLimit)[_downLimit]; i4 <= this.limit; i4++) {
-          _classPrivateFieldLooseBase10(this, _queueNext)[_queueNext]();
+        _classPrivateFieldLooseBase9(this, _downLimit)[_downLimit] = this.limit;
+        this.limit = Math.ceil((_classPrivateFieldLooseBase9(this, _upperLimit)[_upperLimit] + _classPrivateFieldLooseBase9(this, _downLimit)[_downLimit]) / 2);
+        for (let i = _classPrivateFieldLooseBase9(this, _downLimit)[_downLimit]; i <= this.limit; i++) {
+          _classPrivateFieldLooseBase9(this, _queueNext)[_queueNext]();
         }
-        if (_classPrivateFieldLooseBase10(this, _upperLimit)[_upperLimit] - _classPrivateFieldLooseBase10(this, _downLimit)[_downLimit] > 3) {
-          _classPrivateFieldLooseBase10(this, _rateLimitingTimer)[_rateLimitingTimer] = setTimeout(_classPrivateFieldLooseBase10(this, _increaseLimit)[_increaseLimit], 2e3);
+        if (_classPrivateFieldLooseBase9(this, _upperLimit)[_upperLimit] - _classPrivateFieldLooseBase9(this, _downLimit)[_downLimit] > 3) {
+          _classPrivateFieldLooseBase9(this, _rateLimitingTimer)[_rateLimitingTimer] = setTimeout(_classPrivateFieldLooseBase9(this, _increaseLimit)[_increaseLimit], 2e3);
         } else {
-          _classPrivateFieldLooseBase10(this, _downLimit)[_downLimit] = Math.floor(_classPrivateFieldLooseBase10(this, _downLimit)[_downLimit] / 2);
+          _classPrivateFieldLooseBase9(this, _downLimit)[_downLimit] = Math.floor(_classPrivateFieldLooseBase9(this, _downLimit)[_downLimit] / 2);
         }
       }
     });
@@ -26909,10 +28376,10 @@ var RateLimitedQueue = class {
     }
   }
   run(fn, queueOptions) {
-    if (!_classPrivateFieldLooseBase10(this, _paused)[_paused] && _classPrivateFieldLooseBase10(this, _activeRequests)[_activeRequests] < this.limit) {
-      return _classPrivateFieldLooseBase10(this, _call)[_call](fn);
+    if (!_classPrivateFieldLooseBase9(this, _paused)[_paused] && _classPrivateFieldLooseBase9(this, _activeRequests)[_activeRequests] < this.limit) {
+      return _classPrivateFieldLooseBase9(this, _call)[_call](fn);
     }
-    return _classPrivateFieldLooseBase10(this, _queue)[_queue](fn, queueOptions);
+    return _classPrivateFieldLooseBase9(this, _queue)[_queue](fn, queueOptions);
   }
   wrapSyncFunction(fn, queueOptions) {
     var _this = this;
@@ -26978,43 +28445,43 @@ var RateLimitedQueue = class {
     };
   }
   resume() {
-    _classPrivateFieldLooseBase10(this, _paused)[_paused] = false;
-    clearTimeout(_classPrivateFieldLooseBase10(this, _pauseTimer)[_pauseTimer]);
-    for (let i4 = 0; i4 < this.limit; i4++) {
-      _classPrivateFieldLooseBase10(this, _queueNext)[_queueNext]();
+    _classPrivateFieldLooseBase9(this, _paused)[_paused] = false;
+    clearTimeout(_classPrivateFieldLooseBase9(this, _pauseTimer)[_pauseTimer]);
+    for (let i = 0; i < this.limit; i++) {
+      _classPrivateFieldLooseBase9(this, _queueNext)[_queueNext]();
     }
   }
   pause(duration2) {
     if (duration2 === void 0) {
       duration2 = null;
     }
-    _classPrivateFieldLooseBase10(this, _paused)[_paused] = true;
-    clearTimeout(_classPrivateFieldLooseBase10(this, _pauseTimer)[_pauseTimer]);
+    _classPrivateFieldLooseBase9(this, _paused)[_paused] = true;
+    clearTimeout(_classPrivateFieldLooseBase9(this, _pauseTimer)[_pauseTimer]);
     if (duration2 != null) {
-      _classPrivateFieldLooseBase10(this, _pauseTimer)[_pauseTimer] = setTimeout(_classPrivateFieldLooseBase10(this, _resume)[_resume], duration2);
+      _classPrivateFieldLooseBase9(this, _pauseTimer)[_pauseTimer] = setTimeout(_classPrivateFieldLooseBase9(this, _resume)[_resume], duration2);
     }
   }
   rateLimit(duration2) {
-    clearTimeout(_classPrivateFieldLooseBase10(this, _rateLimitingTimer)[_rateLimitingTimer]);
+    clearTimeout(_classPrivateFieldLooseBase9(this, _rateLimitingTimer)[_rateLimitingTimer]);
     this.pause(duration2);
     if (this.limit > 1 && Number.isFinite(this.limit)) {
-      _classPrivateFieldLooseBase10(this, _upperLimit)[_upperLimit] = this.limit - 1;
-      this.limit = _classPrivateFieldLooseBase10(this, _downLimit)[_downLimit];
-      _classPrivateFieldLooseBase10(this, _rateLimitingTimer)[_rateLimitingTimer] = setTimeout(_classPrivateFieldLooseBase10(this, _increaseLimit)[_increaseLimit], duration2);
+      _classPrivateFieldLooseBase9(this, _upperLimit)[_upperLimit] = this.limit - 1;
+      this.limit = _classPrivateFieldLooseBase9(this, _downLimit)[_downLimit];
+      _classPrivateFieldLooseBase9(this, _rateLimitingTimer)[_rateLimitingTimer] = setTimeout(_classPrivateFieldLooseBase9(this, _increaseLimit)[_increaseLimit], duration2);
     }
   }
   get isPaused() {
-    return _classPrivateFieldLooseBase10(this, _paused)[_paused];
+    return _classPrivateFieldLooseBase9(this, _paused)[_paused];
   }
 };
 function _call2(fn) {
-  _classPrivateFieldLooseBase10(this, _activeRequests)[_activeRequests] += 1;
+  _classPrivateFieldLooseBase9(this, _activeRequests)[_activeRequests] += 1;
   let done = false;
   let cancelActive;
   try {
     cancelActive = fn();
   } catch (err) {
-    _classPrivateFieldLooseBase10(this, _activeRequests)[_activeRequests] -= 1;
+    _classPrivateFieldLooseBase9(this, _activeRequests)[_activeRequests] -= 1;
     throw err;
   }
   return {
@@ -27022,62 +28489,62 @@ function _call2(fn) {
       if (done)
         return;
       done = true;
-      _classPrivateFieldLooseBase10(this, _activeRequests)[_activeRequests] -= 1;
+      _classPrivateFieldLooseBase9(this, _activeRequests)[_activeRequests] -= 1;
       cancelActive == null || cancelActive(cause);
-      _classPrivateFieldLooseBase10(this, _queueNext)[_queueNext]();
+      _classPrivateFieldLooseBase9(this, _queueNext)[_queueNext]();
     },
     done: () => {
       if (done)
         return;
       done = true;
-      _classPrivateFieldLooseBase10(this, _activeRequests)[_activeRequests] -= 1;
-      _classPrivateFieldLooseBase10(this, _queueNext)[_queueNext]();
+      _classPrivateFieldLooseBase9(this, _activeRequests)[_activeRequests] -= 1;
+      _classPrivateFieldLooseBase9(this, _queueNext)[_queueNext]();
     }
   };
 }
 function _queueNext2() {
-  queueMicrotask(() => _classPrivateFieldLooseBase10(this, _next)[_next]());
+  queueMicrotask(() => _classPrivateFieldLooseBase9(this, _next)[_next]());
 }
 function _next2() {
-  if (_classPrivateFieldLooseBase10(this, _paused)[_paused] || _classPrivateFieldLooseBase10(this, _activeRequests)[_activeRequests] >= this.limit) {
+  if (_classPrivateFieldLooseBase9(this, _paused)[_paused] || _classPrivateFieldLooseBase9(this, _activeRequests)[_activeRequests] >= this.limit) {
     return;
   }
-  if (_classPrivateFieldLooseBase10(this, _queuedHandlers)[_queuedHandlers].length === 0) {
+  if (_classPrivateFieldLooseBase9(this, _queuedHandlers)[_queuedHandlers].length === 0) {
     return;
   }
-  const next = _classPrivateFieldLooseBase10(this, _queuedHandlers)[_queuedHandlers].shift();
+  const next = _classPrivateFieldLooseBase9(this, _queuedHandlers)[_queuedHandlers].shift();
   if (next == null) {
     throw new Error("Invariant violation: next is null");
   }
-  const handler = _classPrivateFieldLooseBase10(this, _call)[_call](next.fn);
+  const handler = _classPrivateFieldLooseBase9(this, _call)[_call](next.fn);
   next.abort = handler.abort;
   next.done = handler.done;
 }
-function _queue2(fn, options) {
+function _queue2(fn, options3) {
   const handler = {
     fn,
-    priority: (options == null ? void 0 : options.priority) || 0,
+    priority: (options3 == null ? void 0 : options3.priority) || 0,
     abort: () => {
-      _classPrivateFieldLooseBase10(this, _dequeue)[_dequeue](handler);
+      _classPrivateFieldLooseBase9(this, _dequeue)[_dequeue](handler);
     },
     done: () => {
       throw new Error("Cannot mark a queued request as done: this indicates a bug");
     }
   };
-  const index = _classPrivateFieldLooseBase10(this, _queuedHandlers)[_queuedHandlers].findIndex((other) => {
+  const index = _classPrivateFieldLooseBase9(this, _queuedHandlers)[_queuedHandlers].findIndex((other) => {
     return handler.priority > other.priority;
   });
   if (index === -1) {
-    _classPrivateFieldLooseBase10(this, _queuedHandlers)[_queuedHandlers].push(handler);
+    _classPrivateFieldLooseBase9(this, _queuedHandlers)[_queuedHandlers].push(handler);
   } else {
-    _classPrivateFieldLooseBase10(this, _queuedHandlers)[_queuedHandlers].splice(index, 0, handler);
+    _classPrivateFieldLooseBase9(this, _queuedHandlers)[_queuedHandlers].splice(index, 0, handler);
   }
   return handler;
 }
 function _dequeue2(handler) {
-  const index = _classPrivateFieldLooseBase10(this, _queuedHandlers)[_queuedHandlers].indexOf(handler);
+  const index = _classPrivateFieldLooseBase9(this, _queuedHandlers)[_queuedHandlers].indexOf(handler);
   if (index !== -1) {
-    _classPrivateFieldLooseBase10(this, _queuedHandlers)[_queuedHandlers].splice(index, 1);
+    _classPrivateFieldLooseBase9(this, _queuedHandlers)[_queuedHandlers].splice(index, 1);
   }
 }
 var internalRateLimitedQueue = Symbol("__queue");
@@ -27106,20 +28573,19 @@ function isNetworkError(xhr) {
 var isNetworkError_default = isNetworkError;
 
 // node_modules/@uppy/utils/lib/ProgressTimeout.js
-function _classPrivateFieldLooseBase11(receiver, privateKey) {
-  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
+function _classPrivateFieldLooseBase10(e, t) {
+  if (!{}.hasOwnProperty.call(e, t))
     throw new TypeError("attempted to use private field on non-instance");
-  }
-  return receiver;
+  return e;
 }
-var id11 = 0;
-function _classPrivateFieldLooseKey11(name) {
-  return "__private_" + id11++ + "_" + name;
+var id10 = 0;
+function _classPrivateFieldLooseKey10(e) {
+  return "__private_" + id10++ + "_" + e;
 }
-var _aliveTimer = /* @__PURE__ */ _classPrivateFieldLooseKey11("aliveTimer");
-var _isDone = /* @__PURE__ */ _classPrivateFieldLooseKey11("isDone");
-var _onTimedOut = /* @__PURE__ */ _classPrivateFieldLooseKey11("onTimedOut");
-var _timeout = /* @__PURE__ */ _classPrivateFieldLooseKey11("timeout");
+var _aliveTimer = /* @__PURE__ */ _classPrivateFieldLooseKey10("aliveTimer");
+var _isDone = /* @__PURE__ */ _classPrivateFieldLooseKey10("isDone");
+var _onTimedOut = /* @__PURE__ */ _classPrivateFieldLooseKey10("onTimedOut");
+var _timeout = /* @__PURE__ */ _classPrivateFieldLooseKey10("timeout");
 var ProgressTimeout = class {
   constructor(timeout, timeoutHandler) {
     Object.defineProperty(this, _aliveTimer, {
@@ -27138,22 +28604,22 @@ var ProgressTimeout = class {
       writable: true,
       value: void 0
     });
-    _classPrivateFieldLooseBase11(this, _timeout)[_timeout] = timeout;
-    _classPrivateFieldLooseBase11(this, _onTimedOut)[_onTimedOut] = () => timeoutHandler(timeout);
+    _classPrivateFieldLooseBase10(this, _timeout)[_timeout] = timeout;
+    _classPrivateFieldLooseBase10(this, _onTimedOut)[_onTimedOut] = () => timeoutHandler(timeout);
   }
   progress() {
-    if (_classPrivateFieldLooseBase11(this, _isDone)[_isDone])
+    if (_classPrivateFieldLooseBase10(this, _isDone)[_isDone])
       return;
-    if (_classPrivateFieldLooseBase11(this, _timeout)[_timeout] > 0) {
-      clearTimeout(_classPrivateFieldLooseBase11(this, _aliveTimer)[_aliveTimer]);
-      _classPrivateFieldLooseBase11(this, _aliveTimer)[_aliveTimer] = setTimeout(_classPrivateFieldLooseBase11(this, _onTimedOut)[_onTimedOut], _classPrivateFieldLooseBase11(this, _timeout)[_timeout]);
+    if (_classPrivateFieldLooseBase10(this, _timeout)[_timeout] > 0) {
+      clearTimeout(_classPrivateFieldLooseBase10(this, _aliveTimer)[_aliveTimer]);
+      _classPrivateFieldLooseBase10(this, _aliveTimer)[_aliveTimer] = setTimeout(_classPrivateFieldLooseBase10(this, _onTimedOut)[_onTimedOut], _classPrivateFieldLooseBase10(this, _timeout)[_timeout]);
     }
   }
   done() {
-    if (!_classPrivateFieldLooseBase11(this, _isDone)[_isDone]) {
-      clearTimeout(_classPrivateFieldLooseBase11(this, _aliveTimer)[_aliveTimer]);
-      _classPrivateFieldLooseBase11(this, _aliveTimer)[_aliveTimer] = void 0;
-      _classPrivateFieldLooseBase11(this, _isDone)[_isDone] = true;
+    if (!_classPrivateFieldLooseBase10(this, _isDone)[_isDone]) {
+      clearTimeout(_classPrivateFieldLooseBase10(this, _aliveTimer)[_aliveTimer]);
+      _classPrivateFieldLooseBase10(this, _aliveTimer)[_aliveTimer] = void 0;
+      _classPrivateFieldLooseBase10(this, _isDone)[_isDone] = true;
     }
   }
 };
@@ -27162,9 +28628,9 @@ var ProgressTimeout_default = ProgressTimeout;
 // node_modules/@uppy/utils/lib/fetcher.js
 var noop = () => {
 };
-function fetcher(url2, options) {
-  if (options === void 0) {
-    options = {};
+function fetcher(url2, options3) {
+  if (options3 === void 0) {
+    options3 = {};
   }
   const {
     body = null,
@@ -27173,14 +28639,14 @@ function fetcher(url2, options) {
     onBeforeRequest = noop,
     onUploadProgress = noop,
     shouldRetry = () => true,
-    onAfterRequest = noop,
+    onAfterResponse = noop,
     onTimeout = noop,
     responseType,
     retries = 3,
     signal = null,
     timeout = 3e4,
     withCredentials = false
-  } = options;
+  } = options3;
   const delay = (attempt) => 0.3 * 2 ** (attempt - 1) * 1e3;
   const timer = new ProgressTimeout_default(timeout, onTimeout);
   function requestWithRetry(retryCount) {
@@ -27199,7 +28665,7 @@ function fetcher(url2, options) {
         reject(new DOMException("Aborted", "AbortError"));
       });
       xhr.onload = async () => {
-        await onAfterRequest(xhr, retryCount);
+        await onAfterResponse(xhr, retryCount);
         if (xhr.status >= 200 && xhr.status < 300) {
           timer.done();
           resolve(xhr);
@@ -27250,6 +28716,17 @@ function filterFilesToEmitUploadStarted(files) {
   });
 }
 
+// node_modules/@uppy/utils/lib/getAllowedMetaFields.js
+function getAllowedMetaFields(fields, meta) {
+  if (fields === true) {
+    return Object.keys(meta);
+  }
+  if (Array.isArray(fields)) {
+    return fields;
+  }
+  return [];
+}
+
 // node_modules/@uppy/xhr-upload/lib/locale.js
 var locale_default5 = {
   strings: {
@@ -27258,18 +28735,17 @@ var locale_default5 = {
 };
 
 // node_modules/@uppy/xhr-upload/lib/index.js
-function _classPrivateFieldLooseBase12(receiver, privateKey) {
-  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
+function _classPrivateFieldLooseBase11(e, t) {
+  if (!{}.hasOwnProperty.call(e, t))
     throw new TypeError("attempted to use private field on non-instance");
-  }
-  return receiver;
+  return e;
 }
-var id12 = 0;
-function _classPrivateFieldLooseKey12(name) {
-  return "__private_" + id12++ + "_" + name;
+var id11 = 0;
+function _classPrivateFieldLooseKey11(e) {
+  return "__private_" + id11++ + "_" + e;
 }
 var packageJson9 = {
-  "version": "3.6.7"
+  "version": "4.1.0"
 };
 function buildResponseError(xhr, err) {
   let error = err;
@@ -27293,47 +28769,28 @@ function setTypeInBlob(file) {
   const dataWithUpdatedType = file.data.slice(0, file.data.size, file.meta.type);
   return dataWithUpdatedType;
 }
-var defaultOptions7 = {
+var defaultOptions5 = {
   formData: true,
   fieldName: "file",
   method: "post",
-  allowedMetaFields: null,
-  responseUrlFieldName: "url",
+  allowedMetaFields: true,
   bundle: false,
   headers: {},
   timeout: 30 * 1e3,
   limit: 5,
   withCredentials: false,
-  responseType: "",
-  getResponseData(responseText) {
-    let parsedResponse = {};
-    try {
-      parsedResponse = JSON.parse(responseText);
-    } catch {
-    }
-    return parsedResponse;
-  },
-  getResponseError(_7, response) {
-    let error = new Error("Upload error");
-    if (isNetworkError_default(response)) {
-      error = new NetworkError_default(error, response);
-    }
-    return error;
-  },
-  validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
+  responseType: ""
 };
-var _getFetcher = /* @__PURE__ */ _classPrivateFieldLooseKey12("getFetcher");
-var _uploadLocalFile = /* @__PURE__ */ _classPrivateFieldLooseKey12("uploadLocalFile");
-var _uploadBundle = /* @__PURE__ */ _classPrivateFieldLooseKey12("uploadBundle");
-var _getCompanionClientArgs = /* @__PURE__ */ _classPrivateFieldLooseKey12("getCompanionClientArgs");
-var _uploadFiles = /* @__PURE__ */ _classPrivateFieldLooseKey12("uploadFiles");
-var _handleUpload = /* @__PURE__ */ _classPrivateFieldLooseKey12("handleUpload");
+var _getFetcher = /* @__PURE__ */ _classPrivateFieldLooseKey11("getFetcher");
+var _uploadLocalFile = /* @__PURE__ */ _classPrivateFieldLooseKey11("uploadLocalFile");
+var _uploadBundle = /* @__PURE__ */ _classPrivateFieldLooseKey11("uploadBundle");
+var _getCompanionClientArgs = /* @__PURE__ */ _classPrivateFieldLooseKey11("getCompanionClientArgs");
+var _uploadFiles = /* @__PURE__ */ _classPrivateFieldLooseKey11("uploadFiles");
+var _handleUpload = /* @__PURE__ */ _classPrivateFieldLooseKey11("handleUpload");
 var XHRUpload = class extends BasePlugin {
   constructor(uppy2, _opts) {
     super(uppy2, {
-      ...defaultOptions7,
+      ...defaultOptions5,
       fieldName: _opts.bundle ? "files[]" : "file",
       ..._opts
     });
@@ -27376,9 +28833,9 @@ var XHRUpload = class extends BasePlugin {
           if (typeof this.opts.headers === "function") {
             throw new TypeError("`headers` may not be a function when the `bundle: true` option is set");
           }
-          await _classPrivateFieldLooseBase12(this, _uploadBundle)[_uploadBundle](filesFiltered);
+          await _classPrivateFieldLooseBase11(this, _uploadBundle)[_uploadBundle](filesFiltered);
         } else {
-          await _classPrivateFieldLooseBase12(this, _uploadFiles)[_uploadFiles](filesFiltered);
+          await _classPrivateFieldLooseBase11(this, _uploadFiles)[_uploadFiles](filesFiltered);
         }
       }
     });
@@ -27401,13 +28858,15 @@ var XHRUpload = class extends BasePlugin {
       throw new Error("The `metaFields` option has been renamed to `allowedMetaFields`.");
     }
     this.uploaderEvents = /* @__PURE__ */ Object.create(null);
-    _classPrivateFieldLooseBase12(this, _getFetcher)[_getFetcher] = (files) => {
-      return async (url2, options) => {
+    _classPrivateFieldLooseBase11(this, _getFetcher)[_getFetcher] = (files) => {
+      return async (url2, options3) => {
         try {
-          var _options$method;
+          var _this$opts$getRespons, _this$opts, _body2;
           const res = await fetcher(url2, {
-            ...options,
-            method: options == null || (_options$method = options.method) == null ? void 0 : _options$method.toUpperCase(),
+            ...options3,
+            onBeforeRequest: this.opts.onBeforeRequest,
+            shouldRetry: this.opts.shouldRetry,
+            onAfterResponse: this.opts.onAfterResponse,
             onTimeout: (timeout) => {
               const seconds = Math.ceil(timeout / 1e3);
               const error = new Error(this.i18n("uploadStalled", {
@@ -27418,8 +28877,9 @@ var XHRUpload = class extends BasePlugin {
             onUploadProgress: (event2) => {
               if (event2.lengthComputable) {
                 for (const file of files) {
+                  var _file$progress$upload;
                   this.uppy.emit("upload-progress", file, {
-                    uploader: this,
+                    uploadStarted: (_file$progress$upload = file.progress.uploadStarted) != null ? _file$progress$upload : 0,
                     bytesUploaded: event2.loaded / event2.total * file.size,
                     bytesTotal: file.size
                   });
@@ -27427,11 +28887,16 @@ var XHRUpload = class extends BasePlugin {
               }
             }
           });
-          if (!this.opts.validateStatus(res.status, res.responseText, res)) {
-            throw new NetworkError_default(res.statusText, res);
+          let body = await ((_this$opts$getRespons = (_this$opts = this.opts).getResponseData) == null ? void 0 : _this$opts$getRespons.call(_this$opts, res));
+          try {
+            var _body;
+            (_body = body) != null ? _body : body = JSON.parse(res.responseText);
+          } catch (cause) {
+            throw new Error("@uppy/xhr-upload expects a JSON response (with a `url` property). To parse non-JSON responses, use `getResponseData` to turn your response into JSON.", {
+              cause
+            });
           }
-          const body = this.opts.getResponseData(res.responseText, res);
-          const uploadURL = body == null ? void 0 : body[this.opts.responseUrlFieldName];
+          const uploadURL = typeof ((_body2 = body) == null ? void 0 : _body2.url) === "string" ? body.url : void 0;
           for (const file of files) {
             this.uppy.emit("upload-success", file, {
               status: res.status,
@@ -27446,9 +28911,8 @@ var XHRUpload = class extends BasePlugin {
           }
           if (error instanceof NetworkError_default) {
             const request = error.request;
-            const customError = buildResponseError(request, this.opts.getResponseError(request.responseText, request));
             for (const file of files) {
-              this.uppy.emit("upload-error", file, customError);
+              this.uppy.emit("upload-error", file, buildResponseError(request, error));
             }
           }
           throw error;
@@ -27481,7 +28945,7 @@ var XHRUpload = class extends BasePlugin {
     return opts;
   }
   addMetadata(formData, meta, opts) {
-    const allowedMetaFields = Array.isArray(opts.allowedMetaFields) ? opts.allowedMetaFields : Object.keys(meta);
+    const allowedMetaFields = getAllowedMetaFields(opts.allowedMetaFields, meta);
     allowedMetaFields.forEach((item) => {
       const value = meta[item];
       if (Array.isArray(value)) {
@@ -27509,12 +28973,12 @@ var XHRUpload = class extends BasePlugin {
     } = this.uppy.getState();
     this.addMetadata(formPost, meta, opts);
     files.forEach((file) => {
-      const options = this.getOptions(file);
+      const options3 = this.getOptions(file);
       const dataWithUpdatedType = setTypeInBlob(file);
       if (file.name) {
-        formPost.append(options.fieldName, dataWithUpdatedType, file.name);
+        formPost.append(options3.fieldName, dataWithUpdatedType, file.name);
       } else {
-        formPost.append(options.fieldName, dataWithUpdatedType);
+        formPost.append(options3.fieldName, dataWithUpdatedType);
       }
     });
     return formPost;
@@ -27531,7 +28995,7 @@ var XHRUpload = class extends BasePlugin {
         }
       });
     }
-    this.uppy.addUploader(_classPrivateFieldLooseBase12(this, _handleUpload)[_handleUpload]);
+    this.uppy.addUploader(_classPrivateFieldLooseBase11(this, _handleUpload)[_handleUpload]);
   }
   uninstall() {
     if (this.opts.bundle) {
@@ -27545,7 +29009,7 @@ var XHRUpload = class extends BasePlugin {
         }
       });
     }
-    this.uppy.removeUploader(_classPrivateFieldLooseBase12(this, _handleUpload)[_handleUpload]);
+    this.uppy.removeUploader(_classPrivateFieldLooseBase11(this, _handleUpload)[_handleUpload]);
   }
 };
 async function _uploadLocalFile2(file) {
@@ -27553,22 +29017,17 @@ async function _uploadLocalFile2(file) {
   const controller = new AbortController();
   const uppyFetch = this.requests.wrapPromiseFunction(async () => {
     const opts = this.getOptions(file);
-    const fetch2 = _classPrivateFieldLooseBase12(this, _getFetcher)[_getFetcher]([file]);
+    const fetch3 = _classPrivateFieldLooseBase11(this, _getFetcher)[_getFetcher]([file]);
     const body = opts.formData ? this.createFormDataUpload(file, opts) : file.data;
-    return fetch2(opts.endpoint, {
+    return fetch3(opts.endpoint, {
       ...opts,
       body,
       signal: controller.signal
     });
   });
   events.onFileRemove(file.id, () => controller.abort());
-  events.onCancelAll(file.id, (_ref) => {
-    let {
-      reason
-    } = _ref;
-    if (reason === "user") {
-      controller.abort();
-    }
+  events.onCancelAll(file.id, () => {
+    controller.abort();
   });
   try {
     await uppyFetch().abortOn(controller.signal);
@@ -27585,12 +29044,12 @@ async function _uploadBundle2(files) {
   const uppyFetch = this.requests.wrapPromiseFunction(async () => {
     var _this$uppy$getState$x;
     const optsFromState = (_this$uppy$getState$x = this.uppy.getState().xhrUpload) != null ? _this$uppy$getState$x : {};
-    const fetch2 = _classPrivateFieldLooseBase12(this, _getFetcher)[_getFetcher](files);
+    const fetch3 = _classPrivateFieldLooseBase11(this, _getFetcher)[_getFetcher](files);
     const body = this.createBundledUpload(files, {
       ...this.opts,
       ...optsFromState
     });
-    return fetch2(this.opts.endpoint, {
+    return fetch3(this.opts.endpoint, {
       ...this.opts,
       body,
       signal: controller.signal
@@ -27613,7 +29072,7 @@ async function _uploadBundle2(files) {
 function _getCompanionClientArgs2(file) {
   var _file$remote;
   const opts = this.getOptions(file);
-  const allowedMetaFields = Array.isArray(opts.allowedMetaFields) ? opts.allowedMetaFields : Object.keys(file.meta);
+  const allowedMetaFields = getAllowedMetaFields(opts.allowedMetaFields, file.meta);
   return {
     ...(_file$remote = file.remote) == null ? void 0 : _file$remote.body,
     protocol: "multipart",
@@ -27636,7 +29095,7 @@ async function _uploadFiles2(files) {
           controller.abort();
       };
       this.uppy.on("file-removed", removedHandler);
-      const uploadPromise = this.uppy.getRequestClientForFile(file).uploadRemoteFile(file, _classPrivateFieldLooseBase12(this, _getCompanionClientArgs)[_getCompanionClientArgs](file), {
+      const uploadPromise = this.uppy.getRequestClientForFile(file).uploadRemoteFile(file, _classPrivateFieldLooseBase11(this, _getCompanionClientArgs)[_getCompanionClientArgs](file), {
         signal: controller.signal,
         getQueue
       });
@@ -27647,7 +29106,7 @@ async function _uploadFiles2(files) {
       })();
       return uploadPromise;
     }
-    return _classPrivateFieldLooseBase12(this, _uploadLocalFile)[_uploadLocalFile](file);
+    return _classPrivateFieldLooseBase11(this, _uploadLocalFile)[_uploadLocalFile](file);
   }));
 }
 XHRUpload.VERSION = packageJson9.version;
@@ -27667,19 +29126,19 @@ jQuery(function() {
       this.createEmptyDirs = this.createEmptyDirs.bind(this);
       this.uppy = uppy2;
     }
-    handleRootDrop(e4) {
-      if (e4.dataTransfer.items && e4.dataTransfer.items[0] && "webkitGetAsEntry" in e4.dataTransfer.items[0]) {
-        let items = Array.prototype.slice.call(e4.dataTransfer.items || [], 0);
-        let entries = items.map((i4) => i4.webkitGetAsEntry()).filter((i4) => i4);
-        return Promise.all(entries.map((i4) => getEmptyDirs(i4))).then((dirs) => {
+    handleRootDrop(e) {
+      if (e.dataTransfer.items && e.dataTransfer.items[0] && "webkitGetAsEntry" in e.dataTransfer.items[0]) {
+        let items = Array.prototype.slice.call(e.dataTransfer.items || [], 0);
+        let entries = items.map((i) => i.webkitGetAsEntry()).filter((i) => i);
+        return Promise.all(entries.map((i) => getEmptyDirs(i))).then((dirs) => {
           this.empty_dirs = this.empty_dirs.concat(import_lodash2.default.flattenDeep(dirs));
         });
       }
     }
     createEmptyDirs(ids) {
       if (!this.uppy.getState().error) {
-        return Promise.all(this.empty_dirs.map((d4) => {
-          let filename = import_lodash2.default.trimStart(d4.fullPath, "/");
+        return Promise.all(this.empty_dirs.map((d) => {
+          let filename = import_lodash2.default.trimStart(d.fullPath, "/");
           return fetch(`${history.state.currentDirectoryUrl}/${encodeURI(filename)}?dir=true`, { method: "put", headers: { "X-CSRF-Token": csrfToken() } });
         })).then(() => this.empty_dirs = []);
       }
@@ -27731,27 +29190,28 @@ jQuery(function() {
   });
   uppy.on("complete", (result) => {
     if (result.successful.length > 0) {
+      result.successful.forEach(handleUploadSuccess);
       reloadTable();
     }
   });
-  window.addEventListener("dragover", function(e4) {
-    e4 = e4 || event;
-    e4.preventDefault();
+  window.addEventListener("dragover", function(e) {
+    e = e || event;
+    e.preventDefault();
   }, false);
-  window.addEventListener("drop", function(e4) {
-    e4 = e4 || event;
-    e4.preventDefault();
+  window.addEventListener("drop", function(e) {
+    e = e || event;
+    e.preventDefault();
   }, false);
-  $("#directory-contents").on("drop", function(e4) {
+  $("#directory-contents").on("drop", function(e) {
     this.classList.remove("dragover");
-    uppy.getPlugin("Dashboard").openModal().then(() => uppy.getPlugin("Dashboard").handleDrop(e4.originalEvent));
+    uppy.getPlugin("Dashboard").openModal().then(() => uppy.getPlugin("Dashboard").handleDrop(e.originalEvent));
   });
-  $("#directory-contents").on("dragover", function(e4) {
+  $("#directory-contents").on("dragover", function(e) {
     this.classList.add("dragover");
-    e4.preventDefault();
-    e4.originalEvent.dataTransfer.dropEffect = "copy";
+    e.preventDefault();
+    e.originalEvent.dataTransfer.dropEffect = "copy";
   });
-  $("#directory-contents").on("dragleave", function(e4) {
+  $("#directory-contents").on("dragleave", function(e) {
     this.classList.remove("dragover");
   });
 });
@@ -27773,7 +29233,7 @@ function getEmptyDirs(entry) {
           if (entries.length == 0) {
             resolve([entry]);
           } else {
-            Promise.all(entries.map((e4) => getEmptyDirs(e4))).then((dirs) => resolve(import_lodash2.default.flattenDeep(dirs)));
+            Promise.all(entries.map((e) => getEmptyDirs(e))).then((dirs) => resolve(import_lodash2.default.flattenDeep(dirs)));
           }
         }
       });
@@ -27788,6 +29248,37 @@ function updateEndpoint() {
 function reloadTable() {
   $(CONTENTID).trigger(EVENTNAME.reloadTable, {});
 }
+function handleUploadSuccess(result) {
+  const body = result?.response?.body;
+  if (!body || !(typeof body === "object" && !Array.isArray(body) && body !== null)) {
+    return;
+  }
+  if (Object.keys(body).length > 0 && !body.completed) {
+    fileOps.reportTransfer(body);
+  }
+}
+
+// app/javascript/files/page_load.js
+function setPageLoadState() {
+  const configEle = document.getElementById("files_page_load_config");
+  if (configEle === null) {
+    return;
+  }
+  const data = configEle.dataset;
+  history.replaceState({
+    currentDirectory: data["currentDirectory"],
+    currentDirectoryUrl: data["currentDirectoryUrl"],
+    currentDirectoryUpdatedAt: data["currentDirectoryUpdatedAt"],
+    currentFilesPath: data["currentFilesPath"],
+    currentFilesUploadPath: data["currentFilesUploadPath"],
+    currentFilesystem: data["currentFilesystem"]
+  }, null);
+}
+
+// app/javascript/files/index.js
+addEventListener("DOMContentLoaded", (_event) => {
+  setPageLoadState();
+});
 /*!
 	Copyright (c) 2018 Jed Watson.
 	Licensed under the MIT License (MIT), see

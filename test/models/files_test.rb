@@ -36,20 +36,20 @@ class FilesTest < ActiveSupport::TestCase
 
   test "can_download_as_zip handles erroneous output from du" do
     Dir.mktmpdir do |dir|
-      path = Pathname.new(dir)
-      Open3.stubs(:capture3).returns(["blarg \n 28d", "", exit_success])
+      error_msg = 'some failure message'
+      Open3.stubs(:capture3).returns(["blarg \n 28d", error_msg, exit_failure])
+      result = PosixFile.new(dir).can_download_as_zip?
 
-      assert_equal [false, I18n.t('dashboard.files_directory_download_size_0', cmd: "timeout 10s du -cbs #{path}")], PosixFile.new(dir).can_download_as_zip?
+      assert_equal([false, I18n.t('dashboard.files_directory_size_unknown', exit_code: '1', error: error_msg)], result)
     end 
   end
 
   test "can_download_as_zip handles files sizes of 0" do
     Dir.mktmpdir do |dir|
-      path = Pathname.new(dir)
       Open3.stubs(:capture3).returns(["0 /dev
         0 total", "", exit_success])
 
-      assert_equal [false, I18n.t('dashboard.files_directory_download_size_0', cmd: "timeout 10s du -cbs #{path}")], PosixFile.new(dir).can_download_as_zip?
+      assert_equal [true, nil], PosixFile.new(dir).can_download_as_zip?
     end 
   end
 
@@ -116,5 +116,45 @@ class FilesTest < ActiveSupport::TestCase
         assert_equal(2, Dir.children("#{dir}/allowed").size)
       end
     end
+  end
+
+  test 'unreadable files are not downloadable' do
+    Dir.mktmpdir do |dir|
+      file = File.join(dir, 'foo.text')
+      FileUtils.touch(file)
+      # make sure file is not readable, a condition of PosixFile#downloadable?
+      FileUtils.chmod(0o0333, file)
+
+      refute(PosixFile.new(file).downloadable?)
+    end
+  end
+
+  test 'fifo pipes are not downloadable' do
+    Dir.mktmpdir do |dir|
+      file = "#{dir}/test.fifo"
+      `mkfifo #{file}`
+
+      refute(PosixFile.new(file).downloadable?)
+    end
+  end
+
+  test 'block devices are not downloadable' do
+    block_dev = Dir.children('/dev').map do |p|
+                  Pathname.new("/dev/#{p}")
+                end.select(&:blockdev?).first
+
+    assert(block_dev.exist?)
+    assert(block_dev.blockdev?)
+    refute(PosixFile.new(block_dev.to_s).downloadable?)
+  end
+
+  test 'character devices are not downloadable' do
+    char_dev = Dir.children('/dev').map do |p|
+                 Pathname.new("/dev/#{p}")
+               end.select(&:chardev?).first
+
+    assert(char_dev.exist?)
+    assert(char_dev.chardev?)
+    refute(PosixFile.new(char_dev.to_s).downloadable?)
   end
 end

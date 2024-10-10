@@ -173,9 +173,11 @@ small.form-text {
 @import "editor";
 @import "icon_picker";
 @import "pinned_apps";
+@import "xdmod";
 @import "support_ticket";
 @import "data_tables";
 @import "projects";
 @import "scripts";
 @import "common";
-@import "uppy/dist/uppy.min";
+@import "@uppy/core/dist/style";
+@import "@uppy/dashboard/dist/style";

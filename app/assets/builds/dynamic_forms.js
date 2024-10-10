@@ -306,7 +306,7 @@ function updateVisibility(event, changeId) {
   if (changeElement === void 0 || changeElement.length <= 0)
     return;
   const hide = hideLookup[id].get(changeId, val);
-  if (hide === void 0 && !initializing) {
+  if (hide === false || hide === void 0 && !initializing) {
     changeElement.show();
   } else if (hide === true) {
     changeElement.hide();

@@ -6890,7 +6890,7 @@ var require_parser = __commonJS({
           throw new Error(str);
         },
         parse: function parse(input) {
-          var self2 = this, stack = [0], vstack = [null], lstack = [], table = this.table, yytext = "", yylineno = 0, yyleng = 0, recovering = 0, TERROR = 2, EOF = 1;
+          var self2 = this, stack = [0], vstack = [null], lstack = [], table2 = this.table, yytext = "", yylineno = 0, yyleng = 0, recovering = 0, TERROR = 2, EOF = 1;
           this.lexer.setInput(input);
           this.lexer.yy = this.yy;
           this.yy.lexer = this.lexer;
@@ -6924,13 +6924,13 @@ var require_parser = __commonJS({
               if (symbol === null || typeof symbol == "undefined") {
                 symbol = lex();
               }
-              action = table[state] && table[state][symbol];
+              action = table2[state] && table2[state][symbol];
             }
             if (typeof action === "undefined" || !action.length || !action[0]) {
               var errStr = "";
               if (!recovering) {
                 expected = [];
-                for (p in table[state])
+                for (p in table2[state])
                   if (this.terminals_[p] && p > 2) {
                     expected.push("'" + this.terminals_[p] + "'");
                   }
@@ -6983,7 +6983,7 @@ var require_parser = __commonJS({
                 stack.push(this.productions_[action[1]][0]);
                 vstack.push(yyval.$);
                 lstack.push(yyval._$);
-                newState = table[stack[stack.length - 2]][stack[stack.length - 1]];
+                newState = table2[stack[stack.length - 2]][stack[stack.length - 1]];
                 stack.push(newState);
                 break;
               case 3:
@@ -10997,11 +10997,178 @@ function today() {
   const now = new Date();
   return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
 }
+function reportErrorForAnalytics(path, error) {
+  const analyticsUrl = new URL(analyticsPath(path), document.location);
+  analyticsUrl.searchParams.append("error", error);
+  fetch(analyticsUrl);
+}
+
+// app/javascript/xdmod/jobs.js
+function jobsPanel(context, helpers) {
+  const div = document.createElement("div");
+  div.classList.add("xdmod");
+  div.append(card(context, helpers));
+  return div;
+}
+function card(context, helpers) {
+  const div = document.createElement("div");
+  div.classList.add("card", "mt-3");
+  div.append(cardHeader(helpers));
+  div.append(cardBody(context, helpers));
+  return div;
+}
+function cardHeader(helpers) {
+  const div = document.createElement("div");
+  div.classList.add("card-header");
+  div.innerHTML = `<a href="${helpers.xdmod_url()}" class="float-end">Open XDMoD <span class="fa fa-external-link-square-alt"></span></a>
+                   <h3>${helpers.title()} - ${helpers.date_range()}</h3>`;
+  return div;
+}
+function cardBody(context, helpers) {
+  if (context.error !== void 0) {
+    return errorBody(context.error, helpers);
+  } else if (context.loading !== void 0) {
+    return loadingBody();
+  } else {
+    return successBody(context, helpers);
+  }
+}
+function errorBody(error, helpers) {
+  const div = simpleCardBody();
+  const content = `<div class="alert alert-danger mb-0">
+                      ${error} Please ensure you are <a href="${helpers.xdmod_url()}">logged into Open XDMoD first</a>, and then try again.
+                    </div>`;
+  div.innerHTML = content;
+  return div;
+}
+function loadingBody() {
+  const div = simpleCardBody();
+  div.innerHTML = '<p class="card-text">LOADING...</p>';
+  return div;
+}
+function successBody(context, helpers) {
+  const div = simpleCardBody();
+  div.append(table(context, helpers));
+  return div;
+}
+function simpleCardBody() {
+  const div = document.createElement("div");
+  div.classList.add("card-body");
+  return div;
+}
+function table(context, helpers) {
+  const div = document.createElement("div");
+  div.classList.add("table-responsive");
+  const tableElement = document.createElement("table");
+  tableElement.classList.add("table", "table-sm", "table-striped", "table-condensed");
+  const thead = document.createElement("thead");
+  thead.innerHTML = '<tr>                       <th class="sr-only">Analytics Toggle</th>                       <th class="id">ID</th>                       <th class="name">Name</th>                       <th class="date">Date</th>                       <th class="sr-only">Analytics</th>                     </tr>';
+  const tbody = document.createElement("tbody");
+  tbody.append(...tableRows(context, helpers));
+  tableElement.append(thead);
+  tableElement.append(tbody);
+  div.append(tableElement);
+  return div;
+}
+function tableRows(context, helpers) {
+  const jobs = context.results;
+  if (jobs === void 0 || jobs.length == 0) {
+    return [noDataRow()];
+  }
+  const rows = [];
+  jobs.forEach((job) => {
+    const tr = document.createElement("tr");
+    tr.title = `${job.job_name} - ${job.local_job_id}`;
+    tr.setAttribute("data-xdmod-jobid", job.jobid);
+    tr.setAttribute("data-bs-toggle", "collapse");
+    tr.setAttribute("data-bs-target", `#details_${job.jobid}`);
+    tr.setAttribute("aria-expanded", "false");
+    const td0 = document.createElement("td");
+    td0.innerHTML = `
+      <button class="btn btn-default btn-xs">
+        <i class="fa fa-plus fa-fw app-icon closed" aria-hidden="true"></i>
+        <i class="fa fa-minus fa-fw app-icon open" aria-hidden="true"></i>
+      </button>`;
+    const td1 = document.createElement("td");
+    td1.classList.add("text-nowrap");
+    td1.append(jobLink(helpers.job_url(job.jobid), job.local_job_id));
+    const td2 = document.createElement("td");
+    td2.classList.add("overflow-hidden", "text-truncate", "mw-150px");
+    td2.innerText = job.job_name;
+    const td3 = document.createElement("td");
+    td3.innerText = helpers.date(job);
+    const td4 = document.createElement("td");
+    td4.id = `details_${job.jobid}`;
+    td4.classList.add("job-analytics", "collapse");
+    td4.innerHTML = '<div class="job-analytics-content"><span>LOADING...</span></div>';
+    td4.addEventListener("shown.bs.collapse", function(event) {
+      getJobAnalytics(job, helpers);
+    }, { once: true });
+    tr.append(td0, td1, td2, td3, td4);
+    rows.push(tr);
+  });
+  return rows;
+}
+function jobLink(url, id) {
+  const a = document.createElement("a");
+  a.href = url;
+  a.innerHTML = `${id} ${linkSpan()}`;
+  return a;
+}
+function linkSpan() {
+  return '<span class="fa fa-external-link-square-alt"></span>';
+}
+function noDataRow() {
+  const td = document.createElement("td");
+  td.setAttribute("colspan", "7");
+  td.innerHTML = "No data available.";
+  const tr = document.createElement("tr");
+  tr.append(td);
+  return tr;
+}
+function renderJobAnalytics(analyticsData, jobData, containerId, helpers) {
+  if (analyticsData.error !== void 0) {
+    const errorMessage = errorBody(analyticsData.error, helpers);
+    const analyticsContainer = document.getElementById(containerId);
+    analyticsContainer.closest("tr").classList.add("error");
+    analyticsContainer.replaceChildren(errorMessage);
+    return;
+  }
+  const dataByKey = analyticsData.data.reduce((acc, obj) => {
+    acc[obj.key] = obj;
+    return acc;
+  }, {});
+  const cpuEfficiency = dataByKey["CPU User"]?.value || jobData.cpu_user;
+  const memEfficiency = dataByKey["Memory Headroom"]?.value;
+  const walltimeEfficiency = dataByKey["Walltime Accuracy"]?.value || jobData.walltime_accuracy;
+  const div = document.createElement("div");
+  div.classList.add("job-analytics-content");
+  div.innerHTML = `<span><strong>CPU:</strong> ${helpers.efficiency_label(cpuEfficiency, false)}</span>
+                   <span><strong>Mem:</strong> ${helpers.efficiency_label(memEfficiency, true)}</span>
+                   <span><strong>Walltime:</strong> ${helpers.efficiency_label(walltimeEfficiency, false)}</span>`;
+  document.getElementById(containerId).replaceChildren(div);
+}
+function jobAnalyticsUrl(jobId, helpers) {
+  let url = new URL(`${helpers.xdmod_url()}/rest/v1.0/warehouse/search/jobs/analytics`);
+  url.searchParams.set("_dc", Date.now());
+  url.searchParams.set("realm", helpers.realm);
+  url.searchParams.set("jobid", jobId);
+  return url;
+}
+function getJobAnalytics(jobData, helpers) {
+  const analyticsContainer = `details_${jobData.jobid}`;
+  fetch(jobAnalyticsUrl(jobData.jobid, helpers), { credentials: "include" }).then((response) => response.ok ? Promise.resolve(response) : Promise.reject(new Error(response.statusText))).then((response) => response.json()).then((data) => renderJobAnalytics(data, jobData, analyticsContainer, helpers)).catch((error) => {
+    console.error(error);
+    renderJobAnalytics({ error }, jobData, analyticsContainer, helpers);
+    reportErrorForAnalytics("xdmod_jobs_analytics_widget_error", error);
+  });
+}
 
 // app/javascript/xdmod.js
 var import_handlebars = __toESM(require_handlebars());
 var jobsPageLimit = 10;
 var jobHelpers = {
+  realm: "Jobs",
   title: function() {
     return "Recently Completed Jobs";
   },
@@ -11029,21 +11196,22 @@ var jobHelpers = {
     let seconds = Math.floor(duration);
     return hours.toString().padStart(2, "0") + ":" + minutes.toString().padStart(2, "0") + ":" + seconds.toString().padStart(2, "0");
   },
-  date: function() {
-    let d = new Date(this.start_time_ts * 1e3), month = d.getMonth() + 1, day = d.getUTCDate();
+  date: function(job) {
+    let d = new Date(job.start_time_ts * 1e3), month = d.getMonth() + 1, day = d.getUTCDate();
     return `${month}/${day}`;
   },
-  job_url: function() {
-    return `${xdmodUrl()}/#job_viewer?action=show&realm=SUPREMM&jobref=" + this.jobid`;
+  job_url: function(id) {
+    return `${xdmodUrl()}/#job_viewer?action=show&realm=${this.realm}&jobref=${id}`;
   },
-  cpu_label: function(cpu) {
-    let value = (parseFloat(cpu) * 100).toFixed(1), label = "N/A";
+  efficiency_label: function(efficiencyValue, inverse = false) {
+    const value = (parseFloat(efficiencyValue) * 100).toFixed(1);
+    let label = "N/A";
     if (!isNaN(value)) {
       let severity = "warning";
-      if (cpu > 0.74) {
-        severity = "success";
-      } else if (cpu < 0.25) {
-        severity = "danger";
+      if (efficiencyValue > 0.74) {
+        severity = inverse ? "danger" : "success";
+      } else if (efficiencyValue < 0.25) {
+        severity = inverse ? "success" : "danger";
       }
       label = `<span class="badge bg-${severity}">${import_handlebars.default.escapeExpression(value.toString().padStart(4, 0))}</span>`;
     }
@@ -11067,11 +11235,11 @@ var efficiencyHelpers = {
     return (100 - parseFloat(this.bad_ratio)).toFixed();
   }
 };
-function promiseLoginToXDMoD(xdmodUrl2) {
+function promiseLoginToXDMoD() {
   return new Promise(function(resolve, reject) {
     var promise_to_receive_message_from_iframe = new Promise(function(resolve2, reject2) {
       window.addEventListener("message", function(event) {
-        if (event.origin !== xdmodUrl2) {
+        if (event.origin !== xdmodUrl()) {
           console.log("Received message from untrusted origin, discarding");
           return;
         } else if (event.data.application == "xdmod") {
@@ -11085,7 +11253,7 @@ function promiseLoginToXDMoD(xdmodUrl2) {
         }
       }, false);
     });
-    fetch(xdmodUrl2 + "/rest/auth/idpredirect?returnTo=%2Fgui%2Fgeneral%2Flogin.php").then((response) => response.ok ? Promise.resolve(response) : Promise.reject()).then((response) => response.json()).then(function(data) {
+    fetch(xdmodUrl() + "/rest/auth/idpredirect?returnTo=%2Fgui%2Fgeneral%2Flogin.php").then((response) => response.ok ? Promise.resolve(response) : Promise.reject(new Error("Login failed: IDP redirect failed"))).then((response) => response.json()).then(function(data) {
       return new Promise(function(resolve2, reject2) {
         var xdmodLogin = document.createElement("iframe");
         xdmodLogin.style = "visibility: hidden; position: absolute;left: -1000px";
@@ -11120,6 +11288,7 @@ var promiseLoggedIntoXDMoD = function() {
       }
     }).then((user_data) => {
       if (user_data && user_data.success && user_data.results && user_data.results.person_id) {
+        jobHelpers.realm = user_data.results.raw_data_allowed_realms?.includes("SUPREMM") ? "SUPREMM" : "Jobs";
         return Promise.resolve(user_data);
       } else {
         return Promise.reject(new Error("Attempting to fetch current user info from Open XDMoD failed"));
@@ -11132,7 +11301,7 @@ function jobsUrl(user) {
   url.searchParams.set("_dc", Date.now());
   url.searchParams.set("start_date", thirtyDaysAgo());
   url.searchParams.set("end_date", today());
-  url.searchParams.set("realm", user?.results?.raw_data_allowed_realms?.includes("SUPREMM") ? "SUPREMM" : "Jobs");
+  url.searchParams.set("realm", jobHelpers.realm);
   url.searchParams.set("limit", jobsPageLimit);
   url.searchParams.set("start", 0);
   url.searchParams.set("verbose", true);
@@ -11163,9 +11332,9 @@ var jobPanelId = "jobsPanelDiv";
 var jobEfficiencyPanelId = "jobsEfficiencyReportPanelDiv";
 var coreEfficiencyPanelId = "coreHoursEfficiencyReportPanelDiv";
 function renderJobs(context) {
-  const templateSource = $("#jobs-template").html();
-  const template = import_handlebars.default.compile(templateSource);
-  $(`#${jobPanelId}`).html(template(context, { helpers: jobHelpers }));
+  const panel = document.getElementById(jobPanelId);
+  const jobs = jobsPanel(context, jobHelpers);
+  panel.replaceChildren(jobs);
 }
 function renderJobsEfficiency(context) {
   const newConext = import_lodash.default.merge(context, { unit: "jobs", unit_title: "Jobs" });
@@ -11187,9 +11356,7 @@ function createJobsWidget() {
   promiseLoggedIntoXDMoD().then((user_data) => fetch(jobsUrl(user_data), { credentials: "include" })).then((response) => response.ok ? Promise.resolve(response) : Promise.reject(new Error(response.statusText))).then((response) => response.json()).then((data) => renderJobs(data)).catch((error) => {
     console.error(error);
     renderJobs({ error });
-    const analyticsUrl = new URL(analyticsPath("xdmod_jobs_widget_error"), document.location);
-    analyticsUrl.searchParams.append("error", error);
-    fetch(analyticsUrl);
+    reportErrorForAnalytics("xdmod_jobs_widget_error", error);
   });
 }
 function createEfficiencyWidgets() {
@@ -11198,7 +11365,7 @@ function createEfficiencyWidgets() {
   if (jobPanel.length == 0 || corePanel.length == 0) {
     return;
   }
-  promiseLoggedIntoXDMoD(xdmodUrl).then((user_data) => fetch(aggregateDataUrl(user_data), { credentials: "include" })).then((response) => response.ok ? Promise.resolve(response) : Promise.reject(new Error(response.statusText))).then((response) => response.json()).then((data) => {
+  promiseLoggedIntoXDMoD().then((user_data) => fetch(aggregateDataUrl(user_data), { credentials: "include" })).then((response) => response.ok ? Promise.resolve(response) : Promise.reject(new Error(response.statusText))).then((response) => response.json()).then((data) => {
     if (data && data["success"] && Array.isArray(data["results"])) {
       let results = data["results"][0];
       if (results) {
@@ -11223,14 +11390,13 @@ function createEfficiencyWidgets() {
     console.error(error);
     renderJobsEfficiency({ error });
     renderCoreHoursEfficiency({ error });
-    const analyticsUrl = new URL(analyticsPath("xdmod_jobs_widget_error"), document.location);
-    analyticsUrl.searchParams.append("error", error);
-    fetch(analyticsUrl);
+    reportErrorForAnalytics("xdmod_jobs_widget_error", error);
   });
 }
 jQuery(() => {
   createJobsWidget();
   createEfficiencyWidgets();
+  renderJobs({ loading: true });
 });
 /**
  * @license

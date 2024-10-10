@@ -4,6 +4,9 @@
 class Project
   include ActiveModel::Model
   include ActiveModel::Validations
+  include ActiveModel::Validations::Callbacks
+  include IconWithUri
+  extend JobLogger
 
   class << self
     def lookup_file
@@ -73,6 +76,8 @@ class Project
   validate :project_directory_invalid, on: [:create, :update]
   validate :project_directory_exist, on: [:create]
   validate :project_template_invalid, on: [:create]
+
+  before_validation :add_icon_uri
 
   def initialize(attributes = {})
     @id = attributes[:id]
@@ -193,10 +198,35 @@ class Project
   end
 
   def jobs
-    launchers = Launcher.all(directory)
-    launchers.map do |launcher|
-      launcher.jobs
-    end.flatten
+    Project.jobs(directory)
+  end
+
+  def active_jobs
+    jobs.reject(&:completed?)
+  end
+
+  def completed_jobs
+    jobs.select(&:completed?)
+  end
+
+  def job(job_id, cluster)
+    cached_job = jobs.detect { |j| j.id == job_id && j.cluster == cluster }
+    return cached_job if cached_job.completed?
+
+    info = adapter(cluster).info(job_id)
+    job = HpcJob.from_core_info(info: info, cluster: cluster)
+    Project.upsert_job!(directory, job)
+    job
+  end
+
+  def adapter(cluster_id)
+    cluster = OodAppkit.clusters[cluster_id] || raise(StandardError, "Job specifies nonexistent '#{cluster_id}' cluster id.")
+    cluster.job_adapter
+  end
+
+  def readme_path
+    file = Dir.glob("#{directory}/README.{md,txt}").first.to_s
+    File.readable?(file) ? file : nil
   end
 
   private
@@ -267,8 +297,10 @@ class Project
 
   def project_template_invalid
     # This validation is to prevent the template directory being manipulated in the form.
-    if !template.blank? && Project.templates.map { |template| template.directory.to_s }.exclude?(template.to_s)
-      errors.add(:template, :invalid)
-    end
+    return if template.blank?
+
+    template_path = Pathname.new(template)
+    errors.add(:template, :invalid) if Project.templates.map { |t| t.directory.to_s }.exclude?(template.to_s)
+    errors.add(:template, :invalid) unless template_path.exist? && template_path.readable?
   end
 end

@@ -1,12 +1,30 @@
+// app/javascript/config.js
+"use strict;";
+
+// app/javascript/utils.js
+function openLinkInJs(event) {
+  event.preventDefault();
+  const href = event.target.href;
+  if (href == null) {
+    return;
+  }
+  if (window.open(href) == null) {
+    const html = document.getElementById("js-alert-danger-template").innerHTML;
+    const msg = "This link is configured to open in a new window, but it doesn't seem to have opened. Please disable your popup blocker for this page and try again.";
+    const mainDiv = document.querySelectorAll('div[role="main"]')[0];
+    const alertDiv = document.createElement("div");
+    alertDiv.innerHTML = html.split("ALERT_MSG").join(msg);
+    mainDiv.prepend(alertDiv);
+  }
+}
+
 // app/javascript/dashboard.js
-jQuery(function() {
-  $("a[target=_blank]").on("click", function(event) {
-    event.preventDefault();
-    if (window.open($(this).attr("href")) == null) {
-      const html = $("#js-alert-danger-template").html();
-      const msg = "This link is configured to open in a new window, but it doesn't seem to have opened. Please disable your popup blocker for this page and try again.";
-      $("div[role=main]").prepend(html.split("ALERT_MSG").join(msg));
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  const anchors = document.querySelectorAll("a[target=_blank]");
+  anchors.forEach((anchor) => {
+    anchor.addEventListener("click", (event) => {
+      openLinkInJs(event);
+    });
   });
 });
 //# sourceMappingURL=dashboard.js.map

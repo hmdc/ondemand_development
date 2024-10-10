@@ -1,3 +1,6 @@
+// app/javascript/config.js
+"use strict;";
+
 // app/javascript/utils.js
 function showSpinner() {
   $("body").addClass("modal-open");

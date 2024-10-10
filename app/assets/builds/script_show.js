@@ -306,7 +306,7 @@ function updateVisibility(event, changeId) {
   if (changeElement === void 0 || changeElement.length <= 0)
     return;
   const hide = hideLookup[id].get(changeId, val);
-  if (hide === void 0 && !initializing) {
+  if (hide === false || hide === void 0 && !initializing) {
     changeElement.show();
   } else if (hide === true) {
     changeElement.hide();
@@ -537,6 +537,6 @@ function toggleOptionsFor(_event, elementId) {
 
 // app/javascript/script_show.js
 jQuery(function() {
-  makeChangeHandlers("script");
+  makeChangeHandlers("launcher");
 });
 //# sourceMappingURL=script_show.js.map

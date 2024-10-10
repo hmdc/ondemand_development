@@ -1759,6 +1759,9 @@ var require_oboe_browser = __commonJS({
 // app/javascript/active_jobs.js
 var import_oboe = __toESM(require_oboe_browser());
 
+// app/javascript/config.js
+"use strict;";
+
 // app/javascript/utils.js
 function cssBadgeForState(state) {
   switch (state) {

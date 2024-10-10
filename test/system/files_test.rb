@@ -510,11 +510,11 @@ class FilesTest < ApplicationSystemTestCase
       dir_to_dl = "#{dir}/test_dir"
       `mkdir -p #{dir_to_dl}/first_level_dir`
       `mkdir #{dir_to_dl}/.first_level_hidden_dir`
-      `touch #{dir_to_dl}/real_file`
-      `touch #{dir_to_dl}/first_level_dir/.second_level_hidden_file`
-      `touch #{dir_to_dl}/first_level_dir/second_level_real_file`
-      `touch #{dir_to_dl}/.first_level_hidden_dir/.another_second_level_hidden_file`
-      `touch #{dir_to_dl}/.first_level_hidden_dir/another_second_level_real_file`
+      `echo 'abc123' > #{dir_to_dl}/real_file`
+      `echo 'abc123' > #{dir_to_dl}/first_level_dir/.second_level_hidden_file`
+      `echo 'abc123' > #{dir_to_dl}/first_level_dir/second_level_real_file`
+      `echo 'abc123' > #{dir_to_dl}/.first_level_hidden_dir/.another_second_level_hidden_file`
+      `echo 'abc123' > #{dir_to_dl}/.first_level_hidden_dir/another_second_level_real_file`
 
       visit files_url(dir)
       find('tbody a', exact_text: 'test_dir').ancestor('tr').click
@@ -615,7 +615,7 @@ class FilesTest < ApplicationSystemTestCase
     end
   end
 
-  test 'files that are not downloadable' do
+  test 'unreadable files and fifos are not downloadable' do
     Dir.mktmpdir do |dir|
       cant_read = 'cant_read.txt'
       fifo = 'fifo'
@@ -640,6 +640,39 @@ class FilesTest < ApplicationSystemTestCase
 
       assert_equal(expected_links, fifo_links)
       assert_equal(expected_links, cant_read_links)
+    end
+  end
+
+  test 'block devices are not downloadable' do
+    visit files_url('/dev')
+
+    null_row = find('tbody a', exact_text: 'null').ancestor('tr')
+    null_row.find('button.dropdown-toggle').click
+    null_links = null_row.all('td > div.btn-group > ul > li > a').map(&:text)
+
+    # NOTE: download is not an expected link.
+    expected_links = ['View', 'Edit', 'Rename', 'Delete']
+
+    assert_equal(expected_links, null_links)
+  end
+
+  test 'allowlist errors flash' do
+    with_modified_env({ OOD_ALLOWLIST_PATH: Rails.root.to_s }) do
+      visit(files_url(Rails.root))
+
+      alerts = all('.alert')
+      assert(alerts.empty?)
+
+      find('#goto-btn').click
+      find('#swal2-input').set('/etc')
+      find('.swal2-confirm').click
+
+      alerts = all('.alert')
+      refute(alerts.empty?)
+      assert_equal(1, alerts.size)
+
+      alert_text = find('.alert > span').text
+      assert_equal('/etc does not have an ancestor directory specified in ALLOWLIST_PATH', alert_text)
     end
   end
 end

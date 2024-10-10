@@ -23,14 +23,17 @@ class ProjectsTest < ActiveSupport::TestCase
       assert_not project.errors[:name].empty?
 
       invalid_directory = Project.dataroot
-      project = Project.new({ name: 'test', icon: 'invalid_format', directory: invalid_directory.to_s,
+      invalid_icon = 'invalid_format'
+      project = Project.new({ name: 'test', icon: invalid_icon, directory: invalid_directory.to_s,
 template: '/invalid/template' })
 
       assert_not project.save
       assert_equal 3, project.errors.size
-      assert_not project.errors[:icon].empty?
+      assert_not_equal invalid_icon, project.icon 
       assert_not project.errors[:directory].empty?
       assert_not project.errors[:template].empty?
+      assert_equal(1, project.errors[:directory].size)
+      assert_equal(2, project.errors[:template].size)
     end
   end
 
@@ -131,7 +134,7 @@ icon: 'fas://test')
   test 'creates manifest.yml in .ondemand config directory' do
     Dir.mktmpdir do |tmp|
       projects_path = Pathname.new(tmp)
-      project = create_project(projects_path)
+      project = create_project(projects_path, id: "test-#{Project.next_id}")
 
       assert project.errors.inspect
       assert_equal "#{projects_path}/projects/#{project.id}", project.directory.to_s
@@ -169,7 +172,8 @@ icon: 'fas://test')
   test 'update project manifest.yml file' do
     Dir.mktmpdir do |tmp|
       projects_path = Pathname.new(tmp)
-      project = create_project(projects_path)
+
+      project = create_project(projects_path, id: "test-#{Project.next_id}")
 
       name          = 'test-project-2'
       description   = 'my test project'
@@ -218,9 +222,9 @@ description: 'updated', template: '/some/path' })
       project = create_project(projects_path)
 
       assert_not project.update({ name: nil, icon: nil })
-      assert_equal 2, project.errors.size
+      assert_equal 1, project.errors.size
       assert_not project.errors[:name].empty?
-      assert_not project.errors[:icon].empty?
+      assert_equal 'fas://cog', project.icon
     end
   end
 

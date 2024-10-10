@@ -1,3 +1,21 @@
+// app/javascript/config.js
+"use strict;";
+
+// app/javascript/utils.js
+function setInnerHTML(element, html) {
+  element.innerHTML = html;
+  const scripts = Array.from(element.querySelectorAll("script"));
+  scripts.forEach((currentElement) => {
+    const newElement = document.createElement("script");
+    Array.from(currentElement.attributes).forEach((attr) => {
+      newElement.setAttribute(attr.name, attr.value);
+    });
+    const scriptText = document.createTextNode(currentElement.innerHTML);
+    newElement.appendChild(scriptText);
+    currentElement.parentNode.replaceChild(newElement, currentElement);
+  });
+}
+
 // app/javascript/turbo_shim.js
 function replaceHTML(id, html) {
   const ele = document.getElementById(id);
@@ -8,7 +26,7 @@ function replaceHTML(id, html) {
     tmp.innerHTML = html;
     const newHTML = tmp.querySelector("template").innerHTML;
     tmp.remove();
-    ele.innerHTML = newHTML;
+    setInnerHTML(ele, newHTML);
   }
 }
 function pollAndReplace(url, delay, id, callback) {

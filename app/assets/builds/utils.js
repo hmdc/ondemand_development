@@ -1,3 +1,15 @@
+// app/javascript/config.js
+"use strict;";
+var CONFIG_ID = "ood_config";
+function configData() {
+  return document.getElementById(CONFIG_ID).dataset;
+}
+function analyticsPath(type) {
+  const cfgData = configData();
+  const basePath = cfgData["baseAnalyticsPath"];
+  return `${basePath}/${type}`;
+}
+
 // app/javascript/utils.js
 function cssBadgeForState(state) {
   switch (state) {
@@ -50,10 +62,46 @@ function bindFullPageSpinnerEvent() {
     }
   });
 }
+function openLinkInJs(event) {
+  event.preventDefault();
+  const href = event.target.href;
+  if (href == null) {
+    return;
+  }
+  if (window.open(href) == null) {
+    const html = document.getElementById("js-alert-danger-template").innerHTML;
+    const msg = "This link is configured to open in a new window, but it doesn't seem to have opened. Please disable your popup blocker for this page and try again.";
+    const mainDiv = document.querySelectorAll('div[role="main"]')[0];
+    const alertDiv = document.createElement("div");
+    alertDiv.innerHTML = html.split("ALERT_MSG").join(msg);
+    mainDiv.prepend(alertDiv);
+  }
+}
+function setInnerHTML(element, html) {
+  element.innerHTML = html;
+  const scripts = Array.from(element.querySelectorAll("script"));
+  scripts.forEach((currentElement) => {
+    const newElement = document.createElement("script");
+    Array.from(currentElement.attributes).forEach((attr) => {
+      newElement.setAttribute(attr.name, attr.value);
+    });
+    const scriptText = document.createTextNode(currentElement.innerHTML);
+    newElement.appendChild(scriptText);
+    currentElement.parentNode.replaceChild(newElement, currentElement);
+  });
+}
+function reportErrorForAnalytics(path, error) {
+  const analyticsUrl = new URL(analyticsPath(path), document.location);
+  analyticsUrl.searchParams.append("error", error);
+  fetch(analyticsUrl);
+}
 export {
   bindFullPageSpinnerEvent,
   capitalizeFirstLetter,
   cssBadgeForState,
+  openLinkInJs,
+  reportErrorForAnalytics,
+  setInnerHTML,
   startOfYear,
   thirtyDaysAgo,
   today

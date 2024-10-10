@@ -2,6 +2,7 @@
 
 class Launcher
   include ActiveModel::Model
+  include JobLogger
 
   class ClusterNotFound < StandardError; end
 
@@ -9,9 +10,7 @@ class Launcher
 
   class << self
     def scripts_dir(project_dir)
-      Pathname.new("#{project_dir}/.ondemand/scripts").tap do |path|
-        path.mkpath unless path.exist?
-      end
+      Pathname.new("#{project_dir}/.ondemand/scripts")
     end
 
     def find(id, project_dir)
@@ -57,11 +56,15 @@ class Launcher
     end
   end
 
+  ID_REX = /\A\w{8}\Z/.freeze
+
+  validates(:id, format: { with: ID_REX, message: "ID does not match #{Launcher::ID_REX.inspect}" }, on: [:save])
+
   def initialize(opts = {})
     opts = opts.to_h.with_indifferent_access
 
     @project_dir = opts[:project_dir] || raise(StandardError, 'You must set the project directory')
-    @id = opts[:id]
+    @id = opts[:id].to_s.match?(ID_REX) ? opts[:id].to_s : Launcher.next_id
     @title = opts[:title].to_s
     @created_at = opts[:created_at]
     sm_opts = {
@@ -143,9 +146,11 @@ class Launcher
   end
 
   def save
-    @id = Launcher.next_id if @id.nil?
+    return false unless valid?(:save)
+
     @created_at = Time.now.to_i if @created_at.nil?
     script_path = Launcher.script_path(project_dir, id)
+
     script_path.mkpath unless script_path.exist?
     File.write(Launcher.script_form_file(script_path), to_yaml)
 
@@ -178,7 +183,13 @@ class Launcher
   end
 
   def submit(options)
-    adapter = adapter(options[:auto_batch_clusters]).job_adapter
+    cluster_id =  if options.has_key?(:auto_batch_clusters)
+                    options[:auto_batch_clusters]
+                  else
+                    smart_attributes.find { |sm| sm.id == 'auto_batch_clusters' }.value.to_sym
+                  end
+    adapter = adapter(cluster_id).job_adapter
+
     render_format = adapter.class.name.split('::').last.downcase
 
     job_script = OodCore::Job::Script.new(**submit_opts(options, render_format))
@@ -186,7 +197,7 @@ class Launcher
     job_id = Dir.chdir(project_dir) do
       adapter.submit(job_script)
     end
-    update_job_log(job_id, options[:auto_batch_clusters].to_s)
+    update_job_log(job_id, cluster_id.to_s)
     write_job_options_to_cache(options)
 
     job_id
@@ -194,19 +205,6 @@ class Launcher
     errors.add(:submit, e.message)
     Rails.logger.error("ERROR: #{e.class} - #{e.message}")
     nil
-  end
-
-  def active_jobs
-    @active_jobs ||= jobs.reject { |job| job.completed? }
-  end
-
-  def jobs
-    @jobs ||= begin
-      data = YAML.safe_load(File.read(job_log_file.to_s), permitted_classes: [Time]).to_a
-      data.map do |job_data|
-        HpcJob.new(**job_data)
-      end
-    end
   end
 
   def create_default_script
@@ -224,6 +222,10 @@ class Launcher
   private
 
   def self.script_path(root_dir, script_id)
+    unless script_id.to_s.match?(ID_REX)
+      raise(StandardError, "#{script_id} is invalid. Does not match #{ID_REX.inspect}")
+    end
+
     Pathname.new(File.join(Launcher.scripts_dir(root_dir), script_id.to_s))
   end
 
@@ -301,30 +303,17 @@ class Launcher
     end
   end
 
-  def most_recent_job
-    jobs.sort_by do |data|
-      data['submit_time']
-    end.reverse.first.to_h
-  end
-
   def update_job_log(job_id, cluster)
     adapter = adapter(cluster).job_adapter
     info = adapter.info(job_id)
     job = HpcJob.from_core_info(info: info, cluster: cluster)
-    new_jobs = (jobs + [job.to_h]).map(&:to_h)
 
-    File.write(job_log_file.to_s, new_jobs.to_yaml)
-  end
-
-  def job_log_file
-    @job_log_file ||= Pathname.new(File.join(Launcher.script_path(project_dir, id), "job_history.log")).tap do |path|
-      FileUtils.touch(path.to_s)
-    end
+    upsert_job!(project_dir, job)
   end
 
   def submit_opts(options, render_format)
     smart_attributes.map do |sm|
-      sm.value = options[sm.id.to_sym]
+      sm.value = options[sm.id.to_sym] unless sm.fixed?
       sm
     end.map do |sm|
       sm.submit(fmt: render_format)
@@ -349,9 +338,12 @@ class Launcher
   def add_script_to_form(form: [], attributes: {})
     form << 'auto_scripts' unless form.include?('auto_scripts')
 
-    attributes[:auto_scripts] = {
-      directory: project_dir
-    }
+    dir = { directory: project_dir }
+    attributes[:auto_scripts] = if attributes[:auto_scripts]
+                                  attributes[:auto_scripts].merge(dir)
+                                else
+                                  dir
+                                end
   end
 
   def add_cluster_to_form(form: [], attributes: {})

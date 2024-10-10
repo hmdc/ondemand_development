@@ -14,6 +14,21 @@ function rootPath() {
   }
 }
 
+// app/javascript/utils.js
+function setInnerHTML(element, html) {
+  element.innerHTML = html;
+  const scripts = Array.from(element.querySelectorAll("script"));
+  scripts.forEach((currentElement) => {
+    const newElement = document.createElement("script");
+    Array.from(currentElement.attributes).forEach((attr) => {
+      newElement.setAttribute(attr.name, attr.value);
+    });
+    const scriptText = document.createTextNode(currentElement.innerHTML);
+    newElement.appendChild(scriptText);
+    currentElement.parentNode.replaceChild(newElement, currentElement);
+  });
+}
+
 // app/javascript/turbo_shim.js
 function replaceHTML(id, html) {
   const ele = document.getElementById(id);
@@ -24,7 +39,7 @@ function replaceHTML(id, html) {
     tmp.innerHTML = html;
     const newHTML = tmp.querySelector("template").innerHTML;
     tmp.remove();
-    ele.innerHTML = newHTML;
+    setInnerHTML(ele, newHTML);
   }
 }
 
@@ -50,10 +65,49 @@ function pollForJobInfo(element) {
     return;
   }
   const url = jobDetailsPath(cluster, jobId);
-  fetch(url, { headers: { Accept: "text/vnd.turbo-stream.html" } }).then((response) => response.ok ? Promise.resolve(response) : Promise.reject(response.text())).then((r) => r.text()).then((html) => replaceHTML(element.id, html)).then(setTimeout(pollForJobInfo, 3e4, element)).catch((err) => {
+  fetch(url, { headers: { Accept: "text/vnd.turbo-stream.html" } }).then((response) => response.ok ? Promise.resolve(response) : Promise.reject(response.text())).then((r) => r.text()).then((html) => {
+    const currentData = element.querySelector(`#${element.id}_data`);
+    let currentlyOpen = false;
+    const responseElement = stringToHtml(html);
+    if (currentData != null) {
+      currentlyOpen = currentData.classList.contains("show");
+    }
+    if (currentlyOpen) {
+      const dataDiv = responseElement.querySelector(`#${element.id}_data`);
+      dataDiv.classList.add("show");
+    }
+    const jobStatus = responseElement.dataset["jobStatus"];
+    if (jobStatus === "completed") {
+      moveCompletedPanel(element.id, responseElement.outerHTML);
+    } else {
+      replaceHTML(element.id, responseElement.outerHTML);
+    }
+    return jobStatus;
+  }).then((status) => {
+    if (status != "completed") {
+      setTimeout(pollForJobInfo, 3e4, element);
+    }
+  }).catch((err) => {
     console.log("Cannot not retrive job details due to error:");
     console.log(err);
   });
+}
+function stringToHtml(html) {
+  const template = document.createElement("template");
+  template.innerHTML = html.trim();
+  return template.content.firstChild;
+}
+function moveCompletedPanel(id, newHTML) {
+  const oldElement = document.getElementById(id);
+  if (oldElement !== null) {
+    oldElement.remove();
+  }
+  const div = document.createElement("div");
+  div.id = id;
+  div.classList.add("col-md-4");
+  const row = document.getElementById("completed_jobs");
+  row.appendChild(div);
+  replaceHTML(id, newHTML);
 }
 function updateProjectSize(element) {
   const UNDETERMINED = "Undetermined Size";

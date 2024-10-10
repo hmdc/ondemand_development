@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../javascript/alert.js"],
+  "sourcesContent": ["\nexport function alert(message) {\n  const div = alertDiv(message);\n  const main = document.getElementById('main_container');\n  main.prepend(div);\n}\n\nfunction alertDiv(message) {\n  const span = document.createElement('span');\n  span.innerText = message;\n\n  const div = document.createElement('div');\n  div.classList.add('alert', 'alert-danger', 'alert-dismissible');\n  div.setAttribute('role', 'alert');\n  div.appendChild(span);\n  div.appendChild(closeButton());\n\n  return div;\n}\n\nfunction closeButton() {\n  const button = document.createElement('button');\n  button.classList.add('btn-close');\n  button.dataset.bsDismiss = 'alert';\n\n  const span = document.createElement('span');\n  span.classList.add('sr-only');\n  span.innerText = 'Close';\n\n  button.appendChild(span);\n\n  return button;\n}"],
+  "mappings": ";AACO,SAAS,MAAM,SAAS;AAC7B,QAAM,MAAM,SAAS,OAAO;AAC5B,QAAM,OAAO,SAAS,eAAe,gBAAgB;AACrD,OAAK,QAAQ,GAAG;AAClB;AAEA,SAAS,SAAS,SAAS;AACzB,QAAM,OAAO,SAAS,cAAc,MAAM;AAC1C,OAAK,YAAY;AAEjB,QAAM,MAAM,SAAS,cAAc,KAAK;AACxC,MAAI,UAAU,IAAI,SAAS,gBAAgB,mBAAmB;AAC9D,MAAI,aAAa,QAAQ,OAAO;AAChC,MAAI,YAAY,IAAI;AACpB,MAAI,YAAY,YAAY,CAAC;AAE7B,SAAO;AACT;AAEA,SAAS,cAAc;AACrB,QAAM,SAAS,SAAS,cAAc,QAAQ;AAC9C,SAAO,UAAU,IAAI,WAAW;AAChC,SAAO,QAAQ,YAAY;AAE3B,QAAM,OAAO,SAAS,cAAc,MAAM;AAC1C,OAAK,UAAU,IAAI,SAAS;AAC5B,OAAK,YAAY;AAEjB,SAAO,YAAY,IAAI;AAEvB,SAAO;AACT;",
+  "names": []
+}
