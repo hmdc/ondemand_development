@@ -15,7 +15,7 @@
       <i class="fa fa-minus fa-fw app-icon open" aria-hidden="true"></i>
     </button>
     <span><%= title %></span>
-    <span class="badge <%= metrics_helper.efficiency_class(metric_efficiency) %> float-end" title="<%= metric_efficiency_title %>"><%= metric_efficiency ? "#{metric_efficiency}%" : 'N/A' %></span>
+    <span class="badge <%= metrics_helper.efficiency_class(metric_efficiency) %> float-end float-right" title="<%= metric_efficiency_title %>"><%= metric_efficiency ? "#{metric_efficiency}%" : 'N/A' %></span>
   </p>
   <div id="<%= target %>" class="job-metrics-summary collapse">
     <table class="table table-sm table-striped table-condensed">

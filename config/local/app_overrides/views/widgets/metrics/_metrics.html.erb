@@ -13,6 +13,7 @@
       metrics_cache.set_metrics(from_text, to_text, summary)
     end
 %>
+
 <style>
     .metrics [title]{
         cursor: default;
@@ -61,6 +62,7 @@
     }
 
     .metric-summary .badge {
+        color: #fff;
         min-width: 60px;
     }
 
@@ -72,8 +74,8 @@
         border-top: 1px solid rgba(0, 0, 0, 0.05);
         border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
-
 </style>
+
 <% if summary %>
 <div class="metrics">
 <h3><%= cluster.metadata.title %> Metrics</h3>
@@ -83,7 +85,7 @@
 
   <div class="card mt-3">
     <div class="card-header">
-      <small class="float-end">Total Jobs: <%= summary.total_jobs %></small>
+      <small class="float-end float-right">Total Jobs: <%= summary.total_jobs %></small>
       <h3>Summary Job Stats</h3>
       <small><%= "Period: #{from_text} to #{to_text}" %></small>
     </div>
