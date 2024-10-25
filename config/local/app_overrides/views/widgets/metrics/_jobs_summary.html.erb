@@ -1,0 +1,50 @@
+<%
+  title = local_assigns.fetch(:title, '')
+  subtitle = local_assigns.fetch(:subtitle, nil)
+  total = local_assigns.fetch(:total, 0)
+  completed = local_assigns.fetch(:completed, 0)
+  timeout = local_assigns.fetch(:timeout, 0)
+  canceled = local_assigns.fetch(:canceled, 0)
+  memory = local_assigns.fetch(:memory, 0)
+  failed = local_assigns.fetch(:failed, 0)
+
+  metrics_helper = SlurmMetrics::MetricsHelper.new
+%>
+  <div class="card mt-3">
+    <div class="card-header">
+      <small class="float-end">Total Jobs: <%= total %></small>
+      <h3><%= title %></small></h3>
+      <% if subtitle %>
+        <small><%= subtitle %></small>
+    <% end %>
+    </div>
+    <div class="card-body">
+      <table class="table table-sm table-striped table-condensed metrics">
+        <thead>
+        <tr>
+          <th title="Number of jobs that completed within the time allocated">Completed</th>
+          <th title="Number of jobs that timeout">Timed Out</th>
+          <th title="Number of jobs that were canceled">Canceled</th>
+          <th title="Number of jobs that run out of memory">OOM</th>
+          <th title="Number of jobs that failed during execution">Failed</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td title="Number of jobs that completed within the time allocated"><%= completed %></td>
+          <td title="Number of jobs that timeout"><%= timeout %></td>
+          <td title="Number of jobs that were canceled"><%= canceled %></td>
+          <td title="Number of jobs that run out of memory"><%= memory %></td>
+          <td title="Number of jobs that failed during execution"><%= failed %></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="progress metrics">
+        <div class="progress-bar metrics-completed" role="progressbar" style="width: <%= metrics_helper.metrics_ceil(total, completed) %>%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" title="Jobs completed <%= metrics_helper.metrics_round(total, completed) %>%"><%= metrics_helper.metrics_round(total, completed) %>%</div>
+        <div class="progress-bar metrics-timeout" role="progressbar" style="width: <%= metrics_helper.metrics_ceil(total, timeout) %>%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" title="Jobs timeout <%= metrics_helper.metrics_round(total, timeout) %>%"><%= metrics_helper.metrics_round(total, timeout) %>%</div>
+        <div class="progress-bar metrics-canceled" role="progressbar" style="width: <%= metrics_helper.metrics_ceil(total, canceled) %>%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" title="Jobs canceled <%= metrics_helper.metrics_round(total, canceled) %>%"><%= metrics_helper.metrics_round(total, canceled) %>%</div>
+        <div class="progress-bar metrics-memory" role="progressbar" style="width: <%= metrics_helper.metrics_ceil(total, memory) %>%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" title="Jobs out of memory <%= metrics_helper.metrics_round(total, memory) %>%"><%= metrics_helper.metrics_round(total, memory) %>%</div>
+        <div class="progress-bar metrics-failed" role="progressbar" style="width: <%= metrics_helper.metrics_ceil(total, failed) %>%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" title="Jobs failed <%= metrics_helper.metrics_round(total, failed) %>%"><%= metrics_helper.metrics_round(total, failed) %>%</div>
+      </div>
+    </div>
+  </div>
