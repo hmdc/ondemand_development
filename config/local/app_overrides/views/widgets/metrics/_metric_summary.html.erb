@@ -9,7 +9,8 @@
 
 %>
 <div class="metric-summary">
-  <p class="job-metrics-description" data-bs-toggle="collapse" data-bs-target="#<%= target %>" aria-expanded="false">
+  <% # COLLAPSE NEEDS TO BE COMPATIBLE WITH BOOTSTRAP v4 and v5 FOR THE TRANSITION BETWEEN OODv3.x and OODv4.x%>
+  <p class="job-metrics-description" data-toggle="collapse" data-target="#<%= target %>" data-bs-toggle="collapse" data-bs-target="#<%= target %>" aria-expanded="false">
     <button class="btn btn-default btn-xs">
       <i class="fa fa-plus fa-fw app-icon closed" aria-hidden="true"></i>
       <i class="fa fa-minus fa-fw app-icon open" aria-hidden="true"></i>
