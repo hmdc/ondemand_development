@@ -43,7 +43,6 @@ Rails.application.config.after_initialize do
               #https://slurm.schedmd.com/sacct.html
               fields = metrics_fields
               states = ['CA','CD','F','OOM','TO']
-              states = []
               args = ['-P'] #OUTPUT WILL BE DELIMITED
               args.concat ['--delimiter', UNIT_SEPARATOR]
               args.concat ['-n'] #NO HEADER
