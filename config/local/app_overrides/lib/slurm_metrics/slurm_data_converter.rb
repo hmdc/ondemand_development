@@ -3,6 +3,7 @@
 module SlurmMetrics
   # Utility methods to covert string data from the Slurm response.
   class SlurmDataConverter
+    UNKNOWN_DATES = %w[N/A NONE UNKNOWN].freeze
 
     def self.time_to_seconds(time)
       return 0.0 if time.blank?
@@ -25,7 +26,9 @@ module SlurmMetrics
     end
 
     def self.parse_date(date_string)
-      Time.parse(date_string).to_i
+      return nil if date_string.blank? || UNKNOWN_DATES.include?(date_string.to_s.upcase)
+
+      Time.parse(date_string.to_s).to_i
     end
 
     def self.format_start_of_day(timestamp)

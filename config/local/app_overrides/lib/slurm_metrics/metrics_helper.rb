@@ -10,7 +10,9 @@ module SlurmMetrics
 
     def metrics_round(total, value)
       value = total.zero? ? 0.0 : value / total.to_f
-      (value.ceil(2) * 100).to_i
+      # ENSURE AT LEAST 1% IS SHOWN FOR SMALL NUMBERS
+      value = value < 0.01 ? value.ceil(2) : value.round(2)
+      (value * 100).to_i
     end
 
     def metrics_ceil(total, value)
