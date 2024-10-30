@@ -31,5 +31,17 @@ module SlurmMetrics
         return "bg-warning"
       end
     end
+
+    def fairshare_class(fairshare_value)
+      fairshare_value = fairshare_value.to_s.to_f
+
+      if fairshare_value > 0.79
+        return "bg-success"
+      elsif fairshare_value < 0.5
+        return "bg-danger"
+      else
+        return "bg-warning"
+      end
+    end
   end
 end

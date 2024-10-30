@@ -74,12 +74,17 @@
         border-top: 1px solid rgba(0, 0, 0, 0.05);
         border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
+
+    .metrics .badge {
+        margin-top: 2px;
+    }
 </style>
 
 <% if summary %>
 <div class="metrics">
 <h3><%= cluster.metadata.title %> Metrics</h3>
 
+  <%= render(partial: '/widgets/metrics/fairshare') %>
   <%= render(partial: '/widgets/metrics/jobs_summary', locals: { title: 'CPU Jobs by State', subtitle: "Period: #{from_text} to #{to_text}", total: summary.ntotal_cpu, completed: summary.ncd_cpu, timeout: summary.nto_cpu, canceled: summary.nca_cpu, memory: summary.noom_cpu, failed: summary.nf_cpu } ) %>
   <%= render(partial: '/widgets/metrics/jobs_summary', locals: { title: 'GPU Jobs by State', subtitle: "Period: #{from_text} to #{to_text}", total: summary.ntotal_gpu, completed: summary.ncd_gpu, timeout: summary.nto_gpu, canceled: summary.nca_gpu, memory: summary.noom_gpu, failed: summary.nf_gpu } ) %>
 
