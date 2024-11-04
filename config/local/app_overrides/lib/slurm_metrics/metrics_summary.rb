@@ -3,6 +3,7 @@
 module SlurmMetrics
   # Class that holds all the metrics data
   class MetricsSummary
+    attr_accessor :from, :to
     attr_accessor :num_jobs, :num_jgpu
     attr_accessor :tot_cpu_walltime, :tot_gpu_hours, :ave_cpu_use, :ave_cpu_req, :ave_cpu_eff, :ave_gpu_req
     attr_accessor :tot_mem_use, :ave_mem_use, :ave_mem_req, :ave_mem_eff
@@ -10,6 +11,11 @@ module SlurmMetrics
     attr_accessor :ntotal_cpu, :nca_cpu, :ncd_cpu, :nf_cpu, :noom_cpu, :nto_cpu, :ntotal_gpu, :nca_gpu, :ncd_gpu, :nf_gpu, :noom_gpu, :nto_gpu
 
     def initialize(data = {})
+      @from = data.fetch(:from, nil)
+      @to = data.fetch(:to, nil)
+      @from = Time.at(@from) unless @from.blank?
+      @to = Time.at(@to) unless @to.blank?
+
       @num_jobs = data.fetch(:num_jobs, 0)
       @num_jgpu = data.fetch(:num_jgpu, 0)
 
@@ -55,6 +61,8 @@ module SlurmMetrics
       instance_variables.each do |var|
         hash[var.to_s.delete('@').to_sym] = instance_variable_get(var)
       end
+      hash[:from] = hash[:from].to_i
+      hash[:to] = hash[:to].to_i
       hash
     end
   end

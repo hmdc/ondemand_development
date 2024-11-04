@@ -8,10 +8,21 @@ jobs_app_alpha: true
 bc_dynamic_js: true
 bc_saved_settings: true
 cancel_session_enabled: true
+sessions_poll_delay: 900000
+status_delay: 900000
 
 navbar_type: dark
 
 default_profile: fasrc
+
+globus_endpoints:
+  - path: "/home"
+    endpoint: "716de4ac-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    endpoint_path: "/home"
+
+  - path: "/var/www/ood/apps/sys/dataverse"
+    endpoint: "9f1fe759-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    endpoint_path: "/demo/dataverse"
 
 help_menu:
   - group: "Docs"

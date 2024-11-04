@@ -6,8 +6,11 @@ module SlurmMetrics
   # Based on: https://github.com/fasrc/puppet-slurm_stats
   class MetricsProcessor
 
-    def calculate_metrics(user_metrics)
+    def calculate_metrics(from, to, user_metrics)
       metrics_summary = SlurmMetrics::MetricsSummary.new
+      metrics_summary.from = from
+      metrics_summary.to = to
+
       user_max_rss = 0.0
       # REVERSE METRICS TO PROCESS FIRST THE JOB STEPS AND THEN THE MAIN JOB
       user_metrics.reverse_each do |metric_hash|

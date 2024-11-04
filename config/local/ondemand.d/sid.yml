@@ -59,7 +59,6 @@ profiles:
 
     custom_pages:
       docs:
-        layout:
         rows:
           - columns:
               - width: 12

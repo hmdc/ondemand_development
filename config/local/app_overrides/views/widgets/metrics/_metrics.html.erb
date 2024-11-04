@@ -1,17 +1,9 @@
 <%
-    cluster = Configuration.job_clusters.select(&:slurm?).first
-    metrics_cache = SlurmMetrics::MetricsCache.new
-    from_text, to_text, summary = metrics_cache.get_metrics
-    if summary.blank?
-      from = Time.now - 7.days
-      to = Time.now
-      last_7_days = cluster.job_adapter.metrics(from: from.strftime('%Y-%m-%dT00:00:00'), to: to.strftime('%Y-%m-%dT23:59:59'))
-      processor = SlurmMetrics::MetricsProcessor.new
-      summary = processor.calculate_metrics(last_7_days)
-      from_text = from.strftime('%Y-%m-%d')
-      to_text = to.strftime('%Y-%m-%d')
-      metrics_cache.set_metrics(from_text, to_text, summary)
-    end
+    metrics_service = SlurmMetrics::MetricsService.new
+    summary = metrics_service.read_metrics
+
+    from_text = summary.from.strftime('%Y-%m-%d')
+    to_text = summary.to.strftime('%Y-%m-%d')
 %>
 
 <style>
@@ -78,52 +70,20 @@
     .metrics .badge {
         margin-top: 2px;
     }
+
+    .metrics .metrics-note {
+        margin-bottom: -12px;
+    }
 </style>
 
-<% if summary %>
 <div class="metrics">
-<h3><%= cluster.metadata.title %> Metrics</h3>
+  <h3><%= metrics_service.cluster.metadata.title %> Metrics</h3>
+  <div class="metrics-container">
+    <%= render(partial: '/widgets/metrics/fairshare') %>
 
-  <%= render(partial: '/widgets/metrics/fairshare') %>
-  <%= render(partial: '/widgets/metrics/jobs_summary', locals: { title: 'CPU Jobs by State', subtitle: "Period: #{from_text} to #{to_text}", total: summary.ntotal_cpu, completed: summary.ncd_cpu, timeout: summary.nto_cpu, canceled: summary.nca_cpu, memory: summary.noom_cpu, failed: summary.nf_cpu } ) %>
-  <%= render(partial: '/widgets/metrics/jobs_summary', locals: { title: 'GPU Jobs by State', subtitle: "Period: #{from_text} to #{to_text}", total: summary.ntotal_gpu, completed: summary.ncd_gpu, timeout: summary.nto_gpu, canceled: summary.nca_gpu, memory: summary.noom_gpu, failed: summary.nf_gpu } ) %>
+    <%= render(partial: '/widgets/metrics/jobs_summary', locals: { title: 'CPU Jobs by State', subtitle: "Period: #{from_text} to #{to_text}", total: summary.ntotal_cpu, completed: summary.ncd_cpu, timeout: summary.nto_cpu, canceled: summary.nca_cpu, memory: summary.noom_cpu, failed: summary.nf_cpu } ) %>
+    <%= render(partial: '/widgets/metrics/jobs_summary', locals: { title: 'GPU Jobs by State', subtitle: "Period: #{from_text} to #{to_text}", total: summary.ntotal_gpu, completed: summary.ncd_gpu, timeout: summary.nto_gpu, canceled: summary.nca_gpu, memory: summary.noom_gpu, failed: summary.nf_gpu } ) %>
 
-  <div class="card mt-3">
-    <div class="card-header">
-      <small class="float-end float-right">Total Jobs: <%= summary.total_jobs %></small>
-      <h3>Summary Job Stats</h3>
-      <small><%= "Period: #{from_text} to #{to_text}" %></small>
-    </div>
-
-    <div class="card-body">
-      <%= render(partial: '/widgets/metrics/metric_summary',
-                 locals: { id: 'cpu-metric-summary',
-                           title: 'CPU Efficiency:',
-                           efficiency: summary.ave_cpu_eff.round(1),
-                           items: [['Average Used', "#{summary.ave_cpu_use.ceil(1)} CPU Hrs"],
-                                   ['Average Allocated', "#{summary.ave_cpu_req.ceil(1)} CPU Hrs"],
-                                   ['Total Walltime', "#{summary.tot_cpu_walltime.ceil(1)} CPU Hrs"]] } ) %>
-      <%= render(partial: '/widgets/metrics/metric_summary',
-                 locals: { id: 'gpu-metric-summary',
-                           title: 'GPU Efficiency:',
-                           items: [['Average Allocated', "#{summary.ave_gpu_req.ceil(1)} CPU Hrs"],
-                                   ['Total Walltime', "#{summary.tot_gpu_hours.ceil(1)} CPU Hrs"]] } ) %>
-      <%= render(partial: '/widgets/metrics/metric_summary',
-                 locals: { id: 'memory-metric-summary',
-                           title: 'Memory Efficiency:',
-                           efficiency: summary.ave_mem_eff.ceil(1),
-                           items: [['Average Used', "#{summary.ave_mem_use.ceil(1)}G"],
-                                   ['Average Allocated', "#{summary.ave_mem_req.ceil(1)}G"],
-                                   ['Total Used', "#{summary.tot_mem_use.ceil(1)}G"]] } ) %>
-      <%= render(partial: '/widgets/metrics/metric_summary',
-                 locals: { id: 'time-metric-summary',
-                           title: 'Time Efficiency:',
-                           efficiency: summary.ave_time_eff.ceil(1),
-                           items: [['Average Used', "#{summary.ave_mem_use.ceil(1)}H"],
-                                   ['Average Allocated', "#{summary.ave_mem_req.ceil(1)}H"],
-                                   ['Average Waiting Time', "#{summary.ave_wait_time.ceil(1)}H"]] } ) %>
-
-    </div>
+    <%= render(partial: '/widgets/metrics/metrics_summary', locals: { summary: summary, from_text: from_text, to_text: to_text } ) %>
   </div>
 </div>
-<% end %>

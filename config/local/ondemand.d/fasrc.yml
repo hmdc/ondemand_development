@@ -17,8 +17,13 @@ profiles:
     dashboard_layout:
       rows:
         - columns:
-            - width: 10
+            - width: 8
               widgets:
-                - "saved_settings"
+                - "metrics/metrics"
                 - "pinned_apps"
                 - "motd"
+            - width: 4
+              widgets:
+                - "metrics/metrics"
+                - "xdmod_widget_job_efficiency"
+                - "xdmod_widget_jobs"
