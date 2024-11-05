@@ -1,4 +1,5 @@
-# SessionsHelper extension to support TurboVNC and KVM
+# frozen_string_literal: true
+# ConfigurationSingleton extension
 Rails.application.config.after_initialize do
   Rails.logger.info 'Executing Configuration extension ...'
   class ConfigurationSingleton

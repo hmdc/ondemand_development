@@ -1,0 +1,7 @@
+custom_pages:
+  metrics:
+    rows:
+      - columns:
+          - width: 12
+            widgets:
+              - "metrics/metrics"
