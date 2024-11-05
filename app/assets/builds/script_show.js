@@ -42,25 +42,9 @@ function mountainCaseWords(str) {
 function snakeCaseWords(str) {
   if (str === void 0)
     return void 0;
-  let snakeCase = "";
-  str.split("").forEach((c, index) => {
-    if (c === "-" || c === "_") {
-      snakeCase += "_";
-    } else if (index == 0) {
-      snakeCase += c.toLowerCase();
-    } else if (c == c.toUpperCase() && isNaN(c)) {
-      const nextIsUpper = index + 1 !== str.length ? str[index + 1] === str[index + 1].toUpperCase() : true;
-      const nextIsNum = !isNaN(str[index + 1]);
-      if ((str[index - 1] === "_" || nextIsUpper) && !nextIsNum) {
-        snakeCase += c.toLowerCase();
-      } else {
-        snakeCase += `_${c.toLowerCase()}`;
-      }
-    } else {
-      snakeCase += c;
-    }
-  });
-  return snakeCase;
+  const rex = /([A-Z]{1}[a-z]*[0-9]*)|.+/g;
+  const words = str.match(rex);
+  return words.filter((word) => word != "").map((word) => word.toLowerCase()).join("_");
 }
 function memorizeElements(elements2) {
   elements2.each((_i, ele) => {

@@ -232,11 +232,6 @@ function enableOrDisableSelectOption(event) {
   const selectOptions = Array.from(select.options);
   const optionToToggle = selectOptions.filter((opt) => opt.text == choice)[0];
   const selectOptionsEnabled = selectOptions.filter((opt) => !opt.disabled);
-  if (selectOptionsEnabled.length <= 1 && toggleAction == "remove") {
-    alert("Cannot remove the last option available");
-    event.target.disabled = false;
-    return;
-  }
   if (toggleAction == "add") {
     enableRemoveOption(li);
     removeFromExcludeInput(excludeId, choice);
@@ -249,6 +244,23 @@ function enableOrDisableSelectOption(event) {
       optionToToggle.selected = false;
       selectOptionsEnabled.filter((opt) => opt.text !== choice)[0].selected = true;
     }
+  }
+  enableOrDisableLastOption(li.parentElement);
+}
+function enableOrDisableLastOption(optionsOl) {
+  const optionLis = Array.from(optionsOl.children);
+  const optionsEnabled = Array.from(optionLis.filter((child) => {
+    return !child.classList.contains("text-strike");
+  }));
+  if (optionsEnabled.length > 1) {
+    const bothButtonsDisabled = optionsEnabled.filter((option) => {
+      return option.querySelectorAll("button:disabled").length == 2;
+    });
+    for (const option of bothButtonsDisabled) {
+      enableRemoveOption(option);
+    }
+  } else {
+    enableRemoveOption(optionsEnabled[0], true);
   }
 }
 function getExcludeList(excludeElementId) {
@@ -291,6 +303,7 @@ function initSelect(selectElement) {
       enableAddOption(configItem);
     }
   });
+  enableOrDisableLastOption(selectOptionsConfig[0].parentElement);
 }
 function initFixedFields() {
   const fixedCheckboxes = Array.from($("[data-fixed-toggler]"));

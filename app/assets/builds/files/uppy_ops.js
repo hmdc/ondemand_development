@@ -15669,7 +15669,7 @@ function _classPrivateFieldLooseKey3(e) {
   return "__private_" + id3++ + "_" + e;
 }
 var packageJson2 = {
-  "version": "4.2.0"
+  "version": "4.2.1"
 };
 var defaultUploadState = {
   totalProgress: 0,
@@ -15954,7 +15954,9 @@ var Uppy = class {
         progress: {
           ...files[fileID].progress,
           ...defaultProgress
-        }
+        },
+        tus: void 0,
+        transloadit: void 0
       };
     });
     this.setState({
@@ -17156,9 +17158,8 @@ function assign(obj, props) {
   return obj;
 }
 function removeNode(node2) {
-  let parentNode = node2.parentNode;
-  if (parentNode)
-    parentNode.removeChild(node2);
+  if (node2 && node2.parentNode)
+    node2.parentNode.removeChild(node2);
 }
 var slice = EMPTY_ARR.slice;
 
@@ -17371,9 +17372,8 @@ function diffChildren(parentDom, renderResult, newParentVNode, oldParentVNode, g
   oldDom = newParentVNode._nextDom;
   for (i = 0; i < newChildrenLength; i++) {
     childVNode = newParentVNode._children[i];
-    if (childVNode == null || typeof childVNode == "boolean" || typeof childVNode == "function") {
+    if (childVNode == null)
       continue;
-    }
     if (childVNode._index === -1) {
       oldVNode = EMPTY_OBJ;
     } else {
@@ -17431,6 +17431,7 @@ function constructNewChildrenArray(newParentVNode, renderResult, oldChildren) {
     childVNode = renderResult[i];
     if (childVNode == null || typeof childVNode == "boolean" || typeof childVNode == "function") {
       childVNode = newParentVNode._children[i] = null;
+      continue;
     } else if (typeof childVNode == "string" || typeof childVNode == "number" || typeof childVNode == "bigint" || childVNode.constructor == String) {
       childVNode = newParentVNode._children[i] = createVNode(
         null,
@@ -17459,27 +17460,14 @@ function constructNewChildrenArray(newParentVNode, renderResult, oldChildren) {
       childVNode = newParentVNode._children[i] = childVNode;
     }
     const skewedIndex = i + skew;
-    if (childVNode == null) {
-      oldVNode = oldChildren[skewedIndex];
-      if (oldVNode && oldVNode.key == null && oldVNode._dom && (oldVNode._flags & MATCHED) === 0) {
-        if (oldVNode._dom == newParentVNode._nextDom) {
-          newParentVNode._nextDom = getDomSibling(oldVNode);
-        }
-        unmount(oldVNode, oldVNode, false);
-        oldChildren[skewedIndex] = null;
-        remainingOldChildren--;
-      }
-      continue;
-    }
     childVNode._parent = newParentVNode;
     childVNode._depth = newParentVNode._depth + 1;
-    const matchingIndex = findMatchingIndex(
+    const matchingIndex = childVNode._index = findMatchingIndex(
       childVNode,
       oldChildren,
       skewedIndex,
       remainingOldChildren
     );
-    childVNode._index = matchingIndex;
     oldVNode = null;
     if (matchingIndex !== -1) {
       oldVNode = oldChildren[matchingIndex];
@@ -17501,20 +17489,12 @@ function constructNewChildrenArray(newParentVNode, renderResult, oldChildren) {
         skew--;
       } else if (matchingIndex == skewedIndex + 1) {
         skew++;
-      } else if (matchingIndex > skewedIndex) {
-        if (remainingOldChildren > newChildrenLength - skewedIndex) {
-          skew += matchingIndex - skewedIndex;
-        } else {
+      } else {
+        if (matchingIndex > skewedIndex) {
           skew--;
-        }
-      } else if (matchingIndex < skewedIndex) {
-        if (matchingIndex == skewedIndex - skew) {
-          skew -= matchingIndex - skewedIndex;
         } else {
           skew++;
         }
-      }
-      if (matchingIndex !== i + skew) {
         childVNode._flags |= INSERT_VNODE;
       }
     }
@@ -17778,7 +17758,7 @@ function diff(parentDom, newVNode, oldVNode, globalContext, namespace, excessDom
             }
             newVNode._dom = oldVNode._dom;
             newVNode._children = oldVNode._children;
-            newVNode._children.forEach((vnode) => {
+            newVNode._children.some((vnode) => {
               if (vnode)
                 vnode._parent = newVNode;
             });
@@ -17943,8 +17923,12 @@ function diffElementNodes(dom, newVNode, oldVNode, globalContext, namespace, exc
       nodeType,
       newProps.is && newProps
     );
+    if (isHydrating) {
+      if (options_default._hydrationMismatch)
+        options_default._hydrationMismatch(newVNode, excessDomChildren);
+      isHydrating = false;
+    }
     excessDomChildren = null;
-    isHydrating = false;
   }
   if (nodeType === null) {
     if (oldProps !== newProps && (!isHydrating || dom.data !== newProps)) {
@@ -17965,7 +17949,7 @@ function diffElementNodes(dom, newVNode, oldVNode, globalContext, namespace, exc
       if (i == "children") {
       } else if (i == "dangerouslySetInnerHTML") {
         oldHtml = value;
-      } else if (i !== "key" && !(i in newProps)) {
+      } else if (!(i in newProps)) {
         if (i == "value" && "defaultValue" in newProps || i == "checked" && "defaultChecked" in newProps) {
           continue;
         }
@@ -17982,7 +17966,7 @@ function diffElementNodes(dom, newVNode, oldVNode, globalContext, namespace, exc
         inputValue = value;
       } else if (i == "checked") {
         checked = value;
-      } else if (i !== "key" && (!isHydrating || typeof value == "function") && oldProps[i] !== value) {
+      } else if ((!isHydrating || typeof value == "function") && oldProps[i] !== value) {
         setProperty(dom, i, value, oldProps[i], namespace);
       }
     }
@@ -18009,14 +17993,15 @@ function diffElementNodes(dom, newVNode, oldVNode, globalContext, namespace, exc
       );
       if (excessDomChildren != null) {
         for (i = excessDomChildren.length; i--; ) {
-          if (excessDomChildren[i] != null)
-            removeNode(excessDomChildren[i]);
+          removeNode(excessDomChildren[i]);
         }
       }
     }
     if (!isHydrating) {
       i = "value";
-      if (inputValue !== void 0 && (inputValue !== dom[i] || nodeType === "progress" && !inputValue || nodeType === "option" && inputValue !== oldProps[i])) {
+      if (nodeType === "progress" && inputValue == null) {
+        dom.removeAttribute("value");
+      } else if (inputValue !== void 0 && (inputValue !== dom[i] || nodeType === "progress" && !inputValue || nodeType === "option" && inputValue !== oldProps[i])) {
         setProperty(dom, i, inputValue, oldProps[i], namespace);
       }
       i = "checked";
@@ -18073,7 +18058,7 @@ function unmount(vnode, parentVNode, skipRemove) {
       }
     }
   }
-  if (!skipRemove && vnode._dom != null) {
+  if (!skipRemove) {
     removeNode(vnode._dom);
   }
   vnode._component = vnode._parent = vnode._dom = vnode._nextDom = void 0;
@@ -27704,7 +27689,7 @@ function _classPrivateFieldLooseKey11(e) {
   return "__private_" + id11++ + "_" + e;
 }
 var packageJson9 = {
-  "version": "4.1.0"
+  "version": "4.2.0"
 };
 function buildResponseError(xhr, err) {
   let error = err;
@@ -27820,10 +27805,13 @@ var XHRUpload = class extends BasePlugin {
     _classPrivateFieldLooseBase11(this, _getFetcher)[_getFetcher] = (files) => {
       return async (url2, options3) => {
         try {
-          var _this$opts$getRespons, _this$opts, _body2;
+          var _this$opts$getRespons, _this$opts2, _body2;
           const res = await fetcher(url2, {
             ...options3,
-            onBeforeRequest: this.opts.onBeforeRequest,
+            onBeforeRequest: (xhr, retryCount) => {
+              var _this$opts$onBeforeRe, _this$opts;
+              return (_this$opts$onBeforeRe = (_this$opts = this.opts).onBeforeRequest) == null ? void 0 : _this$opts$onBeforeRe.call(_this$opts, xhr, retryCount, files);
+            },
             shouldRetry: this.opts.shouldRetry,
             onAfterResponse: this.opts.onAfterResponse,
             onTimeout: (timeout) => {
@@ -27846,7 +27834,7 @@ var XHRUpload = class extends BasePlugin {
               }
             }
           });
-          let body = await ((_this$opts$getRespons = (_this$opts = this.opts).getResponseData) == null ? void 0 : _this$opts$getRespons.call(_this$opts, res));
+          let body = await ((_this$opts$getRespons = (_this$opts2 = this.opts).getResponseData) == null ? void 0 : _this$opts$getRespons.call(_this$opts2, res));
           try {
             var _body;
             (_body = body) != null ? _body : body = JSON.parse(res.responseText);

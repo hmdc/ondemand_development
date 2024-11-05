@@ -119,8 +119,7 @@ var require_oboe_browser = __commonJS({
               args.length = numBoundArgs + callArgs.length;
               return fn.apply(this, args);
             });
-          });
-          var compose = varArgs(function(fns) {
+          }), compose = varArgs(function(fns) {
             var fnsList = Object(__WEBPACK_IMPORTED_MODULE_0__lists__["c"])(fns);
             function next(params, curFn) {
               return [apply(params, curFn)];
@@ -154,13 +153,12 @@ var require_oboe_browser = __commonJS({
             return fn.apply(void 0, args);
           }
           function varArgs(fn) {
-            var numberOfFixedArguments = fn.length - 1;
-            var slice = Array.prototype.slice;
-            if (numberOfFixedArguments === 0) {
+            var numberOfFixedArguments = fn.length - 1, slice = Array.prototype.slice;
+            if (numberOfFixedArguments == 0) {
               return function() {
                 return fn.call(this, slice.call(arguments));
               };
-            } else if (numberOfFixedArguments === 1) {
+            } else if (numberOfFixedArguments == 1) {
               return function() {
                 return fn.call(this, arguments[0], slice.call(arguments, 1));
               };
@@ -240,9 +238,7 @@ var require_oboe_browser = __commonJS({
           function cons(x, xs) {
             return [x, xs];
           }
-          var emptyList = null;
-          var head = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["c"])(0);
-          var tail = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["c"])(1);
+          var emptyList = null, head = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["c"])(0), tail = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["c"])(1);
           function arrayAsList(inputArray) {
             return reverseList(
               inputArray.reduce(
@@ -317,8 +313,7 @@ var require_oboe_browser = __commonJS({
           function isOfType(T, maybeSomething) {
             return maybeSomething && maybeSomething.constructor === T;
           }
-          var len = Object(__WEBPACK_IMPORTED_MODULE_1__functional__["c"])("length");
-          var isString = Object(__WEBPACK_IMPORTED_MODULE_1__functional__["j"])(isOfType, String);
+          var len = Object(__WEBPACK_IMPORTED_MODULE_1__functional__["c"])("length"), isString = Object(__WEBPACK_IMPORTED_MODULE_1__functional__["j"])(isOfType, String);
           function defined(value) {
             return value !== void 0;
           }
@@ -375,21 +370,7 @@ var require_oboe_browser = __commonJS({
           __webpack_require__.d(__webpack_exports__, "o", function() {
             return errorReport;
           });
-          var _S = 1;
-          var NODE_OPENED = _S++;
-          var NODE_CLOSED = _S++;
-          var NODE_SWAP = _S++;
-          var NODE_DROP = _S++;
-          var FAIL_EVENT = "fail";
-          var ROOT_NODE_FOUND = _S++;
-          var ROOT_PATH_FOUND = _S++;
-          var HTTP_START = "start";
-          var STREAM_DATA = "data";
-          var STREAM_END = "end";
-          var ABORTING = _S++;
-          var SAX_KEY = _S++;
-          var SAX_VALUE_OPEN = _S++;
-          var SAX_VALUE_CLOSE = _S++;
+          var _S = 1, NODE_OPENED = _S++, NODE_CLOSED = _S++, NODE_SWAP = _S++, NODE_DROP = _S++, FAIL_EVENT = "fail", ROOT_NODE_FOUND = _S++, ROOT_PATH_FOUND = _S++, HTTP_START = "start", STREAM_DATA = "data", STREAM_END = "end", ABORTING = _S++, SAX_KEY = _S++, SAX_VALUE_OPEN = _S++, SAX_VALUE_CLOSE = _S++;
           function errorReport(statusCode, body, error) {
             try {
               var jsonBody = JSON.parse(body);
@@ -432,8 +413,7 @@ var require_oboe_browser = __commonJS({
           var __WEBPACK_IMPORTED_MODULE_3__defaults__ = __webpack_require__(8);
           var __WEBPACK_IMPORTED_MODULE_4__wire__ = __webpack_require__(9);
           function oboe2(arg1) {
-            var nodeStreamMethodNames = Object(__WEBPACK_IMPORTED_MODULE_0__lists__["h"])("resume", "pause", "pipe");
-            var isStream = Object(__WEBPACK_IMPORTED_MODULE_1__functional__["j"])(
+            var nodeStreamMethodNames = Object(__WEBPACK_IMPORTED_MODULE_0__lists__["h"])("resume", "pause", "pipe"), isStream = Object(__WEBPACK_IMPORTED_MODULE_1__functional__["j"])(
               __WEBPACK_IMPORTED_MODULE_2__util__["b"],
               nodeStreamMethodNames
             );
@@ -476,10 +456,7 @@ var require_oboe_browser = __commonJS({
           var __WEBPACK_IMPORTED_MODULE_3__lists__ = __webpack_require__(1);
           var ROOT_PATH = {};
           function incrementalContentBuilder(oboeBus) {
-            var emitNodeOpened = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["f"]).emit;
-            var emitNodeClosed = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["d"]).emit;
-            var emitRootOpened = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["i"]).emit;
-            var emitRootClosed = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["h"]).emit;
+            var emitNodeOpened = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["f"]).emit, emitNodeClosed = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["d"]).emit, emitRootOpened = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["i"]).emit, emitRootClosed = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["h"]).emit;
             function arrayIndicesAreKeys(possiblyInconsistentAscent, newDeepestNode) {
               var parentNode = Object(__WEBPACK_IMPORTED_MODULE_1__ascent__["c"])(Object(__WEBPACK_IMPORTED_MODULE_3__lists__["g"])(possiblyInconsistentAscent));
               return Object(__WEBPACK_IMPORTED_MODULE_2__util__["c"])(Array, parentNode) ? keyFound(
@@ -493,9 +470,7 @@ var require_oboe_browser = __commonJS({
                 emitRootOpened(newDeepestNode);
                 return keyFound(ascent, ROOT_PATH, newDeepestNode);
               }
-              var arrayConsistentAscent = arrayIndicesAreKeys(ascent, newDeepestNode);
-              var ancestorBranches = Object(__WEBPACK_IMPORTED_MODULE_3__lists__["l"])(arrayConsistentAscent);
-              var previouslyUnmappedName = Object(__WEBPACK_IMPORTED_MODULE_1__ascent__["a"])(Object(__WEBPACK_IMPORTED_MODULE_3__lists__["g"])(arrayConsistentAscent));
+              var arrayConsistentAscent = arrayIndicesAreKeys(ascent, newDeepestNode), ancestorBranches = Object(__WEBPACK_IMPORTED_MODULE_3__lists__["l"])(arrayConsistentAscent), previouslyUnmappedName = Object(__WEBPACK_IMPORTED_MODULE_1__ascent__["a"])(Object(__WEBPACK_IMPORTED_MODULE_3__lists__["g"])(arrayConsistentAscent));
               appendBuiltContent(
                 ancestorBranches,
                 previouslyUnmappedName,
@@ -559,7 +534,7 @@ var require_oboe_browser = __commonJS({
             }
             function modifiedUrl(baseUrl, cached2) {
               if (cached2 === false) {
-                if (baseUrl.indexOf("?") === -1) {
+                if (baseUrl.indexOf("?") == -1) {
                   baseUrl += "?";
                 } else {
                   baseUrl += "&";
@@ -611,16 +586,13 @@ var require_oboe_browser = __commonJS({
           var __WEBPACK_IMPORTED_MODULE_0__singleEventPubSub__ = __webpack_require__(11);
           var __WEBPACK_IMPORTED_MODULE_1__functional__ = __webpack_require__(0);
           function pubSub() {
-            var singles = {};
-            var newListener = newSingle("newListener");
-            var removeListener = newSingle("removeListener");
+            var singles = {}, newListener = newSingle("newListener"), removeListener = newSingle("removeListener");
             function newSingle(eventName) {
-              singles[eventName] = Object(__WEBPACK_IMPORTED_MODULE_0__singleEventPubSub__["a"])(
+              return singles[eventName] = Object(__WEBPACK_IMPORTED_MODULE_0__singleEventPubSub__["a"])(
                 eventName,
                 newListener,
                 removeListener
               );
-              return singles[eventName];
             }
             function pubSubInstance(eventName) {
               return singles[eventName] || newSingle(eventName);
@@ -645,7 +617,7 @@ var require_oboe_browser = __commonJS({
             var listenerTupleList, listenerList;
             function hasId(id) {
               return function(tuple) {
-                return tuple.id === id;
+                return tuple.id == id;
               };
             }
             return {
@@ -675,7 +647,7 @@ var require_oboe_browser = __commonJS({
                 );
                 if (removed) {
                   listenerList = Object(__WEBPACK_IMPORTED_MODULE_0__lists__["m"])(listenerList, function(listener) {
-                    return listener === removed.listener;
+                    return listener == removed.listener;
                   });
                   if (removeListener) {
                     removeListener.emit(eventType, removed.listener, removed.id);
@@ -702,8 +674,7 @@ var require_oboe_browser = __commonJS({
           var __WEBPACK_IMPORTED_MODULE_2__lists__ = __webpack_require__(1);
           function ascentManager(oboeBus, handlers) {
             "use strict";
-            var listenerId = {};
-            var ascent;
+            var listenerId = {}, ascent;
             function stateAfter(handler) {
               return function(param) {
                 ascent = handler(ascent, param);
@@ -713,20 +684,14 @@ var require_oboe_browser = __commonJS({
               oboeBus(eventName).on(stateAfter(handlers[eventName]), listenerId);
             }
             oboeBus(__WEBPACK_IMPORTED_MODULE_1__events__["g"]).on(function(newNode) {
-              var oldHead = Object(__WEBPACK_IMPORTED_MODULE_2__lists__["g"])(ascent);
-              var key = Object(__WEBPACK_IMPORTED_MODULE_0__ascent__["a"])(oldHead);
-              var ancestors = Object(__WEBPACK_IMPORTED_MODULE_2__lists__["l"])(ascent);
-              var parentNode;
+              var oldHead = Object(__WEBPACK_IMPORTED_MODULE_2__lists__["g"])(ascent), key = Object(__WEBPACK_IMPORTED_MODULE_0__ascent__["a"])(oldHead), ancestors = Object(__WEBPACK_IMPORTED_MODULE_2__lists__["l"])(ascent), parentNode;
               if (ancestors) {
                 parentNode = Object(__WEBPACK_IMPORTED_MODULE_0__ascent__["c"])(Object(__WEBPACK_IMPORTED_MODULE_2__lists__["g"])(ancestors));
                 parentNode[key] = newNode;
               }
             });
             oboeBus(__WEBPACK_IMPORTED_MODULE_1__events__["e"]).on(function() {
-              var oldHead = Object(__WEBPACK_IMPORTED_MODULE_2__lists__["g"])(ascent);
-              var key = Object(__WEBPACK_IMPORTED_MODULE_0__ascent__["a"])(oldHead);
-              var ancestors = Object(__WEBPACK_IMPORTED_MODULE_2__lists__["l"])(ascent);
-              var parentNode;
+              var oldHead = Object(__WEBPACK_IMPORTED_MODULE_2__lists__["g"])(ascent), key = Object(__WEBPACK_IMPORTED_MODULE_0__ascent__["a"])(oldHead), ancestors = Object(__WEBPACK_IMPORTED_MODULE_2__lists__["l"])(ascent), parentNode;
               if (ancestors) {
                 parentNode = Object(__WEBPACK_IMPORTED_MODULE_0__ascent__["c"])(Object(__WEBPACK_IMPORTED_MODULE_2__lists__["g"])(ancestors));
                 delete parentNode[key];
@@ -773,7 +738,7 @@ var require_oboe_browser = __commonJS({
                 }
               }, fullEventName);
               oboeBus("removeListener").on(function(removedEventName) {
-                if (removedEventName === fullEventName) {
+                if (removedEventName == fullEventName) {
                   if (!oboeBus(removedEventName).listeners()) {
                     predicateEvent.un(fullEventName);
                   }
@@ -810,25 +775,21 @@ var require_oboe_browser = __commonJS({
             var CAPTURING_INDEX = 1;
             var NAME_INDEX = 2;
             var FIELD_LIST_INDEX = 3;
-            var headKey = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["d"])(__WEBPACK_IMPORTED_MODULE_2__ascent__["a"], __WEBPACK_IMPORTED_MODULE_1__lists__["g"]);
-            var headNode = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["d"])(__WEBPACK_IMPORTED_MODULE_2__ascent__["c"], __WEBPACK_IMPORTED_MODULE_1__lists__["g"]);
+            var headKey = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["d"])(__WEBPACK_IMPORTED_MODULE_2__ascent__["a"], __WEBPACK_IMPORTED_MODULE_1__lists__["g"]), headNode = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["d"])(__WEBPACK_IMPORTED_MODULE_2__ascent__["c"], __WEBPACK_IMPORTED_MODULE_1__lists__["g"]);
             function nameClause(previousExpr, detection) {
-              var name = detection[NAME_INDEX];
-              var matchesName = !name || name === "*" ? __WEBPACK_IMPORTED_MODULE_0__functional__["a"] : function(ascent) {
-                return String(headKey(ascent)) === name;
+              var name = detection[NAME_INDEX], matchesName = !name || name == "*" ? __WEBPACK_IMPORTED_MODULE_0__functional__["a"] : function(ascent) {
+                return headKey(ascent) == name;
               };
               return Object(__WEBPACK_IMPORTED_MODULE_0__functional__["g"])(matchesName, previousExpr);
             }
             function duckTypeClause(previousExpr, detection) {
               var fieldListStr = detection[FIELD_LIST_INDEX];
-              if (!fieldListStr) {
+              if (!fieldListStr)
                 return previousExpr;
-              }
               var hasAllrequiredFields = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["j"])(
                 __WEBPACK_IMPORTED_MODULE_3__util__["b"],
                 Object(__WEBPACK_IMPORTED_MODULE_1__lists__["c"])(fieldListStr.split(/\W+/))
-              );
-              var isMatch = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["d"])(
+              ), isMatch = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["d"])(
                 hasAllrequiredFields,
                 headNode
               );
@@ -836,17 +797,16 @@ var require_oboe_browser = __commonJS({
             }
             function capture(previousExpr, detection) {
               var capturing = !!detection[CAPTURING_INDEX];
-              if (!capturing) {
+              if (!capturing)
                 return previousExpr;
-              }
               return Object(__WEBPACK_IMPORTED_MODULE_0__functional__["g"])(previousExpr, __WEBPACK_IMPORTED_MODULE_1__lists__["g"]);
             }
             function skip1(previousExpr) {
-              if (previousExpr === __WEBPACK_IMPORTED_MODULE_0__functional__["a"]) {
+              if (previousExpr == __WEBPACK_IMPORTED_MODULE_0__functional__["a"]) {
                 return __WEBPACK_IMPORTED_MODULE_0__functional__["a"];
               }
               function notAtRoot(ascent) {
-                return headKey(ascent) !== __WEBPACK_IMPORTED_MODULE_4__incrementalContentBuilder__["a"];
+                return headKey(ascent) != __WEBPACK_IMPORTED_MODULE_4__incrementalContentBuilder__["a"];
               }
               return Object(__WEBPACK_IMPORTED_MODULE_0__functional__["g"])(
                 notAtRoot,
@@ -854,15 +814,12 @@ var require_oboe_browser = __commonJS({
               );
             }
             function skipMany(previousExpr) {
-              if (previousExpr === __WEBPACK_IMPORTED_MODULE_0__functional__["a"]) {
+              if (previousExpr == __WEBPACK_IMPORTED_MODULE_0__functional__["a"]) {
                 return __WEBPACK_IMPORTED_MODULE_0__functional__["a"];
               }
-              var terminalCaseWhenArrivingAtRoot = rootExpr();
-              var terminalCaseWhenPreviousExpressionIsSatisfied = previousExpr;
-              var recursiveCase = skip1(function(ascent) {
+              var terminalCaseWhenArrivingAtRoot = rootExpr(), terminalCaseWhenPreviousExpressionIsSatisfied = previousExpr, recursiveCase = skip1(function(ascent) {
                 return cases(ascent);
-              });
-              var cases = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["h"])(
+              }), cases = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["h"])(
                 terminalCaseWhenArrivingAtRoot,
                 terminalCaseWhenPreviousExpressionIsSatisfied,
                 recursiveCase
@@ -871,7 +828,7 @@ var require_oboe_browser = __commonJS({
             }
             function rootExpr() {
               return function(ascent) {
-                return headKey(ascent) === __WEBPACK_IMPORTED_MODULE_4__incrementalContentBuilder__["a"];
+                return headKey(ascent) == __WEBPACK_IMPORTED_MODULE_4__incrementalContentBuilder__["a"];
               };
             }
             function statementExpr(lastClause) {
@@ -896,8 +853,7 @@ var require_oboe_browser = __commonJS({
                   clauseEvaluatorGenerators,
                   parserGeneratedSoFar,
                   detected
-                );
-                var remainingUnparsedJsonPath = jsonPath.substr(Object(__WEBPACK_IMPORTED_MODULE_3__util__["e"])(detected[0]));
+                ), remainingUnparsedJsonPath = jsonPath.substr(Object(__WEBPACK_IMPORTED_MODULE_3__util__["e"])(detected[0]));
                 return onSuccess(remainingUnparsedJsonPath, compiledParser);
               }
             }
@@ -957,49 +913,33 @@ var require_oboe_browser = __commonJS({
           var jsonPathSyntax = function() {
             var regexDescriptor = function regexDescriptor2(regex) {
               return regex.exec.bind(regex);
-            };
-            var jsonPathClause = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["k"])(function(componentRegexes) {
+            }, jsonPathClause = Object(__WEBPACK_IMPORTED_MODULE_0__functional__["k"])(function(componentRegexes) {
               componentRegexes.unshift(/^/);
               return regexDescriptor(
                 RegExp(
                   componentRegexes.map(Object(__WEBPACK_IMPORTED_MODULE_0__functional__["c"])("source")).join("")
                 )
               );
-            });
-            var possiblyCapturing = /(\$?)/;
-            var namedNode = /([\w-_]+|\*)/;
-            var namePlaceholder = /()/;
-            var nodeInArrayNotation = /\["([^"]+)"\]/;
-            var numberedNodeInArrayNotation = /\[(\d+|\*)\]/;
-            var fieldList = /{([\w ]*?)}/;
-            var optionalFieldList = /(?:{([\w ]*?)})?/;
-            var jsonPathNamedNodeInObjectNotation = jsonPathClause(
+            }), possiblyCapturing = /(\$?)/, namedNode = /([\w-_]+|\*)/, namePlaceholder = /()/, nodeInArrayNotation = /\["([^"]+)"\]/, numberedNodeInArrayNotation = /\[(\d+|\*)\]/, fieldList = /{([\w ]*?)}/, optionalFieldList = /(?:{([\w ]*?)})?/, jsonPathNamedNodeInObjectNotation = jsonPathClause(
               possiblyCapturing,
               namedNode,
               optionalFieldList
-            );
-            var jsonPathNamedNodeInArrayNotation = jsonPathClause(
+            ), jsonPathNamedNodeInArrayNotation = jsonPathClause(
               possiblyCapturing,
               nodeInArrayNotation,
               optionalFieldList
-            );
-            var jsonPathNumberedNodeInArrayNotation = jsonPathClause(
+            ), jsonPathNumberedNodeInArrayNotation = jsonPathClause(
               possiblyCapturing,
               numberedNodeInArrayNotation,
               optionalFieldList
-            );
-            var jsonPathPureDuckTyping = jsonPathClause(
+            ), jsonPathPureDuckTyping = jsonPathClause(
               possiblyCapturing,
               namePlaceholder,
               fieldList
-            );
-            var jsonPathDoubleDot = jsonPathClause(/\.\./);
-            var jsonPathDot = jsonPathClause(/\./);
-            var jsonPathBang = jsonPathClause(
+            ), jsonPathDoubleDot = jsonPathClause(/\.\./), jsonPathDot = jsonPathClause(/\./), jsonPathBang = jsonPathClause(
               possiblyCapturing,
               /!/
-            );
-            var emptyString = jsonPathClause(/$/);
+            ), emptyString = jsonPathClause(/$/);
             return function(fn) {
               return fn(
                 Object(__WEBPACK_IMPORTED_MODULE_0__functional__["h"])(
@@ -1026,29 +966,22 @@ var require_oboe_browser = __commonJS({
           var __WEBPACK_IMPORTED_MODULE_2__util__ = __webpack_require__(2);
           var __WEBPACK_IMPORTED_MODULE_3__publicApi__ = __webpack_require__(5);
           function instanceApi(oboeBus, contentSource) {
-            var oboeApi;
-            var fullyQualifiedNamePattern = /^(node|path):./;
-            var rootNodeFinishedEvent = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["h"]);
-            var emitNodeDrop = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["e"]).emit;
-            var emitNodeSwap = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["g"]).emit;
-            var addListener = Object(__WEBPACK_IMPORTED_MODULE_1__functional__["k"])(function(eventId, parameters) {
+            var oboeApi, fullyQualifiedNamePattern = /^(node|path):./, rootNodeFinishedEvent = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["h"]), emitNodeDrop = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["e"]).emit, emitNodeSwap = oboeBus(__WEBPACK_IMPORTED_MODULE_0__events__["g"]).emit, addListener = Object(__WEBPACK_IMPORTED_MODULE_1__functional__["k"])(function(eventId, parameters) {
               if (oboeApi[eventId]) {
                 Object(__WEBPACK_IMPORTED_MODULE_1__functional__["b"])(parameters, oboeApi[eventId]);
               } else {
-                var event = oboeBus(eventId);
-                var listener = parameters[0];
+                var event = oboeBus(eventId), listener = parameters[0];
                 if (fullyQualifiedNamePattern.test(eventId)) {
-                  addForgettableCallback(event, wrapCallbackToSwapNodeIfSomethingReturned(listener));
+                  addForgettableCallback(event, listener);
                 } else {
                   event.on(listener);
                 }
               }
               return oboeApi;
-            });
-            var removeListener = function(eventId, p2, p3) {
-              if (eventId === "done") {
+            }), removeListener = function(eventId, p2, p3) {
+              if (eventId == "done") {
                 rootNodeFinishedEvent.un(p2);
-              } else if (eventId === "node" || eventId === "path") {
+              } else if (eventId == "node" || eventId == "path") {
                 oboeBus.un(eventId + ":" + p2, p3);
               } else {
                 var listener = p2;
@@ -1094,7 +1027,7 @@ var require_oboe_browser = __commonJS({
               return function() {
                 var returnValueFromCallback = callback.apply(this, arguments);
                 if (Object(__WEBPACK_IMPORTED_MODULE_2__util__["a"])(returnValueFromCallback)) {
-                  if (returnValueFromCallback === __WEBPACK_IMPORTED_MODULE_3__publicApi__["a"].drop) {
+                  if (returnValueFromCallback == __WEBPACK_IMPORTED_MODULE_3__publicApi__["a"].drop) {
                     emitNodeDrop();
                   } else {
                     emitNodeSwap(returnValueFromCallback);
@@ -1104,7 +1037,7 @@ var require_oboe_browser = __commonJS({
             }
             function addSingleNodeOrPathListener(eventId, pattern, callback) {
               var effectiveCallback;
-              if (eventId === "node") {
+              if (eventId == "node") {
                 effectiveCallback = wrapCallbackToSwapNodeIfSomethingReturned(callback);
               } else {
                 effectiveCallback = callback;
@@ -1136,7 +1069,7 @@ var require_oboe_browser = __commonJS({
                 return name ? headers[name] : headers;
               };
             });
-            oboeApi = {
+            return oboeApi = {
               on: addListener,
               addListener,
               removeListener,
@@ -1151,7 +1084,6 @@ var require_oboe_browser = __commonJS({
               root: __WEBPACK_IMPORTED_MODULE_1__functional__["i"],
               source: contentSource
             };
-            return oboeApi;
           }
         },
         function(module2, __webpack_exports__, __webpack_require__) {
@@ -1162,50 +1094,7 @@ var require_oboe_browser = __commonJS({
           var __WEBPACK_IMPORTED_MODULE_0__events__ = __webpack_require__(3);
           function clarinet(eventBus) {
             "use strict";
-            var emitSaxKey = eventBus(__WEBPACK_IMPORTED_MODULE_0__events__["j"]).emit;
-            var emitValueOpen = eventBus(__WEBPACK_IMPORTED_MODULE_0__events__["l"]).emit;
-            var emitValueClose = eventBus(__WEBPACK_IMPORTED_MODULE_0__events__["k"]).emit;
-            var emitFail = eventBus(__WEBPACK_IMPORTED_MODULE_0__events__["b"]).emit;
-            var MAX_BUFFER_LENGTH = 64 * 1024;
-            var stringTokenPattern = /[\\"\n]/g;
-            var _n = 0;
-            var BEGIN = _n++;
-            var VALUE = _n++;
-            var OPEN_OBJECT = _n++;
-            var CLOSE_OBJECT = _n++;
-            var OPEN_ARRAY = _n++;
-            var CLOSE_ARRAY = _n++;
-            var STRING = _n++;
-            var OPEN_KEY = _n++;
-            var CLOSE_KEY = _n++;
-            var TRUE = _n++;
-            var TRUE2 = _n++;
-            var TRUE3 = _n++;
-            var FALSE = _n++;
-            var FALSE2 = _n++;
-            var FALSE3 = _n++;
-            var FALSE4 = _n++;
-            var NULL = _n++;
-            var NULL2 = _n++;
-            var NULL3 = _n++;
-            var NUMBER_DECIMAL_POINT = _n++;
-            var NUMBER_DIGIT = _n;
-            var bufferCheckPosition = MAX_BUFFER_LENGTH;
-            var latestError;
-            var c;
-            var p;
-            var textNode;
-            var numberNode = "";
-            var slashed = false;
-            var closed = false;
-            var state = BEGIN;
-            var stack = [];
-            var unicodeS = null;
-            var unicodeI = 0;
-            var depth = 0;
-            var position = 0;
-            var column = 0;
-            var line = 1;
+            var emitSaxKey = eventBus(__WEBPACK_IMPORTED_MODULE_0__events__["j"]).emit, emitValueOpen = eventBus(__WEBPACK_IMPORTED_MODULE_0__events__["l"]).emit, emitValueClose = eventBus(__WEBPACK_IMPORTED_MODULE_0__events__["k"]).emit, emitFail = eventBus(__WEBPACK_IMPORTED_MODULE_0__events__["b"]).emit, MAX_BUFFER_LENGTH = 64 * 1024, stringTokenPattern = /[\\"\n]/g, _n = 0, BEGIN = _n++, VALUE = _n++, OPEN_OBJECT = _n++, CLOSE_OBJECT = _n++, OPEN_ARRAY = _n++, CLOSE_ARRAY = _n++, STRING = _n++, OPEN_KEY = _n++, CLOSE_KEY = _n++, TRUE = _n++, TRUE2 = _n++, TRUE3 = _n++, FALSE = _n++, FALSE2 = _n++, FALSE3 = _n++, FALSE4 = _n++, NULL = _n++, NULL2 = _n++, NULL3 = _n++, NUMBER_DECIMAL_POINT = _n++, NUMBER_DIGIT = _n, bufferCheckPosition = MAX_BUFFER_LENGTH, latestError, c, p, textNode = void 0, numberNode = "", slashed = false, closed = false, state = BEGIN, stack = [], unicodeS = null, unicodeI = 0, depth = 0, position = 0, column = 0, line = 1;
             function checkBufferLength() {
               var maxActual = 0;
               if (textNode !== void 0 && textNode.length > MAX_BUFFER_LENGTH) {
@@ -1230,15 +1119,14 @@ var require_oboe_browser = __commonJS({
               emitFail(Object(__WEBPACK_IMPORTED_MODULE_0__events__["o"])(void 0, void 0, latestError));
             }
             function handleStreamEnd() {
-              if (state === BEGIN) {
+              if (state == BEGIN) {
                 emitValueOpen({});
                 emitValueClose();
                 closed = true;
                 return;
               }
-              if (state !== VALUE || depth !== 0) {
+              if (state !== VALUE || depth !== 0)
                 emitError("Unexpected end");
-              }
               if (textNode !== void 0) {
                 emitValueOpen(textNode);
                 emitValueClose();
@@ -1247,12 +1135,11 @@ var require_oboe_browser = __commonJS({
               closed = true;
             }
             function whitespace(c2) {
-              return c2 === "\r" || c2 === "\n" || c2 === " " || c2 === "	";
+              return c2 == "\r" || c2 == "\n" || c2 == " " || c2 == "	";
             }
             function handleData(chunk) {
-              if (latestError) {
+              if (latestError)
                 return;
-              }
               if (closed) {
                 return emitError("Cannot write after close");
               }
@@ -1266,7 +1153,7 @@ var require_oboe_browser = __commonJS({
                 if (!c)
                   break;
                 position++;
-                if (c === "\n") {
+                if (c == "\n") {
                   line++;
                   column = 0;
                 } else
@@ -1277,9 +1164,8 @@ var require_oboe_browser = __commonJS({
                       state = OPEN_OBJECT;
                     else if (c === "[")
                       state = OPEN_ARRAY;
-                    else if (!whitespace(c)) {
+                    else if (!whitespace(c))
                       return emitError("Non-whitespace before {[.");
-                    }
                     continue;
                   case OPEN_KEY:
                   case OPEN_OBJECT:
@@ -1296,11 +1182,10 @@ var require_oboe_browser = __commonJS({
                       } else
                         stack.push(CLOSE_OBJECT);
                     }
-                    if (c === '"') {
+                    if (c === '"')
                       state = STRING;
-                    } else {
+                    else
                       return emitError('Malformed object key should start with " ');
-                    }
                     continue;
                   case CLOSE_KEY:
                   case CLOSE_OBJECT:
@@ -1332,18 +1217,16 @@ var require_oboe_browser = __commonJS({
                       depth--;
                       state = stack.pop() || VALUE;
                     } else if (c === ",") {
-                      if (state === CLOSE_OBJECT) {
+                      if (state === CLOSE_OBJECT)
                         stack.push(CLOSE_OBJECT);
-                      }
                       if (textNode !== void 0) {
                         emitValueOpen(textNode);
                         emitValueClose();
                         textNode = void 0;
                       }
                       state = OPEN_KEY;
-                    } else {
+                    } else
                       return emitError("Bad object");
-                    }
                     continue;
                   case OPEN_ARRAY:
                   case VALUE:
@@ -1382,9 +1265,8 @@ var require_oboe_browser = __commonJS({
                     } else if ("123456789".indexOf(c) !== -1) {
                       numberNode += c;
                       state = NUMBER_DIGIT;
-                    } else {
+                    } else
                       return emitError("Bad value");
-                    }
                     continue;
                   case CLOSE_ARRAY:
                     if (c === ",") {
@@ -1404,11 +1286,10 @@ var require_oboe_browser = __commonJS({
                       emitValueClose();
                       depth--;
                       state = stack.pop() || VALUE;
-                    } else if (whitespace(c)) {
+                    } else if (whitespace(c))
                       continue;
-                    } else {
+                    else
                       return emitError("Bad array");
-                    }
                     continue;
                   case STRING:
                     if (textNode === void 0) {
@@ -1432,12 +1313,12 @@ var require_oboe_browser = __commonJS({
                         }
                         if (c === '"' && !slashed) {
                           state = stack.pop() || VALUE;
-                          textNode += chunk.substring(starti, i - 1);
+                          textNode += (" " + chunk.substring(starti, i - 1)).substr(1);
                           break;
                         }
                         if (c === "\\" && !slashed) {
                           slashed = true;
-                          textNode += chunk.substring(starti, i - 1);
+                          textNode += (" " + chunk.substring(starti, i - 1)).substr(1);
                           c = chunk.charAt(i++);
                           if (!c)
                             break;
@@ -1471,13 +1352,13 @@ var require_oboe_browser = __commonJS({
                         var reResult = stringTokenPattern.exec(chunk);
                         if (!reResult) {
                           i = chunk.length + 1;
-                          textNode += chunk.substring(starti, i - 1);
+                          textNode += (" " + chunk.substring(starti, i - 1)).substr(1);
                           break;
                         }
                         i = reResult.index + 1;
                         c = chunk.charAt(reResult.index);
                         if (!c) {
-                          textNode += chunk.substring(starti, i - 1);
+                          textNode += (" " + chunk.substring(starti, i - 1)).substr(1);
                           break;
                         }
                       }
@@ -1487,18 +1368,16 @@ var require_oboe_browser = __commonJS({
                       continue;
                     if (c === "r")
                       state = TRUE2;
-                    else {
+                    else
                       return emitError("Invalid true started with t" + c);
-                    }
                     continue;
                   case TRUE2:
                     if (!c)
                       continue;
                     if (c === "u")
                       state = TRUE3;
-                    else {
+                    else
                       return emitError("Invalid true started with tr" + c);
-                    }
                     continue;
                   case TRUE3:
                     if (!c)
@@ -1507,36 +1386,32 @@ var require_oboe_browser = __commonJS({
                       emitValueOpen(true);
                       emitValueClose();
                       state = stack.pop() || VALUE;
-                    } else {
+                    } else
                       return emitError("Invalid true started with tru" + c);
-                    }
                     continue;
                   case FALSE:
                     if (!c)
                       continue;
                     if (c === "a")
                       state = FALSE2;
-                    else {
+                    else
                       return emitError("Invalid false started with f" + c);
-                    }
                     continue;
                   case FALSE2:
                     if (!c)
                       continue;
                     if (c === "l")
                       state = FALSE3;
-                    else {
+                    else
                       return emitError("Invalid false started with fa" + c);
-                    }
                     continue;
                   case FALSE3:
                     if (!c)
                       continue;
                     if (c === "s")
                       state = FALSE4;
-                    else {
+                    else
                       return emitError("Invalid false started with fal" + c);
-                    }
                     continue;
                   case FALSE4:
                     if (!c)
@@ -1545,27 +1420,24 @@ var require_oboe_browser = __commonJS({
                       emitValueOpen(false);
                       emitValueClose();
                       state = stack.pop() || VALUE;
-                    } else {
+                    } else
                       return emitError("Invalid false started with fals" + c);
-                    }
                     continue;
                   case NULL:
                     if (!c)
                       continue;
                     if (c === "u")
                       state = NULL2;
-                    else {
+                    else
                       return emitError("Invalid null started with n" + c);
-                    }
                     continue;
                   case NULL2:
                     if (!c)
                       continue;
                     if (c === "l")
                       state = NULL3;
-                    else {
+                    else
                       return emitError("Invalid null started with nu" + c);
-                    }
                     continue;
                   case NULL3:
                     if (!c)
@@ -1574,35 +1446,30 @@ var require_oboe_browser = __commonJS({
                       emitValueOpen(null);
                       emitValueClose();
                       state = stack.pop() || VALUE;
-                    } else {
+                    } else
                       return emitError("Invalid null started with nul" + c);
-                    }
                     continue;
                   case NUMBER_DECIMAL_POINT:
                     if (c === ".") {
                       numberNode += c;
                       state = NUMBER_DIGIT;
-                    } else {
+                    } else
                       return emitError("Leading zero not followed by .");
-                    }
                     continue;
                   case NUMBER_DIGIT:
                     if ("0123456789".indexOf(c) !== -1)
                       numberNode += c;
                     else if (c === ".") {
-                      if (numberNode.indexOf(".") !== -1) {
+                      if (numberNode.indexOf(".") !== -1)
                         return emitError("Invalid number has two dots");
-                      }
                       numberNode += c;
                     } else if (c === "e" || c === "E") {
-                      if (numberNode.indexOf("e") !== -1 || numberNode.indexOf("E") !== -1) {
+                      if (numberNode.indexOf("e") !== -1 || numberNode.indexOf("E") !== -1)
                         return emitError("Invalid number has two exponential");
-                      }
                       numberNode += c;
                     } else if (c === "+" || c === "-") {
-                      if (!(p === "e" || p === "E")) {
+                      if (!(p === "e" || p === "E"))
                         return emitError("Invalid symbol in number");
-                      }
                       numberNode += c;
                     } else {
                       if (numberNode) {
@@ -1618,9 +1485,8 @@ var require_oboe_browser = __commonJS({
                     return emitError("Unknown state: " + state);
                 }
               }
-              if (position >= bufferCheckPosition) {
+              if (position >= bufferCheckPosition)
                 checkBufferLength();
-              }
             }
           }
         },
@@ -1642,45 +1508,39 @@ var require_oboe_browser = __commonJS({
           }
           function streamingHttp(oboeBus, xhr, method, url, data, headers, withCredentials) {
             "use strict";
-            var emitStreamData = oboeBus(__WEBPACK_IMPORTED_MODULE_1__events__["m"]).emit;
-            var emitFail = oboeBus(__WEBPACK_IMPORTED_MODULE_1__events__["b"]).emit;
-            var numberOfCharsAlreadyGivenToCallback = 0;
-            var stillToSendStartEvent = true;
+            var emitStreamData = oboeBus(__WEBPACK_IMPORTED_MODULE_1__events__["m"]).emit, emitFail = oboeBus(__WEBPACK_IMPORTED_MODULE_1__events__["b"]).emit, numberOfCharsAlreadyGivenToCallback = 0, stillToSendStartEvent = true;
             oboeBus(__WEBPACK_IMPORTED_MODULE_1__events__["a"]).on(function() {
               xhr.onreadystatechange = null;
               xhr.abort();
             });
             function handleProgress() {
-              if (String(xhr.status)[0] === "2") {
-                var textSoFar = xhr.responseText;
-                var newText = (" " + textSoFar.substr(numberOfCharsAlreadyGivenToCallback)).substr(1);
-                if (newText) {
-                  emitStreamData(newText);
-                }
-                numberOfCharsAlreadyGivenToCallback = Object(__WEBPACK_IMPORTED_MODULE_2__util__["e"])(textSoFar);
+              var textSoFar = xhr.responseText, newText = textSoFar.substr(numberOfCharsAlreadyGivenToCallback);
+              if (newText) {
+                emitStreamData(newText);
               }
+              numberOfCharsAlreadyGivenToCallback = Object(__WEBPACK_IMPORTED_MODULE_2__util__["e"])(textSoFar);
             }
             if ("onprogress" in xhr) {
               xhr.onprogress = handleProgress;
             }
-            function sendStartIfNotAlready(xhr2) {
-              try {
-                stillToSendStartEvent && oboeBus(__WEBPACK_IMPORTED_MODULE_1__events__["c"]).emit(
-                  xhr2.status,
-                  Object(__WEBPACK_IMPORTED_MODULE_3__parseResponseHeaders_browser__["a"])(xhr2.getAllResponseHeaders())
-                );
-                stillToSendStartEvent = false;
-              } catch (e) {
-              }
-            }
             xhr.onreadystatechange = function() {
+              function sendStartIfNotAlready() {
+                try {
+                  stillToSendStartEvent && oboeBus(__WEBPACK_IMPORTED_MODULE_1__events__["c"]).emit(
+                    xhr.status,
+                    Object(__WEBPACK_IMPORTED_MODULE_3__parseResponseHeaders_browser__["a"])(xhr.getAllResponseHeaders())
+                  );
+                  stillToSendStartEvent = false;
+                } catch (e) {
+                }
+              }
               switch (xhr.readyState) {
                 case 2:
                 case 3:
-                  return sendStartIfNotAlready(xhr);
+                  return sendStartIfNotAlready();
                 case 4:
-                  sendStartIfNotAlready(xhr);
-                  var successful = String(xhr.status)[0] === "2";
+                  sendStartIfNotAlready();
+                  var successful = String(xhr.status)[0] == 2;
                   if (successful) {
                     handleProgress();
                     oboeBus(__WEBPACK_IMPORTED_MODULE_1__events__["n"]).emit();
@@ -1723,13 +1583,12 @@ var require_oboe_browser = __commonJS({
               return { "http:": 80, "https:": 443 }[protocol];
             }
             function portOf(location) {
-              return String(location.port || defaultPort(location.protocol || pageLocation.protocol));
+              return location.port || defaultPort(location.protocol || pageLocation.protocol);
             }
-            return !!(ajaxHost.protocol && ajaxHost.protocol !== pageLocation.protocol || ajaxHost.host && ajaxHost.host !== pageLocation.host || ajaxHost.host && portOf(ajaxHost) !== portOf(pageLocation));
+            return !!(ajaxHost.protocol && ajaxHost.protocol != pageLocation.protocol || ajaxHost.host && ajaxHost.host != pageLocation.host || ajaxHost.host && portOf(ajaxHost) != portOf(pageLocation));
           }
           function parseUrlOrigin(url) {
-            var URL_HOST_PATTERN = /(\w+:)?(?:\/\/)([\w.-]+)?(?::(\d+))?\/?/;
-            var urlHostMatch = URL_HOST_PATTERN.exec(url) || [];
+            var URL_HOST_PATTERN = /(\w+:)?(?:\/\/)([\w.-]+)?(?::(\d+))?\/?/, urlHostMatch = URL_HOST_PATTERN.exec(url) || [];
             return {
               protocol: urlHostMatch[1] || "",
               host: urlHostMatch[2] || "",
@@ -2100,7 +1959,7 @@ fetch_table_data(table, {
   base_uri: activeJobsConfig.baseUri
 });
 /*!
- * v2.1.4-104-gc868b3a
+ * v2.1.4-40-g295d630
  * 
  */
 //# sourceMappingURL=active_jobs.js.map
