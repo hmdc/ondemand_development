@@ -1,3 +1,5 @@
+# CUSTOM VERSION OF THE config/application.rb FILE TO LOAD CUSTOMIZATIONS AS PLUGINS
+# EASIER TO DEPLOY AND DEVELOP LOCALLY
 require_relative 'boot'
 
 require "rails"
@@ -45,6 +47,16 @@ module Dashboard
       config.paths["config/initializers"] << ::Configuration.config_root.join("initializers").to_s
       config.autoload_paths << ::Configuration.config_root.join("lib").to_s
       config.paths["app/views"].unshift ::Configuration.config_root.join("views").to_s
+    end
+
+    # Enable installed plugins
+    plugins_dir = Pathname.new(ENV['OOD_PLUGINS_DIRECTORY'] || '/var/www/ood/apps/plugins')
+    if plugins_dir.directory?
+      plugins_dir.children.select(&:directory?).each do |installed_plugin|
+        config.paths["config/initializers"] << installed_plugin.join("initializers").to_s
+        config.autoload_paths << installed_plugin.join("lib").to_s
+        config.paths["app/views"].unshift installed_plugin.join("views").to_s
+      end
     end
   end
 end
