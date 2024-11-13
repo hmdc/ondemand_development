@@ -6,7 +6,7 @@ module SlurmMetrics
   # Based on: https://github.com/fasrc/puppet-slurm_stats
   class MetricsProcessor
 
-    def calculate_metrics(from, to, user_metrics)
+    def calculate_metrics(from, to, user_metrics, ignore_cancelled: true)
       metrics_summary = SlurmMetrics::MetricsSummary.new
       metrics_summary.from = from
       metrics_summary.to = to
@@ -42,7 +42,7 @@ module SlurmMetrics
         end
 
         # IGNORE CANCELLED JOBS
-        next if state.include?('CANCELLED')
+        next if state.include?('CANCELLED') && ignore_cancelled
 
         # If not cancelled, process resource usage
         alloc_cpus = [alloc_cpus, req_cpus].max
@@ -130,12 +130,12 @@ module SlurmMetrics
 
       # NORMALIZE TIME TO HOURS
       metrics_summary.ave_cpu_use /= 3600.0
-      metrics_summary.ave_time_use /= 3600.0
-      metrics_summary.ave_time_req /= 3600.0
-      metrics_summary.ave_wait_time /= 3600.0
+      #metrics_summary.ave_time_use /= 3600.0
+      #metrics_summary.ave_time_req /= 3600.0
+      #metrics_summary.ave_wait_time /= 3600.0
       metrics_summary.tot_cpu_walltime /= 3600.0
       metrics_summary.tot_gpu_hours /= 3600.0
-      metrics_summary.tot_time_use /= 3600.0
+      #metrics_summary.tot_time_use /= 3600.0
 
       # ADD TOTALS
       metrics_summary.ntotal_cpu = metrics_summary.nca_cpu + metrics_summary.ncd_cpu + metrics_summary.nf_cpu + metrics_summary.noom_cpu + metrics_summary.nto_cpu

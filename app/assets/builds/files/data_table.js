@@ -8324,6 +8324,7 @@ function alert(message) {
   const div = alertDiv(message);
   const main = document.getElementById("main_container");
   main.prepend(div);
+  div.scrollIntoView({ behavior: "smooth" });
 }
 function alertDiv(message) {
   const span = document.createElement("span");
@@ -8497,7 +8498,7 @@ jQuery(function() {
   });
   $("#select_all").on("click", function() {
     if ($(this).is(":checked")) {
-      table.getTable().rows().select();
+      table.getTable().rows({ search: "applied" }).select();
     } else {
       table.getTable().rows().deselect();
     }

@@ -15198,7 +15198,7 @@ function _classPrivateFieldLooseKey2(e) {
   return "__private_" + id2++ + "_" + e;
 }
 var packageJson = {
-  "version": "4.1.0"
+  "version": "4.1.1"
 };
 var _callbacks = /* @__PURE__ */ _classPrivateFieldLooseKey2("callbacks");
 var _publish = /* @__PURE__ */ _classPrivateFieldLooseKey2("publish");
@@ -15669,7 +15669,7 @@ function _classPrivateFieldLooseKey3(e) {
   return "__private_" + id3++ + "_" + e;
 }
 var packageJson2 = {
-  "version": "4.2.1"
+  "version": "4.2.3"
 };
 var defaultUploadState = {
   totalProgress: 0,
@@ -17837,7 +17837,7 @@ function diff(parentDom, newVNode, oldVNode, globalContext, namespace, excessDom
       } catch (e) {
         newVNode._original = null;
         if (isHydrating || excessDomChildren != null) {
-          newVNode._flags |= isHydrating ? MODE_HYDRATE | MODE_SUSPENDED : MODE_HYDRATE;
+          newVNode._flags |= isHydrating ? MODE_HYDRATE | MODE_SUSPENDED : MODE_SUSPENDED;
           while (oldDom && oldDom.nodeType === 8 && oldDom.nextSibling) {
             oldDom = oldDom.nextSibling;
           }
@@ -18997,7 +18997,7 @@ function _classPrivateFieldLooseKey5(e) {
   return "__private_" + id5++ + "_" + e;
 }
 var packageJson3 = {
-  "version": "4.0.3"
+  "version": "4.0.4"
 };
 var speedFilterHalfLife = 2e3;
 var ETAFilterHalfLife = 2e3;
@@ -19487,7 +19487,7 @@ var TransitionGroup_default = TransitionGroup;
 
 // node_modules/@uppy/informer/lib/Informer.js
 var packageJson4 = {
-  "version": "4.1.0"
+  "version": "4.1.1"
 };
 var Informer = class extends UIPlugin_default {
   constructor(uppy2, opts) {
@@ -21217,7 +21217,7 @@ var locale_default3 = {
 
 // node_modules/@uppy/thumbnail-generator/lib/index.js
 var packageJson5 = {
-  "version": "4.0.0"
+  "version": "4.0.1"
 };
 function canvasToBlob(canvas, type, quality) {
   try {
@@ -22647,8 +22647,12 @@ function pTimeout(promise, options3) {
       if (signal.aborted) {
         reject(getAbortedReason(signal));
       }
-      signal.addEventListener("abort", () => {
+      const abortHandler = () => {
         reject(getAbortedReason(signal));
+      };
+      signal.addEventListener("abort", abortHandler, { once: true });
+      promise.finally(() => {
+        signal.removeEventListener("abort", abortHandler);
       });
     }
     if (milliseconds === Number.POSITIVE_INFINITY) {
@@ -23344,7 +23348,7 @@ function _classPrivateFieldLooseKey6(e) {
   return "__private_" + id6++ + "_" + e;
 }
 var packageJson6 = {
-  "version": "4.0.1"
+  "version": "4.0.2"
 };
 function defaultPickerIcon() {
   return createElement("svg", {
@@ -23703,7 +23707,7 @@ ProviderView.VERSION = packageJson6.version;
 // node_modules/@uppy/provider-views/lib/SearchProviderView/SearchProviderView.js
 var import_classnames7 = __toESM(require_classnames(), 1);
 var packageJson7 = {
-  "version": "4.0.1"
+  "version": "4.0.2"
 };
 var defaultState = {
   loading: false,
@@ -25054,21 +25058,29 @@ function FileList(_ref) {
 var AddFiles = class extends BaseComponent {
   constructor() {
     super(...arguments);
+    this.fileInput = null;
+    this.folderInput = null;
+    this.mobilePhotoFileInput = null;
+    this.mobileVideoFileInput = null;
     this.triggerFileInputClick = () => {
-      this.fileInput.click();
+      var _this$fileInput;
+      (_this$fileInput = this.fileInput) == null || _this$fileInput.click();
     };
     this.triggerFolderInputClick = () => {
-      this.folderInput.click();
+      var _this$folderInput;
+      (_this$folderInput = this.folderInput) == null || _this$folderInput.click();
     };
     this.triggerVideoCameraInputClick = () => {
-      this.mobileVideoFileInput.click();
+      var _this$mobileVideoFile;
+      (_this$mobileVideoFile = this.mobileVideoFileInput) == null || _this$mobileVideoFile.click();
     };
     this.triggerPhotoCameraInputClick = () => {
-      this.mobilePhotoFileInput.click();
+      var _this$mobilePhotoFile;
+      (_this$mobilePhotoFile = this.mobilePhotoFileInput) == null || _this$mobilePhotoFile.click();
     };
     this.onFileInputChange = (event2) => {
       this.props.handleInputChange(event2);
-      event2.target.value = null;
+      event2.currentTarget.value = "";
     };
     this.renderHiddenInput = (isFolder, refCallback) => {
       var _this$props$allowedFi;
@@ -25282,7 +25294,10 @@ var AddFiles = class extends BaseComponent {
         list = [];
       const listWithoutLastTwo = [...list];
       const lastTwo = listWithoutLastTwo.splice(list.length - 2, list.length);
-      const renderList = (l) => l.map((_ref) => {
+      return createElement(Fragment2, null, this.renderDropPasteBrowseTagline(list.length), createElement("div", {
+        className: "uppy-Dashboard-AddFiles-list",
+        role: "tablist"
+      }, listWithoutLastTwo.map((_ref) => {
         let {
           key,
           elements
@@ -25290,16 +25305,20 @@ var AddFiles = class extends BaseComponent {
         return createElement(Fragment2, {
           key
         }, elements);
-      });
-      return createElement(Fragment2, null, this.renderDropPasteBrowseTagline(list.length), createElement("div", {
-        className: "uppy-Dashboard-AddFiles-list",
-        role: "tablist"
-      }, renderList(listWithoutLastTwo), createElement("span", {
+      }), createElement("span", {
         role: "presentation",
         style: {
           "white-space": "nowrap"
         }
-      }, renderList(lastTwo))));
+      }, lastTwo.map((_ref2) => {
+        let {
+          key,
+          elements
+        } = _ref2;
+        return createElement(Fragment2, {
+          key
+        }, elements);
+      }))));
     };
   }
   [Symbol.for("uppy test: disable unused locale key warning")]() {
@@ -25358,7 +25377,7 @@ var AddFiles = class extends BaseComponent {
       className: "uppy-Dashboard-AddFiles-info"
     }, this.props.note && createElement("div", {
       className: "uppy-Dashboard-note"
-    }, this.props.note), this.props.proudlyDisplayPoweredByUppy && this.renderPoweredByUppy(this.props)));
+    }, this.props.note), this.props.proudlyDisplayPoweredByUppy && this.renderPoweredByUppy()));
   }
 };
 var AddFiles_default = AddFiles;
@@ -25870,7 +25889,7 @@ function Dashboard(props) {
   }
   const showFileList = props.showSelectedFiles && !isNoFiles;
   const numberOfFilesForRecovery = props.recoveredState ? Object.keys(props.recoveredState.files).length : null;
-  const numberOfGhosts = props.files ? Object.keys(props.files).filter((fileID) => props.files[fileID].isGhost).length : null;
+  const numberOfGhosts = props.files ? Object.keys(props.files).filter((fileID) => props.files[fileID].isGhost).length : 0;
   const renderRestoredText = () => {
     if (numberOfGhosts > 0) {
       return props.i18n("recoveredXFiles", {
@@ -25968,9 +25987,23 @@ function Dashboard(props) {
     itemsPerRow,
     containerWidth: props.containerWidth,
     containerHeight: props.containerHeight
-  }) : createElement(AddFiles_default, _extends2({}, props, {
-    isSizeMD
-  })), createElement(Slide_default, null, props.showAddFilesPanel ? createElement(AddFilesPanel_default, _extends2({
+  }) : createElement(AddFiles_default, {
+    i18n: props.i18n,
+    i18nArray: props.i18nArray,
+    acquirers: props.acquirers,
+    handleInputChange: props.handleInputChange,
+    maxNumberOfFiles: props.maxNumberOfFiles,
+    allowedFileTypes: props.allowedFileTypes,
+    showNativePhotoCameraButton: props.showNativePhotoCameraButton,
+    showNativeVideoCameraButton: props.showNativeVideoCameraButton,
+    nativeCameraFacingMode: props.nativeCameraFacingMode,
+    showPanel: props.showPanel,
+    activePickerPanel: props.activePickerPanel,
+    disableLocalFiles: props.disableLocalFiles,
+    fileManagerSelectionType: props.fileManagerSelectionType,
+    note: props.note,
+    proudlyDisplayPoweredByUppy: props.proudlyDisplayPoweredByUppy
+  }), createElement(Slide_default, null, props.showAddFilesPanel ? createElement(AddFilesPanel_default, _extends2({
     key: "AddFiles"
   }, props, {
     isSizeMD
@@ -26069,7 +26102,7 @@ function _classPrivateFieldLooseKey7(e) {
   return "__private_" + id7++ + "_" + e;
 }
 var packageJson8 = {
-  "version": "4.1.0"
+  "version": "4.1.2"
 };
 var memoize = memoizeOne.default || memoizeOne;
 var TAB_KEY = 9;
@@ -26085,9 +26118,6 @@ function createPromise() {
 var defaultOptions4 = {
   target: "body",
   metaFields: [],
-  inline: false,
-  width: 750,
-  height: 550,
   thumbnailWidth: 280,
   thumbnailType: "image/jpeg",
   waitForThumbnailsBeforeUpload: false,
@@ -26100,27 +26130,39 @@ var defaultOptions4 = {
   hidePauseResumeButton: false,
   hideProgressAfterFinish: false,
   note: null,
-  closeModalOnClickOutside: false,
-  closeAfterFinish: false,
   singleFileFullScreen: true,
   disableStatusBar: false,
   disableInformer: false,
   disableThumbnailGenerator: false,
-  disablePageScrollWhenModalOpen: true,
-  animateOpenClose: true,
   fileManagerSelectionType: "files",
   proudlyDisplayPoweredByUppy: true,
   showSelectedFiles: true,
   showRemoveButtonAfterComplete: false,
-  browserBackButtonClose: false,
   showNativePhotoCameraButton: false,
   showNativeVideoCameraButton: false,
   theme: "light",
   autoOpen: null,
   disabled: false,
   disableLocalFiles: false,
+  nativeCameraFacingMode: "",
+  onDragLeave: () => {
+  },
+  onDragOver: () => {
+  },
+  onDrop: () => {
+  },
+  plugins: [],
   doneButtonHandler: void 0,
-  onRequestCloseModal: null
+  onRequestCloseModal: null,
+  inline: false,
+  animateOpenClose: true,
+  browserBackButtonClose: false,
+  closeAfterFinish: false,
+  closeModalOnClickOutside: false,
+  disablePageScrollWhenModalOpen: true,
+  trigger: null,
+  width: 750,
+  height: 550
 };
 var _disabledNodes = /* @__PURE__ */ _classPrivateFieldLooseKey7("disabledNodes");
 var _generateLargeThumbnailIfSingleFile = /* @__PURE__ */ _classPrivateFieldLooseKey7("generateLargeThumbnailIfSingleFile");
@@ -26141,7 +26183,7 @@ var _getThumbnailGeneratorId = /* @__PURE__ */ _classPrivateFieldLooseKey7("getT
 var _getInformerId = /* @__PURE__ */ _classPrivateFieldLooseKey7("getInformerId");
 var Dashboard2 = class extends UIPlugin_default {
   constructor(uppy2, _opts) {
-    var _opts$autoOpen, _this$opts4, _this$opts4$onRequest;
+    var _opts$autoOpen, _this$opts, _this$opts$onRequestC;
     const autoOpen = (_opts$autoOpen = _opts == null ? void 0 : _opts.autoOpen) != null ? _opts$autoOpen : null;
     super(uppy2, {
       ...defaultOptions4,
@@ -26526,14 +26568,13 @@ var Dashboard2 = class extends UIPlugin_default {
     };
     this.handleInputChange = (event2) => {
       event2.preventDefault();
-      const files = toArray_default(event2.target.files);
+      const files = toArray_default(event2.currentTarget.files || []);
       if (files.length > 0) {
         this.uppy.log("[Dashboard] Files selected through input");
         this.addFiles(files);
       }
     };
     this.handleDragOver = (event2) => {
-      var _this$opts$onDragOver, _this$opts;
       event2.preventDefault();
       event2.stopPropagation();
       const canSomePluginHandleRootDrop = () => {
@@ -26561,19 +26602,17 @@ var Dashboard2 = class extends UIPlugin_default {
       this.setPluginState({
         isDraggingOver: true
       });
-      (_this$opts$onDragOver = (_this$opts = this.opts).onDragOver) == null || _this$opts$onDragOver.call(_this$opts, event2);
+      this.opts.onDragOver(event2);
     };
     this.handleDragLeave = (event2) => {
-      var _this$opts$onDragLeav, _this$opts2;
       event2.preventDefault();
       event2.stopPropagation();
       this.setPluginState({
         isDraggingOver: false
       });
-      (_this$opts$onDragLeav = (_this$opts2 = this.opts).onDragLeave) == null || _this$opts$onDragLeav.call(_this$opts2, event2);
+      this.opts.onDragLeave(event2);
     };
     this.handleDrop = async (event2) => {
-      var _this$opts$onDrop, _this$opts3;
       event2.preventDefault();
       event2.stopPropagation();
       this.setPluginState({
@@ -26601,7 +26640,7 @@ var Dashboard2 = class extends UIPlugin_default {
         this.uppy.log("[Dashboard] Files dropped");
         this.addFiles(files);
       }
-      (_this$opts$onDrop = (_this$opts3 = this.opts).onDrop) == null || _this$opts$onDrop.call(_this$opts3, event2);
+      this.opts.onDrop(event2);
     };
     this.handleRequestThumbnail = (file) => {
       if (!this.opts.waitForThumbnailsBeforeUpload) {
@@ -26911,7 +26950,9 @@ var Dashboard2 = class extends UIPlugin_default {
     Object.defineProperty(this, _addSpecifiedPluginsFromOptions, {
       writable: true,
       value: () => {
-        const plugins = this.opts.plugins || [];
+        const {
+          plugins
+        } = this.opts;
         plugins.forEach((pluginID) => {
           const plugin = this.uppy.getPlugin(pluginID);
           if (plugin) {
@@ -27024,7 +27065,9 @@ var Dashboard2 = class extends UIPlugin_default {
         if (thumbnail)
           this.uppy.removePlugin(thumbnail);
       }
-      const plugins = this.opts.plugins || [];
+      const {
+        plugins
+      } = this.opts;
       plugins.forEach((pluginID) => {
         const plugin = this.uppy.getPlugin(pluginID);
         if (plugin)
@@ -27050,7 +27093,7 @@ var Dashboard2 = class extends UIPlugin_default {
         this.requestCloseModal();
       };
     }
-    (_this$opts4$onRequest = (_this$opts4 = this.opts).onRequestCloseModal) != null ? _this$opts4$onRequest : _this$opts4.onRequestCloseModal = () => this.closeModal();
+    (_this$opts$onRequestC = (_this$opts = this.opts).onRequestCloseModal) != null ? _this$opts$onRequestC : _this$opts.onRequestCloseModal = () => this.closeModal();
     this.i18nInit();
   }
   setOptions(opts) {
@@ -27689,7 +27732,7 @@ function _classPrivateFieldLooseKey11(e) {
   return "__private_" + id11++ + "_" + e;
 }
 var packageJson9 = {
-  "version": "4.2.0"
+  "version": "4.2.2"
 };
 function buildResponseError(xhr, err) {
   let error = err;
@@ -27823,8 +27866,11 @@ var XHRUpload = class extends BasePlugin {
             },
             onUploadProgress: (event2) => {
               if (event2.lengthComputable) {
-                for (const file of files) {
+                for (const {
+                  id: id12
+                } of files) {
                   var _file$progress$upload;
+                  const file = this.uppy.getFile(id12);
                   this.uppy.emit("upload-progress", file, {
                     uploadStarted: (_file$progress$upload = file.progress.uploadStarted) != null ? _file$progress$upload : 0,
                     bytesUploaded: event2.loaded / event2.total * file.size,
@@ -27844,8 +27890,10 @@ var XHRUpload = class extends BasePlugin {
             });
           }
           const uploadURL = typeof ((_body2 = body) == null ? void 0 : _body2.url) === "string" ? body.url : void 0;
-          for (const file of files) {
-            this.uppy.emit("upload-success", file, {
+          for (const {
+            id: id12
+          } of files) {
+            this.uppy.emit("upload-success", this.uppy.getFile(id12), {
               status: res.status,
               body,
               uploadURL
@@ -27859,7 +27907,7 @@ var XHRUpload = class extends BasePlugin {
           if (error instanceof NetworkError_default) {
             const request = error.request;
             for (const file of files) {
-              this.uppy.emit("upload-error", file, buildResponseError(request, error));
+              this.uppy.emit("upload-error", this.uppy.getFile(file.id), buildResponseError(request, error), request);
             }
           }
           throw error;
@@ -28072,6 +28120,7 @@ function alert2(message) {
   const div = alertDiv(message);
   const main = document.getElementById("main_container");
   main.prepend(div);
+  div.scrollIntoView({ behavior: "smooth" });
 }
 function alertDiv(message) {
   const span = document.createElement("span");
@@ -28245,7 +28294,7 @@ jQuery(function() {
   });
   $("#select_all").on("click", function() {
     if ($(this).is(":checked")) {
-      table.getTable().rows().select();
+      table.getTable().rows({ search: "applied" }).select();
     } else {
       table.getTable().rows().deselect();
     }

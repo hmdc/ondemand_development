@@ -64,9 +64,14 @@ function bindFullPageSpinnerEvent() {
 }
 function openLinkInJs(event) {
   event.preventDefault();
-  const href = event.target.href;
+  let href = event.target.href;
   if (href == null) {
-    return;
+    const closestAnchor = event.target.closest("a");
+    if (closestAnchor.hasChildNodes(event.target)) {
+      href = closestAnchor.href;
+    } else {
+      return;
+    }
   }
   if (window.open(href) == null) {
     const html = document.getElementById("js-alert-danger-template").innerHTML;

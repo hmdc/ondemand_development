@@ -243,4 +243,77 @@ class BatchConnectWidgetsTest < ApplicationSystemTestCase
       assert(find("##{bc_ele_id('aa_b_cc')}").visible?)
     end
   end
+
+  test 'radio_buttons accept scalar and array options' do
+    Dir.mktmpdir do |dir|
+      form = <<~HEREDOC
+        ---
+        cluster:
+          - owens
+        form:
+          - scalar
+          - vector
+        attributes:
+          scalar:
+            widget: radio_button
+            options:
+              - one
+              - two
+          vector:
+            widget: radio_button
+            options:
+              - [Three, three]
+              - [Four, four]
+      HEREDOC
+
+      make_bc_app(dir, form)
+      visit new_batch_connect_session_context_url('sys/app')
+
+      # values are all lowercase
+      assert_equal('one', find("##{bc_ele_id('scalar_one')}").value)
+      assert_equal('two', find("##{bc_ele_id('scalar_two')}").value)
+      assert_equal('three', find("##{bc_ele_id('vector_three')}").value)
+      assert_equal('four', find("##{bc_ele_id('vector_four')}").value)
+
+      # one and two's labels are lowercase, but Three and Four have uppercase labels.
+      assert_equal('one', find("[for='#{bc_ele_id('scalar_one')}']").text)
+      assert_equal('two', find("[for='#{bc_ele_id('scalar_two')}']").text)
+      assert_equal('Three', find("[for='#{bc_ele_id('vector_three')}']").text)
+      assert_equal('Four', find("[for='#{bc_ele_id('vector_four')}']").text)
+    end
+  end
+
+  test 'auto modules something' do
+    Dir.mktmpdir do |dir|
+      with_modified_env({ OOD_MODULE_FILE_DIR: 'test/fixtures/modules' }) do
+        form = <<~HEREDOC
+          cluster: owens
+          form:
+          - auto_modules_R
+          - module_hider
+          attributes:
+            module_hider:
+              widget: select
+              options:
+                - ['show', 'show']
+                - ['hide', 'hide',	data-hide-auto-modules-r: true]
+        HEREDOC
+
+        make_bc_app(dir, form)
+        visit new_batch_connect_session_context_url('sys/app')
+
+        # just to be sure auto_modules_r actually populates with module options
+        assert_equal(20, find_all_options('auto_modules_r', nil).size)
+        assert(find("##{bc_ele_id('auto_modules_r')}").visible?)
+
+        # select hide and auto_modules_r isn't visible anymore.
+        select('hide', from: bc_ele_id('module_hider'))
+        refute(find("##{bc_ele_id('auto_modules_r')}", visible: :hidden).visible?)
+
+        # select show and it's back.
+        select('show', from: bc_ele_id('module_hider'))
+        assert(find("##{bc_ele_id('auto_modules_r')}").visible?)
+      end
+    end
+  end
 end
