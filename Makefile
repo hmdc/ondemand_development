@@ -33,6 +33,7 @@ clean:
 	rm -rf ./ondemand/apps/dashboard/node_modules
 	rm -rf ./ondemand/apps/dashboard/vendor/bundle
 	rm -rf ./ondemand/apps/dashboard/app_overrides
+	rm -rf ./ondemand/apps/dashboard/plugins
 	rm -rf ./ondemand/apps/dashboard/.env*
 
 build_latest_ood:
