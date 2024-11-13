@@ -2,6 +2,7 @@
   summary = local_assigns.fetch(:summary, nil)
   from_text = local_assigns.fetch(:from_text, nil)
   to_text = local_assigns.fetch(:to_text, nil)
+  metrics_helper = SlurmMetrics::MetricsHelper.new
 %>
 
 <div class="metrics-widget-component">
@@ -16,7 +17,7 @@
       <%= render(partial: '/widgets/metrics/metric_details',
                  locals: { id: 'cpu-metric-summary',
                            title: 'CPU Efficiency:',
-                           efficiency: summary.ave_cpu_eff.round(1),
+                           efficiency: summary.ave_cpu_eff.ceil(1),
                            items: [['Average Used', "#{summary.ave_cpu_use.ceil(1)} CPU Hrs"],
                                    ['Average Allocated', "#{summary.ave_cpu_req.ceil(1)} CPU Hrs"],
                                    ['Total Walltime', "#{summary.tot_cpu_walltime.ceil(1)} CPU Hrs"]] } ) %>
@@ -36,9 +37,9 @@
                  locals: { id: 'time-metric-summary',
                            title: 'Time Efficiency:',
                            efficiency: summary.ave_time_eff.ceil(1),
-                           items: [['Average Used', "#{summary.ave_time_use.ceil(1)}H"],
-                                   ['Average Allocated', "#{summary.ave_time_req.ceil(1)}H"],
-                                   ['Average Waiting Time', "#{summary.ave_wait_time.ceil(1)}H"]] } ) %>
+                           items: [['Average Used', metrics_helper.format_duration(summary.ave_time_use)],
+                                   ['Average Allocated', metrics_helper.format_duration(summary.ave_time_req)],
+                                   ['Average Waiting Time', metrics_helper.format_duration(summary.ave_wait_time)]] } ) %>
 
     </div>
   </div>

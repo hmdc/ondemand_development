@@ -43,5 +43,14 @@ module SlurmMetrics
         return "bg-warning"
       end
     end
+
+    def format_duration(seconds)
+      return sprintf("00m:%02ds", seconds) if seconds < 60.0
+
+      hours = seconds / 3600
+      minutes = (seconds % 3600) / 60
+
+      sprintf("%02dH:%02dm", hours, minutes)
+    end
   end
 end
