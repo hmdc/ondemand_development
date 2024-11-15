@@ -24,11 +24,21 @@ module SlurmMetrics
       return 'bg-primary' if efficiency_value.nil?
 
       if efficiency_value > 74
-        return "bg-success"
+        return 'bg-success'
       elsif efficiency_value < 25
-        return "bg-danger"
+        return 'bg-danger'
       else
-        return "bg-warning"
+        return 'bg-warning'
+      end
+    end
+
+    def efficiency_icon(efficiency_value)
+      if efficiency_value > 74
+        return '<i class="fa fa-check-circle fa-fw text-success" title="Good efficiency"></i>'
+      elsif efficiency_value < 25
+        return '<i class="fa fa-times-circle fa-fw text-danger" title="Bad efficiency, consider adjusting the parameter values"></i>'
+      else
+        return '<i class="fa fa-exclamation-circle fa-fw text-warning" title="Medium efficiency, consider adjusting the parameter values"></i>'
       end
     end
 
