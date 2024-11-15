@@ -50,7 +50,7 @@ Rails.application.config.after_initialize do
               args.concat ['-n'] # NO HEADER
               args.concat ['--units', 'G'] # MEMORY UNITS IN GIGABYTES
               args.concat ['-o', fields.values.join(',')] # REQUIRED DATA
-              args.concat ['--state', states.join(',')] unless states.empty?# FILTER BY THESE STATES
+              args.concat ['--state', states.join(',')] if job_ids.empty?# FILTER BY THESE STATES IF NO JOBS SPECIFIED
               args.concat ['-j', job_ids.join(',')] unless job_ids.empty? # FILTER BY THIS JOB IDs
               args.concat ['-S', from] if from # FROM START DATE
               args.concat ['-E', to] if to # TO END DATE
