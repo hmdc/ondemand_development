@@ -6,7 +6,8 @@
   <% @sessions.each do |session| %>
   sessions.push('<%= session.id %>');
   $target = $('#id_<%= session.id %>');
-  if ( $target.data('hash') !== '<%= session.to_hash %>' ) {
+  $metricsWaiting = $target.find('p.metrics-waiting')
+  if ( $target.data('hash') !== '<%= session.to_hash %>' || $metricsWaiting.length ) {
     $target.replaceWith('<%= j render(partial: "panel", locals: { session: session }) %>');
   }
   <% end %>
