@@ -56,6 +56,10 @@ module SlurmMetrics
       ntotal_cpu + ntotal_gpu
     end
 
+    def empty?
+      total_jobs.zero?
+    end
+
     def to_hash
       hash = {}
       instance_variables.each do |var|

@@ -24,7 +24,7 @@ module SlurmMetrics
       file_path = job_metrics_path(session.id)
       return refresh_job_metrics(session) unless file_path.exist?
 
-      job_metrics = {}
+      job_metrics = SlurmMetrics::MetricsSummary.new
       begin
         yml = YAML.safe_load(file_path.read) || {}
         job_metrics = SlurmMetrics::MetricsSummary.new(yml.symbolize_keys)
@@ -58,10 +58,8 @@ module SlurmMetrics
 
     def refresh_job_metrics(session)
       job_data = cluster.job_adapter.metrics(job_ids: [session.job_id])
-      Rails.logger.info(job_data)
       processor = SlurmMetrics::MetricsProcessor.new
       job_metrics = processor.calculate_metrics(Time.now, Time.now, job_data, ignore_cancelled: false)
-      Rails.logger.info(job_metrics.to_hash)
       job_metrics_file = job_metrics_path(session.id)
       job_metrics_file.write(job_metrics.to_hash.stringify_keys.to_yaml)
       job_metrics

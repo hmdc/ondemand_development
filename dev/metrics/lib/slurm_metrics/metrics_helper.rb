@@ -62,5 +62,11 @@ module SlurmMetrics
 
       sprintf("%02dH:%02dm", hours, minutes)
     end
+
+    # FROM TESTING
+    # SLURM METRICS TAKE SOMETIME TO APPEAR AFTER A JOB IS COMPLETED/CANCELLED
+    def metrics_waiting_elapsed(completed_time)
+      Time.now.to_i - completed_time > 10
+    end
   end
 end
