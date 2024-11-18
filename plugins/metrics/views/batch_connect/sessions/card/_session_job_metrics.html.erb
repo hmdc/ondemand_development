@@ -4,7 +4,7 @@
 <hr>
 
 <% unless metrics_helper.metrics_waiting_elapsed(session.completed_at) %>
-  <p>
+  <p class="metrics-waiting">
     <strong>Job Efficiency: </strong>
     Waiting for Slurm to calculate metrics ...
   </p>
