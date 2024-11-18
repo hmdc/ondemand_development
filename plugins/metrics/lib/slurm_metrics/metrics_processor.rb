@@ -130,6 +130,7 @@ module SlurmMetrics
 
       # NORMALIZE TIME TO HOURS
       metrics_summary.ave_cpu_use /= 3600.0
+      # TIME WILL BE FORMATTED IN HH:mm and mm:ss
       #metrics_summary.ave_time_use /= 3600.0
       #metrics_summary.ave_time_req /= 3600.0
       #metrics_summary.ave_wait_time /= 3600.0
