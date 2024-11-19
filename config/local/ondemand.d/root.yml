@@ -10,6 +10,7 @@ bc_saved_settings: true
 cancel_session_enabled: true
 sessions_poll_delay: 900000
 status_delay: 900000
+metrics_enabled: true
 
 navbar_type: dark
 
