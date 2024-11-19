@@ -4,3 +4,4 @@ host_based_profiles: false
 show_all_apps_link: false
 bc_saved_settings: true
 cancel_session_enabled: true
+metrics_enabled: true

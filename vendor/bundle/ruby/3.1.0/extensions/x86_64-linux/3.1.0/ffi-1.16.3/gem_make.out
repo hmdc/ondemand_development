@@ -9,12 +9,12 @@ creating extconf.h
 creating Makefile
 
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c
-make DESTDIR\= sitearchdir\=./.gem.20241118-9-2r58ah sitelibdir\=./.gem.20241118-9-2r58ah clean
+make DESTDIR\= sitearchdir\=./.gem.20241119-9-lrlung sitelibdir\=./.gem.20241119-9-lrlung clean
 rm -f 
 rm -fr ffi_c.so false *.o  *.bak mkmf.log .*.time
 
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c
-make DESTDIR\= sitearchdir\=./.gem.20241118-9-2r58ah sitelibdir\=./.gem.20241118-9-2r58ah
+make DESTDIR\= sitearchdir\=./.gem.20241119-9-lrlung sitelibdir\=./.gem.20241119-9-lrlung
 Configuring libffi
 /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c/libffi/configure: line 8468: cmp: command not found
 /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c/libffi/configure: line 8468: cmp: command not found
@@ -213,7 +213,7 @@ rm -f ffi_c.so
 gcc -shared -o ffi_c.so AbstractMemory.o ArrayType.o Buffer.o Call.o ClosurePool.o DynamicLibrary.o Function.o FunctionInfo.o LastError.o LongDouble.o MappedType.o MemoryPointer.o MethodHandle.o Platform.o Pointer.o Struct.o StructByValue.o StructLayout.o Thread.o Type.o Types.o Variadic.o ffi.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,--exclude-libs,ALL -pthread -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  "/usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c/libffi-x86_64-linux"/.libs/libffi_convenience.a -lruby  -lm  -lc
 
 current directory: /usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c
-make DESTDIR\= sitearchdir\=./.gem.20241118-9-2r58ah sitelibdir\=./.gem.20241118-9-2r58ah install
+make DESTDIR\= sitearchdir\=./.gem.20241119-9-lrlung sitelibdir\=./.gem.20241119-9-lrlung install
 make -C "/usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c/libffi-x86_64-linux"
 make[1]: Entering directory '/usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c/libffi-x86_64-linux'
 make  all-recursive
@@ -350,6 +350,6 @@ Variadic.c:134:11: warning: variable 'convention' set but not used [-Wunused-but
 gcc -I"/usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c/libffi-x86_64-linux"/include -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DRUBY_EXTCONF_H=\"extconf.h\"    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o ffi.o -c ffi.c
 rm -f ffi_c.so
 gcc -shared -o ffi_c.so AbstractMemory.o ArrayType.o Buffer.o Call.o ClosurePool.o DynamicLibrary.o Function.o FunctionInfo.o LastError.o LongDouble.o MappedType.o MemoryPointer.o MethodHandle.o Platform.o Pointer.o Struct.o StructByValue.o StructLayout.o Thread.o Type.o Types.o Variadic.o ffi.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,--exclude-libs,ALL -pthread -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  "/usr/local/app/ondemand/apps/dashboard/vendor/bundle/ruby/3.1.0/gems/ffi-1.16.3/ext/ffi_c/libffi-x86_64-linux"/.libs/libffi_convenience.a -lruby  -lm  -lc
-/usr/bin/mkdir -p . ./.gem.20241118-9-2r58ah
+/usr/bin/mkdir -p . ./.gem.20241119-9-lrlung
 exit > .sitearchdir.time
-/usr/bin/install -c -m 0755 ffi_c.so ./.gem.20241118-9-2r58ah
+/usr/bin/install -c -m 0755 ffi_c.so ./.gem.20241119-9-lrlung
