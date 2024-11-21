@@ -56,6 +56,12 @@ module SlurmMetrics
       ntotal_cpu + ntotal_gpu
     end
 
+    # ALL JOBS ARE PROCESSED APART FROM CANCELLED JOBS
+    # REMOVE CANCELLED JOBS FROM TOTAL
+    def eligible_jobs
+      total_jobs - @nca_cpu - @nca_gpu
+    end
+
     def empty?
       total_jobs.zero?
     end
