@@ -41,7 +41,7 @@ Rails.application.config.after_initialize do
               }
             end
 
-            def call_sacct_metrics(job_ids, from, to)
+            def call_sacct_metrics(job_ids, from, to, timeout)
               # https://slurm.schedmd.com/sacct.html
               fields = metrics_fields
               states = ['CA','CD','F','OOM','TO']
@@ -56,7 +56,11 @@ Rails.application.config.after_initialize do
               args.concat ['-E', to] if to # TO END DATE
 
               metrics = []
-              StringIO.open(call('sacct', *args)) do |output|
+              # TO AVOID ADDING SLURM BIN_PATH TO timeout
+              @bin_overrides['timeout'] = 'timeout'
+              # NEED TO ADD THE FULL PATH FOR sacct
+              cmd = OodCore::Job::Adapters::Helper.bin_path('sacct', bin, bin_overrides)
+              StringIO.open(call('timeout', timeout, cmd, *args)) do |output|
                 output.each_line do |line|
                   #REPLACE BLANKS WITH NIL
                   values = line.strip.split(UNIT_SEPARATOR).map{ |value| value.blank? ? nil : value }
@@ -87,8 +91,8 @@ Rails.application.config.after_initialize do
             end
           end
 
-          def metrics(job_ids: [], from: nil, to: nil)
-            @slurm.call_sacct_metrics(job_ids, from, to)
+          def metrics(job_ids: [], from: nil, to: nil, timeout: '10s')
+            @slurm.call_sacct_metrics(job_ids, from, to, timeout)
           end
 
           def fairshare

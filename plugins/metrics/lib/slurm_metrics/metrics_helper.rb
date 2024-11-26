@@ -8,6 +8,16 @@ module SlurmMetrics
       "#{label} #{metrics_round(total, value)}%"
     end
 
+    def period_text
+      days = SlurmMetrics::MetricsService::METRICS_PERIOD / 1.day
+      "Period: Last #{days} days"
+    end
+
+    def period_title(from_text, to_text)
+      days = SlurmMetrics::MetricsService::METRICS_PERIOD / 1.day
+      "Period: Last #{days} days - from #{from_text} to #{to_text}"
+    end
+
     def metrics_round(total, value)
       value = total.zero? ? 0.0 : value / total.to_f
       # ENSURE AT LEAST 1% IS SHOWN FOR SMALL NUMBERS
