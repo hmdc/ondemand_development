@@ -3,14 +3,16 @@
   from_text = local_assigns.fetch(:from_text, nil)
   to_text = local_assigns.fetch(:to_text, nil)
   metrics_helper = SlurmMetrics::MetricsHelper.new
+  period_text = metrics_helper.period_text
+  period_title = metrics_helper.period_title(from_text, to_text)
 %>
 
 <div class="metrics-widget-component">
   <div class="card mt-3">
     <div class="card-header">
       <small class="float-end float-right">Eligible Jobs: <%= summary.eligible_jobs %></small>
-      <h3>Summary Job Stats</h3>
-      <small><%= "Period: #{from_text} to #{to_text}" %></small>
+      <h3 title="<%= period_title %>">Summary Job Stats</h3>
+      <small title="<%= period_title %>"><%= period_text %></small>
     </div>
 
     <div class="card-body">

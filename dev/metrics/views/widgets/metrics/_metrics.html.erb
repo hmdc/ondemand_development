@@ -81,8 +81,8 @@
   <div class="metrics-container">
     <%= render(partial: '/widgets/metrics/fairshare') %>
 
-    <%= render(partial: '/widgets/metrics/jobs_summary', locals: { title: 'CPU Jobs by State', subtitle: "Period: #{from_text} to #{to_text}", total: summary.ntotal_cpu, completed: summary.ncd_cpu, timeout: summary.nto_cpu, canceled: summary.nca_cpu, memory: summary.noom_cpu, failed: summary.nf_cpu } ) %>
-    <%= render(partial: '/widgets/metrics/jobs_summary', locals: { title: 'GPU Jobs by State', subtitle: "Period: #{from_text} to #{to_text}", total: summary.ntotal_gpu, completed: summary.ncd_gpu, timeout: summary.nto_gpu, canceled: summary.nca_gpu, memory: summary.noom_gpu, failed: summary.nf_gpu } ) %>
+    <%= render(partial: '/widgets/metrics/jobs_summary', locals: { title: 'CPU Jobs by State', from_text: from_text, to_text: to_text, total: summary.ntotal_cpu, completed: summary.ncd_cpu, timeout: summary.nto_cpu, canceled: summary.nca_cpu, memory: summary.noom_cpu, failed: summary.nf_cpu } ) %>
+    <%= render(partial: '/widgets/metrics/jobs_summary', locals: { title: 'GPU Jobs by State', from_text: from_text, to_text: to_text, total: summary.ntotal_gpu, completed: summary.ncd_gpu, timeout: summary.nto_gpu, canceled: summary.nca_gpu, memory: summary.noom_gpu, failed: summary.nf_gpu } ) %>
 
     <%= render(partial: '/widgets/metrics/metrics_summary', locals: { summary: summary, from_text: from_text, to_text: to_text } ) %>
   </div>
