@@ -49,7 +49,9 @@ module SlurmMetrics
     def refresh_metrics
       from = Time.now - METRICS_PERIOD
       to = Time.now
-      job_data = cluster.job_adapter.metrics(from: from.strftime('%Y-%m-%dT00:00:00'), to: to.strftime('%Y-%m-%dT23:59:59'))
+      job_data = execute_slurm_command do
+        cluster.job_adapter.metrics(from: from.strftime('%Y-%m-%dT00:00:00'), to: to.strftime('%Y-%m-%dT23:59:59'))
+      end
       processor = SlurmMetrics::MetricsProcessor.new
       metrics_summary = processor.calculate_metrics(from, to, job_data)
 
@@ -57,7 +59,7 @@ module SlurmMetrics
     end
 
     def refresh_job_metrics(session)
-      job_data = cluster.job_adapter.metrics(job_ids: [session.job_id])
+      job_data = execute_slurm_command { cluster.job_adapter.metrics(job_ids: [session.job_id]) }
       processor = SlurmMetrics::MetricsProcessor.new
       job_metrics = processor.calculate_metrics(Time.now, Time.now, job_data, ignore_cancelled: false)
       job_metrics_file = job_metrics_path(session.id)
@@ -66,7 +68,7 @@ module SlurmMetrics
     end
 
     def refresh_fairshare
-      data = cluster.job_adapter.fairshare
+      data = execute_slurm_command { cluster.job_adapter.fairshare }
       fair_share = {
         from: Time.now.to_i,
         data: data
@@ -101,6 +103,13 @@ module SlurmMetrics
 
     def job_metrics_path(session_id)
       BatchConnect::Session.dataroot.join('metrics').tap { |p| p.mkpath unless p.exist? }.join(session_id)
+    end
+
+    def execute_slurm_command
+      yield
+    rescue => e
+      Rails.logger.error("Error executing Metrics command. Most likely timeout. Error: #{e}")
+      []
     end
 
   end
