@@ -1,0 +1,24 @@
+<%
+  disk_manager = Mywidget::DiskManager.new
+  available_disk_space = disk_manager.available_disk_space
+  timestamp = Time.now
+%>
+
+<div>
+  <h3>Disk Manager</h3>
+  <div>
+    <div>
+      <div class="card mt-3">
+        <div class="card-header" title="Disk space calculated at <%= timestamp.strftime('%Y-%m-%dT%H:%M:%S') %>">
+          <small class="float-end float-right"><%= timestamp.strftime('%Y-%m-%d') %></small>
+          <h3>Disk Stats</h3>
+        </div>
+        <div class="card-body">
+          <p>
+            Available disk space: <%= available_disk_space %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

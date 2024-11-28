@@ -1,0 +1,7 @@
+custom_pages:
+  mywidget:
+    rows:
+      - columns:
+          - width: 12
+            widgets:
+              - "mywidget/mywidget"
