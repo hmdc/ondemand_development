@@ -44,7 +44,7 @@ help_menu:
 profile_links:
   - group: "Profiles"
   - title: "Default"
-    profile: ""
+    profile: "monkey"
     icon: fas://user
   - title: "Team 1"
     profile: "team1"
@@ -52,6 +52,8 @@ profile_links:
     profile: "team2"
   - title: "NEW 3"
     profile: "team3"
+  - title: "Monkey"
+    profile: "monkey"
 
 
 dashboard_layout:

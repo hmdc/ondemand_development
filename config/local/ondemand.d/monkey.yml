@@ -1,11 +1,13 @@
 profiles:
-  fasrc:
+  monkey:
     # dashboard_title property does not work yet
     # It requires a new change to the OnDemand Puppet Module. PR raised.
-    dashboard_title: FASRC
-    dashboard_header_img_logo: "/public/fasrc_logo.png"
-    brand_bg_color: "rgb(157,47,60)"
+    dashboard_title: Monkey's FASRC
+    dashboard_header_img_logo: "/public/fasrc_monkey_logo.png"
+    brand_bg_color: "rgb(157,200,200)"
+    brand_bg_color_bak: "rgb(157,47,60)"
     brand_link_active_bg_color: "rgb(59, 61, 63)"
+    custom_css_files: ["monkey.css"]
 
     disable_dashboard_welcome_message: true
 
@@ -20,12 +22,9 @@ profiles:
             - width: 8
               widgets:
                 - "mywidget/mywidget"
-                - "metrics/metrics"
                 - "pinned_apps"
                 - "motd"
             - width: 4
               widgets:
-                - "mywidget/mywidget"
-                - "metrics/metrics"
                 - "xdmod_widget_job_efficiency"
                 - "xdmod_widget_jobs"
