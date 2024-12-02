@@ -23,10 +23,10 @@ build_system_demo build_user_demo: SID_BUILDER_IMAGE := hmdc/sid-ood:builder-R3.
 build_user_demo: ROOT_URL := /pun/dev/ood
 
 start_ood: stop_ood
-	$(ENV) docker-compose up --build || :
+	$(ENV) docker compose up --build || :
 
 stop_ood:
-	$(ENV) docker-compose down -v || :
+	$(ENV) docker compose down -v || :
 
 clean:
 	rm -rf ./ondemand/apps/dashboard/data
@@ -70,7 +70,7 @@ start_ood_tester:
 	docker run --rm -it -v $(PWD)/ondemand:/usr/local/app -w /usr/app/local $(SID_TEST_IMAGE) || :
 
 docker_systemd:
-	docker build -t rocky_systemd:8 -f Dockerfile.systemd .
+	docker build -t rocky_systemd:8 -f docker/Dockerfile.systemd .
 
 docker_ood_installer:
 	docker build -t ood_puppet:5.0.1 -f docker/Dockerfile.puppet .
