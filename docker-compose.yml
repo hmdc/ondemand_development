@@ -39,6 +39,7 @@ services:
       - ./config/local/ondemand.d:/etc/ood/config/ondemand.d
       - ./config/local/app_overrides:/etc/ood/config/apps/ood
       - ./dev/metrics:/var/www/ood/apps/plugins/metrics
+      - ./dev/session_metrics:/var/www/ood/apps/plugins/session_metrics
     ports:
       - "33000:443"
     expose:
