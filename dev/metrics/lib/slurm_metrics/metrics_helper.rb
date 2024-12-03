@@ -79,8 +79,8 @@ module SlurmMetrics
       Time.now.to_i - completed_time > 10
     end
 
-    def metrics_enabled?(user_configuration)
-      metrics_configuration = user_configuration.send(:fetch, :metrics_enabled, false)
+    def session_metrics_enabled?(user_configuration)
+      metrics_configuration = user_configuration.send(:fetch, :session_metrics_enabled, false)
       ::Configuration.send(:to_bool, metrics_configuration)
     end
   end
