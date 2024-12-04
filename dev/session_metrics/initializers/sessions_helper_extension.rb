@@ -13,7 +13,7 @@ Rails.application.config.after_initialize do
             concat render_session_time(session)
             concat id(session)
             concat support_ticket(session) unless @user_configuration.support_ticket.empty?
-            if SlurmMetrics::MetricsHelper.new.metrics_enabled?(@user_configuration) && session.completed?
+            if SlurmMetrics::MetricsHelper.new.session_metrics_enabled?(@user_configuration) && session.completed?
               concat render(partial: 'batch_connect/sessions/card/session_job_metrics', locals: { session: session })
             end
             concat display_choices(session)

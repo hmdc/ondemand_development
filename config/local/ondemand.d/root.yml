@@ -26,6 +26,10 @@ globus_endpoints:
     endpoint_path: "/demo/dataverse"
 
 help_menu:
+  - group: "Metrics"
+  - title: "Metrics"
+    icon: "fas://chart-bar"
+    page: "metrics"
   - group: "Docs"
   - title: "Documentation"
     icon: "fas://book"

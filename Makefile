@@ -45,9 +45,10 @@ build_latest_ood:
 build_system_demo build_user_demo: build_latest_ood
     # COPY DEMO CONFIGURATION
 	cp -R config/demo/. ondemand/apps/dashboard
-	# COPY METRICS WIDGET
+	# COPY CUSTOMIZATIONS
 	mkdir -p ondemand/apps/dashboard/plugins
 	cp -R dev/metrics ondemand/apps/dashboard/plugins/metrics
+	cp -R dev/session_metrics ondemand/apps/dashboard/plugins/session_metrics
 
 start_ood_installer:
 	docker create --rm --name ood_installer --privileged -p 43000:443 ood_puppet:5.0.1

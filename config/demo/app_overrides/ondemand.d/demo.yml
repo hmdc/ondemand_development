@@ -4,4 +4,10 @@ host_based_profiles: false
 show_all_apps_link: false
 bc_saved_settings: true
 cancel_session_enabled: true
-metrics_enabled: true
+session_metrics_enabled: true
+
+help_menu:
+  - group: "Metrics"
+  - title: "Metrics"
+    icon: "fas://chart-bar"
+    page: "metrics"

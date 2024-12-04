@@ -7,13 +7,15 @@ The metrics widget consist of four panels:
 - GPU Jobs by state
 - Jobs Stats Summary
 
+The metrics help widget is just a blurb of text.
+
 ### Implementation Summary
 The implementation consist of three components
 - OOD Slurm adapter extension
 - ./initializers/slurm_extension.rb
 - Metrics calculations utility classes
 - ./lib/slurm_metrics
-- Metrics widget templates
+- Metrics widget and help templates
 - ./views/widgets/metrics
 
 ### Deployment
@@ -36,6 +38,6 @@ In the Puppet control repo, we need to add the files for the three components to
 - site-modules/profile/files/openondemand/common/apps_config/dashboard/views/widgets
 
 To review and test the new widget, we could use a custom page to display it. This is a sample configuration:
-https://github.com/hmdc/ondemand_development/blob/main/config/local/ondemand.d/metrics.yml
+https://github.com/hmdc/ondemand_development/blob/main/dev/metrics/metrics.yml
 
 This will create a custom page under: `/pun/sys/dashboard/custom/metrics
