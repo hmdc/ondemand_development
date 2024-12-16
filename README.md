@@ -209,6 +209,13 @@ To stop the OOD installer image run
 ```
 docker rm -f ood_installer
 ```
+
+Other Puppet useful commands
+```
+/opt/puppetlabs/bin/puppet module uninstall osc-openondemand
+/opt/puppetlabs/bin/puppet module upgrade puppetlabs-apache --version 12.1.0
+/opt/puppetlabs/bin/puppet module install osc-openondemand --version 5.0.1 --ignore-dependencies
+```
 ### Manual changes to Apache
 If you need to test manual changes to Apache, the OOD Apache configuration is deployed in: `/etc/httpd/conf.d/ood-portal.conf`
 
