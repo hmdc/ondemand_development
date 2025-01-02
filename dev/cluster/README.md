@@ -3,7 +3,7 @@ Open OnDemand partition widget displaying information about all the partitions i
 
 
 ### Implementation Summary
-The implementation consist of three components
+The implementation consists of three components
 - OOD Slurm adapter and NodeInfo class extensions
 - ./initializers
 - Partition service and utility classes
