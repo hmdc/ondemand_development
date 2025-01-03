@@ -1,7 +1,6 @@
 <%
   cluster_service = SlurmCluster::ClusterService.new
-  partitions = cluster_service.read_partitions
-  timestamp = Time.now
+  timestamp, partitions = cluster_service.partitions
 
   cluster_helper = SlurmCluster::ClusterHelper.new
 %>
@@ -14,8 +13,8 @@
       pagingType: "simple",
       language: {
         paginate: {
-          previous: '<', // Removes the "Previous" button
-          next: '>'      // Removes the "Next" button
+          previous: '<',
+          next: '>'
         },
         info: "_START_ to _END_ of _TOTAL_",
         infoEmpty: "No partitions data available for user <%= @user.name %>",
@@ -28,7 +27,7 @@
         { width: "15%" },
       ],
       initComplete: function () {
-        // Show table body after DataTables initializes
+        // Show table body after DataTables initializes to avoid flicker effect.
         $('#metrics-partition-status').fadeIn();
       }
     });
@@ -52,6 +51,10 @@
     }
 
     .partition-widget-component table td {
+        cursor: default;
+    }
+
+    .partition-widget-component [title]{
         cursor: default;
     }
 
@@ -111,7 +114,7 @@
           <th>Partition</th>
           <th class="small text-center" title="Nodes available in the partition">Free Nodes</th>
           <th class="small text-center" title="Cores available in the partition">Free Cores</th>
-          <th class="small text-center" title="Maximum amount of memory in GB available">Free Mem</th>
+          <th class="small text-center" title="Memory in GB available in at least one node in the partition">Free Mem</th>
         </tr>
         </thead>
         <tbody>

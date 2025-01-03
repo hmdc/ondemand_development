@@ -1,7 +1,7 @@
 # Slurm Adapter Extensions to extract metrics with sacct
 Rails.application.config.after_initialize do
-  Rails.logger.info 'Executing Node extension ...'
-  require 'ood_core/job//node_info'
+  Rails.logger.info 'Executing NodeInfo extension ...'
+  require 'ood_core/job/node_info'
 
   module OodCore
     module Job
@@ -15,8 +15,8 @@ Rails.application.config.after_initialize do
           @procs = procs && procs.to_i
           @procs_by_state = procs_by_state.to_a.map(&:to_i)
           @nodes_by_state = nodes_by_state.to_a.map(&:to_i)
-          @total_memory = total_memory.to_s
-          @free_memory = free_memory.to_s
+          @total_memory = total_memory.to_i
+          @free_memory = free_memory.to_i
           @features = features.to_a
         end
 
@@ -26,5 +26,5 @@ Rails.application.config.after_initialize do
 
 
 
-  Rails.logger.info 'Executing Slurm extension completed'
+  Rails.logger.info 'Executing NodeInfo extension completed'
 end

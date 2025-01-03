@@ -1,6 +1,6 @@
 # Slurm Adapter Extensions to extract metrics with sacct
 Rails.application.config.after_initialize do
-  Rails.logger.info 'Executing Slurm Node extension ...'
+  Rails.logger.info 'Executing Slurm nodes method extension ...'
   require 'ood_core/job/adapters/slurm'
 
   module OodCore
@@ -47,5 +47,5 @@ Rails.application.config.after_initialize do
     end
   end
 
-  Rails.logger.info 'Executing Slurm Node extension completed'
+  Rails.logger.info 'Executing Slurm nodes method extension completed'
 end

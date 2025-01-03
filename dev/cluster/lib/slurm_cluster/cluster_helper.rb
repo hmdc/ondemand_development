@@ -1,56 +1,52 @@
 # frozen_string_literal: true
 
 module SlurmCluster
-  # Utility methods to format data for the cluster templates.
+  # Utility methods to format data for the cluster/partition templates.
   class ClusterHelper
     def state_class(partition_state)
       return 'bg-primary' if partition_state.nil?
 
-      if partition_state.to_s.downcase == 'up'
-        return 'bg-success'
-      else
-        return 'bg-danger'
-      end
+      return 'bg-success' if partition_state.to_s.downcase == 'up'
+
+      'bg-danger'
     end
 
     def state_icon(partition_state)
-      if partition_state.to_s.downcase == 'up'
-        return '<i class="fa fa-check-circle fa-fw text-success"></i>'
-      else
-        return  '<i class="fa fa-times-circle fa-fw text-danger"></i>'
-      end
+      return '<i class="fa fa-check-circle fa-fw text-success"></i>' if partition_state.to_s.downcase == 'up'
+
+      '<i class="fa fa-times-circle fa-fw text-danger"></i>'
     end
 
     def nodes_class(nodes_metrics)
       available_percentage = nodes_metrics[1] / nodes_metrics[3].to_f
       if available_percentage > 0.45
-        return 'bg-success'
+        'bg-success'
       elsif available_percentage < 0.2
-        return 'bg-danger'
+        'bg-danger'
       else
-        return 'bg-warning'
+        'bg-warning'
       end
     end
 
     def cores_class(cores_metrics)
       available_percentage = cores_metrics[1] / cores_metrics[3].to_f
       if available_percentage > 0.45
-        return 'bg-success'
+        'bg-success'
       elsif available_percentage < 0.2
-        return 'bg-danger'
+        'bg-danger'
       else
-        return 'bg-warning'
+        'bg-warning'
       end
     end
 
     def memory_class(memory_mb)
       memory_gb = convert_mb_to_gb(memory_mb).to_f
       if memory_gb > 64
-        return 'bg-success'
+        'bg-success'
       elsif memory_gb < 16
-        return 'bg-danger'
+        'bg-danger'
       else
-        return 'bg-warning'
+        'bg-warning'
       end
     end
 
