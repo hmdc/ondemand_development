@@ -19,6 +19,7 @@ profiles:
         - columns:
             - width: 8
               widgets:
+                - "cluster/partitions"
                 - "metrics/metrics"
                 - "pinned_apps"
                 - "motd"
