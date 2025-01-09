@@ -9,3 +9,4 @@ custom_pages:
           - width: 4
             widgets:
               - "metrics/metrics"
+              - "cluster/partitions"
