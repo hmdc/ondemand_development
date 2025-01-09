@@ -12,6 +12,8 @@ Rails.application.config.after_initialize do
               {
                 # The user name of the user who ran the job.
                 user: 'User',
+                # The group name of the user who ran the job.
+                group_name: 'Group',
                 # Job Id for reference
                 job_id: 'JobId',
                 # The job's elapsed time.
