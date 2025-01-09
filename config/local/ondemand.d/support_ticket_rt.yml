@@ -1,0 +1,11 @@
+support_ticket_disabled:
+  description: |
+    This is a description text for the RT API
+  #ui_template: "custom_template"
+  rt_api:
+    server: "http://rt:34000"
+    user: "root"
+    pass: "password"
+    priority: 4
+    queues:
+      - "General"

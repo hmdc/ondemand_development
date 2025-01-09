@@ -1,0 +1,16 @@
+support_ticket_basic:
+  email:
+    to: "support@support.system.com"
+
+support_ticket_disabled:
+  description: |
+    This is a description text for the Email
+  #ui_template: "custom_template"
+  email:
+    to: "iqss_support@rc.fas.harvard.edu"
+    delivery_method: "smtp"
+    delivery_settings:
+      address: "rcsmtp.rc.fas.harvard.edu"
+      port: "25"
+      open_timeout: 10
+      read_timeout: 10

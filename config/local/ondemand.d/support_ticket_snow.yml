@@ -1,0 +1,23 @@
+support_ticket:
+  description: |
+    This is a description text for the ServiceNow API
+
+  #ui_template: "custom_template"
+  attributes:
+    email:
+      required: true
+    subject:
+      value: "OnDemand Problem: "
+  servicenow_api:
+    server_local: "https://dev251054.service-now.com"
+    server: "https://harvardtest.service-now.com"
+    auth_token: "now_GHZfPLOenhBaBGctor-c3yoF977mcruFenULDq3y17G3nrc7FD2c_bqOxR-MeTLLix_hdfbF0t1qKIIfTPm4KA"
+    user_local: "ood"
+    pass_local: "$]9n0tkw?CWbF=-IQyV6n{Fr>z3^Dca.CwU(mm_{&!I:3+a$}9,IGEvu5e9Slk#NryYZr{JG:Y^S7u1M=af=pS:Re.PS;>O_qw:<"
+    map:
+      caller_id: "email"
+    payload:
+      u_category: "troubleshooting"
+      contact_type: "External System"
+      assignment_group: "FAS RC - IQSS Support"
+      u_business_service: "FAS Research Computing Services > IQSS Support > IQSS Triage"
