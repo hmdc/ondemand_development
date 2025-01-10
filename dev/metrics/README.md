@@ -19,10 +19,11 @@ The implementation consist of three components
 - ./views/widgets/metrics
 
 ### Deployment
-Using the customization feature from OnDemand, with the default location under: `/etc/ood/config/apps/dashboard`
- - copy `./initializers/slurm_extension.rb` into `/etc/ood/config/apps/dashboard/intializers`
- - copy `./lib/slurm_metrics` into `/etc/ood/config/apps/dashboard/lib`
- - copy `./views/widgets/metrics` into `/etc/ood/config/apps/dashboard/views/widgets`
+Using the new plugins feature from OnDemand, with the default location under: `/etc/ood/config/plugins`
+- copy the `cluster` folder into `/etc/ood/config/plugins`
+
+Add the metrics widget to the home page or to a new custom page, example in the [metrics.yml](metrics.yml) file
+
 
 Restart the OnDemand application for the customizations to take effect.
 

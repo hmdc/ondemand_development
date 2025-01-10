@@ -1,0 +1,41 @@
+<div class="partition-widget-help">
+  <h4>Partition Status Widget</h4>
+  <p>
+    The Partition Status widget provides an overview of the available resources in the cluster partitions you have access to. This information helps you select the most suitable partition for your computational jobs based on their resource requirements.
+  </p>
+  <strong>Key Information Displayed:</strong><br />
+  <ul>
+    <li>
+      <strong>Partition:</strong>
+      Lists the partitions available to you. Each partition represents a subset of the cluster's resources optimized for specific workloads.
+      The icons represent if the partition is currently up or down.
+    </li>
+    <li>
+      <strong>Free Nodes:</strong>
+      Indicates the number of free nodes in the partition. A node is a physical or virtual machine where your job will run.
+    </li>
+    <li>
+      <strong>Free Cores:</strong>
+      Displays the total number of free CPU cores across the partition. Jobs requiring multiple cores (e.g., parallel computations) should consider this value.
+    </li>
+    <li>
+      <strong>Free Mem:</strong>
+      Shows the maximum amount of memory in GB available on a single free node within the partition. This is particularly important for jobs that require large memory on a single node.
+    </li>
+  </ul>
+  <p>Most of the elements in the widget contain additional information that can be accessed by hovering over it with your cursor.</p>
+
+  <strong>Using the Widget:</strong>
+  <ul>
+    <li>
+      <strong>Matching Job Requirements:</strong> Before submitting your job, ensure the selected partition has sufficient resources to meet your job's requirements, including:
+      <em>free nodes and cores</em> if your job is distributed across multiple cores or nodes, and <em>free memory</em> if your job needs a large amount of memory on a single node.
+    </li>
+    <li>
+      <strong>Monitoring:</strong> The widget can be used to track resource availability and choose the optimal time to submit your job.
+    </li>
+    <li>
+      <strong>Sorting:</strong> Columns can be sorted to quickly identify partitions with the highest resource availability.
+    </li>
+  </ul>
+</div>
