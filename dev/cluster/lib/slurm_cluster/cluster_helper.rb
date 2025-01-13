@@ -39,11 +39,11 @@ module SlurmCluster
       end
     end
 
-    def memory_class(memory_mb)
-      memory_gb = convert_mb_to_gb(memory_mb).to_f
-      if memory_gb > 64
+    def memory_class(free_mem_mb, total_mem_mb)
+      percentage = total_mem_mb.zero? ? 0.0 : free_mem_mb / total_mem_mb.to_f
+      if percentage > 0.4
         'bg-success'
-      elsif memory_gb < 16
+      elsif percentage < 0.2
         'bg-danger'
       else
         'bg-warning'

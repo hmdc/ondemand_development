@@ -130,7 +130,7 @@
               <span class="badge <%= cluster_helper.cores_class(partition_data[:procs_by_state]) %>"><%= partition_data[:procs_by_state][1] %></span>
             </td>
             <td title="<%= cluster_helper.convert_mb_to_gb(partition_data[:free_memory]) %>GB of memory free from the total possible <%= cluster_helper.convert_mb_to_gb(partition_data[:total_memory]) %>GB">
-              <span class="badge <%= cluster_helper.memory_class(partition_data[:free_memory]) %>"><%= cluster_helper.convert_mb_to_gb(partition_data[:free_memory]) %></span>
+              <span class="badge <%= cluster_helper.memory_class(partition_data[:free_memory], partition_data[:total_memory]) %>"><%= cluster_helper.convert_mb_to_gb(partition_data[:free_memory]) %></span>
             </td>
           </tr>
         <% end %>
