@@ -19,6 +19,18 @@ The build process configures the OOD application to be deployed under the URL `/
 make build_latest_ood
 ```
 
+To build a different version of the OnDemand codebase, we can switch to a release branch.
+Execute the following command to switch to the OODv3.0 version.
+
+```
+git checkout release_3.0
+```
+
+Current release branches are:
+ - `release_3.0`
+ - `release_3.1`
+ - `release_4.0`
+
 We use Docker Compose to deploy locally. We deploy the OOD dashboard built in the previous step, a Request Tracker server, and a Slurm cluster with 2 compute nodes.
 Review the [docker-compose.yml](docker-compose.yml) file for more information.
 
