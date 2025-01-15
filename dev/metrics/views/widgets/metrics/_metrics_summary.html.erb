@@ -26,8 +26,8 @@
       <%= render(partial: '/widgets/metrics/metric_details',
                  locals: { id: 'gpu-metric-summary',
                            title: 'GPU Efficiency:',
-                           items: [['Average Allocated', "#{summary.ave_gpu_req.ceil(1)} CPU Hrs"],
-                                   ['Total Walltime', "#{summary.tot_gpu_hours.ceil(1)} CPU Hrs"]] } ) %>
+                           items: [['Average Allocated', "#{summary.ave_gpu_req.ceil(1)} GPU Hrs"],
+                                   ['Total Walltime', "#{summary.tot_gpu_hours.ceil(1)} GPU Hrs"]] } ) %>
       <%= render(partial: '/widgets/metrics/metric_details',
                  locals: { id: 'memory-metric-summary',
                            title: 'Memory Efficiency:',
