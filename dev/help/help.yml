@@ -9,4 +9,8 @@ custom_pages:
       - columns:
           - width: 8
             widgets:
+              - "help/metrics_help"
+          - width: 4
+            widgets:
               - "metrics/metrics"
+              - "cluster/partitions"
