@@ -6,7 +6,7 @@ This code has already been merged into OOD main codebase, but it hasn't been rel
 Once we upgrade to the OOD version with the ServiceNow integration, we can discard this customization.
 
 ### Implementation Summary
-The implementation consist of two components
+The implementation consists of two components
 - OOD UserConfiguration extension
 - ./initializers/user_configuration_extension.rb
 - ServiceNow service and client classes
