@@ -13,7 +13,7 @@ require 'rest_client'
 # - `auth_token_env`: Environment variable to use for the ServiceNow API key
 # - `auth_header`: ServiceNow API key HTTP header. Defaults to x-sn-apikey.
 # - `timeout`: Connection and read timeout in seconds. Defaults to 30.
-# - `verify_ssl`: Whether or not the client should validate SSL certificates. Defaults to true.
+# - `verify_ssl`: Whether or not the client should validate SSL certificates. Defaults to false.
 # - `proxy`: Proxy server URL. Defaults to no proxy.
 #
 class ServiceNowClient
@@ -32,14 +32,6 @@ class ServiceNowClient
     @server = config[:server] if config[:server]
 
     raise ArgumentError, 'server is a required parameter for ServiceNow client' unless @server
-
-    # Allow to pass secrets securely through request headers
-    auth_token_header = config[:auth_token_header]
-    @auth_token = RequestStore.store[auth_token_header.to_sym] if auth_token_header
-    pass_header = config[:pass_header]
-    @pass = RequestStore.store[pass_header.to_sym] if pass_header
-
-    Rails.logger.info "User: #{@user} pwd: #{@pass}"
 
     headers = { 'User-Agent' => UA,
                 'Cookie'     => '' }

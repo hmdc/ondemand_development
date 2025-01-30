@@ -32,8 +32,22 @@ In the Puppet control repo, we need to add the files for this customization to t
 The support ticket YAML configuration is managed by the `profile::openondemand::ood_support_ticket` class.
 We need to add the following puppet configuration for ServiceNow:
 ```
+# "guest" = 5136503cc611227c0183e96598c4f706
+# "troubleshooting" = 4e7017196fc5c100a54fa981be3ee4c9
+# "FAS RC - IQSS Support" = 091302291b9302509ebaca262a4bcb21
+# "FAS Research Computing Services > IQSS Support > IQSS Triage" = b63f3ded1b5302509ebaca262a4bcbfe   
 profile::openondemand::ood_support_ticket::server: 'https://localhost'
-profile::openondemand::ood_support_ticket::template: 'support_ticket_snow.yml.erb'
+profile::openondemand::ood_support_ticket::custom_content:
+  servicenow_api:
+    map:
+      u_email_source: "email"
+      watch_list: "cc"
+    payload:
+      caller_id: "5136503cc611227c0183e96598c4f706"
+      u_category: "4e7017196fc5c100a54fa981be3ee4c9"
+      contact_type: "External System"
+      assignment_group: "091302291b9302509ebaca262a4bcb21"
+      u_business_service: "b63f3ded1b5302509ebaca262a4bcbfe"
 ```
 
 As well, to configure the Apache reverse proxy to connect to ServiceNow and manage the API key, we need to update the `openondemand::custom_vhost_directives` array property.

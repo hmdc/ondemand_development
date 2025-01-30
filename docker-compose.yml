@@ -18,7 +18,6 @@ services:
     image: maildev/maildev:2.0.5
     restart: on-failure
     ports:
-      - "25:25" # smtp server
       - "35000:1080" # web ui
     environment:
       - MAILDEV_SMTP_PORT=25
