@@ -20,7 +20,7 @@ Using the customization feature from OnDemand, with the default location under: 
 Restart the OnDemand application for the customizations to take effect.
 
 ### Deployment With FASRC Puppet
-The ServiceNow integration need to be deployed using FASRC Puppet control repo. We are already using the OOD Puppet module feature to add files to the OOD dashboard location to add/extend functionality:
+The ServiceNow integration needs to be deployed using FASRC Puppet control repo. We are already using the OOD Puppet module feature to add files to the OOD dashboard location to add/extend functionality:
 `openondemand::apps_config_source:`
 
 The folder that we are deploying is: `site-modules/profile/files/openondemand/common/apps_config`
