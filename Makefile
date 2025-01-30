@@ -49,6 +49,8 @@ build_system_demo build_user_demo: build_latest_ood
 	mkdir -p ondemand/apps/dashboard/plugins
 	cp -R dev/metrics ondemand/apps/dashboard/plugins/metrics
 	cp -R dev/session_metrics ondemand/apps/dashboard/plugins/session_metrics
+	cp -R dev/help ondemand/apps/dashboard/plugins/help
+	cp -R dev/cluster ondemand/apps/dashboard/plugins/cluster
 
 start_ood_installer:
 	docker create --rm --name ood_installer --privileged -p 43000:443 ood_puppet:5.0.1

@@ -48,6 +48,17 @@ openondemand::custom_vhost_directives:
   - 'RewriteRule ^/logout$ /oidc?logout=https://%{literal("%")}{HTTP_HOST} [R=301,L]'
   - '# 300 => 5 MINUTES'
   - 'TimeOut 300'
+  - '# FOR FASSE ONLY - SERVICENOW PROXY'
+  - 'ProxyRemote https://harvard.service-now.com http://rcproxy.rc.fas.harvard.edu:3128'
+  - 'SSLProxyEngine on'
+  - '<Location "/api/now">'
+  - '  ProxyPass "https://harvard.service-now.com/api/now/"'
+  - '  ProxyPassReverse "https://harvard.service-now.com/api/now/"'
+  - '  RequestHeader set x-sn-apikey "%{lookup("secrets::ondemand::snow_api_key")}"'
+  - '</Location>'
+
+profile::openondemand::ood_support_ticket::server: 'http://localhost'
+profile::openondemand::ood_support_ticket::template: 'support_ticket_snow.yml.erb'
 
 openondemand::clusters:
   dev-cluster:

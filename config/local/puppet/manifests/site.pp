@@ -13,6 +13,7 @@ node default {
   }
 
   include openondemand
+  include profile::openondemand::ood_support_ticket
 
   # resource defaults from FASRC openondemand.pp
   File {

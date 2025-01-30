@@ -1,0 +1,16 @@
+---
+support_ticket:
+  rt_api:
+    server: "<%= @server %>"
+    user: "<%= @api_user %>"
+    pass: "<%= @api_pass %>"
+    priority: "<%= @priority %>"
+  <%- if @queues.length -%>
+    queues:
+  <%- @queues.each do |queue| -%>
+      - "<%= queue %>"
+  <%- end -%>
+  <%- end -%>
+  <%- unless @proxy_server.nil? -%>
+    proxy: "<%= @proxy_server %>"
+  <%- end -%>
