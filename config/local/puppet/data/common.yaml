@@ -48,6 +48,31 @@ openondemand::custom_vhost_directives:
   - 'RewriteRule ^/logout$ /oidc?logout=https://%{literal("%")}{HTTP_HOST} [R=301,L]'
   - '# 300 => 5 MINUTES'
   - 'TimeOut 300'
+  - '# FOR FASSE ONLY - SERVICENOW PROXY'
+  - 'ProxyRemote https://harvard.service-now.com http://rcproxy.rc.fas.harvard.edu:3128'
+  - 'SSLProxyEngine on'
+  - '<Location "/api/now">'
+  - '  ProxyPass "https://harvard.service-now.com/api/now/"'
+  - '  ProxyPassReverse "https://harvard.service-now.com/api/now/"'
+  - '  RequestHeader set x-sn-apikey "%{lookup("secrets::ondemand::snow_api_key")}"'
+  - '</Location>'
+
+# "guest" = 5136503cc611227c0183e96598c4f706
+# "troubleshooting" = 4e7017196fc5c100a54fa981be3ee4c9
+# "FAS RC - IQSS Support" = 091302291b9302509ebaca262a4bcb21
+# "FAS Research Computing Services > IQSS Support > IQSS Triage" = b63f3ded1b5302509ebaca262a4bcbfe
+profile::openondemand::ood_support_ticket::server: 'https://localhost'
+profile::openondemand::ood_support_ticket::custom_content:
+  servicenow_api:
+    map:
+      u_email_source: "email"
+      watch_list: "cc"
+    payload:
+      caller_id: "5136503cc611227c0183e96598c4f706"
+      u_category: "4e7017196fc5c100a54fa981be3ee4c9"
+      contact_type: "External System"
+      assignment_group: "091302291b9302509ebaca262a4bcb21"
+      u_business_service: "b63f3ded1b5302509ebaca262a4bcbfe"
 
 openondemand::clusters:
   dev-cluster:

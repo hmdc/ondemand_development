@@ -12,6 +12,21 @@ services:
     expose:
       - "34000"
 
+  smtp:
+    hostname: smtp
+    container_name: dev_smtp
+    image: maildev/maildev:2.0.5
+    restart: on-failure
+    ports:
+      - "35000:1080" # web ui
+    environment:
+      - MAILDEV_SMTP_PORT=25
+      - MAILDEV_MAIL_DIRECTORY=/mail
+      #- MAILDEV_INCOMING_USER=smtp
+      #- MAILDEV_INCOMING_PASS=password
+    tmpfs:
+      - /mail:mode=770,size=128M,uid=1000,gid=1000
+
   mysql:
     image: mariadb:10.4.18
     hostname: mysql
