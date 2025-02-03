@@ -20,21 +20,6 @@ module SlurmMetrics
       SlurmMetrics::MetricsSummary.new(slurm_metrics[:metrics])
     end
 
-    def read_job_metrics(session)
-      file_path = job_metrics_path(session.id)
-      return refresh_job_metrics(session) unless file_path.exist?
-
-      job_metrics = SlurmMetrics::MetricsSummary.new
-      begin
-        yml = YAML.safe_load(file_path.read) || {}
-        job_metrics = SlurmMetrics::MetricsSummary.new(yml.symbolize_keys)
-      rescue => e
-        Rails.logger.error("Can't read or parse job metrics: #{file_path} because of error #{e}")
-      end
-
-      job_metrics
-    end
-
     def read_fairshare
       slurm_fairshare = user_settings.fetch(:slurm_fairshare, {})
       slurm_fairshare = refresh_fairshare if expired?(slurm_fairshare[:timestamp])
@@ -56,15 +41,6 @@ module SlurmMetrics
       metrics_summary = processor.calculate_metrics(from, to, job_data)
 
       set_metrics(metrics_summary)
-    end
-
-    def refresh_job_metrics(session)
-      job_data = execute_slurm_command { cluster.job_adapter.metrics(job_ids: [session.job_id]) }
-      processor = SlurmMetrics::MetricsProcessor.new
-      job_metrics = processor.calculate_metrics(Time.now, Time.now, job_data, ignore_cancelled: false)
-      job_metrics_file = job_metrics_path(session.id)
-      job_metrics_file.write(job_metrics.to_hash.stringify_keys.to_yaml)
-      job_metrics
     end
 
     def refresh_fairshare
@@ -99,10 +75,6 @@ module SlurmMetrics
 
       # Parse the date string and compare the time difference with 24 hours (in seconds)
       Time.now - Time.parse(date_string) > 24 * 60 * 60
-    end
-
-    def job_metrics_path(session_id)
-      BatchConnect::Session.dataroot.join('metrics').tap { |p| p.mkpath unless p.exist? }.join(session_id)
     end
 
     def execute_slurm_command
