@@ -5,6 +5,7 @@
 
 <%= javascript_include_tag 'batch_connect_sessions', nonce: true %>
 
+<%- # LOAD THE SESSION METRICS CSS => THIS FILE OVERRIDE IS ONLY REQUIRED FOR OODv3.x -%>
 <%= render partial: '/batch_connect/sessions/card/session_card_css' if SlurmMetrics::MetricsHelper.new.session_metrics_enabled?(@user_configuration) %>
 
 <%= render partial: 'batch_connect/shared/breadcrumb',

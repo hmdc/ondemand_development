@@ -3,6 +3,7 @@ Rails.application.config.after_initialize do
   Rails.logger.info 'Executing Sessions Helper extension ...'
   module BatchConnect::SessionsHelper
     # UPDATE session_view TO ADD JOB METRICS PARTIAL
+    # THIS OVERRIDE IS ONLY REQUIRED FOR OODv3.x
     def session_view(session)
       capture do
         concat(
