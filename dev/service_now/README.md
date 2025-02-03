@@ -29,6 +29,10 @@ In the Puppet control repo, we need to add the files for this customization to t
 - site-modules/profile/files/openondemand/common/apps_config/dashboard/intializers
 - site-modules/profile/files/openondemand/common/apps_config/dashboard/lib
 
+Verify the deployment in the OOD server:
+ - `/etc/ood/config/apps/dashboard/intializers`
+ - `/etc/ood/config/apps/dashboard/lib`
+
 The support ticket YAML configuration is managed by the `profile::openondemand::ood_support_ticket` class.
 We need to add the following puppet configuration for ServiceNow:
 ```
@@ -50,6 +54,9 @@ profile::openondemand::ood_support_ticket::custom_content:
       u_business_service: "b63f3ded1b5302509ebaca262a4bcbfe"
 ```
 
+Verify the deployment in the OOD server:
+ - `/etc/ood/config/ondemand.d/support_ticket.yml`
+
 As well, to configure the Apache reverse proxy to connect to ServiceNow and manage the API key, we need to update the `openondemand::custom_vhost_directives` array property.
 
 ```
@@ -68,13 +75,6 @@ openondemand::custom_vhost_directives:
 - '  </Limit>'
 - '  Require all denied'
 - '</Location>'
-```
-
-Alternative Apache configuration:
-```
-openondemand::custom_location_directives:
-- 'SetEnvIf Request_URI "^/pun/sys/dashboard/" DASHBOARD_SECRET=1'
-- 'RequestHeader set OODS_SNOW_KEY "%{lookup("secrets::ondemand::snow_api_key")}" env=DASHBOARD_SECRET'
 ```
 
 Verify on the OnDemand server that the Apache configuration has the right API key value:
