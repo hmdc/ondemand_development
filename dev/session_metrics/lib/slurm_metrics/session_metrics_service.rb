@@ -2,7 +2,7 @@
 
 module SlurmMetrics
   # Service to manages retrieving and storing the user job metrics.
-  class MetricsSessionService
+  class SessionMetricsService
     attr_reader :cluster
 
     def initialize
@@ -17,7 +17,6 @@ module SlurmMetrics
       yml = {}
       begin
         yml = YAML.safe_load(file_path.read).deep_symbolize_keys || {}
-        SlurmMetrics::SessionMetrics.new(yml)
       rescue => e
         Rails.logger.error("Can't read or parse job metrics: #{file_path} because of error #{e}")
       end

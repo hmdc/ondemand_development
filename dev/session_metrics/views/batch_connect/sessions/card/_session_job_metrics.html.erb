@@ -10,7 +10,7 @@
   </p>
 <% else %>
   <%
-    metrics_service = SlurmMetrics::MetricsSessionService.new
+    metrics_service = SlurmMetrics::SessionMetricsService.new
     session_metrics = metrics_service.read_job_metrics(session)
     state = session_metrics.state
     job_metrics = session_metrics.metrics
