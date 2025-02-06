@@ -33,6 +33,12 @@ class ServiceNowClient
 
     raise ArgumentError, 'server is a required parameter for ServiceNow client' unless @server
 
+    # Allow to pass secrets securely through environment variables
+    auth_token_env = config[:auth_token_env]
+    @auth_token = ENV[auth_token_env] if auth_token_env
+    pass_env = config[:pass_env]
+    @pass = ENV[pass_env] if pass_env
+
     headers = { 'User-Agent' => UA,
                 'Cookie'     => '' }
     headers[@auth_header] = @auth_token if @auth_token

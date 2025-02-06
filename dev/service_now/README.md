@@ -6,16 +6,19 @@ This code has already been merged into OOD main codebase, but it hasn't been rel
 Once we upgrade to the OOD version with the ServiceNow integration, we can discard this customization.
 
 ### Implementation Summary
-The implementation consists of two components
+The implementation consists of these components
 - OOD UserConfiguration extension
 - ./initializers/user_configuration_extension.rb
 - ServiceNow service and client classes
 - ./lib
+- Payload content template
+- ./views/support_ticket/servicenow/servicenow_content.text.erb
 
 ### Deployment
 Using the customization feature from OnDemand, with the default location under: `/etc/ood/config/apps/dashboard`
 - copy `./initializers/user_configuration_extension.rb` into `/etc/ood/config/apps/dashboard/intializers`
 - copy the files inside `./lib` into `/etc/ood/config/apps/dashboard/lib`
+- copy `./views/support_ticket/servicenow/servicenow_content.text.erb` into `/etc/ood/config/apps/dashboard/views/support_ticket/servicenow`
 
 Restart the OnDemand application for the customizations to take effect.
 
@@ -28,10 +31,12 @@ The folder that we are deploying is: `site-modules/profile/files/openondemand/co
 In the Puppet control repo, we need to add the files for this customization to the following folders:
 - site-modules/profile/files/openondemand/common/apps_config/dashboard/intializers
 - site-modules/profile/files/openondemand/common/apps_config/dashboard/lib
+- site-modules/profile/files/openondemand/common/apps_config/dashboard/views
 
 Verify the deployment in the OOD server:
  - `/etc/ood/config/apps/dashboard/intializers`
  - `/etc/ood/config/apps/dashboard/lib`
+ - `/etc/ood/config/apps/dashboard/views`
 
 The support ticket YAML configuration is managed by the `profile::openondemand::ood_support_ticket` class.
 We need to add the following puppet configuration for ServiceNow:
