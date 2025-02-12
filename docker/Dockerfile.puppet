@@ -41,7 +41,7 @@ RUN groupadd -g $OOD_GID ood || : && \
 RUN /usr/bin/htdbm -bc /etc/httpd/.htpasswd.dbm ood ood
 
 COPY ./docker/puppet.conf /etc/puppetlabs/puppet/puppet.conf
-RUN /opt/puppetlabs/bin/puppet module install osc-openondemand --version 5.0.1
+RUN /opt/puppetlabs/bin/puppet module install osc-openondemand --version 7.1.0
 
 RUN systemctl enable puppetserver
 

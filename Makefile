@@ -9,7 +9,7 @@ PUPPET_DIR := /etc/puppetlabs/code/environments/production
 OOD_UID := $(shell id -u)
 OOD_GID := $(shell id -g)
 OS_IMAGE := rockylinux/rockylinux:8
-SID_OOD_IMAGE := hmdc/sid-ood:ood-3.1.4.el8
+SID_OOD_IMAGE := hmdc/sid-ood:ood-3.1.7.el8
 SID_TEST_IMAGE := hmdc/sid-ood:test-109
 SID_BUILDER_IMAGE := hmdc/sid-ood:builder-R3.1
 SID_SLURM_IMAGE := hmdc/sid-slurm:v3-slurm-21-08-6-1
@@ -53,7 +53,7 @@ build_system_demo build_user_demo: build_latest_ood
 	cp -R dev/cluster ondemand/apps/dashboard/plugins/cluster
 
 start_ood_installer:
-	docker create --rm --name ood_installer --privileged -p 43000:443 ood_puppet:5.0.1
+	docker create --rm --name ood_installer --privileged -p 43000:443 ood_puppet:7.1.0
 	docker cp $(CONFIG_DIR)/manifests ood_installer:$(PUPPET_DIR)
 	docker cp $(CONFIG_DIR)/data ood_installer:$(PUPPET_DIR)
 	docker cp $(CONFIG_DIR)/files ood_installer:$(PUPPET_DIR)
@@ -76,10 +76,10 @@ docker_systemd:
 	docker build -t rocky_systemd:8 -f docker/Dockerfile.systemd .
 
 docker_ood_installer:
-	docker build -t ood_puppet:5.0.1 -f docker/Dockerfile.puppet .
+	docker build -t ood_puppet:7.1.0 -f docker/Dockerfile.puppet .
 docker_ood_tester:
 	docker build -t $(SID_TEST_IMAGE) -f docker/Dockerfile.test .
 docker_ood_builder:
 	docker build --build-arg RUBY_VERSION=ruby:3.1 -t hmdc/sid-ood:builder-R3.1 -f docker/Dockerfile.builder .
 docker_ood_builder_r3:
-	docker build --build-arg RUBY_VERSION=ruby:3.0 -t hmdc/sid-ood:builder-R3.0 -f docker/Dockerfile.builder .
+	docker build --build-arg RUBY_VERSION=ruby:3.3 --build-arg NODE_VERSION=nodejs:20 -t hmdc/sid-ood:builder-R3.3 -f docker/Dockerfile.builder .
