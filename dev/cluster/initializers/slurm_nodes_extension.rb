@@ -42,6 +42,11 @@ Rails.application.config.after_initialize do
             end
           end
 
+          # ADDING NODE METHOD AS OODv3.1.x DOES NOT HAVE THIS METHOD
+          def nodes
+            @slurm.nodes
+          end
+
         end
       end
     end
