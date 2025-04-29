@@ -3,8 +3,13 @@ FROM rocky_systemd:8
 ARG OOD_UID=3210
 ARG OOD_GID=3210
 
+# Fetch missing Let's Encrypt intermediate certificate
+RUN curl -o /etc/pki/ca-trust/source/anchors/lets-encrypt-r3.pem https://letsencrypt.org/certs/lets-encrypt-r3.pem
+RUN curl -o /etc/pki/ca-trust/source/anchors/lets-encrypt-e6.pem http://e6.i.lencr.org/
+# Force update trust stores
+RUN update-ca-trust extract && update-ca-trust
+
 # setup the ondemand repositories
-#COPY ./ondemand-web-latest.repo /etc/yum.repos.d/ondemand-web-latest.repo
 RUN dnf install -y https://yum.puppet.com/puppet-release-el-8.noarch.rpm
 RUN dnf install -y puppetserver puppet
 

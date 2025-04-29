@@ -73,13 +73,13 @@ start_ood_tester:
 	docker run --rm -it -v $(PWD)/ondemand:/usr/local/app -w /usr/app/local $(SID_TEST_IMAGE) || :
 
 docker_systemd:
-	docker build -t rocky_systemd:8 -f docker/Dockerfile.systemd .
+	docker build --platform=linux/amd64 -t rocky_systemd:8 -f docker/Dockerfile.systemd .
 
 docker_ood_installer:
-	docker build -t ood_puppet:7.1.0 -f docker/Dockerfile.puppet .
+	docker build --platform=linux/amd64 -t ood_puppet:7.1.0 -f docker/Dockerfile.puppet .
 docker_ood_tester:
 	docker build -t $(SID_TEST_IMAGE) -f docker/Dockerfile.test .
 docker_ood_builder:
-	docker build --build-arg RUBY_VERSION=ruby:3.1 -t hmdc/sid-ood:builder-R3.1 -f docker/Dockerfile.builder .
+	docker build --platform=linux/amd64 --build-arg RUBY_VERSION=ruby:3.1 -t hmdc/sid-ood:builder-R3.1 -f docker/Dockerfile.builder .
 docker_ood_builder_r3:
 	docker build --build-arg RUBY_VERSION=ruby:3.3 --build-arg NODE_VERSION=nodejs:20 -t hmdc/sid-ood:builder-R3.3 -f docker/Dockerfile.builder .
