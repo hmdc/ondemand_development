@@ -1,3 +1,4 @@
+# Docker image to build the OnDemand Dashboard application
 FROM rockylinux/rockylinux:8
 
 ARG RUBY_VERSION=ruby:3.1
@@ -16,6 +17,10 @@ RUN dnf update -y && \
         gcc-c++ \
         git \
         libyaml-devel \
+        zlib-devel \
+        libxml2-devel \
+        libxslt-devel \
+        xz \
         nc
 RUN dnf clean all && rm -rf /var/cache/dnf/*
 RUN gem install rake

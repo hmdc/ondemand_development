@@ -15,7 +15,7 @@ jobs:
 
       - name: Build and Release
         working-directory: src
-        run: make build_system_demo
+        run: make system_demo_build
 
       - name: Checkout OOD
         uses: actions/checkout@v4

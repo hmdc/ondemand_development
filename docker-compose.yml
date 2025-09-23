@@ -51,9 +51,9 @@ services:
       - ./ondemand/apps/dashboard:/var/www/ood/apps/sys/ood
       - ./config/local/dashboard/.env:/var/www/ood/apps/sys/ood/.env
       - ./config/local/public:/var/www/ood/public
-      - ./config/local/ondemand.d:/etc/ood/config/ondemand.d
+      - ./config/local/ondemand.d:/etc/ood/config/ood.d
       - ./config/local/app_overrides:/etc/ood/config/apps/ood
-      - ./dev:/etc/ood/config/plugins
+      - ./dev:/etc/ood/config/ood.plugins
     ports:
       - "33000:443"
     expose:
