@@ -1,12 +1,26 @@
 # OnDemand Development
-Project to develop and run Open OnDemand.
+Project to develop and run Open OnDemand Dashboard application.
+
+## Deployment Architecture
+
+This development environment uses a Docker-based deployment with Open OnDemand v3.1.7 pre-installed. The architecture leverages OnDemand's Passenger app system to serve the development build:
+
+**Base Installation**: A Docker image contains a complete OnDemand v3.1.7 installation, providing the core infrastructure including Apache HTTP server, Per-User NGINX (PUN) processes, and the standard OnDemand system apps.
+
+**Development App Mounting**: The locally built dashboard code from `ondemand/apps/dashboard` is mounted into the Docker container at `/var/www/ood/apps/sys/ood`. This location follows OnDemand's convention for system applications.
+
+**Passenger Integration**: OnDemand uses Phusion Passenger running in NGINX integration mode to serve web applications. When the development build is mounted at the system app location, Passenger automatically detects and loads it as a Ruby Rack application, making it accessible via the `/pun/sys/ood` route.
+
+**Request Flow**: User requests to `/pun/sys/ood` are handled by Apache, which authenticates the user and proxies the request to the appropriate Per-User NGINX process. The PUN then serves the development build using Passenger, allowing the latest code changes to be tested against the stable OnDemand infrastructure.
+
+This approach enables rapid development and testing by overlaying custom dashboard builds onto a production-like OnDemand environment without requiring a full installation rebuild.
 
 Requirements:
  - Docker (Tested with Docker version 24.0.2)
  - Make (Tested with GNU Make 3.81)
 
 ## Local Environment - Checkout, Build, and Deploy
-Checkout the project pulling the OnDemand codebase as a submodule:
+Checkout the project pulling the OnDemand fork codebase as a submodule:
 ```
 git clone --recurse-submodules https://github.com/hmdc/ondemand_development.git
 ```
@@ -16,7 +30,7 @@ Build the OOD dashboard code that has been checkout in the directory: `ondemand/
 The build process configures the OOD application to be deployed under the URL `/pun/sys/ood`. This URL is required by Docker Compose file that we use to run the application locally.
 ```
 # Build command using make
-make build_latest_ood
+make ood_build
 ```
 
 To build a different version of the OnDemand codebase, we can switch to a release branch.
@@ -36,7 +50,7 @@ Review the [docker-compose.yml](docker-compose.yml) file for more information.
 
 To deploy the OOD build locally and start the environment execute:
 ```
-make start_ood
+make dev_up
 ```
 
 OOD Version 3.1.4 is deployed under: [https://localhost:33000/pun/sys/dashboard](https://localhost:33000/pun/sys/dashboard)
@@ -107,7 +121,7 @@ The build will be completed for the OOD dashboard code under `./ondemand/apps/da
 
 Building the OOD demo as a user application is completed with Make:
 ```
-make build_user_demo
+make user_demo_build
 ```
 
 #### Deploying
@@ -171,7 +185,7 @@ options.add_argument('--disable-dev-shm-usage') unless options.args.include?('--
 
 Start the OOD tester Docker image:
 ```
-make start_ood_tester
+make ood_tester_up
 ```
 
 This will start the image and install the required libraries for testing. Once completed, we can run tests from the command prompt.
@@ -206,7 +220,7 @@ To mount the configuration
 To start and connect to the OOD installer image run:
 ```
 # Run OOD installer in the background
-make start_ood_installer
+make ood_installer_up
 # Connect to OOD installer
 docker exec -it ood_installer /bin/bash
 
@@ -293,7 +307,7 @@ make docker_ood_tester
 
 To build it, we need to start the OOD installer image and then run Puppet on it:
 ```
-make start_ood_installer
+make ood_installer_up
 make install_ood
 ```
 

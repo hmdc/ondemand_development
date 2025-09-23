@@ -1,3 +1,4 @@
+# Docker image used to test OOD
 ARG CHROME_VERSION=109
 
 FROM nbulai/ruby-chromedriver:${CHROME_VERSION}
