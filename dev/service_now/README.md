@@ -59,6 +59,8 @@ profile::openondemand::ood_support_ticket::custom_content:
       u_business_service: "b63f3ded1b5302509ebaca262a4bcbfe"
 ```
 
+The values has been provided by Ronald Druzynski (HUIT) and the discussion and setup is tracked with the ServiceNow incident: INC05749401.
+
 Verify the deployment in the OOD server:
  - `/etc/ood/config/ondemand.d/support_ticket.yml`
 
