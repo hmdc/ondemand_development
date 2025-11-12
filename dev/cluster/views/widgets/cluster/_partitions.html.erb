@@ -54,7 +54,12 @@
     }
 
     .partition-widget-component table .small {
-        font-size: 0.73rem;
+        font-size: 0.70rem;
+    }
+
+    .partition-widget-component table .small .no-overflow{
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     .partition-widget-component table td {
@@ -119,9 +124,9 @@
         <thead>
         <tr>
           <th>Partition</th>
-          <th class="small text-center" title="Nodes available in the partition">Free Nodes</th>
-          <th class="small text-center" title="Cores available in the partition">Free Cores</th>
-          <th class="small text-center" title="Memory in GB available in at least one node in the partition">Free Mem</th>
+          <th class="small text-center" title="Nodes available in the partition"><span class="no-overflow">Free</span> <span class="no-overflow">Nodes</span></th>
+          <th class="small text-center" title="Cores available in the partition"><span class="no-overflow">Free</span> <span class="no-overflow">Cores</span></th>
+          <th class="small text-center" title="Memory in GB available in at least one node in the partition"><span class="no-overflow">Free</span> <span class="no-overflow">Mem</span></th>
         </tr>
         </thead>
         <tbody>

@@ -1,6 +1,6 @@
 # default run ood locally
 all:: dev_up
-.PHONY: dev_up dev_down clean ood_build system_demo_build ood_installer_up install_ood commit_ood bash ood_tester_up docker_systemd docker_ood_installer docker_ood_tester
+.PHONY: dev_up dev_down clean ood_build system_demo_build user_demo_build ood_installer_up install_ood commit_ood bash ood_tester_up docker_systemd docker_ood_installer docker_ood_tester
 
 WORKING_DIR := $(shell pwd)
 CONFIG_DIR := $(WORKING_DIR)/config/local/puppet
@@ -40,7 +40,7 @@ ood_build:
 	# BUILD OOD WITH ROCKY8 IMAGE
 	cp -R config/local/dashboard/. ondemand/apps/dashboard
 	docker run --platform=linux/amd64 --rm -v $(WORKING_DIR):/usr/local/app -w /usr/local/app -e ROOT_URL=$(ROOT_URL) $(SID_BUILDER_IMAGE) ./ood_build.sh
-system_demo_build user_demo_build: build_latest_ood
+system_demo_build user_demo_build: ood_build
     # COPY DEMO CONFIGURATION
 	cp -R config/demo/. ondemand/apps/dashboard
 	# COPY CUSTOMIZATIONS
