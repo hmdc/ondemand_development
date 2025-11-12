@@ -81,7 +81,7 @@ module SlurmMetrics
 
     def session_metrics_enabled?(user_configuration)
       metrics_configuration = user_configuration.send(:fetch, :session_metrics_enabled, false)
-      ::Configuration.send(:to_bool, metrics_configuration)
+      !['', '0', 'F', 'FALSE', 'OFF', 'NO'].include?(metrics_configuration.to_s.upcase)
     end
   end
 end
