@@ -16,10 +16,12 @@ This development environment uses a Docker-based deployment with Open OnDemand v
 This approach enables rapid development and testing by overlaying custom dashboard builds onto a production-like OnDemand environment without requiring a full installation rebuild.
 
 Requirements:
- - Docker (Tested with Docker version 24.0.2)
+ - Docker (Tested with Docker version 24.0.2) [Install Docker](https://docs.docker.com/engine/install/)
  - Make (Tested with GNU Make 3.81)
 
 ## Local Environment - Checkout, Build, and Deploy
+Start Docker if it's not already running.
+
 Checkout the project pulling the OnDemand fork codebase as a submodule:
 ```
 git clone --recurse-submodules https://github.com/hmdc/ondemand_development.git
