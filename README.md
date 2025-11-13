@@ -53,6 +53,7 @@ Review the [docker-compose.yml](docker-compose.yml) file for more information.
 
 To deploy the OOD build locally and start the environment execute:
 ```
+cd..
 make dev_up
 ```
 
