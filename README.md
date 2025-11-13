@@ -36,7 +36,7 @@ make ood_build
 ```
 
 To build a different version of the OnDemand codebase, we can switch to a release branch.
-Execute the following command to switch to the OODv3.0 version.
+Execute the following command in the ondemand subdirectory to switch to the OODv3.0 version.
 
 ```
 git checkout release_3.0
