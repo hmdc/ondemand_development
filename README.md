@@ -29,7 +29,7 @@ The OnDemand codebase will be checkout under the directory `ondemand`.
 Build the OOD dashboard code that has been checkout in the directory: `ondemand/apps/dashboard `.
 The build process configures the OOD application to be deployed under the URL `/pun/sys/ood`. This URL is required by Docker Compose file that we use to run the application locally.
 ```
-# Build command using make
+# Build command using make in the top level `ondemand_development` directory
 make ood_build
 ```
 
