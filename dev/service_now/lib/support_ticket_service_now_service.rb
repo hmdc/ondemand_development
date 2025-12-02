@@ -74,8 +74,13 @@ class SupportTicketServiceNowService
     snow_client = ServiceNowClient.new(service_config)
     result = snow_client.create(payload, support_ticket.attachments)
     Rails.logger.info "Support Ticket created in ServiceNow: #{result.number} - Attachments[#{result.attachments}] success=#{result.attachments_success}"
-    message_key = result.attachments_success ? 'creation_success' : 'attachments_failure'
-    service_config.fetch(:success_message, I18n.t("dashboard.support_ticket.servicenow.#{message_key}", number: result.number))
+
+    creation_message = "Support ticket created in ServiceNow. Number: #{result.number}"
+    unless result.attachments_success
+      creation_message = "Support ticket created in ServiceNow. Number: #{result.number}. But unable to add the attachments"
+    end
+
+    creation_message
   end
 
   private
@@ -83,12 +88,18 @@ class SupportTicketServiceNowService
   def create_description_text(service_config, support_ticket_request, session)
     ticket_template_context = {
       session:        session,
-      support_ticket: support_ticket_request,
+      support_ticket: support_ticket_request
     }
 
-    template = service_config.fetch(:template, 'servicenow_content.text.erb')
-    ticket_content_template = ERB.new(File.read(Rails.root.join('app/views/support_ticket/servicenow').join(template)))
-    ticket_content_template.result_with_hash({ context: ticket_template_context, helpers: TemplateHelpers.new })
+    template_path = File.join('support_ticket/servicenow', service_config.fetch(:template, 'servicenow_content'))
+    ApplicationController.render(
+      template: template_path,
+      formats: [:text], # so Rails prefers *.text.* variants
+      locals: {
+        context: ticket_template_context,
+        helpers: TemplateHelpers.new
+      }
+    )
   end
 
   def set_session(support_ticket)
