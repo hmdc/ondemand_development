@@ -1,12 +1,12 @@
 node default {
 
-  package { 'ruby:3.1':
+  package { 'ruby:3.3':
     ensure      => present,
     provider    => dnfmodule,
     enable_only => true,
   }
 
-  package { 'nodejs:18':
+  package { 'nodejs:22':
     ensure      => present,
     provider    => dnfmodule,
     enable_only => true,
